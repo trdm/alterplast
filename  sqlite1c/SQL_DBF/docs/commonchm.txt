@@ -1,0 +1,157 @@
+
+.. Этот файл содержит общее описание коллекции chm-файлов,
+   а также фрагменты кусков chm-разметки, которые можно вставить
+   в свои chminfo с помощью <insert>.
+
+..	raw:: html
+
+	<xml><common>
+		<!--
+		Описание файлов, входящих в коллекцию.
+		Нужно для заполнения секции [MERGE FILES] при сборке каждого файла.
+		Ссылка на TOC master-файла будет прописана файлом содержания
+		для каждого файла"
+		-->
+		<!-- Основная разметка для топиков. Вставить в первый топик через insert-->
+		<maininfo>
+			<decoration>
+				<!-- Основная разметка обрамления топиков. Создаем таблицу -->
+				<table width="100%" border="0" cellpadding="2"
+					style="background-color:#99ccff;color=black;font-family:verdana,arial;border-bottom: 1px solid #999999;">
+					<!-- Первая строка - навигация -->
+					<tr style="font-size:8pt">
+						<td>
+							<!--
+							Предоставим возможность для топика сделать кнопку "Смотри также"
+							Для этого достаточно будет в разметке топика вставить элемент
+							<seealso>Имена alink'ов<seealso>
+							Если <seealso> нет, то значка "Смотри также" не будет
+							-->
+							<chmlink type="ALink">
+								<keys>
+									<subst nodes="chminfo//seealso/text()"/>
+								</keys>
+								<a href="click"><img align="absmiddle" border="0" title="Смотри также..." src="img/seealso.png"/></a>
+							</chmlink>
+							<!--
+							В первой ячейке пропишем alink на основную страницу коллекции
+							и ссылку на первую страницу chm-файла
+							-->
+							<em>
+								<a class="toc-backref" href="home" title="Перейти к началу"><title to="home"/></a>
+							</em>
+						</td>
+						<td style="text-align: right;">
+							<!--
+							Во второй ячейке оставим возможность в каждом топике добавить свои линки,
+							разместив их в otherlinks. По умолчанию otherlinks отсутствует.
+							-->
+							<subst nodes="chminfo/otherlinks/node()"/>
+						</td>
+					</tr>
+					<tr>
+						<!--
+						Вторая строка таблицы будет заголовок топика.
+						Чтобы каждый топик мог при необходимости изменить правило
+						составления заголовка, сделаем здесь subst, а само правило пропишем
+						ниже. Будем брать его из <topictitle>
+						-->
+						<td colspan="2" style="font-size:11pt;font-weight:bold">
+							<subst nodes="chminfo/topictitle/node()"/>
+						</td>
+					</tr>
+				</table>
+				<!-- А сюда собственно, вставим топик -->
+				<topic/>
+			</decoration>
+
+			<!-- Основной стиль формирования ссылок на вынесенные топики -->
+			<href>
+				<a href="self"><title to="self"/></a>
+			</href>
+			
+			<!-- Основной принцип объединения ссылок на вынесенные топики -->
+			<hrefcombine>
+				<ul>
+					<foreach>
+						<li><item/></li>
+					</foreach>
+				</ul>
+			</hrefcombine>
+
+			<!--
+			Содержимое данного тега подставляется в основной decoration через
+			subst в каждом топике, для формирования заголовка топика.
+			Его можно переопредеделить в топике, для задания другого правила составления
+			заголовка.
+			По умолчанию просто вставляется текст заголовка топика, а сам заголовок
+			удаляется
+			-->
+			<topictitle>
+				<title to="selfremove"/>
+			</topictitle>
+		</maininfo>
+
+		<!--
+		Основная разметка для секций "Свойства", "Методы", "События"
+		Задаем другие правила формирования ссылок на вынесенные топики,
+		и объединения ссылок, а также формирования заголовка в дочерних
+		секциях.
+		-->
+		<propsmethods>
+			<!-- Ссылки на вынесенные топики объединим в таблицу -->
+			<hrefcombine>
+				<table border="1" cellspacing="0" cellpadding="3">
+					<foreach>
+						<tr><item/></tr>
+					</foreach>
+				</table>
+			</hrefcombine>
+			<!-- Зададим разметку потомков, чтобы не писать ее в каждом топике -->
+			<childs>
+				<!--
+				Формирование ссылки на себя в родительском топике.
+				Сформируем строку таблицы, где первая ячейка - ссылка на топик,
+				а вторая - копия абзаца, в котором есть жирное слово "Описание",
+				но без самого слова "Описание"
+				-->
+				<href>
+					<td style="vertical-align:top"><a class="toc-backref" href="self"><title to="self"/></a></td>
+					<td><subst nodes=".//p[strong='Описание:'][1]/node()[not(name()='strong' and .='Описание:')]"/></td>
+				</href>
+
+				<!--
+				Зададим другое правило составления заголовка.
+				Пусть будет "Ссылка на описание объекта::ИмяМетода/Свойства"
+				-->
+				<topictitle>
+					<a class="toc-backref" href="parent[1]" title="Перейти к описанию объекта"><title to="parent[1]"/></a> :: <title to="selfremove"/>
+				</topictitle>
+
+				<!--
+				Зададим другой способ задания <html><title> в формируемом файле.
+				Он будет появлятся как имя топика во всех "founded topics"
+				-->
+				<chmtitle>
+					<title to="parent[1]"/>::<title to="self"/>
+				</chmtitle>
+				
+				<!--
+				Заставим дочерние секции добавлять слова из заголовка в индекс
+				-->
+				<autokw mode="2"/>
+
+				<!--
+				На случай, если в описания метода есть еще подсекции,
+				восстановим для них старые правила.
+				-->
+				<insert nodes="//common/maininfo/*[name()='hrefcombine']"/>
+				<childs>
+					<insert nodes="//common/maininfo/*[name()='href']"/>
+					<insert nodes="//common/maininfo/*[name()='topictitle']"/>
+					<chmtitle/>
+					<autokw/>
+				</childs>
+			</childs>
+		</propsmethods>
+	</common></xml>

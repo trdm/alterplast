@@ -1,0 +1,179 @@
+// Created by Microsoft (R) C/C++ Compiler Version 12.00.8168.0 (461ca54e).
+//
+// zlibeng.tlh
+//
+// C++ source equivalent of Win32 type library k:\zlibeng.dll
+// compiler-generated file created 05/31/04 at 09:33:00 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("aa6267a0-7aec-11d2-9f23-008048da120f"))
+/* dual interface */ IzipEntry;
+struct /* coclass */ zlibEngine;
+struct __declspec(uuid("c5276445-f299-11d0-8149-004095e1f439"))
+/* interface */ IzlibEngine;
+struct __declspec(uuid("be44fe00-7afc-11d2-9f23-008048da120f"))
+/* interface */ IEnum_zipEntry;
+struct /* coclass */ jpegEngine;
+struct __declspec(uuid("e196d996-fb8c-11d0-ae1d-d9180f4c4641"))
+/* interface */ IjpegEngine;
+struct /* coclass */ tiffEngine;
+struct __declspec(uuid("e196d998-fb8c-11d0-ae1d-d9180f4c4641"))
+/* interface */ ItiffEngine;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IzipEntry, __uuidof(IzipEntry));
+_COM_SMARTPTR_TYPEDEF(IzlibEngine, __uuidof(IzlibEngine));
+_COM_SMARTPTR_TYPEDEF(IEnum_zipEntry, __uuidof(IEnum_zipEntry));
+_COM_SMARTPTR_TYPEDEF(IjpegEngine, __uuidof(IjpegEngine));
+_COM_SMARTPTR_TYPEDEF(ItiffEngine, __uuidof(ItiffEngine));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("aa6267a0-7aec-11d2-9f23-008048da120f"))
+IzipEntry : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Comment (
+        BSTR * strComment ) = 0;
+    virtual HRESULT __stdcall get_CompressedSize (
+        unsigned long * nSize ) = 0;
+    virtual HRESULT __stdcall get_Crc32 (
+        unsigned long * nCrc ) = 0;
+    virtual HRESULT __stdcall get_Method (
+        unsigned short * nMethod ) = 0;
+    virtual HRESULT __stdcall get_Name (
+        BSTR * strName ) = 0;
+    virtual HRESULT __stdcall get_Size (
+        unsigned long * nSize ) = 0;
+    virtual HRESULT __stdcall get_Time (
+        unsigned long * nTime ) = 0;
+    virtual HRESULT __stdcall get_Flags (
+        unsigned long * nFlags ) = 0;
+};
+
+struct __declspec(uuid("c5276425-f299-11d0-8149-004095e1f439"))
+zlibEngine;
+    // [ default ] interface IzlibEngine
+
+struct __declspec(uuid("c5276445-f299-11d0-8149-004095e1f439"))
+IzlibEngine : IUnknown
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall pkZip (
+        LPWSTR pszCommandLine ) = 0;
+    virtual HRESULT __stdcall pkUnzip (
+        LPWSTR pszCommandLine ) = 0;
+    virtual HRESULT __stdcall pkCompress (
+        struct IStream * lpstrmFrom,
+        struct IStream * lpstrmTo ) = 0;
+    virtual HRESULT __stdcall pkDecompress (
+        struct IStream * lpstrmFrom,
+        struct IStream * lpstrmTo ) = 0;
+    virtual HRESULT __stdcall pkAppendFile (
+        struct IStream * lpstrmFrom,
+        LPWSTR pszFileTo,
+        LPWSTR pszStreamName,
+        LPWSTR pszPassword ) = 0;
+    virtual HRESULT __stdcall pkReadFile (
+        LPWSTR pszFileFrom,
+        LPWSTR pszStreamName,
+        struct IStream * lpstrmTo,
+        LPWSTR pszPassword ) = 0;
+    virtual HRESULT __stdcall pkReadEntry (
+        LPWSTR pzsFileFrom,
+        struct IEnum_zipEntry * * ppEnumEntry ) = 0;
+};
+
+struct __declspec(uuid("be44fe00-7afc-11d2-9f23-008048da120f"))
+IEnum_zipEntry : IUnknown
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall Next (
+        unsigned long celt,
+        struct IzipEntry * * rgelt,
+        unsigned long * pceltFetched ) = 0;
+    virtual HRESULT __stdcall Skip (
+        unsigned long celt ) = 0;
+    virtual HRESULT __stdcall Reset ( ) = 0;
+    virtual HRESULT __stdcall Clone (
+        struct IEnum_zipEntry * * ppzipEntry ) = 0;
+};
+
+struct __declspec(uuid("e196d997-fb8c-11d0-ae1d-d9180f4c4641"))
+jpegEngine;
+    // [ default ] interface IjpegEngine
+
+struct __declspec(uuid("e196d996-fb8c-11d0-ae1d-d9180f4c4641"))
+IjpegEngine : IUnknown
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall CreateDIBFromJPEG (
+        LPWSTR pszPathName,
+        unsigned int * hBitmap ) = 0;
+};
+
+struct __declspec(uuid("e196d999-fb8c-11d0-ae1d-d9180f4c4641"))
+tiffEngine;
+    // [ default ] interface ItiffEngine
+
+struct __declspec(uuid("e196d998-fb8c-11d0-ae1d-d9180f4c4641"))
+ItiffEngine : IUnknown
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall CreateDIBFromTIFF (
+        LPWSTR pszPathName,
+        unsigned int * hBitmap ) = 0;
+};
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_ZLENGINELib =
+    {0xc5276436,0xf299,0x11d0,{0x81,0x49,0x00,0x40,0x95,0xe1,0xf4,0x39}};
+extern "C" const GUID __declspec(selectany) IID_IzipEntry =
+    {0xaa6267a0,0x7aec,0x11d2,{0x9f,0x23,0x00,0x80,0x48,0xda,0x12,0x0f}};
+extern "C" const GUID __declspec(selectany) CLSID_zlibEngine =
+    {0xc5276425,0xf299,0x11d0,{0x81,0x49,0x00,0x40,0x95,0xe1,0xf4,0x39}};
+extern "C" const GUID __declspec(selectany) IID_IzlibEngine =
+    {0xc5276445,0xf299,0x11d0,{0x81,0x49,0x00,0x40,0x95,0xe1,0xf4,0x39}};
+extern "C" const GUID __declspec(selectany) IID_IEnum_zipEntry =
+    {0xbe44fe00,0x7afc,0x11d2,{0x9f,0x23,0x00,0x80,0x48,0xda,0x12,0x0f}};
+extern "C" const GUID __declspec(selectany) CLSID_jpegEngine =
+    {0xe196d997,0xfb8c,0x11d0,{0xae,0x1d,0xd9,0x18,0x0f,0x4c,0x46,0x41}};
+extern "C" const GUID __declspec(selectany) IID_IjpegEngine =
+    {0xe196d996,0xfb8c,0x11d0,{0xae,0x1d,0xd9,0x18,0x0f,0x4c,0x46,0x41}};
+extern "C" const GUID __declspec(selectany) CLSID_tiffEngine =
+    {0xe196d999,0xfb8c,0x11d0,{0xae,0x1d,0xd9,0x18,0x0f,0x4c,0x46,0x41}};
+extern "C" const GUID __declspec(selectany) IID_ItiffEngine =
+    {0xe196d998,0xfb8c,0x11d0,{0xae,0x1d,0xd9,0x18,0x0f,0x4c,0x46,0x41}};
+
+#pragma pack(pop)

@@ -1,0 +1,83 @@
+// telepat.idl : IDL source for telepat.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (telepat.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+#include "olectl.h"
+	
+[
+	uuid(0BB7CAE2-D194-425D-A6A2-0D8F95E4F278),
+	version(1.0),
+	helpstring("Интерфейс управления \"Телепатом\"")
+]
+library TELEPATLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		object,
+		uuid(12A76B58-D814-4BFB-85A0-49F56D05E17E),
+		dual,
+		helpstring("IPlugin Interface"),
+		pointer_default(unique)
+	]
+	interface IPlugin : IDispatch
+	{
+		[propget, id(1), helpstring("Используемые компоненты")] HRESULT Components([out, retval] long *pVal);
+		[propput, id(1), helpstring("Используемые компоненты")] HRESULT Components([in] long newVal);
+		[propget, id(2), helpstring("Используемый язык")] HRESULT Language([out, retval] long *pVal);
+		[propput, id(2), helpstring("Используемый язык")] HRESULT Language([in] long newVal);
+		[propget, id(3), helpstring("Использовать стандартный диалог \"Методы модуля\"")] HRESULT UseStdMethodDlg([out, retval] VARIANT_BOOL *pVal);
+		[propput, id(3), helpstring("Использовать стандартный диалог \"Методы модуля\"")] HRESULT UseStdMethodDlg([in] VARIANT_BOOL newVal);
+		[propget, id(4), helpstring("Не сортировать список в диалоге \"МетодыМодуля\"")] HRESULT NoOrderMethodDlg([out, retval] VARIANT_BOOL *pVal);
+		[propput, id(4), helpstring("Не сортировать список в диалоге \"МетодыМодуля\"")] HRESULT NoOrderMethodDlg([in] VARIANT_BOOL newVal);
+		[propget, id(5), helpstring("Фильтровать список в диалоге \"Методы модуля\"")] HRESULT FilterMethodDlg([out, retval] VARIANT_BOOL *pVal);
+		[propput, id(5), helpstring("Фильтровать список в диалоге \"Методы модуля\"")] HRESULT FilterMethodDlg([in] VARIANT_BOOL newVal);
+		[propget, id(6), helpstring("Автоактивация подсказки о параметрах")] HRESULT AutoParamInfo([out, retval] VARIANT_BOOL *pVal);
+		[propput, id(6), helpstring("Автоактивация подсказки о параметрах")] HRESULT AutoParamInfo([in] VARIANT_BOOL newVal);
+		[propget, id(7), helpstring("В подсказке о параметрах выводить описание метода")] HRESULT ParamInfoAddMethDescr([out, retval] VARIANT_BOOL *pVal);
+		[propput, id(7), helpstring("В подсказке о параметрах выводить описание метода")] HRESULT ParamInfoAddMethDescr([in] VARIANT_BOOL newVal);
+		[propget, id(8), helpstring("В подсказке о параметрах выводить описание параметра")] HRESULT ParamInfoAddParamDescr([out, retval] VARIANT_BOOL *pVal);
+		[propput, id(8), helpstring("В подсказке о параметрах выводить описание параметра")] HRESULT ParamInfoAddParamDescr([in] VARIANT_BOOL newVal);
+		[propget, id(9), helpstring("Количество символов в идентификаторе для автозавершения")] HRESULT AutoActiveCountSymbols([out, retval] short *pVal);
+		[propput, id(9), helpstring("Количество символов в идентификаторе для автозавершения")] HRESULT AutoActiveCountSymbols([in] short newVal);
+		[propget, id(10), helpstring("Отключить шаблоны в строках и комментариях")] HRESULT DisableTemplateInRemString([out, retval] long *pVal);
+		[propput, id(10), helpstring("Отключить шаблоны в строках и комментариях")] HRESULT DisableTemplateInRemString([in] long newVal);
+		[id(11), helpstring("Разворачивает текст шаблона стандартным способом")] HRESULT ConvertTemplate([in] BSTR TemplateText, [in, optional] VARIANT TemplateName,[out, retval] BSTR* Result);
+		[propget, id(12), helpstring("Добавлять шаблоны в список")] HRESULT AddTemplate([out, retval] VARIANT_BOOL *pVal);
+		[propput, id(12), helpstring("Добавлять шаблоны в список")] HRESULT AddTemplate([in] VARIANT_BOOL newVal);
+		[id(13), helpstring("Перескочить с занесением в стек прыжков")] HRESULT Jump([in] long Line, [in, optional, defaultvalue(-1)] long Col, [in, optional, defaultvalue(-1)] long LineEnd, [in, optional, defaultvalue(-1)] long ColEnd, [in, optional, defaultvalue("")] BSTR ModuleName);
+		[id(14), helpstring("Получить текст метода текущего модуля до указанной позиции")] HRESULT GetMethodText([in] long Line, [in] long Col, [out, retval] BSTR* pRetVal);
+		[id(15), helpstring("Перечитать telepat.words.txt")] HRESULT ReReadWords();
+	};
+
+
+	[
+		uuid(b5aae64e-d429-41ed-ae12-bd9bb9e9adc1),
+		helpstring("Telepat Events")
+	]
+	dispinterface DTelepatEvents
+	{
+		properties:
+		methods:
+		[id(1), helpstring("Вызывается перед срабатыванием шаблона")] HRESULT OnTemplate([in] BSTR TemplateName, [in, out] VARIANT* TemplateText, [in, out] VARIANT* Cancel);
+		[id(2), helpstring("Вызывается при выводе меню шаблонов для его дополнения")] HRESULT GetMenu([out, retval] VARIANT* pResult);
+		[id(3), helpstring("Вызывается для обработки команды пользовательского меню")] HRESULT OnCustomMenu([in] BSTR Command);
+		[id(4), helpstring("Вызывается перед вставкой текста")] HRESULT OnInsert([in] long Type, [in] BSTR Name, [in, out] VARIANT* Text);
+		[id(5), helpstring("method OnShowMemberList")] HRESULT OnShowMemberList([in] long Line, [in] long Col, [out, retval] BSTR Result);
+	};
+
+	[
+		uuid(28BC7A6D-9F0F-42B0-B934-59DABAA22755),
+		helpstring("Plugin Class")
+	]
+	coclass Plugin
+	{
+		[default] interface IPlugin;
+		[default, source] dispinterface DTelepatEvents;
+	};
+};

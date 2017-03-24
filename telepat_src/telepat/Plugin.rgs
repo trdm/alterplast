@@ -1,0 +1,33 @@
+HKCR
+{
+	Telepat.Plugin.1 = s 'Plugin Class'
+	{
+		CLSID = s '{28BC7A6D-9F0F-42B0-B934-59DABAA22755}'
+	}
+	Telepat.Plugin = s 'Plugin Class'
+	{
+		CLSID = s '{28BC7A6D-9F0F-42B0-B934-59DABAA22755}'
+		CurVer = s 'Telepat.Plugin.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {28BC7A6D-9F0F-42B0-B934-59DABAA22755} = s 'Plugin Class'
+		{
+			ProgID = s 'Telepat.Plugin.1'
+			VersionIndependentProgID = s 'Telepat.Plugin'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			ForceRemove 'Control'
+			ForceRemove 'ToolboxBitmap32' = s '%MODULE%, 102'
+			'MiscStatus' = s '0'
+			{
+			    '1' = s '131473'
+			}
+			'TypeLib' = s '{0BB7CAE2-D194-425D-A6A2-0D8F95E4F278}'
+			'Version' = s '1.0'
+		}
+	}
+}

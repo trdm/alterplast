@@ -1,0 +1,44 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: xml2tls - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x419 /fo"Release/xml2tls.res" /d "NDEBUG" /d "_AFXDLL" "C:\Visual Studio\Projects\telepat\xml2tls\xml2tls.rc"" 
+Creating temporary file "C:\WINDOWS\TEMP\RSP26.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Fp"Release/xml2tls.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\Visual Studio\Projects\telepat\xml2tls\xml2tls.cpp"
+]
+Creating command line "cl.exe @C:\WINDOWS\TEMP\RSP26.tmp" 
+Creating temporary file "C:\WINDOWS\TEMP\RSP27.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Fp"Release/xml2tls.pch" /Yc"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\Visual Studio\Projects\telepat\xml2tls\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\WINDOWS\TEMP\RSP27.tmp" 
+Creating temporary file "C:\WINDOWS\TEMP\RSP28.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"Release/xml2tls.pdb" /machine:I386 /out:"Release/xml2tls.exe" 
+".\Release\StdAfx.obj"
+".\Release\xml2tls.obj"
+".\Release\xml2tls.res"
+]
+Creating command line "link.exe @C:\WINDOWS\TEMP\RSP28.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+xml2tls.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+xml2tls.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

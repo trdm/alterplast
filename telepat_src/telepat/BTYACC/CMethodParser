@@ -1,0 +1,216 @@
+%token
+	_number_1C
+	_date_1C
+	_literal_1C
+	_what_1C
+	_comma_1C
+	_semicolon_1C
+	_lPar_1C
+	_rPar_1C
+	_equal_1C
+	_lBracket_1C
+	_rBracket_1C
+	_plus_1C
+	_minus_1C
+	_mult_1C
+	_div_1C
+	_percent_1C
+	_less_1C
+	_grat_1C
+	_crob_1C
+	_label_1C
+	_colon_1C
+	_zname_1C
+
+	and_1C
+	do_1C
+	else_1C
+	elsif_1C
+	enddo_1C
+	endfunc_1C
+	endif_1C
+	endproc_1C
+	endtry_1C
+	except_1C
+	export_1C
+	for_1C
+	forward_1C
+	func_1C
+	if_1C
+	not_1C
+	or_1C
+	proc_1C
+	return_1C
+	then_1C
+	to_1C
+	try_1C
+	val_1C
+	var_1C
+	while_1C
+	context_1C
+	break_1C
+	continue_1C
+	goto_1C
+
+%left or_1C and_1C
+%left _equal_1C
+%left not_1C
+%left _comma_1C elsif_1C
+%left _period_1C
+%left _plus_1C _minus_1C
+%left _mult_1C _div_1C _percent_1C
+%left var_1C proc_1C func_1C
+%left UNARYOP
+
+
+%%
+MODUL		:VARS METHODS STATEMENTS
+			;
+VARS		:VAR
+			|VARS VAR
+			|/*empty*/%prec _comma_1C
+			;
+VAR			:var_1C VARIABLES _semicolon_1C
+			;
+VARIABLES	:_zname_1C
+			|_zname_1C export_1C
+			|_zname_1C _lBracket_1C _number_1C _rBracket_1C
+			|_zname_1C _lBracket_1C _number_1C _rBracket_1C export_1C
+			|VARIABLES _comma_1C VARIABLES
+			;
+METHODS		:METHOD
+			|METHODS METHOD
+			|/*empty*/%prec _comma_1C
+			;
+METHOD		:proc_1C METHEADER LVARS STATEMENTS endproc_1C
+			|func_1C METHEADER LVARS STATEMENTS endfunc_1C
+			|proc_1C METHEADER forward_1C
+			|func_1C METHEADER forward_1C
+			;
+METHEADER	:METHNAME PARAMLIST
+			|METHNAME PARAMLIST export_1C
+			;
+METHNAME	:_zname_1C
+			;
+PARAMLIST	:_lPar_1C PARAMS _rPar_1C
+			|_lPar_1C _rPar_1C
+			;
+PARAMS		:_zname_1C
+			|val_1C _zname_1C
+			|_zname_1C _equal_1C
+			|val_1C _zname_1C _equal_1C
+			|_zname_1C _equal_1C CONSTANT
+			|val_1C _zname_1C _equal_1C CONSTANT
+			|_zname_1C _lBracket_1C _rBracket_1C
+			|PARAMS _comma_1C PARAMS
+			;
+LVARS		:LVAR
+			|LVARS LVAR
+			|/*empty*/%prec _comma_1C
+			;
+LVAR		:var_1C LVARIABLES _semicolon_1C
+			;
+LVARIABLES	:_zname_1C
+			|_zname_1C _lBracket_1C _number_1C _rBracket_1C
+			|LVARIABLES _comma_1C LVARIABLES
+			;
+STATEMENTS	:STATEMENT
+			|STATEMENTS _semicolon_1C STATEMENT
+			;
+STATEMENT	:OPERATOR
+			|_label_1C _colon_1C OPERATOR
+			|/*empty*/
+			;
+OPERATOR	:ASSIGNMENT
+			|RVAL
+			|LOCALVAR
+			|TRYBLOCK
+			|IFBLOCK
+			|WHILEBLOCK
+			|FORBLOCK
+			|JUMP
+			;
+JUMP		:return_1C
+			|return_1C EXPRESSION
+			|break_1C
+			|continue_1C
+			|goto_1C _label_1C
+			;
+LOCALVAR	:_zname_1C _equal_1C EXPRESSION
+			|_zname_1C _equal_1C _crob_1C _lPar_1C EXPRESSION _rPar_1C
+			;
+ASSIGNMENT	:LVAL _equal_1C EXPRESSION
+			;
+LVAL		:_zname_1C %prec or_1C
+			|_zname_1C _lBracket_1C EXPRESSION _rBracket_1C
+			|LVAL _period_1C _zname_1C
+			|RVAL _period_1C _zname_1C
+			;
+RVAL		:_zname_1C _lPar_1C REALPARAM _rPar_1C
+			|RVAL _period_1C _zname_1C _lPar_1C REALPARAM _rPar_1C
+			|LVAL _period_1C _zname_1C _lPar_1C REALPARAM _rPar_1C
+			;
+REALPARAM	:EXPRESSION
+			|REALPARAM _comma_1C REALPARAM
+			|context_1C
+			|/*empty*/
+			;
+TRYBLOCK	:try_1C STATEMENTS except_1C STATEMENTS endtry_1C
+			;
+IFBLOCK		:if_1C LOGIC then_1C STATEMENTS endif_1C
+			|if_1C LOGIC then_1C STATEMENTS ELSEBLOCK endif_1C
+			|if_1C LOGIC then_1C STATEMENTS ELSEIFBLOCK endif_1C
+			|if_1C LOGIC then_1C STATEMENTS ELSEIFBLOCK ELSEBLOCK endif_1C
+			;
+ELSEIFBLOCK	:elsif_1C LOGIC then_1C STATEMENTS
+			|ELSEIFBLOCK ELSEIFBLOCK %prec _plus_1C
+			;
+ELSEBLOCK	:else_1C STATEMENTS
+			;
+WHILEBLOCK	:while_1C LOGIC do_1C STATEMENTS enddo_1C
+			;
+FORBLOCK	:for_1C LOCALVAR to_1C EXPRESSION do_1C STATEMENTS enddo_1C
+			;
+LOGIC		:EXPRESSION COMPARE EXPRESSION
+			|LOGICP
+			;
+LOGICP		:_lPar_1C LOGIC _rPar_1C
+			|not_1C _lPar_1C LOGIC _rPar_1C
+			|LOGICP and_1C LOGICP
+			|LOGICP or_1C LOGICP
+			;
+COMPARE		:_equal_1C
+			|_less_1C
+			|_grat_1C
+			|_grat_1C _equal_1C
+			|_less_1C _equal_1C
+			|_less_1C _grat_1C
+			;
+EXPRESSION	:EXPRBIN
+			|_plus_1C EXPRBIN
+			|_minus_1C EXPRBIN
+			|EXPRESSION OPERATION EXPRBIN
+			;
+EXPRBIN		:RVAL
+			|LVAL
+			|LITERAL
+			|_date_1C
+			|_number_1C
+			|_what_1C _lPar_1C LOGIC _comma_1C EXPRESSION _comma_1C EXPRESSION _rPar_1C
+			|_lPar_1C EXPRESSION _rPar_1C
+			;
+OPERATION	:_plus_1C
+			|_minus_1C
+			|_mult_1C
+			|_div_1C
+			|_percent_1C
+			;
+LITERAL		:_literal_1C
+			|LITERAL _literal_1C
+			;
+CONSTANT	:LITERAL
+			|_date_1C
+			|_number_1C
+			|_plus_1C _number_1C
+			|_minus_1C _number_1C
+			;

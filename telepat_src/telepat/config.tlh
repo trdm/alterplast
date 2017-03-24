@@ -1,0 +1,1279 @@
+// Created by Microsoft (R) C/C++ Compiler Version 12.00.8168.0 (d8297227).
+//
+// config.tlh
+//
+// C++ source equivalent of Win32 type library ..\config\config.tlb
+// compiler-generated file created 05/24/04 at 14:55:58 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("2576069c-dbf4-4b30-a839-36355f461f50"))
+/* dual interface */ IMetaData;
+struct __declspec(uuid("b6b67039-2433-4151-b344-6ad3ce0d4a77"))
+/* dual interface */ ITaskDef;
+struct __declspec(uuid("057d4f98-d060-4ad6-bf96-bb3dd13aa1d7"))
+/* dual interface */ IMetaDataObj;
+struct __declspec(uuid("b2aa9fd4-c643-4d40-a0d7-d52babf55b3d"))
+/* dual interface */ IMetaDataObjProps;
+struct __declspec(uuid("5b0cde51-3bb2-4c60-8aa5-63739fd67873"))
+/* dual interface */ IMetaDataObjChilds;
+struct __declspec(uuid("9f1e178b-c0ad-4d9a-a083-9a952f2bdf31"))
+/* dual interface */ IMetaDataObjArray;
+struct __declspec(uuid("9f07065b-8434-41c8-bc54-2c64c4e90110"))
+/* dual interface */ IType1C;
+struct __declspec(uuid("59f10fca-4e12-4381-9440-b5475a4ddd6d"))
+/* dual interface */ IMigration;
+struct __declspec(uuid("30869711-4da3-445e-8607-1953b0850c46"))
+/* dual interface */ IConstants;
+struct __declspec(uuid("6abd59ab-7517-4c6c-9f8d-30a312073ad7"))
+/* dual interface */ IConstDef;
+struct __declspec(uuid("6d5c5f96-05d5-4444-8fbd-3247ea6ac4ca"))
+/* dual interface */ IMetaEnums;
+struct __declspec(uuid("0a75dad6-e6f3-4116-862b-133e26bd8377"))
+/* dual interface */ IMetaEnum;
+struct __declspec(uuid("9205eda0-4587-486e-816d-50e9aa24738d"))
+/* dual interface */ IMetaEnumVal;
+struct __declspec(uuid("765e4da0-4951-11d8-8d5f-adb28b91f406"))
+/* dual interface */ ICfgWindows;
+struct __declspec(uuid("6e8f8c6a-b9fb-46fc-affa-cb0f7eb93fb9"))
+/* dual interface */ ICfgWindow;
+struct __declspec(uuid("d1c2bb80-7206-11d8-9fcd-e9053813da08"))
+/* dual interface */ ICfgDoc;
+struct __declspec(uuid("1556e6a0-b699-4f77-9496-d745de374465"))
+/* dual interface */ IScripts;
+struct __declspec(uuid("59de83b2-a571-4a2e-9c84-da789b5858a6"))
+/* dual interface */ IPlugins;
+struct __declspec(uuid("16623674-ecad-484b-a399-751229940cdc"))
+/* dual interface */ ICfgDocuments;
+struct __declspec(uuid("19484b30-4771-453b-af31-5ee02de544d8"))
+/* dual interface */ IAllTypedObj;
+struct __declspec(uuid("04539fb9-4790-4556-9055-da5d10cfa0a5"))
+/* dual interface */ ICfgTimer;
+struct __declspec(uuid("ff862867-bb20-44b2-949c-5ea7c09842ee"))
+/* dual interface */ IConfigurator;
+struct __declspec(uuid("ff862868-bb20-44b2-949c-5ea7c09842ee"))
+/* dispinterface */ IConfigEvents;
+struct __declspec(uuid("8bdec9ea-c6f4-4b74-ac73-f3b0ed3b8d4b"))
+/* interface */ IConfigPlugin;
+struct __declspec(uuid("d7ba8eb5-b237-4323-b971-bcb37bf3d01e"))
+/* dual interface */ ISelfScript;
+struct /* coclass */ SelfScript;
+struct /* coclass */ MetaEnumVal;
+struct /* coclass */ MetaEnum;
+struct /* coclass */ MetaEnums;
+struct /* coclass */ AllTypedObj;
+struct /* coclass */ ConstDef;
+struct /* coclass */ Constants;
+struct /* coclass */ CfgDoc;
+struct /* coclass */ CfgDocuments;
+struct __declspec(uuid("3904cfac-714b-4241-af65-5fd6967a065c"))
+/* dual interface */ IWorkBook;
+struct /* coclass */ WorkBook;
+struct __declspec(uuid("dee7bd6f-1af8-4dac-a203-4e27f8c608f7"))
+/* dual interface */ ITextDoc;
+struct /* coclass */ TextDoc;
+struct __declspec(uuid("cefb0920-7a8f-11d8-9fcd-d6268c95b908"))
+/* dual interface */ ITableDoc;
+struct /* coclass */ TableDoc;
+struct __declspec(uuid("2e1ccc5f-1fc5-41a0-9bf7-f4b77033a23c"))
+/* dual interface */ IDialogDoc;
+struct /* coclass */ DialogDoc;
+struct /* coclass */ CfgWindow;
+struct /* coclass */ Configurator;
+struct /* coclass */ MetaDataObj;
+struct /* coclass */ MetaData;
+struct /* coclass */ CfgWindows;
+struct /* coclass */ Plugins;
+struct /* coclass */ Scripts;
+struct /* coclass */ Type1C;
+struct /* coclass */ MetaDataObjChilds;
+struct /* coclass */ MetaDataObjProps;
+struct /* coclass */ CfgTimer;
+struct /* coclass */ Migration;
+struct /* coclass */ TaskDef;
+struct /* coclass */ MetaDataObjArray;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IMetaData, __uuidof(IMetaData));
+_COM_SMARTPTR_TYPEDEF(IMetaDataObj, __uuidof(IMetaDataObj));
+_COM_SMARTPTR_TYPEDEF(ITaskDef, __uuidof(ITaskDef));
+_COM_SMARTPTR_TYPEDEF(IMetaDataObjProps, __uuidof(IMetaDataObjProps));
+_COM_SMARTPTR_TYPEDEF(IMetaDataObjChilds, __uuidof(IMetaDataObjChilds));
+_COM_SMARTPTR_TYPEDEF(IMetaDataObjArray, __uuidof(IMetaDataObjArray));
+_COM_SMARTPTR_TYPEDEF(IType1C, __uuidof(IType1C));
+_COM_SMARTPTR_TYPEDEF(IMigration, __uuidof(IMigration));
+_COM_SMARTPTR_TYPEDEF(IConstants, __uuidof(IConstants));
+_COM_SMARTPTR_TYPEDEF(IConstDef, __uuidof(IConstDef));
+_COM_SMARTPTR_TYPEDEF(IMetaEnums, __uuidof(IMetaEnums));
+_COM_SMARTPTR_TYPEDEF(IMetaEnum, __uuidof(IMetaEnum));
+_COM_SMARTPTR_TYPEDEF(IMetaEnumVal, __uuidof(IMetaEnumVal));
+_COM_SMARTPTR_TYPEDEF(ICfgWindows, __uuidof(ICfgWindows));
+_COM_SMARTPTR_TYPEDEF(ICfgWindow, __uuidof(ICfgWindow));
+_COM_SMARTPTR_TYPEDEF(ICfgDoc, __uuidof(ICfgDoc));
+_COM_SMARTPTR_TYPEDEF(IScripts, __uuidof(IScripts));
+_COM_SMARTPTR_TYPEDEF(IPlugins, __uuidof(IPlugins));
+_COM_SMARTPTR_TYPEDEF(ICfgDocuments, __uuidof(ICfgDocuments));
+_COM_SMARTPTR_TYPEDEF(IAllTypedObj, __uuidof(IAllTypedObj));
+_COM_SMARTPTR_TYPEDEF(ICfgTimer, __uuidof(ICfgTimer));
+_COM_SMARTPTR_TYPEDEF(IConfigurator, __uuidof(IConfigurator));
+_COM_SMARTPTR_TYPEDEF(IConfigEvents, __uuidof(IDispatch));
+_COM_SMARTPTR_TYPEDEF(IConfigPlugin, __uuidof(IConfigPlugin));
+_COM_SMARTPTR_TYPEDEF(ISelfScript, __uuidof(ISelfScript));
+_COM_SMARTPTR_TYPEDEF(IWorkBook, __uuidof(IWorkBook));
+_COM_SMARTPTR_TYPEDEF(ITextDoc, __uuidof(ITextDoc));
+_COM_SMARTPTR_TYPEDEF(ITableDoc, __uuidof(ITableDoc));
+_COM_SMARTPTR_TYPEDEF(IDialogDoc, __uuidof(IDialogDoc));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("2576069c-dbf4-4b30-a839-36355f461f50"))
+IMetaData : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_TaskDef (
+        struct ITaskDef * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Modified (
+        short * pVal ) = 0;
+    virtual HRESULT __stdcall FindObject (
+        long ID,
+        struct IMetaDataObj * * pObj ) = 0;
+    virtual HRESULT __stdcall RefreshMDWnd ( ) = 0;
+    virtual HRESULT __stdcall SaveMDToFile (
+        BSTR path,
+        VARIANT_BOOL FireEvent,
+        VARIANT_BOOL * retVal ) = 0;
+    virtual HRESULT __stdcall Describe (
+        BSTR * pRet ) = 0;
+    virtual HRESULT __stdcall get_LongCopyright (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_ShortCopyright (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall SaveMMDS (
+        BSTR path ) = 0;
+    virtual HRESULT __stdcall get_Migration (
+        long ID,
+        struct IMigration * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Constants (
+        struct IConstants * * pVal ) = 0;
+    virtual HRESULT __stdcall TestRefers (
+        long ID,
+        VARIANT_BOOL FindAll,
+        struct IMetaDataObjArray * * pRetArr ) = 0;
+    virtual HRESULT __stdcall get_Enums (
+        struct IMetaEnums * * pVal ) = 0;
+};
+
+struct __declspec(uuid("057d4f98-d060-4ad6-bf96-bb3dd13aa1d7"))
+IMetaDataObj : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_WhatIsIt (
+        enum TypeOfMetaDataObj * pVal ) = 0;
+    virtual HRESULT __stdcall get_ID (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_Name (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_Name (
+        BSTR pVal ) = 0;
+    virtual HRESULT __stdcall get_Present (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_Present (
+        BSTR pVal ) = 0;
+    virtual HRESULT __stdcall get_Descr (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_Descr (
+        BSTR pVal ) = 0;
+    virtual HRESULT __stdcall IsValid (
+        VARIANT_BOOL * pRet ) = 0;
+    virtual HRESULT __stdcall get_FullName (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_Props (
+        struct IMetaDataObjProps * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Childs (
+        struct IMetaDataObjChilds * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Type (
+        struct IType1C * * pVal ) = 0;
+    virtual HRESULT __stdcall put_Type (
+        struct IType1C * pVal ) = 0;
+    virtual HRESULT __stdcall DescribeObject (
+        VARIANT_BOOL WithChilds,
+        BSTR * retVal ) = 0;
+    virtual HRESULT __stdcall get_Parent (
+        struct IMetaDataObj * * pVal ) = 0;
+};
+
+struct __declspec(uuid("b6b67039-2433-4151-b344-6ad3ce0d4a77"))
+ITaskDef : IMetaDataObj
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Language (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall put_Language (
+        long pVal ) = 0;
+    virtual HRESULT __stdcall get_ImmediateDelete (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_ImmediateDelete (
+        VARIANT_BOOL pVal ) = 0;
+    virtual HRESULT __stdcall get_Round15_2 (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_Round15_2 (
+        VARIANT_BOOL pVal ) = 0;
+};
+
+enum TypeOfMetaDataObj
+{
+    tmdConstant = 1,
+    tmdRefRekv = 2,
+    tmdReference = 3,
+    tmdRegIzm = 4,
+    tmdRegResurs = 5,
+    tmdRegister = 6,
+    tmdDocHeadRekv = 7,
+    tmdDocTableRekv = 8,
+    tmdDocument = 9,
+    tmdJDGrafa = 10,
+    tmdJournalDoc = 11,
+    tmdEnumVal = 12,
+    tmdEnum = 13,
+    tmdListRefs = 14,
+    tmdFormList = 15,
+    tmdReport = 16,
+    tmdTask = 17,
+    tmdKalendar = 18,
+    tmdCalcKind = 19,
+    tmdCalcGroup = 20,
+    tmdCJRekv = 21,
+    tmdCalcJournal = 22,
+    tmdCalcVar = 23,
+    tmdRegRekv = 25,
+    tmdCommonRekv = 26,
+    tmdAccountChart = 27,
+    tmdAccRekv = 28,
+    tmdAcount = 30,
+    tmdAccountSubc = 31,
+    tmdProvRekv = 32,
+    tmdOperRekv = 33,
+    tmdSelGraf = 34,
+    tmdNumbers = 35,
+    tmdSubconto = 36,
+    tmdStream = 43,
+    tmdRecalcRule = 44
+};
+
+struct __declspec(uuid("b2aa9fd4-c643-4d40-a0d7-d52babf55b3d"))
+IMetaDataObjProps : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_item (
+        VARIANT idx,
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_Count (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_Name (
+        VARIANT idx,
+        VARIANT_BOOL Rus,
+        BSTR * pVal ) = 0;
+};
+
+struct __declspec(uuid("5b0cde51-3bb2-4c60-8aa5-63739fd67873"))
+IMetaDataObjChilds : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_item (
+        VARIANT idx,
+        struct IMetaDataObjArray * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Count (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_Name (
+        VARIANT idx,
+        VARIANT_BOOL Rus,
+        BSTR * pVal ) = 0;
+};
+
+struct __declspec(uuid("9f1e178b-c0ad-4d9a-a083-9a952f2bdf31"))
+IMetaDataObjArray : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_item (
+        VARIANT idx,
+        struct IMetaDataObj * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Count (
+        long * pVal ) = 0;
+};
+
+struct __declspec(uuid("9f07065b-8434-41c8-bc54-2c64c4e90110"))
+IType1C : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Type (
+        enum tTypes * pVal ) = 0;
+    virtual HRESULT __stdcall put_Type (
+        enum tTypes pVal ) = 0;
+    virtual HRESULT __stdcall get_FullName (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_Name (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_Code (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_ID (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall put_ID (
+        long pVal ) = 0;
+    virtual HRESULT __stdcall get_Length (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall put_Length (
+        long pVal ) = 0;
+    virtual HRESULT __stdcall get_Precision (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall put_Precision (
+        long pVal ) = 0;
+    virtual HRESULT __stdcall get_PositiveOnly (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_PositiveOnly (
+        VARIANT_BOOL pVal ) = 0;
+    virtual HRESULT __stdcall get_NumSeparated (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_NumSeparated (
+        VARIANT_BOOL pVal ) = 0;
+};
+
+enum tTypes
+{
+    ttVoid = 0,
+    ttNumber = 1,
+    ttString = 2,
+    ttDate = 3,
+    ttEnum = 10,
+    ttReference = 11,
+    ttDocument = 12,
+    ttKalendar = 13,
+    ttCalcKind = 14,
+    ttAccnt = 15,
+    ttSbcKind = 16,
+    ttAccntChrt = 17
+};
+
+struct __declspec(uuid("59f10fca-4e12-4381-9440-b5475a4ddd6d"))
+IMigration : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_RuleOfMigration (
+        enum MigrationRules * pVal ) = 0;
+    virtual HRESULT __stdcall put_RuleOfMigration (
+        enum MigrationRules pVal ) = 0;
+    virtual HRESULT __stdcall get_AutoRegister (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_AutoRegister (
+        VARIANT_BOOL pVal ) = 0;
+    virtual HRESULT __stdcall get_AdditDBSigns (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_AdditDBSigns (
+        BSTR pVal ) = 0;
+};
+
+enum MigrationRules
+{
+    mrAll = 0,
+    mrCreate = 1,
+    mrCreateCentr = 2
+};
+
+struct __declspec(uuid("30869711-4da3-445e-8607-1953b0850c46"))
+IConstants : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_item (
+        VARIANT idx,
+        struct IConstDef * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Count (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_Name (
+        VARIANT idx,
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall Add (
+        BSTR Name,
+        VARIANT Present,
+        struct IConstDef * * pRetVal ) = 0;
+    virtual HRESULT __stdcall Remove (
+        VARIANT idx ) = 0;
+};
+
+struct __declspec(uuid("6abd59ab-7517-4c6c-9f8d-30a312073ad7"))
+IConstDef : IMetaDataObj
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Periodic (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_Periodic (
+        VARIANT_BOOL pVal ) = 0;
+};
+
+struct __declspec(uuid("6d5c5f96-05d5-4444-8fbd-3247ea6ac4ca"))
+IMetaEnums : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Enum (
+        VARIANT idx,
+        struct IMetaEnum * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Count (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall Remove (
+        VARIANT idx ) = 0;
+    virtual HRESULT __stdcall Add (
+        BSTR Name,
+        struct IMetaEnum * * pVal ) = 0;
+};
+
+struct __declspec(uuid("0a75dad6-e6f3-4116-862b-133e26bd8377"))
+IMetaEnum : IMetaDataObj
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_ValsCount (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_EnumVal (
+        VARIANT idx,
+        struct IMetaEnumVal * * pVal ) = 0;
+    virtual HRESULT __stdcall Add (
+        BSTR Name,
+        struct IMetaEnumVal * * pVal ) = 0;
+    virtual HRESULT __stdcall Remove (
+        VARIANT idx ) = 0;
+};
+
+struct __declspec(uuid("9205eda0-4587-486e-816d-50e9aa24738d"))
+IMetaEnumVal : IMetaDataObj
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Title (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_Title (
+        BSTR pVal ) = 0;
+};
+
+struct __declspec(uuid("765e4da0-4951-11d8-8d5f-adb28b91f406"))
+ICfgWindows : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_MainWnd (
+        struct ICfgWindow * * pVal ) = 0;
+    virtual HRESULT __stdcall get_ActiveWnd (
+        struct ICfgWindow * * pVal ) = 0;
+    virtual HRESULT __stdcall put_ActiveWnd (
+        struct ICfgWindow * pVal ) = 0;
+    virtual HRESULT __stdcall get_FirstWnd (
+        struct ICfgWindow * * pVal ) = 0;
+    virtual HRESULT __stdcall get_NextWnd (
+        struct ICfgWindow * CurrentWnd,
+        struct ICfgWindow * * pVal ) = 0;
+};
+
+struct __declspec(uuid("6e8f8c6a-b9fb-46fc-affa-cb0f7eb93fb9"))
+ICfgWindow : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_hWnd (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_Caption (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_Caption (
+        BSTR pVal ) = 0;
+    virtual HRESULT __stdcall get_Document (
+        struct ICfgDoc * * pVal ) = 0;
+    virtual HRESULT __stdcall Close ( ) = 0;
+    virtual HRESULT __stdcall get_Maximized (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_Maximized (
+        VARIANT_BOOL pVal ) = 0;
+    virtual HRESULT __stdcall get_Minimized (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_Minimized (
+        VARIANT_BOOL pVal ) = 0;
+    virtual HRESULT __stdcall get_Top (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_Left (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_Bottom (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_Right (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall Move (
+        long Left,
+        long Top,
+        long Right,
+        long Bottom ) = 0;
+    virtual HRESULT __stdcall get_ClientWidth (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_ClientHeight (
+        long * pVal ) = 0;
+};
+
+struct __declspec(uuid("d1c2bb80-7206-11d8-9fcd-e9053813da08"))
+ICfgDoc : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Type (
+        enum DocTypes * pVal ) = 0;
+    virtual HRESULT __stdcall get_ID (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_Kind (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_path (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall Open ( ) = 0;
+    virtual HRESULT __stdcall get_IsOpen (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall Save ( ) = 0;
+    virtual HRESULT __stdcall get_Name (
+        BSTR * pVal ) = 0;
+};
+
+enum DocTypes
+{
+    docUnknown = 0,
+    docWorkBook = 1,
+    docText = 2,
+    docTable = 3,
+    docDEdit = 4
+};
+
+struct __declspec(uuid("1556e6a0-b699-4f77-9496-d745de374465"))
+IScripts : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_item (
+        VARIANT idx,
+        IDispatch * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Count (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall Load (
+        BSTR path,
+        IDispatch * * pRetVal ) = 0;
+    virtual HRESULT __stdcall ReLoad (
+        VARIANT idx ) = 0;
+    virtual HRESULT __stdcall UnLoad (
+        VARIANT idx ) = 0;
+    virtual HRESULT __stdcall get_path (
+        VARIANT idx,
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_Name (
+        VARIANT idx,
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_Engine (
+        VARIANT idx,
+        BSTR * pVal ) = 0;
+};
+
+struct __declspec(uuid("59de83b2-a571-4a2e-9c84-da789b5858a6"))
+IPlugins : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_item (
+        VARIANT idx,
+        IDispatch * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Count (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall LoadPlugin (
+        BSTR From ) = 0;
+    virtual HRESULT __stdcall get_path (
+        VARIANT idx,
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_Name (
+        VARIANT idx,
+        BSTR * pVal ) = 0;
+};
+
+struct __declspec(uuid("16623674-ecad-484b-a399-751229940cdc"))
+ICfgDocuments : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_item (
+        BSTR Name,
+        struct ICfgDoc * * pVal ) = 0;
+    virtual HRESULT __stdcall Open (
+        BSTR path,
+        struct ICfgDoc * * pDoc ) = 0;
+    virtual HRESULT __stdcall DocFromID (
+        long ID,
+        enum DocTypes Type,
+        BSTR path,
+        BSTR Kind,
+        struct ICfgDoc * * pRetDoc ) = 0;
+    virtual HRESULT __stdcall New (
+        enum DocTypes Type,
+        struct ICfgDoc * * pDoc ) = 0;
+    virtual HRESULT __stdcall EnumAllTypedObj (
+        struct IAllTypedObj * * pRet ) = 0;
+};
+
+struct __declspec(uuid("19484b30-4771-453b-af31-5ee02de544d8"))
+IAllTypedObj : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_item (
+        VARIANT idx,
+        struct ICfgDoc * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Count (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_ChildsCount (
+        BSTR Parent,
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_ChildName (
+        BSTR Parent,
+        long idx,
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_ObjectCount (
+        BSTR Parent,
+        long * pVal ) = 0;
+};
+
+struct __declspec(uuid("04539fb9-4790-4556-9055-da5d10cfa0a5"))
+ICfgTimer : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Time (
+        long Num,
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall SetTimer (
+        long Interval,
+        VARIANT_BOOL OneTimeOnly,
+        long * TimerID ) = 0;
+    virtual HRESULT __stdcall KillTimer (
+        long TimerID ) = 0;
+    virtual HRESULT __stdcall get_Count (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall KillAll ( ) = 0;
+    virtual HRESULT __stdcall get_ID (
+        long Num,
+        long * pVal ) = 0;
+};
+
+enum MsgLineMarkers
+{
+    mNone = 0,
+    mBlueTriangle = 1,
+    mExclamation = 2,
+    mExclamation2 = 3,
+    mExclamation3 = 4,
+    mInformation = 5,
+    mBlackErr = 6,
+    mRedErr = 7,
+    mMetaData = 8,
+    mUnderlinedErr = 9
+};
+
+enum ConfigCommands
+{
+    cmdOpenConfigWnd = 33188,
+    cmdLoadMD = 33206,
+    cmdMergeMD = 33260,
+    cmdSave = 57603
+};
+
+enum MsgBoxStyles
+{
+    mbOK = 0,
+    mbOkCancel = 1,
+    mbAbortRetryIgnore = 2,
+    mbYesNoCancel = 3,
+    mbYesNo = 4,
+    mbRetryCancel = 5
+};
+
+enum MsgBoxAnswers
+{
+    mbaOK = 1,
+    mbaCancel = 2,
+    mbaAbort = 3,
+    mbaRetry = 4,
+    mbaIgnore = 5,
+    mbaYes = 6,
+    mbaNo = 7
+};
+
+enum EventCategories
+{
+    ecSession = 0,
+    ecAdmin = 1,
+    ecChangeData = 2,
+    ecInfo = 3,
+    ecWarning = 4,
+    ecError = 5
+};
+
+enum RunAppModes
+{
+    rmEnterprise = -1,
+    rmDebugger = 2,
+    rmMonitor = 4
+};
+
+struct __declspec(uuid("ff862867-bb20-44b2-949c-5ea7c09842ee"))
+IConfigurator : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_IBName (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_IBName (
+        BSTR pVal ) = 0;
+    virtual HRESULT __stdcall get_IBDir (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_BinDir (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_CommandLine (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall Message (
+        BSTR msgLine,
+        enum MsgLineMarkers marker ) = 0;
+    virtual HRESULT __stdcall Status (
+        BSTR text ) = 0;
+    virtual HRESULT __stdcall OpenOLEForm (
+        BSTR progID,
+        BSTR Title,
+        IDispatch * * ppDisp ) = 0;
+    virtual HRESULT __stdcall get_Version (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_MetaData (
+        struct IMetaData * * pVal ) = 0;
+    virtual HRESULT __stdcall SendCommand (
+        enum ConfigCommands cmd ) = 0;
+    virtual HRESULT __stdcall IsConfigWndOpen (
+        VARIANT_BOOL * pResult ) = 0;
+    virtual HRESULT __stdcall get_Plugins (
+        struct IPlugins * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Scripts (
+        struct IScripts * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Windows (
+        struct ICfgWindows * * pVal ) = 0;
+    virtual HRESULT __stdcall Quit (
+        VARIANT_BOOL PromptSave ) = 0;
+    virtual HRESULT __stdcall LogMessageWrite (
+        enum EventCategories EventCategory,
+        BSTR Message,
+        VARIANT EventType = vtMissing,
+        VARIANT Event = vtMissing ) = 0;
+    virtual HRESULT __stdcall Run1CApp (
+        enum RunAppModes mode ) = 0;
+    virtual HRESULT __stdcall get_Documents (
+        struct ICfgDocuments * * pVal ) = 0;
+    virtual HRESULT __stdcall get_CfgTimer (
+        struct ICfgTimer * * pVal ) = 0;
+};
+
+struct __declspec(uuid("ff862868-bb20-44b2-949c-5ea7c09842ee"))
+IConfigEvents : IDispatch
+{};
+
+enum PluginCaps
+{
+    capOpenIn = 0,
+    capShowMacros = 1,
+    capIconNum = 2,
+    capGetMenu = 3
+};
+
+enum PluginAction
+{
+    paMenu = 0
+};
+
+struct __declspec(uuid("8bdec9ea-c6f4-4b74-ac73-f3b0ed3b8d4b"))
+IConfigPlugin : IUnknown
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall Init (
+        struct IConfigurator * pConfigurator,
+        BSTR * PluginName ) = 0;
+    virtual HRESULT __stdcall Done ( ) = 0;
+    virtual HRESULT __stdcall GetPluginCaps (
+        enum PluginCaps capNum,
+        VARIANT * pResult ) = 0;
+    virtual HRESULT __stdcall DoAction (
+        enum PluginAction Action,
+        VARIANT Param,
+        VARIANT * pResult ) = 0;
+};
+
+struct __declspec(uuid("d7ba8eb5-b237-4323-b971-bcb37bf3d01e"))
+ISelfScript : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Name (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall AddNamedItem (
+        BSTR Name,
+        IDispatch * Object,
+        VARIANT_BOOL AsGlobal ) = 0;
+};
+
+struct __declspec(uuid("02a7af19-b1ad-4f20-be50-d644bb9ddd8f"))
+SelfScript;
+    // [ default ] interface ISelfScript
+
+struct __declspec(uuid("f40fd0f0-54af-4fed-89a6-6d4233e282e5"))
+MetaEnumVal;
+    // [ default ] interface IMetaEnumVal
+
+struct __declspec(uuid("03a11169-8a38-42d4-9b96-7b788537c3e5"))
+MetaEnum;
+    // [ default ] interface IMetaEnum
+
+struct __declspec(uuid("036e513a-1a68-41f9-8c39-b97e1f8d8627"))
+MetaEnums;
+    // [ default ] interface IMetaEnums
+
+struct __declspec(uuid("ea8c84ee-0c03-4c8d-9548-8837f3cd163a"))
+AllTypedObj;
+    // [ default ] interface IAllTypedObj
+
+struct __declspec(uuid("1b100ee6-0a82-40c1-9285-ea329d8ffa9c"))
+ConstDef;
+    // [ default ] interface IConstDef
+
+struct __declspec(uuid("756afc1e-9a0a-4b8d-a459-97df55a79c70"))
+Constants;
+    // [ default ] interface IConstants
+
+struct __declspec(uuid("f9f6c920-7206-11d8-9fcd-e9053813da08"))
+CfgDoc;
+    // [ default ] interface ICfgDoc
+
+struct __declspec(uuid("30ecb402-4e56-44bd-8e7c-6521efdb58ce"))
+CfgDocuments;
+    // [ default ] interface ICfgDocuments
+
+struct __declspec(uuid("3904cfac-714b-4241-af65-5fd6967a065c"))
+IWorkBook : ICfgDoc
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_CountPages (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_NamePage (
+        VARIANT idx,
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_NamePage (
+        VARIANT idx,
+        BSTR pVal ) = 0;
+    virtual HRESULT __stdcall get_Page (
+        VARIANT idx,
+        struct ICfgDoc * * pVal ) = 0;
+    virtual HRESULT __stdcall get_ActivePage (
+        VARIANT * pVal ) = 0;
+    virtual HRESULT __stdcall put_ActivePage (
+        VARIANT pVal ) = 0;
+    virtual HRESULT __stdcall AddPage (
+        BSTR Name,
+        struct ICfgDoc * * ppNewPage ) = 0;
+    virtual HRESULT __stdcall RemovePage (
+        VARIANT idx ) = 0;
+};
+
+struct __declspec(uuid("46d26a73-3d4c-4ee7-ab1f-26f42e028976"))
+WorkBook;
+    // [ default ] interface IWorkBook
+
+struct __declspec(uuid("dee7bd6f-1af8-4dac-a203-4e27f8c608f7"))
+ITextDoc : ICfgDoc
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall SaveToFile (
+        BSTR FileName,
+        VARIANT_BOOL * bSucces ) = 0;
+    virtual HRESULT __stdcall LoadFromFile (
+        BSTR FileName,
+        VARIANT_BOOL * bSuccess ) = 0;
+    virtual HRESULT __stdcall get_text (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_text (
+        BSTR pVal ) = 0;
+    virtual HRESULT __stdcall get_LineCount (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_LineLen (
+        long LineNum,
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_IsModule (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_IsModule (
+        VARIANT_BOOL pVal ) = 0;
+    virtual HRESULT __stdcall get_ReadOnly (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_ReadOnly (
+        VARIANT_BOOL pVal ) = 0;
+    virtual HRESULT __stdcall get_Range (
+        long StartLine,
+        VARIANT StartCol,
+        VARIANT EndLine,
+        VARIANT EndCol,
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_Range (
+        long StartLine,
+        VARIANT StartCol,
+        VARIANT EndLine,
+        VARIANT EndCol,
+        BSTR pVal ) = 0;
+    virtual HRESULT __stdcall get_SelStartLine (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_SelStartCol (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_SelEndLine (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_SelEndCol (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_CurrentWord (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall MoveCaret (
+        long LineStart,
+        long ColStart,
+        VARIANT LineEnd = vtMissing,
+        VARIANT ColEnd = vtMissing ) = 0;
+    virtual HRESULT __stdcall get_BookMark (
+        long LineNum,
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_BookMark (
+        long LineNum,
+        VARIANT_BOOL pVal ) = 0;
+    virtual HRESULT __stdcall NextBookmark (
+        long StartLine,
+        long * pNextBookmark ) = 0;
+    virtual HRESULT __stdcall PrevBookmark (
+        long StartLine,
+        long * pRet ) = 0;
+    virtual HRESULT __stdcall ClearAllBookMark ( ) = 0;
+    virtual HRESULT __stdcall get_CanUndo (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall get_CanRedo (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall Undo ( ) = 0;
+    virtual HRESULT __stdcall Redo ( ) = 0;
+    virtual HRESULT __stdcall Cut ( ) = 0;
+    virtual HRESULT __stdcall Copy ( ) = 0;
+    virtual HRESULT __stdcall Paste ( ) = 0;
+    virtual HRESULT __stdcall CommentSel ( ) = 0;
+    virtual HRESULT __stdcall UncommentSel ( ) = 0;
+    virtual HRESULT __stdcall FormatSel ( ) = 0;
+};
+
+struct __declspec(uuid("08b07dc4-919a-4d05-9412-a1cc7f01c4b9"))
+TextDoc;
+    // [ default ] interface ITextDoc
+
+enum TableSaveTypes
+{
+    tbMxl = 0,
+    tbExc = 1,
+    tbHtml = 2,
+    tbText = 3
+};
+
+struct __declspec(uuid("cefb0920-7a8f-11d8-9fcd-d6268c95b908"))
+ITableDoc : ICfgDoc
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall SaveToFile (
+        BSTR FileName,
+        VARIANT_BOOL * bSucces ) = 0;
+    virtual HRESULT __stdcall LoadFromFile (
+        BSTR FileName,
+        VARIANT_BOOL * bSuccess ) = 0;
+    virtual HRESULT __stdcall SaveToFileAs (
+        BSTR FileName,
+        enum TableSaveTypes Type,
+        VARIANT_BOOL * bSucces ) = 0;
+};
+
+struct __declspec(uuid("cefb0921-7a8f-11d8-9fcd-d6268c95b908"))
+TableDoc;
+    // [ default ] interface ITableDoc
+
+struct __declspec(uuid("2e1ccc5f-1fc5-41a0-9bf7-f4b77033a23c"))
+IDialogDoc : ICfgDoc
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall SaveToFile (
+        BSTR FileName,
+        VARIANT_BOOL * bSucces ) = 0;
+    virtual HRESULT __stdcall LoadFromFile (
+        BSTR FileName,
+        VARIANT_BOOL * bSuccess ) = 0;
+    virtual HRESULT __stdcall get_Stream (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_Stream (
+        BSTR pVal ) = 0;
+};
+
+struct __declspec(uuid("a1c16c44-abb4-48da-a77d-1ea349bbe197"))
+DialogDoc;
+    // [ default ] interface IDialogDoc
+
+struct __declspec(uuid("06c7e522-cbc8-431b-b6ad-c367152fe189"))
+CfgWindow;
+    // [ default ] interface ICfgWindow
+
+struct __declspec(uuid("ff862869-bb20-44b2-949c-5ea7c09842ee"))
+Configurator;
+    // [ default ] interface IConfigurator
+    // [ default, source ] dispinterface IConfigEvents
+
+struct __declspec(uuid("b5e36b88-cda7-4107-82bf-6b20a8158b7a"))
+MetaDataObj;
+    // [ default ] interface IMetaDataObj
+
+struct __declspec(uuid("43a6fde2-747b-44dd-a595-512183ee5beb"))
+MetaData;
+    // [ default ] interface IMetaData
+
+struct __declspec(uuid("765e4da1-4951-11d8-8d5f-adb28b91f406"))
+CfgWindows;
+    // [ default ] interface ICfgWindows
+
+struct __declspec(uuid("72227927-708f-4b6f-937f-850a34b3035c"))
+Plugins;
+    // [ default ] interface IPlugins
+
+struct __declspec(uuid("bf10b93e-eba9-473f-b5c7-04e138eee7f3"))
+Scripts;
+    // [ default ] interface IScripts
+
+struct __declspec(uuid("d3ae2151-3a84-4df2-b801-43ded99a013d"))
+Type1C;
+    // [ default ] interface IType1C
+
+struct __declspec(uuid("e8855e48-e8a4-48d2-8e50-5e1970331a7b"))
+MetaDataObjChilds;
+    // [ default ] interface IMetaDataObjChilds
+
+struct __declspec(uuid("8d97b6f5-f5b9-41db-9193-a921a63bb0f6"))
+MetaDataObjProps;
+    // [ default ] interface IMetaDataObjProps
+
+struct __declspec(uuid("62520e90-ffc6-4a86-94dd-83bbc19435cb"))
+CfgTimer;
+    // [ default ] interface ICfgTimer
+
+struct __declspec(uuid("81477568-abbb-4ff3-9627-e1402985b108"))
+Migration;
+    // [ default ] interface IMigration
+
+struct __declspec(uuid("d685f452-6ab6-4e57-b5c2-4c3c9fc9e0d2"))
+TaskDef;
+    // [ default ] interface ITaskDef
+
+struct __declspec(uuid("8cda8e20-913a-4eeb-9172-a1569f663e16"))
+MetaDataObjArray;
+    // [ default ] interface IMetaDataObjArray
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_OpenConf =
+    {0x578f85c8,0x89eb,0x4cda,{0xac,0x7e,0x8f,0x3b,0xb3,0x4e,0x8b,0x54}};
+extern "C" const GUID __declspec(selectany) IID_IMetaData =
+    {0x2576069c,0xdbf4,0x4b30,{0xa8,0x39,0x36,0x35,0x5f,0x46,0x1f,0x50}};
+extern "C" const GUID __declspec(selectany) IID_IMetaDataObj =
+    {0x057d4f98,0xd060,0x4ad6,{0xbf,0x96,0xbb,0x3d,0xd1,0x3a,0xa1,0xd7}};
+extern "C" const GUID __declspec(selectany) IID_ITaskDef =
+    {0xb6b67039,0x2433,0x4151,{0xb3,0x44,0x6a,0xd3,0xce,0x0d,0x4a,0x77}};
+extern "C" const GUID __declspec(selectany) IID_IMetaDataObjProps =
+    {0xb2aa9fd4,0xc643,0x4d40,{0xa0,0xd7,0xd5,0x2b,0xab,0xf5,0x5b,0x3d}};
+extern "C" const GUID __declspec(selectany) IID_IMetaDataObjChilds =
+    {0x5b0cde51,0x3bb2,0x4c60,{0x8a,0xa5,0x63,0x73,0x9f,0xd6,0x78,0x73}};
+extern "C" const GUID __declspec(selectany) IID_IMetaDataObjArray =
+    {0x9f1e178b,0xc0ad,0x4d9a,{0xa0,0x83,0x9a,0x95,0x2f,0x2b,0xdf,0x31}};
+extern "C" const GUID __declspec(selectany) IID_IType1C =
+    {0x9f07065b,0x8434,0x41c8,{0xbc,0x54,0x2c,0x64,0xc4,0xe9,0x01,0x10}};
+extern "C" const GUID __declspec(selectany) IID_IMigration =
+    {0x59f10fca,0x4e12,0x4381,{0x94,0x40,0xb5,0x47,0x5a,0x4d,0xdd,0x6d}};
+extern "C" const GUID __declspec(selectany) IID_IConstants =
+    {0x30869711,0x4da3,0x445e,{0x86,0x07,0x19,0x53,0xb0,0x85,0x0c,0x46}};
+extern "C" const GUID __declspec(selectany) IID_IConstDef =
+    {0x6abd59ab,0x7517,0x4c6c,{0x9f,0x8d,0x30,0xa3,0x12,0x07,0x3a,0xd7}};
+extern "C" const GUID __declspec(selectany) IID_IMetaEnums =
+    {0x6d5c5f96,0x05d5,0x4444,{0x8f,0xbd,0x32,0x47,0xea,0x6a,0xc4,0xca}};
+extern "C" const GUID __declspec(selectany) IID_IMetaEnum =
+    {0x0a75dad6,0xe6f3,0x4116,{0x86,0x2b,0x13,0x3e,0x26,0xbd,0x83,0x77}};
+extern "C" const GUID __declspec(selectany) IID_IMetaEnumVal =
+    {0x9205eda0,0x4587,0x486e,{0x81,0x6d,0x50,0xe9,0xaa,0x24,0x73,0x8d}};
+extern "C" const GUID __declspec(selectany) IID_ICfgWindows =
+    {0x765e4da0,0x4951,0x11d8,{0x8d,0x5f,0xad,0xb2,0x8b,0x91,0xf4,0x06}};
+extern "C" const GUID __declspec(selectany) IID_ICfgWindow =
+    {0x6e8f8c6a,0xb9fb,0x46fc,{0xaf,0xfa,0xcb,0x0f,0x7e,0xb9,0x3f,0xb9}};
+extern "C" const GUID __declspec(selectany) IID_ICfgDoc =
+    {0xd1c2bb80,0x7206,0x11d8,{0x9f,0xcd,0xe9,0x05,0x38,0x13,0xda,0x08}};
+extern "C" const GUID __declspec(selectany) IID_IScripts =
+    {0x1556e6a0,0xb699,0x4f77,{0x94,0x96,0xd7,0x45,0xde,0x37,0x44,0x65}};
+extern "C" const GUID __declspec(selectany) IID_IPlugins =
+    {0x59de83b2,0xa571,0x4a2e,{0x9c,0x84,0xda,0x78,0x9b,0x58,0x58,0xa6}};
+extern "C" const GUID __declspec(selectany) IID_ICfgDocuments =
+    {0x16623674,0xecad,0x484b,{0xa3,0x99,0x75,0x12,0x29,0x94,0x0c,0xdc}};
+extern "C" const GUID __declspec(selectany) IID_IAllTypedObj =
+    {0x19484b30,0x4771,0x453b,{0xaf,0x31,0x5e,0xe0,0x2d,0xe5,0x44,0xd8}};
+extern "C" const GUID __declspec(selectany) IID_ICfgTimer =
+    {0x04539fb9,0x4790,0x4556,{0x90,0x55,0xda,0x5d,0x10,0xcf,0xa0,0xa5}};
+extern "C" const GUID __declspec(selectany) IID_IConfigurator =
+    {0xff862867,0xbb20,0x44b2,{0x94,0x9c,0x5e,0xa7,0xc0,0x98,0x42,0xee}};
+extern "C" const GUID __declspec(selectany) DIID_IConfigEvents =
+    {0xff862868,0xbb20,0x44b2,{0x94,0x9c,0x5e,0xa7,0xc0,0x98,0x42,0xee}};
+extern "C" const GUID __declspec(selectany) IID_IConfigPlugin =
+    {0x8bdec9ea,0xc6f4,0x4b74,{0xac,0x73,0xf3,0xb0,0xed,0x3b,0x8d,0x4b}};
+extern "C" const GUID __declspec(selectany) IID_ISelfScript =
+    {0xd7ba8eb5,0xb237,0x4323,{0xb9,0x71,0xbc,0xb3,0x7b,0xf3,0xd0,0x1e}};
+extern "C" const GUID __declspec(selectany) CLSID_SelfScript =
+    {0x02a7af19,0xb1ad,0x4f20,{0xbe,0x50,0xd6,0x44,0xbb,0x9d,0xdd,0x8f}};
+extern "C" const GUID __declspec(selectany) CLSID_MetaEnumVal =
+    {0xf40fd0f0,0x54af,0x4fed,{0x89,0xa6,0x6d,0x42,0x33,0xe2,0x82,0xe5}};
+extern "C" const GUID __declspec(selectany) CLSID_MetaEnum =
+    {0x03a11169,0x8a38,0x42d4,{0x9b,0x96,0x7b,0x78,0x85,0x37,0xc3,0xe5}};
+extern "C" const GUID __declspec(selectany) CLSID_MetaEnums =
+    {0x036e513a,0x1a68,0x41f9,{0x8c,0x39,0xb9,0x7e,0x1f,0x8d,0x86,0x27}};
+extern "C" const GUID __declspec(selectany) CLSID_AllTypedObj =
+    {0xea8c84ee,0x0c03,0x4c8d,{0x95,0x48,0x88,0x37,0xf3,0xcd,0x16,0x3a}};
+extern "C" const GUID __declspec(selectany) CLSID_ConstDef =
+    {0x1b100ee6,0x0a82,0x40c1,{0x92,0x85,0xea,0x32,0x9d,0x8f,0xfa,0x9c}};
+extern "C" const GUID __declspec(selectany) CLSID_Constants =
+    {0x756afc1e,0x9a0a,0x4b8d,{0xa4,0x59,0x97,0xdf,0x55,0xa7,0x9c,0x70}};
+extern "C" const GUID __declspec(selectany) CLSID_CfgDoc =
+    {0xf9f6c920,0x7206,0x11d8,{0x9f,0xcd,0xe9,0x05,0x38,0x13,0xda,0x08}};
+extern "C" const GUID __declspec(selectany) CLSID_CfgDocuments =
+    {0x30ecb402,0x4e56,0x44bd,{0x8e,0x7c,0x65,0x21,0xef,0xdb,0x58,0xce}};
+extern "C" const GUID __declspec(selectany) IID_IWorkBook =
+    {0x3904cfac,0x714b,0x4241,{0xaf,0x65,0x5f,0xd6,0x96,0x7a,0x06,0x5c}};
+extern "C" const GUID __declspec(selectany) CLSID_WorkBook =
+    {0x46d26a73,0x3d4c,0x4ee7,{0xab,0x1f,0x26,0xf4,0x2e,0x02,0x89,0x76}};
+extern "C" const GUID __declspec(selectany) IID_ITextDoc =
+    {0xdee7bd6f,0x1af8,0x4dac,{0xa2,0x03,0x4e,0x27,0xf8,0xc6,0x08,0xf7}};
+extern "C" const GUID __declspec(selectany) CLSID_TextDoc =
+    {0x08b07dc4,0x919a,0x4d05,{0x94,0x12,0xa1,0xcc,0x7f,0x01,0xc4,0xb9}};
+extern "C" const GUID __declspec(selectany) IID_ITableDoc =
+    {0xcefb0920,0x7a8f,0x11d8,{0x9f,0xcd,0xd6,0x26,0x8c,0x95,0xb9,0x08}};
+extern "C" const GUID __declspec(selectany) CLSID_TableDoc =
+    {0xcefb0921,0x7a8f,0x11d8,{0x9f,0xcd,0xd6,0x26,0x8c,0x95,0xb9,0x08}};
+extern "C" const GUID __declspec(selectany) IID_IDialogDoc =
+    {0x2e1ccc5f,0x1fc5,0x41a0,{0x9b,0xf7,0xf4,0xb7,0x70,0x33,0xa2,0x3c}};
+extern "C" const GUID __declspec(selectany) CLSID_DialogDoc =
+    {0xa1c16c44,0xabb4,0x48da,{0xa7,0x7d,0x1e,0xa3,0x49,0xbb,0xe1,0x97}};
+extern "C" const GUID __declspec(selectany) CLSID_CfgWindow =
+    {0x06c7e522,0xcbc8,0x431b,{0xb6,0xad,0xc3,0x67,0x15,0x2f,0xe1,0x89}};
+extern "C" const GUID __declspec(selectany) CLSID_Configurator =
+    {0xff862869,0xbb20,0x44b2,{0x94,0x9c,0x5e,0xa7,0xc0,0x98,0x42,0xee}};
+extern "C" const GUID __declspec(selectany) CLSID_MetaDataObj =
+    {0xb5e36b88,0xcda7,0x4107,{0x82,0xbf,0x6b,0x20,0xa8,0x15,0x8b,0x7a}};
+extern "C" const GUID __declspec(selectany) CLSID_MetaData =
+    {0x43a6fde2,0x747b,0x44dd,{0xa5,0x95,0x51,0x21,0x83,0xee,0x5b,0xeb}};
+extern "C" const GUID __declspec(selectany) CLSID_CfgWindows =
+    {0x765e4da1,0x4951,0x11d8,{0x8d,0x5f,0xad,0xb2,0x8b,0x91,0xf4,0x06}};
+extern "C" const GUID __declspec(selectany) CLSID_Plugins =
+    {0x72227927,0x708f,0x4b6f,{0x93,0x7f,0x85,0x0a,0x34,0xb3,0x03,0x5c}};
+extern "C" const GUID __declspec(selectany) CLSID_Scripts =
+    {0xbf10b93e,0xeba9,0x473f,{0xb5,0xc7,0x04,0xe1,0x38,0xee,0xe7,0xf3}};
+extern "C" const GUID __declspec(selectany) CLSID_Type1C =
+    {0xd3ae2151,0x3a84,0x4df2,{0xb8,0x01,0x43,0xde,0xd9,0x9a,0x01,0x3d}};
+extern "C" const GUID __declspec(selectany) CLSID_MetaDataObjChilds =
+    {0xe8855e48,0xe8a4,0x48d2,{0x8e,0x50,0x5e,0x19,0x70,0x33,0x1a,0x7b}};
+extern "C" const GUID __declspec(selectany) CLSID_MetaDataObjProps =
+    {0x8d97b6f5,0xf5b9,0x41db,{0x91,0x93,0xa9,0x21,0xa6,0x3b,0xb0,0xf6}};
+extern "C" const GUID __declspec(selectany) CLSID_CfgTimer =
+    {0x62520e90,0xffc6,0x4a86,{0x94,0xdd,0x83,0xbb,0xc1,0x94,0x35,0xcb}};
+extern "C" const GUID __declspec(selectany) CLSID_Migration =
+    {0x81477568,0xabbb,0x4ff3,{0x96,0x27,0xe1,0x40,0x29,0x85,0xb1,0x08}};
+extern "C" const GUID __declspec(selectany) CLSID_TaskDef =
+    {0xd685f452,0x6ab6,0x4e57,{0xb5,0xc2,0x4c,0x3c,0x9f,0xc9,0xe0,0xd2}};
+extern "C" const GUID __declspec(selectany) CLSID_MetaDataObjArray =
+    {0x8cda8e20,0x913a,0x4eeb,{0x91,0x72,0xa1,0x56,0x9f,0x66,0x3e,0x16}};
+
+#pragma pack(pop)

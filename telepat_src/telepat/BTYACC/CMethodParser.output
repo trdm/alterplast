@@ -1,0 +1,2764 @@
+   0  $accept : MODUL $end
+
+   1  MODUL : VARS METHODS STATEMENTS
+
+   2  VARS : VAR
+   3       | VARS VAR
+   4       |
+
+   5  VAR : var_1C VARIABLES _semicolon_1C
+
+   6  VARIABLES : _zname_1C
+   7            | _zname_1C export_1C
+   8            | _zname_1C _lBracket_1C _number_1C _rBracket_1C
+   9            | _zname_1C _lBracket_1C _number_1C _rBracket_1C export_1C
+  10            | VARIABLES _comma_1C VARIABLES
+
+  11  METHODS : METHOD
+  12          | METHODS METHOD
+  13          |
+
+  14  METHOD : proc_1C METHEADER LVARS STATEMENTS endproc_1C
+  15         | func_1C METHEADER LVARS STATEMENTS endfunc_1C
+  16         | proc_1C METHEADER forward_1C
+  17         | func_1C METHEADER forward_1C
+
+  18  METHEADER : METHNAME PARAMLIST
+  19            | METHNAME PARAMLIST export_1C
+
+  20  METHNAME : _zname_1C
+
+  21  PARAMLIST : _lPar_1C PARAMS _rPar_1C
+  22            | _lPar_1C _rPar_1C
+
+  23  PARAMS : _zname_1C
+  24         | val_1C _zname_1C
+  25         | _zname_1C _equal_1C
+  26         | val_1C _zname_1C _equal_1C
+  27         | _zname_1C _equal_1C CONSTANT
+  28         | val_1C _zname_1C _equal_1C CONSTANT
+  29         | _zname_1C _lBracket_1C _rBracket_1C
+  30         | PARAMS _comma_1C PARAMS
+
+  31  LVARS : LVAR
+  32        | LVARS LVAR
+  33        |
+
+  34  LVAR : var_1C LVARIABLES _semicolon_1C
+
+  35  LVARIABLES : _zname_1C
+  36             | _zname_1C _lBracket_1C _number_1C _rBracket_1C
+  37             | LVARIABLES _comma_1C LVARIABLES
+
+  38  STATEMENTS : STATEMENT
+  39             | STATEMENTS _semicolon_1C STATEMENT
+
+  40  STATEMENT : OPERATOR
+  41            | _label_1C _colon_1C OPERATOR
+  42            |
+
+  43  OPERATOR : ASSIGNMENT
+  44           | RVAL
+  45           | LOCALVAR
+  46           | TRYBLOCK
+  47           | IFBLOCK
+  48           | WHILEBLOCK
+  49           | FORBLOCK
+  50           | JUMP
+
+  51  JUMP : return_1C
+  52       | return_1C EXPRESSION
+  53       | break_1C
+  54       | continue_1C
+  55       | goto_1C _label_1C
+
+  56  LOCALVAR : _zname_1C _equal_1C EXPRESSION
+  57           | _zname_1C _equal_1C _crob_1C _lPar_1C EXPRESSION _rPar_1C
+
+  58  ASSIGNMENT : LVAL _equal_1C EXPRESSION
+
+  59  LVAL : _zname_1C
+  60       | _zname_1C _lBracket_1C EXPRESSION _rBracket_1C
+  61       | LVAL _period_1C _zname_1C
+  62       | RVAL _period_1C _zname_1C
+
+  63  RVAL : _zname_1C _lPar_1C REALPARAM _rPar_1C
+  64       | RVAL _period_1C _zname_1C _lPar_1C REALPARAM _rPar_1C
+  65       | LVAL _period_1C _zname_1C _lPar_1C REALPARAM _rPar_1C
+
+  66  REALPARAM : EXPRESSION
+  67            | REALPARAM _comma_1C REALPARAM
+  68            | context_1C
+  69            |
+
+  70  TRYBLOCK : try_1C STATEMENTS except_1C STATEMENTS endtry_1C
+
+  71  IFBLOCK : if_1C LOGIC then_1C STATEMENTS endif_1C
+  72          | if_1C LOGIC then_1C STATEMENTS ELSEBLOCK endif_1C
+  73          | if_1C LOGIC then_1C STATEMENTS ELSEIFBLOCK endif_1C
+  74          | if_1C LOGIC then_1C STATEMENTS ELSEIFBLOCK ELSEBLOCK endif_1C
+
+  75  ELSEIFBLOCK : elsif_1C LOGIC then_1C STATEMENTS
+  76              | ELSEIFBLOCK ELSEIFBLOCK
+
+  77  ELSEBLOCK : else_1C STATEMENTS
+
+  78  WHILEBLOCK : while_1C LOGIC do_1C STATEMENTS enddo_1C
+
+  79  FORBLOCK : for_1C LOCALVAR to_1C EXPRESSION do_1C STATEMENTS enddo_1C
+
+  80  LOGIC : EXPRESSION COMPARE EXPRESSION
+  81        | LOGICP
+
+  82  LOGICP : _lPar_1C LOGIC _rPar_1C
+  83         | not_1C _lPar_1C LOGIC _rPar_1C
+  84         | LOGICP and_1C LOGICP
+  85         | LOGICP or_1C LOGICP
+
+  86  COMPARE : _equal_1C
+  87          | _less_1C
+  88          | _grat_1C
+  89          | _grat_1C _equal_1C
+  90          | _less_1C _equal_1C
+  91          | _less_1C _grat_1C
+
+  92  EXPRESSION : EXPRBIN
+  93             | _plus_1C EXPRBIN
+  94             | _minus_1C EXPRBIN
+  95             | EXPRESSION OPERATION EXPRBIN
+
+  96  EXPRBIN : RVAL
+  97          | LVAL
+  98          | LITERAL
+  99          | _date_1C
+ 100          | _number_1C
+ 101          | _what_1C _lPar_1C LOGIC _comma_1C EXPRESSION _comma_1C EXPRESSION _rPar_1C
+ 102          | _lPar_1C EXPRESSION _rPar_1C
+
+ 103  OPERATION : _plus_1C
+ 104            | _minus_1C
+ 105            | _mult_1C
+ 106            | _div_1C
+ 107            | _percent_1C
+
+ 108  LITERAL : _literal_1C
+ 109          | LITERAL _literal_1C
+
+ 110  CONSTANT : LITERAL
+ 111           | _date_1C
+ 112           | _number_1C
+ 113           | _plus_1C _number_1C
+ 114           | _minus_1C _number_1C
+
+state 0
+	$accept : . MODUL $end  (0)
+	VARS : .  (4)
+
+	var_1C  shift 1
+	$end  reduce 4
+	_semicolon_1C  reduce 4
+	_label_1C  reduce 4
+	_zname_1C  reduce 4
+	for_1C  reduce 4
+	func_1C  reduce 4
+	if_1C  reduce 4
+	proc_1C  reduce 4
+	return_1C  reduce 4
+	try_1C  reduce 4
+	while_1C  reduce 4
+	break_1C  reduce 4
+	continue_1C  reduce 4
+	goto_1C  reduce 4
+
+	MODUL  goto 2
+	VARS  goto 3
+	VAR  goto 4
+
+
+state 1
+	VAR : var_1C . VARIABLES _semicolon_1C  (5)
+
+	_zname_1C  shift 5
+	.  error
+
+	VARIABLES  goto 6
+
+
+state 2
+	$accept : MODUL . $end  (0)
+
+	$end  accept
+
+
+state 3
+	MODUL : VARS . METHODS STATEMENTS  (1)
+	VARS : VARS . VAR  (3)
+	METHODS : .  (13)
+
+	func_1C  shift 7
+	proc_1C  shift 8
+	var_1C  shift 1
+	$end  reduce 13
+	_semicolon_1C  reduce 13
+	_label_1C  reduce 13
+	_zname_1C  reduce 13
+	for_1C  reduce 13
+	if_1C  reduce 13
+	return_1C  reduce 13
+	try_1C  reduce 13
+	while_1C  reduce 13
+	break_1C  reduce 13
+	continue_1C  reduce 13
+	goto_1C  reduce 13
+
+	METHODS  goto 9
+	VAR  goto 10
+	METHOD  goto 11
+
+
+state 4
+	VARS : VAR .  (2)
+
+	.  reduce 2
+
+
+state 5
+	VARIABLES : _zname_1C .  (6)
+	VARIABLES : _zname_1C . export_1C  (7)
+	VARIABLES : _zname_1C . _lBracket_1C _number_1C _rBracket_1C  (8)
+	VARIABLES : _zname_1C . _lBracket_1C _number_1C _rBracket_1C export_1C  (9)
+
+	_lBracket_1C  shift 12
+	export_1C  shift 13
+	_comma_1C  reduce 6
+	_semicolon_1C  reduce 6
+
+
+state 6
+	VAR : var_1C VARIABLES . _semicolon_1C  (5)
+	VARIABLES : VARIABLES . _comma_1C VARIABLES  (10)
+
+	_comma_1C  shift 14
+	_semicolon_1C  shift 15
+	.  error
+
+
+state 7
+	METHOD : func_1C . METHEADER LVARS STATEMENTS endfunc_1C  (15)
+	METHOD : func_1C . METHEADER forward_1C  (17)
+
+	_zname_1C  shift 16
+	.  error
+
+	METHEADER  goto 17
+	METHNAME  goto 18
+
+
+state 8
+	METHOD : proc_1C . METHEADER LVARS STATEMENTS endproc_1C  (14)
+	METHOD : proc_1C . METHEADER forward_1C  (16)
+
+	_zname_1C  shift 16
+	.  error
+
+	METHEADER  goto 19
+	METHNAME  goto 18
+
+
+state 9
+	MODUL : VARS METHODS . STATEMENTS  (1)
+	METHODS : METHODS . METHOD  (12)
+	STATEMENT : .  (42)
+
+	_label_1C  shift 20
+	_zname_1C  shift 21
+	for_1C  shift 22
+	func_1C  shift 7
+	if_1C  shift 23
+	proc_1C  shift 8
+	return_1C  shift 24
+	try_1C  shift 25
+	while_1C  shift 26
+	break_1C  shift 27
+	continue_1C  shift 28
+	goto_1C  shift 29
+	$end  reduce 42
+	_semicolon_1C  reduce 42
+
+	STATEMENTS  goto 30
+	METHOD  goto 31
+	STATEMENT  goto 32
+	OPERATOR  goto 33
+	ASSIGNMENT  goto 34
+	RVAL  goto 35
+	LOCALVAR  goto 36
+	TRYBLOCK  goto 37
+	IFBLOCK  goto 38
+	WHILEBLOCK  goto 39
+	FORBLOCK  goto 40
+	JUMP  goto 41
+	LVAL  goto 42
+
+
+state 10
+	VARS : VARS VAR .  (3)
+
+	.  reduce 3
+
+
+state 11
+	METHODS : METHOD .  (11)
+
+	.  reduce 11
+
+
+state 12
+	VARIABLES : _zname_1C _lBracket_1C . _number_1C _rBracket_1C  (8)
+	VARIABLES : _zname_1C _lBracket_1C . _number_1C _rBracket_1C export_1C  (9)
+
+	_number_1C  shift 43
+	.  error
+
+
+state 13
+	VARIABLES : _zname_1C export_1C .  (7)
+
+	.  reduce 7
+
+
+state 14
+	VARIABLES : VARIABLES _comma_1C . VARIABLES  (10)
+
+	_zname_1C  shift 5
+	.  error
+
+	VARIABLES  goto 44
+
+
+state 15
+	VAR : var_1C VARIABLES _semicolon_1C .  (5)
+
+	.  reduce 5
+
+
+state 16
+	METHNAME : _zname_1C .  (20)
+
+	.  reduce 20
+
+
+state 17
+	METHOD : func_1C METHEADER . LVARS STATEMENTS endfunc_1C  (15)
+	METHOD : func_1C METHEADER . forward_1C  (17)
+	LVARS : .  (33)
+
+	forward_1C  shift 45
+	var_1C  shift 46
+	_semicolon_1C  reduce 33
+	_label_1C  reduce 33
+	_zname_1C  reduce 33
+	endfunc_1C  reduce 33
+	for_1C  reduce 33
+	if_1C  reduce 33
+	return_1C  reduce 33
+	try_1C  reduce 33
+	while_1C  reduce 33
+	break_1C  reduce 33
+	continue_1C  reduce 33
+	goto_1C  reduce 33
+
+	LVARS  goto 47
+	LVAR  goto 48
+
+
+state 18
+	METHEADER : METHNAME . PARAMLIST  (18)
+	METHEADER : METHNAME . PARAMLIST export_1C  (19)
+
+	_lPar_1C  shift 49
+	.  error
+
+	PARAMLIST  goto 50
+
+
+state 19
+	METHOD : proc_1C METHEADER . LVARS STATEMENTS endproc_1C  (14)
+	METHOD : proc_1C METHEADER . forward_1C  (16)
+	LVARS : .  (33)
+
+	forward_1C  shift 51
+	var_1C  shift 46
+	_semicolon_1C  reduce 33
+	_label_1C  reduce 33
+	_zname_1C  reduce 33
+	endproc_1C  reduce 33
+	for_1C  reduce 33
+	if_1C  reduce 33
+	return_1C  reduce 33
+	try_1C  reduce 33
+	while_1C  reduce 33
+	break_1C  reduce 33
+	continue_1C  reduce 33
+	goto_1C  reduce 33
+
+	LVARS  goto 52
+	LVAR  goto 48
+
+
+state 20
+	STATEMENT : _label_1C . _colon_1C OPERATOR  (41)
+
+	_colon_1C  shift 53
+	.  error
+
+
+state 21
+	LOCALVAR : _zname_1C . _equal_1C EXPRESSION  (56)
+	LOCALVAR : _zname_1C . _equal_1C _crob_1C _lPar_1C EXPRESSION _rPar_1C  (57)
+	LVAL : _zname_1C .  (59)
+	LVAL : _zname_1C . _lBracket_1C EXPRESSION _rBracket_1C  (60)
+	RVAL : _zname_1C . _lPar_1C REALPARAM _rPar_1C  (63)
+
+	_lPar_1C  shift 54
+	_equal_1C  shift 55
+	_lBracket_1C  shift 56
+	_period_1C  reduce 59
+
+
+state 22
+	FORBLOCK : for_1C . LOCALVAR to_1C EXPRESSION do_1C STATEMENTS enddo_1C  (79)
+
+	_zname_1C  shift 57
+	.  error
+
+	LOCALVAR  goto 58
+
+
+state 23
+	IFBLOCK : if_1C . LOGIC then_1C STATEMENTS endif_1C  (71)
+	IFBLOCK : if_1C . LOGIC then_1C STATEMENTS ELSEBLOCK endif_1C  (72)
+	IFBLOCK : if_1C . LOGIC then_1C STATEMENTS ELSEIFBLOCK endif_1C  (73)
+	IFBLOCK : if_1C . LOGIC then_1C STATEMENTS ELSEIFBLOCK ELSEBLOCK endif_1C  (74)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 63
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	not_1C  shift 67
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 69
+	LVAL  goto 70
+	LOGIC  goto 71
+	LOGICP  goto 72
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 24
+	JUMP : return_1C .  (51)
+	JUMP : return_1C . EXPRESSION  (52)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	$end  reduce 51
+	_semicolon_1C  reduce 51
+	else_1C  reduce 51
+	elsif_1C  reduce 51
+	enddo_1C  reduce 51
+	endfunc_1C  reduce 51
+	endif_1C  reduce 51
+	endproc_1C  reduce 51
+	endtry_1C  reduce 51
+	except_1C  reduce 51
+
+	RVAL  goto 68
+	EXPRESSION  goto 76
+	LVAL  goto 70
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 25
+	TRYBLOCK : try_1C . STATEMENTS except_1C STATEMENTS endtry_1C  (70)
+	STATEMENT : .  (42)
+
+	_label_1C  shift 20
+	_zname_1C  shift 21
+	for_1C  shift 22
+	if_1C  shift 23
+	return_1C  shift 24
+	try_1C  shift 25
+	while_1C  shift 26
+	break_1C  shift 27
+	continue_1C  shift 28
+	goto_1C  shift 29
+	_semicolon_1C  reduce 42
+	except_1C  reduce 42
+
+	STATEMENTS  goto 77
+	STATEMENT  goto 32
+	OPERATOR  goto 33
+	ASSIGNMENT  goto 34
+	RVAL  goto 35
+	LOCALVAR  goto 36
+	TRYBLOCK  goto 37
+	IFBLOCK  goto 38
+	WHILEBLOCK  goto 39
+	FORBLOCK  goto 40
+	JUMP  goto 41
+	LVAL  goto 42
+
+
+state 26
+	WHILEBLOCK : while_1C . LOGIC do_1C STATEMENTS enddo_1C  (78)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 63
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	not_1C  shift 67
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 69
+	LVAL  goto 70
+	LOGIC  goto 78
+	LOGICP  goto 72
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 27
+	JUMP : break_1C .  (53)
+
+	.  reduce 53
+
+
+state 28
+	JUMP : continue_1C .  (54)
+
+	.  reduce 54
+
+
+state 29
+	JUMP : goto_1C . _label_1C  (55)
+
+	_label_1C  shift 79
+	.  error
+
+
+state 30
+	MODUL : VARS METHODS STATEMENTS .  (1)
+	STATEMENTS : STATEMENTS . _semicolon_1C STATEMENT  (39)
+
+	_semicolon_1C  shift 80
+	$end  reduce 1
+
+
+state 31
+	METHODS : METHODS METHOD .  (12)
+
+	.  reduce 12
+
+
+state 32
+	STATEMENTS : STATEMENT .  (38)
+
+	.  reduce 38
+
+
+state 33
+	STATEMENT : OPERATOR .  (40)
+
+	.  reduce 40
+
+
+state 34
+	OPERATOR : ASSIGNMENT .  (43)
+
+	.  reduce 43
+
+
+state 35
+	OPERATOR : RVAL .  (44)
+	LVAL : RVAL . _period_1C _zname_1C  (62)
+	RVAL : RVAL . _period_1C _zname_1C _lPar_1C REALPARAM _rPar_1C  (64)
+
+	_period_1C  shift 81
+	$end  reduce 44
+	_semicolon_1C  reduce 44
+	else_1C  reduce 44
+	elsif_1C  reduce 44
+	enddo_1C  reduce 44
+	endfunc_1C  reduce 44
+	endif_1C  reduce 44
+	endproc_1C  reduce 44
+	endtry_1C  reduce 44
+	except_1C  reduce 44
+
+
+state 36
+	OPERATOR : LOCALVAR .  (45)
+
+	.  reduce 45
+
+
+state 37
+	OPERATOR : TRYBLOCK .  (46)
+
+	.  reduce 46
+
+
+state 38
+	OPERATOR : IFBLOCK .  (47)
+
+	.  reduce 47
+
+
+state 39
+	OPERATOR : WHILEBLOCK .  (48)
+
+	.  reduce 48
+
+
+state 40
+	OPERATOR : FORBLOCK .  (49)
+
+	.  reduce 49
+
+
+state 41
+	OPERATOR : JUMP .  (50)
+
+	.  reduce 50
+
+
+state 42
+	ASSIGNMENT : LVAL . _equal_1C EXPRESSION  (58)
+	LVAL : LVAL . _period_1C _zname_1C  (61)
+	RVAL : LVAL . _period_1C _zname_1C _lPar_1C REALPARAM _rPar_1C  (65)
+
+	_equal_1C  shift 82
+	_period_1C  shift 83
+	.  error
+
+
+state 43
+	VARIABLES : _zname_1C _lBracket_1C _number_1C . _rBracket_1C  (8)
+	VARIABLES : _zname_1C _lBracket_1C _number_1C . _rBracket_1C export_1C  (9)
+
+	_rBracket_1C  shift 84
+	.  error
+
+
+state 44
+	VARIABLES : VARIABLES . _comma_1C VARIABLES  (10)
+	VARIABLES : VARIABLES _comma_1C VARIABLES .  (10)
+
+	.  reduce 10
+
+
+state 45
+	METHOD : func_1C METHEADER forward_1C .  (17)
+
+	.  reduce 17
+
+
+state 46
+	LVAR : var_1C . LVARIABLES _semicolon_1C  (34)
+
+	_zname_1C  shift 85
+	.  error
+
+	LVARIABLES  goto 86
+
+
+state 47
+	METHOD : func_1C METHEADER LVARS . STATEMENTS endfunc_1C  (15)
+	LVARS : LVARS . LVAR  (32)
+	STATEMENT : .  (42)
+
+	_label_1C  shift 20
+	_zname_1C  shift 21
+	for_1C  shift 22
+	if_1C  shift 23
+	return_1C  shift 24
+	try_1C  shift 25
+	var_1C  shift 46
+	while_1C  shift 26
+	break_1C  shift 27
+	continue_1C  shift 28
+	goto_1C  shift 29
+	_semicolon_1C  reduce 42
+	endfunc_1C  reduce 42
+
+	STATEMENTS  goto 87
+	LVAR  goto 88
+	STATEMENT  goto 32
+	OPERATOR  goto 33
+	ASSIGNMENT  goto 34
+	RVAL  goto 35
+	LOCALVAR  goto 36
+	TRYBLOCK  goto 37
+	IFBLOCK  goto 38
+	WHILEBLOCK  goto 39
+	FORBLOCK  goto 40
+	JUMP  goto 41
+	LVAL  goto 42
+
+
+state 48
+	LVARS : LVAR .  (31)
+
+	.  reduce 31
+
+
+state 49
+	PARAMLIST : _lPar_1C . PARAMS _rPar_1C  (21)
+	PARAMLIST : _lPar_1C . _rPar_1C  (22)
+
+	_rPar_1C  shift 89
+	_zname_1C  shift 90
+	val_1C  shift 91
+	.  error
+
+	PARAMS  goto 92
+
+
+state 50
+	METHEADER : METHNAME PARAMLIST .  (18)
+	METHEADER : METHNAME PARAMLIST . export_1C  (19)
+
+	export_1C  shift 93
+	_semicolon_1C  reduce 18
+	_label_1C  reduce 18
+	_zname_1C  reduce 18
+	endfunc_1C  reduce 18
+	endproc_1C  reduce 18
+	for_1C  reduce 18
+	forward_1C  reduce 18
+	if_1C  reduce 18
+	return_1C  reduce 18
+	try_1C  reduce 18
+	var_1C  reduce 18
+	while_1C  reduce 18
+	break_1C  reduce 18
+	continue_1C  reduce 18
+	goto_1C  reduce 18
+
+
+state 51
+	METHOD : proc_1C METHEADER forward_1C .  (16)
+
+	.  reduce 16
+
+
+state 52
+	METHOD : proc_1C METHEADER LVARS . STATEMENTS endproc_1C  (14)
+	LVARS : LVARS . LVAR  (32)
+	STATEMENT : .  (42)
+
+	_label_1C  shift 20
+	_zname_1C  shift 21
+	for_1C  shift 22
+	if_1C  shift 23
+	return_1C  shift 24
+	try_1C  shift 25
+	var_1C  shift 46
+	while_1C  shift 26
+	break_1C  shift 27
+	continue_1C  shift 28
+	goto_1C  shift 29
+	_semicolon_1C  reduce 42
+	endproc_1C  reduce 42
+
+	STATEMENTS  goto 94
+	LVAR  goto 88
+	STATEMENT  goto 32
+	OPERATOR  goto 33
+	ASSIGNMENT  goto 34
+	RVAL  goto 35
+	LOCALVAR  goto 36
+	TRYBLOCK  goto 37
+	IFBLOCK  goto 38
+	WHILEBLOCK  goto 39
+	FORBLOCK  goto 40
+	JUMP  goto 41
+	LVAL  goto 42
+
+
+state 53
+	STATEMENT : _label_1C _colon_1C . OPERATOR  (41)
+
+	_zname_1C  shift 21
+	for_1C  shift 22
+	if_1C  shift 23
+	return_1C  shift 24
+	try_1C  shift 25
+	while_1C  shift 26
+	break_1C  shift 27
+	continue_1C  shift 28
+	goto_1C  shift 29
+	.  error
+
+	OPERATOR  goto 95
+	ASSIGNMENT  goto 34
+	RVAL  goto 35
+	LOCALVAR  goto 36
+	TRYBLOCK  goto 37
+	IFBLOCK  goto 38
+	WHILEBLOCK  goto 39
+	FORBLOCK  goto 40
+	JUMP  goto 41
+	LVAL  goto 42
+
+
+state 54
+	RVAL : _zname_1C _lPar_1C . REALPARAM _rPar_1C  (63)
+	REALPARAM : .  (69)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	context_1C  shift 96
+	_comma_1C  reduce 69
+	_rPar_1C  reduce 69
+
+	RVAL  goto 68
+	EXPRESSION  goto 97
+	LVAL  goto 70
+	REALPARAM  goto 98
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 55
+	LOCALVAR : _zname_1C _equal_1C . EXPRESSION  (56)
+	LOCALVAR : _zname_1C _equal_1C . _crob_1C _lPar_1C EXPRESSION _rPar_1C  (57)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_crob_1C  shift 99
+	_zname_1C  shift 66
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 100
+	LVAL  goto 70
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 56
+	LVAL : _zname_1C _lBracket_1C . EXPRESSION _rBracket_1C  (60)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 101
+	LVAL  goto 70
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 57
+	LOCALVAR : _zname_1C . _equal_1C EXPRESSION  (56)
+	LOCALVAR : _zname_1C . _equal_1C _crob_1C _lPar_1C EXPRESSION _rPar_1C  (57)
+
+	_equal_1C  shift 55
+	.  error
+
+
+state 58
+	FORBLOCK : for_1C LOCALVAR . to_1C EXPRESSION do_1C STATEMENTS enddo_1C  (79)
+
+	to_1C  shift 102
+	.  error
+
+
+state 59
+	EXPRBIN : _number_1C .  (100)
+
+	.  reduce 100
+
+
+state 60
+	EXPRBIN : _date_1C .  (99)
+
+	.  reduce 99
+
+
+state 61
+	LITERAL : _literal_1C .  (108)
+
+	.  reduce 108
+
+
+state 62
+	EXPRBIN : _what_1C . _lPar_1C LOGIC _comma_1C EXPRESSION _comma_1C EXPRESSION _rPar_1C  (101)
+
+	_lPar_1C  shift 103
+	.  error
+
+
+state 63
+	LOGICP : _lPar_1C . LOGIC _rPar_1C  (82)
+	EXPRBIN : _lPar_1C . EXPRESSION _rPar_1C  (102)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 63
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	not_1C  shift 67
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 104
+	LVAL  goto 70
+	LOGIC  goto 105
+	LOGICP  goto 72
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 64
+	EXPRESSION : _plus_1C . EXPRBIN  (93)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_zname_1C  shift 66
+	.  error
+
+	RVAL  goto 68
+	LVAL  goto 70
+	EXPRBIN  goto 106
+	LITERAL  goto 74
+
+
+state 65
+	EXPRESSION : _minus_1C . EXPRBIN  (94)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_zname_1C  shift 66
+	.  error
+
+	RVAL  goto 68
+	LVAL  goto 70
+	EXPRBIN  goto 107
+	LITERAL  goto 74
+
+
+state 66
+	LVAL : _zname_1C .  (59)
+	LVAL : _zname_1C . _lBracket_1C EXPRESSION _rBracket_1C  (60)
+	RVAL : _zname_1C . _lPar_1C REALPARAM _rPar_1C  (63)
+
+	_lPar_1C  shift 54
+	_lBracket_1C  shift 56
+	$end  reduce 59
+	_comma_1C  reduce 59
+	_semicolon_1C  reduce 59
+	_rPar_1C  reduce 59
+	_equal_1C  reduce 59
+	_rBracket_1C  reduce 59
+	_plus_1C  reduce 59
+	_minus_1C  reduce 59
+	_mult_1C  reduce 59
+	_div_1C  reduce 59
+	_percent_1C  reduce 59
+	_less_1C  reduce 59
+	_grat_1C  reduce 59
+	do_1C  reduce 59
+	else_1C  reduce 59
+	elsif_1C  reduce 59
+	enddo_1C  reduce 59
+	endfunc_1C  reduce 59
+	endif_1C  reduce 59
+	endproc_1C  reduce 59
+	endtry_1C  reduce 59
+	except_1C  reduce 59
+	then_1C  reduce 59
+	to_1C  reduce 59
+	_period_1C  reduce 59
+
+
+state 67
+	LOGICP : not_1C . _lPar_1C LOGIC _rPar_1C  (83)
+
+	_lPar_1C  shift 108
+	.  error
+
+
+state 68
+	LVAL : RVAL . _period_1C _zname_1C  (62)
+	RVAL : RVAL . _period_1C _zname_1C _lPar_1C REALPARAM _rPar_1C  (64)
+	EXPRBIN : RVAL .  (96)
+
+	_period_1C  shift 81
+	$end  reduce 96
+	_comma_1C  reduce 96
+	_semicolon_1C  reduce 96
+	_rPar_1C  reduce 96
+	_equal_1C  reduce 96
+	_rBracket_1C  reduce 96
+	_plus_1C  reduce 96
+	_minus_1C  reduce 96
+	_mult_1C  reduce 96
+	_div_1C  reduce 96
+	_percent_1C  reduce 96
+	_less_1C  reduce 96
+	_grat_1C  reduce 96
+	do_1C  reduce 96
+	else_1C  reduce 96
+	elsif_1C  reduce 96
+	enddo_1C  reduce 96
+	endfunc_1C  reduce 96
+	endif_1C  reduce 96
+	endproc_1C  reduce 96
+	endtry_1C  reduce 96
+	except_1C  reduce 96
+	then_1C  reduce 96
+	to_1C  reduce 96
+
+
+state 69
+	LOGIC : EXPRESSION . COMPARE EXPRESSION  (80)
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+
+	_equal_1C  shift 109
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	_less_1C  shift 115
+	_grat_1C  shift 116
+	.  error
+
+	COMPARE  goto 117
+	OPERATION  goto 118
+
+
+state 70
+	LVAL : LVAL . _period_1C _zname_1C  (61)
+	RVAL : LVAL . _period_1C _zname_1C _lPar_1C REALPARAM _rPar_1C  (65)
+	EXPRBIN : LVAL .  (97)
+
+	_period_1C  shift 83
+	$end  reduce 97
+	_comma_1C  reduce 97
+	_semicolon_1C  reduce 97
+	_rPar_1C  reduce 97
+	_equal_1C  reduce 97
+	_rBracket_1C  reduce 97
+	_plus_1C  reduce 97
+	_minus_1C  reduce 97
+	_mult_1C  reduce 97
+	_div_1C  reduce 97
+	_percent_1C  reduce 97
+	_less_1C  reduce 97
+	_grat_1C  reduce 97
+	do_1C  reduce 97
+	else_1C  reduce 97
+	elsif_1C  reduce 97
+	enddo_1C  reduce 97
+	endfunc_1C  reduce 97
+	endif_1C  reduce 97
+	endproc_1C  reduce 97
+	endtry_1C  reduce 97
+	except_1C  reduce 97
+	then_1C  reduce 97
+	to_1C  reduce 97
+
+
+state 71
+	IFBLOCK : if_1C LOGIC . then_1C STATEMENTS endif_1C  (71)
+	IFBLOCK : if_1C LOGIC . then_1C STATEMENTS ELSEBLOCK endif_1C  (72)
+	IFBLOCK : if_1C LOGIC . then_1C STATEMENTS ELSEIFBLOCK endif_1C  (73)
+	IFBLOCK : if_1C LOGIC . then_1C STATEMENTS ELSEIFBLOCK ELSEBLOCK endif_1C  (74)
+
+	then_1C  shift 119
+	.  error
+
+
+state 72
+	LOGIC : LOGICP .  (81)
+	LOGICP : LOGICP . and_1C LOGICP  (84)
+	LOGICP : LOGICP . or_1C LOGICP  (85)
+
+	and_1C  shift 120
+	or_1C  shift 121
+	_comma_1C  reduce 81
+	_rPar_1C  reduce 81
+	do_1C  reduce 81
+	then_1C  reduce 81
+
+
+state 73
+	EXPRESSION : EXPRBIN .  (92)
+
+	.  reduce 92
+
+
+state 74
+	EXPRBIN : LITERAL .  (98)
+	LITERAL : LITERAL . _literal_1C  (109)
+
+	_literal_1C  shift 122
+	$end  reduce 98
+	_comma_1C  reduce 98
+	_semicolon_1C  reduce 98
+	_rPar_1C  reduce 98
+	_equal_1C  reduce 98
+	_rBracket_1C  reduce 98
+	_plus_1C  reduce 98
+	_minus_1C  reduce 98
+	_mult_1C  reduce 98
+	_div_1C  reduce 98
+	_percent_1C  reduce 98
+	_less_1C  reduce 98
+	_grat_1C  reduce 98
+	do_1C  reduce 98
+	else_1C  reduce 98
+	elsif_1C  reduce 98
+	enddo_1C  reduce 98
+	endfunc_1C  reduce 98
+	endif_1C  reduce 98
+	endproc_1C  reduce 98
+	endtry_1C  reduce 98
+	except_1C  reduce 98
+	then_1C  reduce 98
+	to_1C  reduce 98
+
+
+state 75
+	EXPRBIN : _lPar_1C . EXPRESSION _rPar_1C  (102)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 123
+	LVAL  goto 70
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 76
+	JUMP : return_1C EXPRESSION .  (52)
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	$end  reduce 52
+	_semicolon_1C  reduce 52
+	else_1C  reduce 52
+	elsif_1C  reduce 52
+	enddo_1C  reduce 52
+	endfunc_1C  reduce 52
+	endif_1C  reduce 52
+	endproc_1C  reduce 52
+	endtry_1C  reduce 52
+	except_1C  reduce 52
+
+	OPERATION  goto 118
+
+
+state 77
+	STATEMENTS : STATEMENTS . _semicolon_1C STATEMENT  (39)
+	TRYBLOCK : try_1C STATEMENTS . except_1C STATEMENTS endtry_1C  (70)
+
+	_semicolon_1C  shift 80
+	except_1C  shift 124
+	.  error
+
+
+state 78
+	WHILEBLOCK : while_1C LOGIC . do_1C STATEMENTS enddo_1C  (78)
+
+	do_1C  shift 125
+	.  error
+
+
+state 79
+	JUMP : goto_1C _label_1C .  (55)
+
+	.  reduce 55
+
+
+state 80
+	STATEMENTS : STATEMENTS _semicolon_1C . STATEMENT  (39)
+	STATEMENT : .  (42)
+
+	_label_1C  shift 20
+	_zname_1C  shift 21
+	for_1C  shift 22
+	if_1C  shift 23
+	return_1C  shift 24
+	try_1C  shift 25
+	while_1C  shift 26
+	break_1C  shift 27
+	continue_1C  shift 28
+	goto_1C  shift 29
+	$end  reduce 42
+	_semicolon_1C  reduce 42
+	else_1C  reduce 42
+	elsif_1C  reduce 42
+	enddo_1C  reduce 42
+	endfunc_1C  reduce 42
+	endif_1C  reduce 42
+	endproc_1C  reduce 42
+	endtry_1C  reduce 42
+	except_1C  reduce 42
+
+	STATEMENT  goto 126
+	OPERATOR  goto 33
+	ASSIGNMENT  goto 34
+	RVAL  goto 35
+	LOCALVAR  goto 36
+	TRYBLOCK  goto 37
+	IFBLOCK  goto 38
+	WHILEBLOCK  goto 39
+	FORBLOCK  goto 40
+	JUMP  goto 41
+	LVAL  goto 42
+
+
+state 81
+	LVAL : RVAL _period_1C . _zname_1C  (62)
+	RVAL : RVAL _period_1C . _zname_1C _lPar_1C REALPARAM _rPar_1C  (64)
+
+	_zname_1C  shift 127
+	.  error
+
+
+state 82
+	ASSIGNMENT : LVAL _equal_1C . EXPRESSION  (58)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 128
+	LVAL  goto 70
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 83
+	LVAL : LVAL _period_1C . _zname_1C  (61)
+	RVAL : LVAL _period_1C . _zname_1C _lPar_1C REALPARAM _rPar_1C  (65)
+
+	_zname_1C  shift 129
+	.  error
+
+
+state 84
+	VARIABLES : _zname_1C _lBracket_1C _number_1C _rBracket_1C .  (8)
+	VARIABLES : _zname_1C _lBracket_1C _number_1C _rBracket_1C . export_1C  (9)
+
+	export_1C  shift 130
+	_comma_1C  reduce 8
+	_semicolon_1C  reduce 8
+
+
+state 85
+	LVARIABLES : _zname_1C .  (35)
+	LVARIABLES : _zname_1C . _lBracket_1C _number_1C _rBracket_1C  (36)
+
+	_lBracket_1C  shift 131
+	_comma_1C  reduce 35
+	_semicolon_1C  reduce 35
+
+
+state 86
+	LVAR : var_1C LVARIABLES . _semicolon_1C  (34)
+	LVARIABLES : LVARIABLES . _comma_1C LVARIABLES  (37)
+
+	_comma_1C  shift 132
+	_semicolon_1C  shift 133
+	.  error
+
+
+state 87
+	METHOD : func_1C METHEADER LVARS STATEMENTS . endfunc_1C  (15)
+	STATEMENTS : STATEMENTS . _semicolon_1C STATEMENT  (39)
+
+	_semicolon_1C  shift 80
+	endfunc_1C  shift 134
+	.  error
+
+
+state 88
+	LVARS : LVARS LVAR .  (32)
+
+	.  reduce 32
+
+
+state 89
+	PARAMLIST : _lPar_1C _rPar_1C .  (22)
+
+	.  reduce 22
+
+
+state 90
+	PARAMS : _zname_1C .  (23)
+	PARAMS : _zname_1C . _equal_1C  (25)
+	PARAMS : _zname_1C . _equal_1C CONSTANT  (27)
+	PARAMS : _zname_1C . _lBracket_1C _rBracket_1C  (29)
+
+	_equal_1C  shift 135
+	_lBracket_1C  shift 136
+	_comma_1C  reduce 23
+	_rPar_1C  reduce 23
+
+
+state 91
+	PARAMS : val_1C . _zname_1C  (24)
+	PARAMS : val_1C . _zname_1C _equal_1C  (26)
+	PARAMS : val_1C . _zname_1C _equal_1C CONSTANT  (28)
+
+	_zname_1C  shift 137
+	.  error
+
+
+state 92
+	PARAMLIST : _lPar_1C PARAMS . _rPar_1C  (21)
+	PARAMS : PARAMS . _comma_1C PARAMS  (30)
+
+	_comma_1C  shift 138
+	_rPar_1C  shift 139
+	.  error
+
+
+state 93
+	METHEADER : METHNAME PARAMLIST export_1C .  (19)
+
+	.  reduce 19
+
+
+state 94
+	METHOD : proc_1C METHEADER LVARS STATEMENTS . endproc_1C  (14)
+	STATEMENTS : STATEMENTS . _semicolon_1C STATEMENT  (39)
+
+	_semicolon_1C  shift 80
+	endproc_1C  shift 140
+	.  error
+
+
+state 95
+	STATEMENT : _label_1C _colon_1C OPERATOR .  (41)
+
+	.  reduce 41
+
+
+state 96
+	REALPARAM : context_1C .  (68)
+
+	.  reduce 68
+
+
+state 97
+	REALPARAM : EXPRESSION .  (66)
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	_comma_1C  reduce 66
+	_rPar_1C  reduce 66
+
+	OPERATION  goto 118
+
+
+state 98
+	RVAL : _zname_1C _lPar_1C REALPARAM . _rPar_1C  (63)
+	REALPARAM : REALPARAM . _comma_1C REALPARAM  (67)
+
+	_comma_1C  shift 141
+	_rPar_1C  shift 142
+	.  error
+
+
+state 99
+	LOCALVAR : _zname_1C _equal_1C _crob_1C . _lPar_1C EXPRESSION _rPar_1C  (57)
+
+	_lPar_1C  shift 143
+	.  error
+
+
+state 100
+	LOCALVAR : _zname_1C _equal_1C EXPRESSION .  (56)
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	$end  reduce 56
+	_semicolon_1C  reduce 56
+	else_1C  reduce 56
+	elsif_1C  reduce 56
+	enddo_1C  reduce 56
+	endfunc_1C  reduce 56
+	endif_1C  reduce 56
+	endproc_1C  reduce 56
+	endtry_1C  reduce 56
+	except_1C  reduce 56
+	to_1C  reduce 56
+
+	OPERATION  goto 118
+
+
+state 101
+	LVAL : _zname_1C _lBracket_1C EXPRESSION . _rBracket_1C  (60)
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+
+	_rBracket_1C  shift 144
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	.  error
+
+	OPERATION  goto 118
+
+
+state 102
+	FORBLOCK : for_1C LOCALVAR to_1C . EXPRESSION do_1C STATEMENTS enddo_1C  (79)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 145
+	LVAL  goto 70
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 103
+	EXPRBIN : _what_1C _lPar_1C . LOGIC _comma_1C EXPRESSION _comma_1C EXPRESSION _rPar_1C  (101)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 63
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	not_1C  shift 67
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 69
+	LVAL  goto 70
+	LOGIC  goto 146
+	LOGICP  goto 72
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 104
+	LOGIC : EXPRESSION . COMPARE EXPRESSION  (80)
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+	EXPRBIN : _lPar_1C EXPRESSION . _rPar_1C  (102)
+
+	_rPar_1C  shift 147
+	_equal_1C  shift 109
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	_less_1C  shift 115
+	_grat_1C  shift 116
+	.  error
+
+	COMPARE  goto 117
+	OPERATION  goto 118
+
+
+state 105
+	LOGICP : _lPar_1C LOGIC . _rPar_1C  (82)
+
+	_rPar_1C  shift 148
+	.  error
+
+
+state 106
+	EXPRESSION : _plus_1C EXPRBIN .  (93)
+
+	.  reduce 93
+
+
+state 107
+	EXPRESSION : _minus_1C EXPRBIN .  (94)
+
+	.  reduce 94
+
+
+state 108
+	LOGICP : not_1C _lPar_1C . LOGIC _rPar_1C  (83)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 63
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	not_1C  shift 67
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 69
+	LVAL  goto 70
+	LOGIC  goto 149
+	LOGICP  goto 72
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 109
+	COMPARE : _equal_1C .  (86)
+
+	.  reduce 86
+
+
+state 110
+	OPERATION : _plus_1C .  (103)
+
+	.  reduce 103
+
+
+state 111
+	OPERATION : _minus_1C .  (104)
+
+	.  reduce 104
+
+
+state 112
+	OPERATION : _mult_1C .  (105)
+
+	.  reduce 105
+
+
+state 113
+	OPERATION : _div_1C .  (106)
+
+	.  reduce 106
+
+
+state 114
+	OPERATION : _percent_1C .  (107)
+
+	.  reduce 107
+
+
+state 115
+	COMPARE : _less_1C .  (87)
+	COMPARE : _less_1C . _equal_1C  (90)
+	COMPARE : _less_1C . _grat_1C  (91)
+
+	_equal_1C  shift 150
+	_grat_1C  shift 151
+	_number_1C  reduce 87
+	_date_1C  reduce 87
+	_literal_1C  reduce 87
+	_what_1C  reduce 87
+	_lPar_1C  reduce 87
+	_plus_1C  reduce 87
+	_minus_1C  reduce 87
+	_zname_1C  reduce 87
+
+
+state 116
+	COMPARE : _grat_1C .  (88)
+	COMPARE : _grat_1C . _equal_1C  (89)
+
+	_equal_1C  shift 152
+	_number_1C  reduce 88
+	_date_1C  reduce 88
+	_literal_1C  reduce 88
+	_what_1C  reduce 88
+	_lPar_1C  reduce 88
+	_plus_1C  reduce 88
+	_minus_1C  reduce 88
+	_zname_1C  reduce 88
+
+
+state 117
+	LOGIC : EXPRESSION COMPARE . EXPRESSION  (80)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 153
+	LVAL  goto 70
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 118
+	EXPRESSION : EXPRESSION OPERATION . EXPRBIN  (95)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_zname_1C  shift 66
+	.  error
+
+	RVAL  goto 68
+	LVAL  goto 70
+	EXPRBIN  goto 154
+	LITERAL  goto 74
+
+
+state 119
+	IFBLOCK : if_1C LOGIC then_1C . STATEMENTS endif_1C  (71)
+	IFBLOCK : if_1C LOGIC then_1C . STATEMENTS ELSEBLOCK endif_1C  (72)
+	IFBLOCK : if_1C LOGIC then_1C . STATEMENTS ELSEIFBLOCK endif_1C  (73)
+	IFBLOCK : if_1C LOGIC then_1C . STATEMENTS ELSEIFBLOCK ELSEBLOCK endif_1C  (74)
+	STATEMENT : .  (42)
+
+	_label_1C  shift 20
+	_zname_1C  shift 21
+	for_1C  shift 22
+	if_1C  shift 23
+	return_1C  shift 24
+	try_1C  shift 25
+	while_1C  shift 26
+	break_1C  shift 27
+	continue_1C  shift 28
+	goto_1C  shift 29
+	_semicolon_1C  reduce 42
+	else_1C  reduce 42
+	elsif_1C  reduce 42
+	endif_1C  reduce 42
+
+	STATEMENTS  goto 155
+	STATEMENT  goto 32
+	OPERATOR  goto 33
+	ASSIGNMENT  goto 34
+	RVAL  goto 35
+	LOCALVAR  goto 36
+	TRYBLOCK  goto 37
+	IFBLOCK  goto 38
+	WHILEBLOCK  goto 39
+	FORBLOCK  goto 40
+	JUMP  goto 41
+	LVAL  goto 42
+
+
+state 120
+	LOGICP : LOGICP and_1C . LOGICP  (84)
+
+	_lPar_1C  shift 156
+	not_1C  shift 67
+	.  error
+
+	LOGICP  goto 157
+
+
+state 121
+	LOGICP : LOGICP or_1C . LOGICP  (85)
+
+	_lPar_1C  shift 156
+	not_1C  shift 67
+	.  error
+
+	LOGICP  goto 158
+
+
+state 122
+	LITERAL : LITERAL _literal_1C .  (109)
+
+	.  reduce 109
+
+
+state 123
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+	EXPRBIN : _lPar_1C EXPRESSION . _rPar_1C  (102)
+
+	_rPar_1C  shift 147
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	.  error
+
+	OPERATION  goto 118
+
+
+state 124
+	TRYBLOCK : try_1C STATEMENTS except_1C . STATEMENTS endtry_1C  (70)
+	STATEMENT : .  (42)
+
+	_label_1C  shift 20
+	_zname_1C  shift 21
+	for_1C  shift 22
+	if_1C  shift 23
+	return_1C  shift 24
+	try_1C  shift 25
+	while_1C  shift 26
+	break_1C  shift 27
+	continue_1C  shift 28
+	goto_1C  shift 29
+	_semicolon_1C  reduce 42
+	endtry_1C  reduce 42
+
+	STATEMENTS  goto 159
+	STATEMENT  goto 32
+	OPERATOR  goto 33
+	ASSIGNMENT  goto 34
+	RVAL  goto 35
+	LOCALVAR  goto 36
+	TRYBLOCK  goto 37
+	IFBLOCK  goto 38
+	WHILEBLOCK  goto 39
+	FORBLOCK  goto 40
+	JUMP  goto 41
+	LVAL  goto 42
+
+
+state 125
+	WHILEBLOCK : while_1C LOGIC do_1C . STATEMENTS enddo_1C  (78)
+	STATEMENT : .  (42)
+
+	_label_1C  shift 20
+	_zname_1C  shift 21
+	for_1C  shift 22
+	if_1C  shift 23
+	return_1C  shift 24
+	try_1C  shift 25
+	while_1C  shift 26
+	break_1C  shift 27
+	continue_1C  shift 28
+	goto_1C  shift 29
+	_semicolon_1C  reduce 42
+	enddo_1C  reduce 42
+
+	STATEMENTS  goto 160
+	STATEMENT  goto 32
+	OPERATOR  goto 33
+	ASSIGNMENT  goto 34
+	RVAL  goto 35
+	LOCALVAR  goto 36
+	TRYBLOCK  goto 37
+	IFBLOCK  goto 38
+	WHILEBLOCK  goto 39
+	FORBLOCK  goto 40
+	JUMP  goto 41
+	LVAL  goto 42
+
+
+state 126
+	STATEMENTS : STATEMENTS _semicolon_1C STATEMENT .  (39)
+
+	.  reduce 39
+
+
+state 127
+	LVAL : RVAL _period_1C _zname_1C .  (62)
+	RVAL : RVAL _period_1C _zname_1C . _lPar_1C REALPARAM _rPar_1C  (64)
+
+	_lPar_1C  shift 161
+	$end  reduce 62
+	_comma_1C  reduce 62
+	_semicolon_1C  reduce 62
+	_rPar_1C  reduce 62
+	_equal_1C  reduce 62
+	_rBracket_1C  reduce 62
+	_plus_1C  reduce 62
+	_minus_1C  reduce 62
+	_mult_1C  reduce 62
+	_div_1C  reduce 62
+	_percent_1C  reduce 62
+	_less_1C  reduce 62
+	_grat_1C  reduce 62
+	do_1C  reduce 62
+	else_1C  reduce 62
+	elsif_1C  reduce 62
+	enddo_1C  reduce 62
+	endfunc_1C  reduce 62
+	endif_1C  reduce 62
+	endproc_1C  reduce 62
+	endtry_1C  reduce 62
+	except_1C  reduce 62
+	then_1C  reduce 62
+	to_1C  reduce 62
+	_period_1C  reduce 62
+
+
+state 128
+	ASSIGNMENT : LVAL _equal_1C EXPRESSION .  (58)
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	$end  reduce 58
+	_semicolon_1C  reduce 58
+	else_1C  reduce 58
+	elsif_1C  reduce 58
+	enddo_1C  reduce 58
+	endfunc_1C  reduce 58
+	endif_1C  reduce 58
+	endproc_1C  reduce 58
+	endtry_1C  reduce 58
+	except_1C  reduce 58
+
+	OPERATION  goto 118
+
+
+state 129
+	LVAL : LVAL _period_1C _zname_1C .  (61)
+	RVAL : LVAL _period_1C _zname_1C . _lPar_1C REALPARAM _rPar_1C  (65)
+
+	_lPar_1C  shift 162
+	$end  reduce 61
+	_comma_1C  reduce 61
+	_semicolon_1C  reduce 61
+	_rPar_1C  reduce 61
+	_equal_1C  reduce 61
+	_rBracket_1C  reduce 61
+	_plus_1C  reduce 61
+	_minus_1C  reduce 61
+	_mult_1C  reduce 61
+	_div_1C  reduce 61
+	_percent_1C  reduce 61
+	_less_1C  reduce 61
+	_grat_1C  reduce 61
+	do_1C  reduce 61
+	else_1C  reduce 61
+	elsif_1C  reduce 61
+	enddo_1C  reduce 61
+	endfunc_1C  reduce 61
+	endif_1C  reduce 61
+	endproc_1C  reduce 61
+	endtry_1C  reduce 61
+	except_1C  reduce 61
+	then_1C  reduce 61
+	to_1C  reduce 61
+	_period_1C  reduce 61
+
+
+state 130
+	VARIABLES : _zname_1C _lBracket_1C _number_1C _rBracket_1C export_1C .  (9)
+
+	.  reduce 9
+
+
+state 131
+	LVARIABLES : _zname_1C _lBracket_1C . _number_1C _rBracket_1C  (36)
+
+	_number_1C  shift 163
+	.  error
+
+
+state 132
+	LVARIABLES : LVARIABLES _comma_1C . LVARIABLES  (37)
+
+	_zname_1C  shift 85
+	.  error
+
+	LVARIABLES  goto 164
+
+
+state 133
+	LVAR : var_1C LVARIABLES _semicolon_1C .  (34)
+
+	.  reduce 34
+
+
+state 134
+	METHOD : func_1C METHEADER LVARS STATEMENTS endfunc_1C .  (15)
+
+	.  reduce 15
+
+
+state 135
+	PARAMS : _zname_1C _equal_1C .  (25)
+	PARAMS : _zname_1C _equal_1C . CONSTANT  (27)
+
+	_number_1C  shift 165
+	_date_1C  shift 166
+	_literal_1C  shift 61
+	_plus_1C  shift 167
+	_minus_1C  shift 168
+	_comma_1C  reduce 25
+	_rPar_1C  reduce 25
+
+	CONSTANT  goto 169
+	LITERAL  goto 170
+
+
+state 136
+	PARAMS : _zname_1C _lBracket_1C . _rBracket_1C  (29)
+
+	_rBracket_1C  shift 171
+	.  error
+
+
+state 137
+	PARAMS : val_1C _zname_1C .  (24)
+	PARAMS : val_1C _zname_1C . _equal_1C  (26)
+	PARAMS : val_1C _zname_1C . _equal_1C CONSTANT  (28)
+
+	_equal_1C  shift 172
+	_comma_1C  reduce 24
+	_rPar_1C  reduce 24
+
+
+state 138
+	PARAMS : PARAMS _comma_1C . PARAMS  (30)
+
+	_zname_1C  shift 90
+	val_1C  shift 91
+	.  error
+
+	PARAMS  goto 173
+
+
+state 139
+	PARAMLIST : _lPar_1C PARAMS _rPar_1C .  (21)
+
+	.  reduce 21
+
+
+state 140
+	METHOD : proc_1C METHEADER LVARS STATEMENTS endproc_1C .  (14)
+
+	.  reduce 14
+
+
+state 141
+	REALPARAM : REALPARAM _comma_1C . REALPARAM  (67)
+	REALPARAM : .  (69)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	context_1C  shift 96
+	_comma_1C  reduce 69
+	_rPar_1C  reduce 69
+
+	RVAL  goto 68
+	EXPRESSION  goto 97
+	LVAL  goto 70
+	REALPARAM  goto 174
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 142
+	RVAL : _zname_1C _lPar_1C REALPARAM _rPar_1C .  (63)
+
+	.  reduce 63
+
+
+state 143
+	LOCALVAR : _zname_1C _equal_1C _crob_1C _lPar_1C . EXPRESSION _rPar_1C  (57)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 175
+	LVAL  goto 70
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 144
+	LVAL : _zname_1C _lBracket_1C EXPRESSION _rBracket_1C .  (60)
+
+	.  reduce 60
+
+
+state 145
+	FORBLOCK : for_1C LOCALVAR to_1C EXPRESSION . do_1C STATEMENTS enddo_1C  (79)
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	do_1C  shift 176
+	.  error
+
+	OPERATION  goto 118
+
+
+state 146
+	EXPRBIN : _what_1C _lPar_1C LOGIC . _comma_1C EXPRESSION _comma_1C EXPRESSION _rPar_1C  (101)
+
+	_comma_1C  shift 177
+	.  error
+
+
+state 147
+	EXPRBIN : _lPar_1C EXPRESSION _rPar_1C .  (102)
+
+	.  reduce 102
+
+
+state 148
+	LOGICP : _lPar_1C LOGIC _rPar_1C .  (82)
+
+	.  reduce 82
+
+
+state 149
+	LOGICP : not_1C _lPar_1C LOGIC . _rPar_1C  (83)
+
+	_rPar_1C  shift 178
+	.  error
+
+
+state 150
+	COMPARE : _less_1C _equal_1C .  (90)
+
+	.  reduce 90
+
+
+state 151
+	COMPARE : _less_1C _grat_1C .  (91)
+
+	.  reduce 91
+
+
+state 152
+	COMPARE : _grat_1C _equal_1C .  (89)
+
+	.  reduce 89
+
+
+state 153
+	LOGIC : EXPRESSION COMPARE EXPRESSION .  (80)
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	_comma_1C  reduce 80
+	_rPar_1C  reduce 80
+	do_1C  reduce 80
+	then_1C  reduce 80
+
+	OPERATION  goto 118
+
+
+state 154
+	EXPRESSION : EXPRESSION OPERATION EXPRBIN .  (95)
+
+	.  reduce 95
+
+
+state 155
+	STATEMENTS : STATEMENTS . _semicolon_1C STATEMENT  (39)
+	IFBLOCK : if_1C LOGIC then_1C STATEMENTS . endif_1C  (71)
+	IFBLOCK : if_1C LOGIC then_1C STATEMENTS . ELSEBLOCK endif_1C  (72)
+	IFBLOCK : if_1C LOGIC then_1C STATEMENTS . ELSEIFBLOCK endif_1C  (73)
+	IFBLOCK : if_1C LOGIC then_1C STATEMENTS . ELSEIFBLOCK ELSEBLOCK endif_1C  (74)
+
+	_semicolon_1C  shift 80
+	else_1C  shift 179
+	elsif_1C  shift 180
+	endif_1C  shift 181
+	.  error
+
+	ELSEBLOCK  goto 182
+	ELSEIFBLOCK  goto 183
+
+
+state 156
+	LOGICP : _lPar_1C . LOGIC _rPar_1C  (82)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 63
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	not_1C  shift 67
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 69
+	LVAL  goto 70
+	LOGIC  goto 105
+	LOGICP  goto 72
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 157
+	LOGICP : LOGICP . and_1C LOGICP  (84)
+	LOGICP : LOGICP and_1C LOGICP .  (84)
+	LOGICP : LOGICP . or_1C LOGICP  (85)
+
+	.  reduce 84
+
+
+state 158
+	LOGICP : LOGICP . and_1C LOGICP  (84)
+	LOGICP : LOGICP . or_1C LOGICP  (85)
+	LOGICP : LOGICP or_1C LOGICP .  (85)
+
+	.  reduce 85
+
+
+state 159
+	STATEMENTS : STATEMENTS . _semicolon_1C STATEMENT  (39)
+	TRYBLOCK : try_1C STATEMENTS except_1C STATEMENTS . endtry_1C  (70)
+
+	_semicolon_1C  shift 80
+	endtry_1C  shift 184
+	.  error
+
+
+state 160
+	STATEMENTS : STATEMENTS . _semicolon_1C STATEMENT  (39)
+	WHILEBLOCK : while_1C LOGIC do_1C STATEMENTS . enddo_1C  (78)
+
+	_semicolon_1C  shift 80
+	enddo_1C  shift 185
+	.  error
+
+
+state 161
+	RVAL : RVAL _period_1C _zname_1C _lPar_1C . REALPARAM _rPar_1C  (64)
+	REALPARAM : .  (69)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	context_1C  shift 96
+	_comma_1C  reduce 69
+	_rPar_1C  reduce 69
+
+	RVAL  goto 68
+	EXPRESSION  goto 97
+	LVAL  goto 70
+	REALPARAM  goto 186
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 162
+	RVAL : LVAL _period_1C _zname_1C _lPar_1C . REALPARAM _rPar_1C  (65)
+	REALPARAM : .  (69)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	context_1C  shift 96
+	_comma_1C  reduce 69
+	_rPar_1C  reduce 69
+
+	RVAL  goto 68
+	EXPRESSION  goto 97
+	LVAL  goto 70
+	REALPARAM  goto 187
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 163
+	LVARIABLES : _zname_1C _lBracket_1C _number_1C . _rBracket_1C  (36)
+
+	_rBracket_1C  shift 188
+	.  error
+
+
+state 164
+	LVARIABLES : LVARIABLES . _comma_1C LVARIABLES  (37)
+	LVARIABLES : LVARIABLES _comma_1C LVARIABLES .  (37)
+
+	.  reduce 37
+
+
+state 165
+	CONSTANT : _number_1C .  (112)
+
+	.  reduce 112
+
+
+state 166
+	CONSTANT : _date_1C .  (111)
+
+	.  reduce 111
+
+
+state 167
+	CONSTANT : _plus_1C . _number_1C  (113)
+
+	_number_1C  shift 189
+	.  error
+
+
+state 168
+	CONSTANT : _minus_1C . _number_1C  (114)
+
+	_number_1C  shift 190
+	.  error
+
+
+state 169
+	PARAMS : _zname_1C _equal_1C CONSTANT .  (27)
+
+	.  reduce 27
+
+
+state 170
+	LITERAL : LITERAL . _literal_1C  (109)
+	CONSTANT : LITERAL .  (110)
+
+	_literal_1C  shift 122
+	_comma_1C  reduce 110
+	_rPar_1C  reduce 110
+
+
+state 171
+	PARAMS : _zname_1C _lBracket_1C _rBracket_1C .  (29)
+
+	.  reduce 29
+
+
+state 172
+	PARAMS : val_1C _zname_1C _equal_1C .  (26)
+	PARAMS : val_1C _zname_1C _equal_1C . CONSTANT  (28)
+
+	_number_1C  shift 165
+	_date_1C  shift 166
+	_literal_1C  shift 61
+	_plus_1C  shift 167
+	_minus_1C  shift 168
+	_comma_1C  reduce 26
+	_rPar_1C  reduce 26
+
+	CONSTANT  goto 191
+	LITERAL  goto 170
+
+
+state 173
+	PARAMS : PARAMS . _comma_1C PARAMS  (30)
+	PARAMS : PARAMS _comma_1C PARAMS .  (30)
+
+	.  reduce 30
+
+
+state 174
+	REALPARAM : REALPARAM . _comma_1C REALPARAM  (67)
+	REALPARAM : REALPARAM _comma_1C REALPARAM .  (67)
+
+	.  reduce 67
+
+
+state 175
+	LOCALVAR : _zname_1C _equal_1C _crob_1C _lPar_1C EXPRESSION . _rPar_1C  (57)
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+
+	_rPar_1C  shift 192
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	.  error
+
+	OPERATION  goto 118
+
+
+state 176
+	FORBLOCK : for_1C LOCALVAR to_1C EXPRESSION do_1C . STATEMENTS enddo_1C  (79)
+	STATEMENT : .  (42)
+
+	_label_1C  shift 20
+	_zname_1C  shift 21
+	for_1C  shift 22
+	if_1C  shift 23
+	return_1C  shift 24
+	try_1C  shift 25
+	while_1C  shift 26
+	break_1C  shift 27
+	continue_1C  shift 28
+	goto_1C  shift 29
+	_semicolon_1C  reduce 42
+	enddo_1C  reduce 42
+
+	STATEMENTS  goto 193
+	STATEMENT  goto 32
+	OPERATOR  goto 33
+	ASSIGNMENT  goto 34
+	RVAL  goto 35
+	LOCALVAR  goto 36
+	TRYBLOCK  goto 37
+	IFBLOCK  goto 38
+	WHILEBLOCK  goto 39
+	FORBLOCK  goto 40
+	JUMP  goto 41
+	LVAL  goto 42
+
+
+state 177
+	EXPRBIN : _what_1C _lPar_1C LOGIC _comma_1C . EXPRESSION _comma_1C EXPRESSION _rPar_1C  (101)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 194
+	LVAL  goto 70
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 178
+	LOGICP : not_1C _lPar_1C LOGIC _rPar_1C .  (83)
+
+	.  reduce 83
+
+
+state 179
+	ELSEBLOCK : else_1C . STATEMENTS  (77)
+	STATEMENT : .  (42)
+
+	_label_1C  shift 20
+	_zname_1C  shift 21
+	for_1C  shift 22
+	if_1C  shift 23
+	return_1C  shift 24
+	try_1C  shift 25
+	while_1C  shift 26
+	break_1C  shift 27
+	continue_1C  shift 28
+	goto_1C  shift 29
+	_semicolon_1C  reduce 42
+	endif_1C  reduce 42
+
+	STATEMENTS  goto 195
+	STATEMENT  goto 32
+	OPERATOR  goto 33
+	ASSIGNMENT  goto 34
+	RVAL  goto 35
+	LOCALVAR  goto 36
+	TRYBLOCK  goto 37
+	IFBLOCK  goto 38
+	WHILEBLOCK  goto 39
+	FORBLOCK  goto 40
+	JUMP  goto 41
+	LVAL  goto 42
+
+
+state 180
+	ELSEIFBLOCK : elsif_1C . LOGIC then_1C STATEMENTS  (75)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 63
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	not_1C  shift 67
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 69
+	LVAL  goto 70
+	LOGIC  goto 196
+	LOGICP  goto 72
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 181
+	IFBLOCK : if_1C LOGIC then_1C STATEMENTS endif_1C .  (71)
+
+	.  reduce 71
+
+
+state 182
+	IFBLOCK : if_1C LOGIC then_1C STATEMENTS ELSEBLOCK . endif_1C  (72)
+
+	endif_1C  shift 197
+	.  error
+
+
+state 183
+	IFBLOCK : if_1C LOGIC then_1C STATEMENTS ELSEIFBLOCK . endif_1C  (73)
+	IFBLOCK : if_1C LOGIC then_1C STATEMENTS ELSEIFBLOCK . ELSEBLOCK endif_1C  (74)
+	ELSEIFBLOCK : ELSEIFBLOCK . ELSEIFBLOCK  (76)
+
+	else_1C  shift 179
+	elsif_1C  shift 180
+	endif_1C  shift 198
+	.  error
+
+	ELSEBLOCK  goto 199
+	ELSEIFBLOCK  goto 200
+
+
+state 184
+	TRYBLOCK : try_1C STATEMENTS except_1C STATEMENTS endtry_1C .  (70)
+
+	.  reduce 70
+
+
+state 185
+	WHILEBLOCK : while_1C LOGIC do_1C STATEMENTS enddo_1C .  (78)
+
+	.  reduce 78
+
+
+state 186
+	RVAL : RVAL _period_1C _zname_1C _lPar_1C REALPARAM . _rPar_1C  (64)
+	REALPARAM : REALPARAM . _comma_1C REALPARAM  (67)
+
+	_comma_1C  shift 141
+	_rPar_1C  shift 201
+	.  error
+
+
+state 187
+	RVAL : LVAL _period_1C _zname_1C _lPar_1C REALPARAM . _rPar_1C  (65)
+	REALPARAM : REALPARAM . _comma_1C REALPARAM  (67)
+
+	_comma_1C  shift 141
+	_rPar_1C  shift 202
+	.  error
+
+
+state 188
+	LVARIABLES : _zname_1C _lBracket_1C _number_1C _rBracket_1C .  (36)
+
+	.  reduce 36
+
+
+state 189
+	CONSTANT : _plus_1C _number_1C .  (113)
+
+	.  reduce 113
+
+
+state 190
+	CONSTANT : _minus_1C _number_1C .  (114)
+
+	.  reduce 114
+
+
+state 191
+	PARAMS : val_1C _zname_1C _equal_1C CONSTANT .  (28)
+
+	.  reduce 28
+
+
+state 192
+	LOCALVAR : _zname_1C _equal_1C _crob_1C _lPar_1C EXPRESSION _rPar_1C .  (57)
+
+	.  reduce 57
+
+
+state 193
+	STATEMENTS : STATEMENTS . _semicolon_1C STATEMENT  (39)
+	FORBLOCK : for_1C LOCALVAR to_1C EXPRESSION do_1C STATEMENTS . enddo_1C  (79)
+
+	_semicolon_1C  shift 80
+	enddo_1C  shift 203
+	.  error
+
+
+state 194
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+	EXPRBIN : _what_1C _lPar_1C LOGIC _comma_1C EXPRESSION . _comma_1C EXPRESSION _rPar_1C  (101)
+
+	_comma_1C  shift 204
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	.  error
+
+	OPERATION  goto 118
+
+
+state 195
+	STATEMENTS : STATEMENTS . _semicolon_1C STATEMENT  (39)
+	ELSEBLOCK : else_1C STATEMENTS .  (77)
+
+	_semicolon_1C  shift 80
+	endif_1C  reduce 77
+
+
+state 196
+	ELSEIFBLOCK : elsif_1C LOGIC . then_1C STATEMENTS  (75)
+
+	then_1C  shift 205
+	.  error
+
+
+state 197
+	IFBLOCK : if_1C LOGIC then_1C STATEMENTS ELSEBLOCK endif_1C .  (72)
+
+	.  reduce 72
+
+
+state 198
+	IFBLOCK : if_1C LOGIC then_1C STATEMENTS ELSEIFBLOCK endif_1C .  (73)
+
+	.  reduce 73
+
+
+state 199
+	IFBLOCK : if_1C LOGIC then_1C STATEMENTS ELSEIFBLOCK ELSEBLOCK . endif_1C  (74)
+
+	endif_1C  shift 206
+	.  error
+
+
+state 200
+	ELSEIFBLOCK : ELSEIFBLOCK . ELSEIFBLOCK  (76)
+	ELSEIFBLOCK : ELSEIFBLOCK ELSEIFBLOCK .  (76)
+
+	.  reduce 76
+
+	ELSEIFBLOCK  goto 200
+
+
+state 201
+	RVAL : RVAL _period_1C _zname_1C _lPar_1C REALPARAM _rPar_1C .  (64)
+
+	.  reduce 64
+
+
+state 202
+	RVAL : LVAL _period_1C _zname_1C _lPar_1C REALPARAM _rPar_1C .  (65)
+
+	.  reduce 65
+
+
+state 203
+	FORBLOCK : for_1C LOCALVAR to_1C EXPRESSION do_1C STATEMENTS enddo_1C .  (79)
+
+	.  reduce 79
+
+
+state 204
+	EXPRBIN : _what_1C _lPar_1C LOGIC _comma_1C EXPRESSION _comma_1C . EXPRESSION _rPar_1C  (101)
+
+	_number_1C  shift 59
+	_date_1C  shift 60
+	_literal_1C  shift 61
+	_what_1C  shift 62
+	_lPar_1C  shift 75
+	_plus_1C  shift 64
+	_minus_1C  shift 65
+	_zname_1C  shift 66
+	.  error
+
+	RVAL  goto 68
+	EXPRESSION  goto 207
+	LVAL  goto 70
+	EXPRBIN  goto 73
+	LITERAL  goto 74
+
+
+state 205
+	ELSEIFBLOCK : elsif_1C LOGIC then_1C . STATEMENTS  (75)
+	STATEMENT : .  (42)
+
+	_label_1C  shift 20
+	_zname_1C  shift 21
+	for_1C  shift 22
+	if_1C  shift 23
+	return_1C  shift 24
+	try_1C  shift 25
+	while_1C  shift 26
+	break_1C  shift 27
+	continue_1C  shift 28
+	goto_1C  shift 29
+	_semicolon_1C  reduce 42
+	else_1C  reduce 42
+	elsif_1C  reduce 42
+	endif_1C  reduce 42
+
+	STATEMENTS  goto 208
+	STATEMENT  goto 32
+	OPERATOR  goto 33
+	ASSIGNMENT  goto 34
+	RVAL  goto 35
+	LOCALVAR  goto 36
+	TRYBLOCK  goto 37
+	IFBLOCK  goto 38
+	WHILEBLOCK  goto 39
+	FORBLOCK  goto 40
+	JUMP  goto 41
+	LVAL  goto 42
+
+
+state 206
+	IFBLOCK : if_1C LOGIC then_1C STATEMENTS ELSEIFBLOCK ELSEBLOCK endif_1C .  (74)
+
+	.  reduce 74
+
+
+state 207
+	EXPRESSION : EXPRESSION . OPERATION EXPRBIN  (95)
+	EXPRBIN : _what_1C _lPar_1C LOGIC _comma_1C EXPRESSION _comma_1C EXPRESSION . _rPar_1C  (101)
+
+	_rPar_1C  shift 209
+	_plus_1C  shift 110
+	_minus_1C  shift 111
+	_mult_1C  shift 112
+	_div_1C  shift 113
+	_percent_1C  shift 114
+	.  error
+
+	OPERATION  goto 118
+
+
+state 208
+	STATEMENTS : STATEMENTS . _semicolon_1C STATEMENT  (39)
+	ELSEIFBLOCK : elsif_1C LOGIC then_1C STATEMENTS .  (75)
+
+	_semicolon_1C  shift 80
+	else_1C  reduce 75
+	elsif_1C  reduce 75
+	endif_1C  reduce 75
+
+
+state 209
+	EXPRBIN : _what_1C _lPar_1C LOGIC _comma_1C EXPRESSION _comma_1C EXPRESSION _rPar_1C .  (101)
+
+	.  reduce 101
+
+
+55 terminals, 37 nonterminals
+115 grammar rules, 210 states

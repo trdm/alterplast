@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{EAF909A5-FA59-4C3D-9431-0FCC20D5BCF9}") = "forwarder", "forwarder.icproj", "{2D5F6860-D838-4D47-9B6B-34A1FC74F191}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+		ReleaseVS|Win32 = ReleaseVS|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D5F6860-D838-4D47-9B6B-34A1FC74F191}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2D5F6860-D838-4D47-9B6B-34A1FC74F191}.Debug|Win32.Build.0 = Debug|Win32
+		{2D5F6860-D838-4D47-9B6B-34A1FC74F191}.Release|Win32.ActiveCfg = Release|Win32
+		{2D5F6860-D838-4D47-9B6B-34A1FC74F191}.Release|Win32.Build.0 = Release|Win32
+		{2D5F6860-D838-4D47-9B6B-34A1FC74F191}.ReleaseVS|Win32.ActiveCfg = ReleaseVS|Win32
+		{2D5F6860-D838-4D47-9B6B-34A1FC74F191}.ReleaseVS|Win32.Build.0 = ReleaseVS|Win32
+		{D524CE4E-2DAC-45CC-ACFE-5F944EAD62E1}.ReleaseVS|Win32.Build.0 = ReleaseVS|Win32
+		{D524CE4E-2DAC-45CC-ACFE-5F944EAD62E1}.ReleaseVS|Win32.ActiveCfg = ReleaseVS|Win32
+		{D524CE4E-2DAC-45CC-ACFE-5F944EAD62E1}.Release|Win32.Build.0 = Release|Win32
+		{D524CE4E-2DAC-45CC-ACFE-5F944EAD62E1}.Release|Win32.ActiveCfg = Release|Win32
+		{D524CE4E-2DAC-45CC-ACFE-5F944EAD62E1}.Debug|Win32.Build.0 = Debug|Win32
+		{D524CE4E-2DAC-45CC-ACFE-5F944EAD62E1}.Debug|Win32.ActiveCfg = Debug|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

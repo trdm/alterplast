@@ -1,0 +1,9 @@
+
+class SQL_DBF_Базовый = SQL_DBF_Базовый.txt : ТестовыйСлучайСДанными
+{}
+
+class ODBC_DBF_Тесты = ODBC_DBF_Тесты.txt : SQL_DBF_Базовый
+{}
+
+class ODBC_SQL_Тесты = ODBC_SQL_Тесты.txt : SQL_DBF_Базовый
+{}

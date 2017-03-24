@@ -1,0 +1,5 @@
+// проверка работы по пути относительного текущего defcls.prm
+//	[http://cvs.alterplast.ru/bugs/show_bug.cgi?id=1605]
+
+class Класс_ВПапке_Относительно_Текущего_DefClsPrm = Класс_ВПапке_Относительно_Текущего_DefClsPrm.txt
+{}

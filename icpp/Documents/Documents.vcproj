@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="8,00"
+	Name="Documents"
+	ProjectGUID="{6ED4A087-0174-4ADD-8871-20392E92C88B}"
+	Keyword="MakeFileProj"
+	>
+	<Platforms>
+		<Platform
+			Name="Win32"
+		/>
+	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
+	<Configurations>
+		<Configuration
+			Name="CHM|Win32"
+			OutputDirectory=".\chm"
+			IntermediateDirectory=".\html"
+			ConfigurationType="10"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName=".\chm/Documents.tlb"
+				HeaderFileName=""
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ALS|Win32"
+			OutputDirectory=".\ALS"
+			IntermediateDirectory=".\ALS"
+			ConfigurationType="10"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName=".\ALS/Documents.tlb"
+				HeaderFileName=""
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="HTML|Win32"
+			OutputDirectory=".\HTML"
+			IntermediateDirectory=".\HTML"
+			ConfigurationType="10"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName=".\HTML/Documents.tlb"
+				HeaderFileName=""
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Users Docs"
+			>
+			<File
+				RelativePath="1cpp.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="ActiveX.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="BinaryData.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="classes.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="Compatibility.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="DataProviderSDK.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="extobjs.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="guid.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="Hooker.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="IndexedTable.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="Informer.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="LogDataProvider.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="Math.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="MetaInfoClasses.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="ODBC.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="oledb.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="SettingsManager.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="TableField.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="TurboBL.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Developers Docs"
+			>
+			<File
+				RelativePath="chmcreate.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="DocumentsRules.rst"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(IntDir)\$(InputName).html&quot;&#x0D;&#x0A;set hhpname=&quot;$(IntDir)\$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;if exist %intname% del %intname%&#x0D;&#x0A;rst2html.py --output-encoding=CP1251 &quot;$(InputPath)&quot; %intname%&#x0D;&#x0A;if not exist %intname% (&#x0D;&#x0A;echo Error create %intname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;cscript &quot;$(ProjectDir)html2chm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(IntDir)\$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName).html"
+						CommandLine="rst2html.py --output-encoding CP1251 $(InputPath) $(IntDir)\$(InputName).html&#x0D;&#x0A;"
+						Outputs="$(IntDir)\$(InputName).html"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Resource files"
+			>
+			<File
+				RelativePath="commonchm.txt"
+				>
+			</File>
+			<File
+				RelativePath="html\default.css"
+				>
+			</File>
+			<File
+				RelativePath="html\img\seealso.PNG"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="KB"
+			>
+			<File
+				RelativePath="KB\TSQLInV7FirstSteps.html"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Компиляция $(InputName)"
+						CommandLine="set intname=&quot;$(InputPath)&quot;&#x0D;&#x0A;set hhpname=&quot;$(InputDir)$(InputName).hhp&quot;&#x0D;&#x0A;set chmname=&quot;$(OutDir)\$(InputName).chm&quot;&#x0D;&#x0A;cscript &quot;$(ProjectDir)simplechm.js&quot; //nologo //d %intname% &quot;$(OutDir)&quot;&#x0D;&#x0A;if not exist %hhpname% (&#x0D;&#x0A;echo Error create %hhpname% and project files&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;if exist %chmname% del %chmname%&#x0D;&#x0A;if exist %chmname% (&#x0D;&#x0A;echo Error delete old %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;hhc %hhpname% &gt; nul&#x0D;&#x0A;if not exist %chmname% (&#x0D;&#x0A;echo Error create %chmname%&#x0D;&#x0A;exit 1&#x0D;&#x0A;)&#x0D;&#x0A;call &quot;$(InputDir)$(InputName)del.bat&quot;&#x0D;&#x0A;del &quot;$(InputDir)$(InputName)del.bat&quot;&#x0D;&#x0A;exit 0&#x0D;&#x0A;"
+						Outputs="$(OutDir)\$(InputName).chm"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Non-rst"
+			>
+			<File
+				RelativePath="DevelopersReadme.txt"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="history.txt"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						Outputs=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="Release.txt"
+				>
+				<FileConfiguration
+					Name="CHM|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="HTML|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

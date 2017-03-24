@@ -1,0 +1,143 @@
+import "oaidl.idl";
+import "ocidl.idl";
+	
+	[
+		object,
+		uuid(AB634001-F13D-11d0-A459-004095E1DAEA),
+		helpstring("IInitDone Interface"),
+		pointer_default(unique)
+	]
+	interface IInitDone : IUnknown
+	{
+		[helpstring("method Init")] HRESULT Init([in] IDispatch *pConnection);
+		[helpstring("method Done")] HRESULT Done();
+		[helpstring("method GetInfo")] HRESULT GetInfo([in,out] SAFEARRAY (VARIANT) *pInfo);
+	};
+
+	[
+		object,
+		uuid(AB634002-F13D-11d0-A459-004095E1DAEA),
+		helpstring("IPropertyProfile Interface"),
+		pointer_default(unique)
+	]
+	interface IPropertyProfile : IPropertyBag
+	{
+        [helpstring("method RegisterProfileAs")] HRESULT RegisterProfileAs(BSTR bstrProfileName);
+	};
+
+	[
+		object,
+		uuid(ab634004-f13d-11d0-a459-004095e1daea),
+		helpstring("IAsyncEvent Interface"),
+		pointer_default(unique)
+	]
+	interface IAsyncEvent : IUnknown
+	{
+		[helpstring("method SetEventBufferDepth")] HRESULT SetEventBufferDepth(long lDepth);
+		[helpstring("method GetEventBufferDepth")] HRESULT GetEventBufferDepth(long *plDepth);
+		[helpstring("method ExternalEvent")] HRESULT ExternalEvent(BSTR bstrSource, BSTR bstrMessage, BSTR bstrData);
+		[helpstring("method CleanBuffer")] HRESULT CleanBuffer();
+	};
+
+	[
+		object,
+		uuid(AB634003-F13D-11d0-A459-004095E1DAEA),
+		helpstring("ILanguageExtender Interface"),
+		pointer_default(unique)
+	]
+	interface ILanguageExtender : IUnknown
+	{
+		[helpstring("method RegisterExtensionAs")] HRESULT RegisterExtensionAs([in,out]BSTR *bstrExtensionName);
+		[helpstring("method GetNProps")] HRESULT GetNProps([in,out]long *plProps);
+		[helpstring("method FindProp")] HRESULT FindProp([in]BSTR bstrPropName,[in,out]long *plPropNum);
+		[helpstring("method GetPropName")] HRESULT GetPropName([in]long lPropNum,[in]long lPropAlias,[in,out]BSTR *pbstrPropName);
+		[helpstring("method GetPropVal")] HRESULT GetPropVal([in]long lPropNum,[in,out]VARIANT *pvarPropVal);
+		[helpstring("method SetPropVal")] HRESULT SetPropVal([in]long lPropNum,[in]VARIANT *varPropVal);
+		[helpstring("method IsPropReadable")] HRESULT IsPropReadable([in]long lPropNum,[in,out]BOOL *pboolPropRead);
+		[helpstring("method IsPropWritable")] HRESULT IsPropWritable([in]long lPropNum,[in,out]BOOL *pboolPropWrite);
+
+		[helpstring("method GetNMethods")] HRESULT GetNMethods([in,out]long *plMethods);
+		[helpstring("method FindMethod")] HRESULT FindMethod(BSTR bstrMethodName,[in,out]long *plMethodNum);
+		[helpstring("method GetMethodName")] HRESULT GetMethodName([in]long lMethodNum,[in]long lMethodAlias,[in,out]BSTR *pbstrMethodName);
+		[helpstring("method GetNParams")] HRESULT GetNParams([in]long lMethodNum,[in,out]long *plParams);
+		[helpstring("method GetParamDefValue")] HRESULT GetParamDefValue([in]long lMethodNum,[in]long lParamNum,[in,out]VARIANT *pvarParamDefValue);
+		[helpstring("method HasRetVal")] HRESULT HasRetVal([in]long lMethodNum,[in,out]BOOL *pboolRetValue);
+		[helpstring("method CallAsProc")] HRESULT CallAsProc([in]long lMethodNum,[in] SAFEARRAY (VARIANT) *paParams);
+		[helpstring("method CallAsFunc")] HRESULT CallAsFunc([in]long lMethodNum,[in,out] VARIANT *pvarRetValue,[in] SAFEARRAY (VARIANT) *paParams);
+	};
+
+	[
+		object,
+		uuid(ab634005-f13d-11d0-a459-004095e1daea),
+		helpstring("IStatusLine Interface"),
+		pointer_default(unique)
+	]
+	interface IStatusLine : IUnknown
+	{
+		[helpstring("method SetStatusLine")] HRESULT SetStatusLine(BSTR bstrStatusLine);
+		[helpstring("method ResetStatusLine")] HRESULT ResetStatusLine();
+	};
+
+	[
+		object,
+		uuid(efe19ea0-09e4-11d2-a601-008048da00de),
+		helpstring("IExtWndsSupport Interface"),
+		pointer_default(unique)
+	]
+	interface IExtWndsSupport : IUnknown
+	{
+		[helpstring("method GetAppMainFrame")] HRESULT GetAppMainFrame([in,out]HWND *hwnd);
+		[helpstring("method GetAppMDIFrame")] HRESULT GetAppMDIFrame([in,out]HWND *hwnd);
+		[helpstring("method CreateAddInWindow")] HRESULT CreateAddInWindow([in]BSTR bstrProgID, [in]BSTR bstrWindowName, [in]long dwStyles, [in]long dwExStyles, [in]RECT *rctl, [in]long Flags, [in,out]HWND *pHwnd, [in,out]IDispatch **pDisp);
+	};
+		/* Special custom interface that provides data exchange 
+		   between IPropertyPage and component object
+		*/
+	[
+		object,
+		uuid(52512A61-2A9D-11d1-A4D6-004095E1DAEA),
+		helpstring("IPropertyLink Interface"),
+		pointer_default(unique)
+	]
+	interface IPropertyLink : IUnknown
+	{
+        [helpstring("method get_Enabled(char* pData, int Id)")] HRESULT get_Enabled(char* pData, int Id);
+        [helpstring("method put_Enabled(char* pData, int Id)")] HRESULT put_Enabled(char* pData, int Id);
+	};
+
+[
+	//uuid(1FAB8D49-1A1A-4672-A980-C7D11A759697),
+	uuid(3A5F0172-87E1-4ab6-BE86-39066F6E0AB9),
+	version(1.0),
+	helpstring("1C++ 1.0")
+]
+library Addin
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+//kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib 
+	[
+		//uuid(DF786190-17D6-4da2-BACD-AA945F269BDF),
+		uuid(FDE5AE76-00B3-4bdb-921B-D5937997B1B7),
+		helpstring("1C++ Class")
+	]
+	coclass ExtraC
+	{
+		[default] interface IInitDone;
+		interface ILanguageExtender;
+		interface IPropertyPage;
+	};
+
+	[
+		//uuid(50AE5953-0431-4c6f-9F8C-B46FDF872ACD),
+		uuid(3DB19F89-E57D-4698-A6DC-4CD702FA9B4D),
+		helpstring("AddInConnection Class")
+	]
+	coclass AddInConnection
+	{
+		[default] interface IPropertyProfile;
+		interface IAsyncEvent;
+		interface IStatusLine;
+		interface IDispatch;
+	};
+};

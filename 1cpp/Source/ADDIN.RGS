@@ -1,0 +1,24 @@
+HKCR
+{
+	Addin.1C++.1 = s 'OXY'
+	{
+		CLSID = s '{FDE5AE76-00B3-4bdb-921B-D5937997B1B7}'
+	}
+	Addin.1C++ = s 'OXY'
+	{
+		CLSID = s '{FDE5AE76-00B3-4bdb-921B-D5937997B1B7}'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {FDE5AE76-00B3-4bdb-921B-D5937997B1B7} = s 'OXY'
+		{
+			ProgID = s 'Addin.1C++.1'
+			VersionIndependentProgID = s 'Addin.1C++'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'both'
+			}
+		}
+	} 
+}
+ 

@@ -1,0 +1,253 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Russian resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+#ifdef _WIN32
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// REGISTRY
+//
+
+IDR_AddIn               REGISTRY DISCARDABLE    "AddIn.rgs"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ADDIN_PROP_PAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 253
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 202
+    END
+
+    IDD_ABOUT_1CPP, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 274
+        TOPMARGIN, 8
+        BOTTOMMARGIN, 204
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ADDIN_PROP_PAGE DIALOGEX 0, 0, 260, 209
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "Информация для пользователей:",IDC_STATIC,7,7,246,195,
+                    BS_CENTER | BS_FLAT
+    CONTROL         "Проверка типов",IDC_CHECK_TYPE,"Button",BS_AUTOCHECKBOX | 
+                    BS_LEFTTEXT | BS_PUSHLIKE | WS_TABSTOP,98,184,63,12,
+                    WS_EX_STATICEDGE
+    CONTROL         "Оптимизация",IDC_OPTIMIZATE,"Button",BS_AUTOCHECKBOX | 
+                    BS_LEFTTEXT | BS_PUSHLIKE | WS_TABSTOP,22,184,63,12,
+                    WS_EX_STATICEDGE
+    EDITTEXT        IDC_EDIT1,15,53,229,128,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_AUTOHSCROLL | ES_READONLY | ES_WANTRETURN | ES_NUMBER | 
+                    WS_VSCROLL | WS_HSCROLL,WS_EX_DLGMODALFRAME | 
+                    WS_EX_CLIENTEDGE
+    CONTROL         "Отладчик",IDC_ENABLE_DEBUGGING,"Button",BS_AUTOCHECKBOX | 
+                    BS_LEFTTEXT | BS_PUSHLIKE | WS_TABSTOP,173,184,63,12,
+                    WS_EX_STATICEDGE
+    CTEXT           "1C++ v:_VersionInfo_ \n Права на ВК принадлежат разработчикам © 2000-2005\nВсе права защищены",
+                    IDC_ABOUT_STATIC,29,17,208,25,NOT WS_GROUP
+    LTEXT           "",IDC_DLLPATH,16,43,228,8
+END
+
+IDD_ABOUT_1CPP DIALOGEX 0, 0, 276, 211
+STYLE WS_CHILD | WS_VISIBLE
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CTEXT           "1C++ v:_VersionInfo_ \n Права на ВК принадлежат разработчикам © 2000-2008\nВсе права защищены",
+                    IDC_ABOUT_STATIC,60,8,208,25,NOT WS_GROUP
+    CTEXT           "www.1cpp.ru",IDC_STATIC,58,38,210,8,SS_NOTIFY | 
+                    SS_CENTERIMAGE
+    CONTROL         "",IDC_ABOUT_RICHEDIT,"RICHEDIT",ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | 
+                    ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL,59,50,209,108,
+                    WS_EX_STATICEDGE
+    CONTROL         "",IDC_STATIC,"Static",SS_GRAYRECT | SS_SUNKEN | 
+                    WS_GROUP,1,162,273,1
+    LTEXT           "Путь к компоненте:",IDC_STATIC,10,169,68,8
+    LTEXT           "",IDC_DLLPATH,84,169,184,35
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_CURSOR1             CURSOR  DISCARDABLE     "cursor1.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_CG_IMAGES           BITMAP  DISCARDABLE     "bmp00001.bmp"
+IDB_LOGO                BITMAP  DISCARDABLE     "logo.bmp"
+IDB_ABOUTTAB            BITMAP  DISCARDABLE     "bmp00002.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICONMAIN            ICON    DISCARDABLE     "icon1.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_OBJECT_NAME         "1C++"
+    IDS_PROPPAGE_CAPTION    "Настройки 1C++"
+    IDS_MESSAGE_SOURCE      "Компонента Visual C++ 6.0"
+    IDS_TERM_ENABLED        "IsEnabled,Включен"
+    IDS_TERM_ENABLE         "Enable,Включить"
+    IDS_TERM_DISABLE        "Disable,Выключить"
+    IDS_ERROR_SOURCE        "Компонента Visual C++ 6.0"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ERROR_DESCRIPTION   "Отсуствует интерфейс IStatusLine"
+    IDS_STRDEFINE           "defcls.prm"
+END
+
+#endif    // Russian resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "1 TYPELIB ""AddIn.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,5,0,8
+ PRODUCTVERSION 2,5,0,8
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Author E-MAIL", "1cpp@cvs.alterplast.ru\0"
+            VALUE "Author name", "1C++ community\0"
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "1C++ community\0"
+            VALUE "FileDescription", "External module\0"
+            VALUE "FileVersion", "2, 5, 0, 8\0"
+            VALUE "InternalName", "1C++\0"
+            VALUE "LegalCopyright", "Copyright 2000 - 2008\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "1C++.DLL\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "1C++ OOP for 1C\0"
+            VALUE "ProductVersion", "2, 5, 0, 8\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+1 TYPELIB "AddIn.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,12 @@
+"IDJOURNAL","C",4,0
+"IDDOC","C",9,0
+"IDDOCDEF","C",4,0
+"APPCODE","N",3,0
+"DATE","D",8,0
+"TIME","C",6,0
+"DNPREFIX","C",18,0
+"DOCNO","C",5,0
+"CLOSED","N",1,0
+"ISMARK","C",1,0
+"ACTCNT","C",6,0
+"VERSTAMP","C",6,0

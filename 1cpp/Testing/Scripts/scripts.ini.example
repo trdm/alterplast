@@ -1,0 +1,14 @@
+# scripts.ini example.
+#
+# Copy this file to scripts.ini
+# Edit scripts.ini: change values for your case.
+#
+# there MUST be a new line at the end of the file
+
+# Strings with '#' at first position - ignored
+# Strings without '=' - ignored
+# You may round names, values and '=' with so many spaces and tabs, as you wish
+
+1CUser	= 
+1CPasswd= 
+1CExe		= C:\Program Files\1Cv77\Bin25\BIN\1CV7.exe

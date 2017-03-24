@@ -1,0 +1,35 @@
+//#include SpecialClasses\ОбщиеКлассы\defcls.prm
+//#include LoaderUnitTests\defcls.prm
+
+//#include OOP\defcls.prm
+
+//#include VTExt\VTExt_tests.prm
+
+//#include SpecialClasses\defcls.prm
+
+//#include CursorGrid\defcls.prm
+//#include FormEx\defcls.prm
+
+// определение "ODBC\defcls.prm" всегда должно быть впереди
+// определений SQL и DBF
+// из-за базового класса SQL_DBF_Базовый
+
+//#include ODBC\defcls.prm
+//#include OleDB\defcls.prm
+//#include SQL\defcls.prm
+
+//#include TurboBL\defcls.prm
+
+class Тесты_ПроверкаПовторнойЗагрузки1СПП = Тест_ПроверкаПовторнойЗагрузки1СПП.txt  : ТестовыйСлучайСДанными
+{}
+
+// далее проверка работы по пути относительного текущего defcls.prm
+//	[http://cvs.alterplast.ru/bugs/show_bug.cgi?id=1605]
+
+// и заодно проверка работы с кавычками
+//#include "OOP\defcls_ОтносительныеПути.prm"
+
+// специально проверка работы с кавычками
+class КлассСКавычками1 = "ExtForms\UnitTests\ТестыИсходнойТаблицы.ert"
+{                                                           
+}

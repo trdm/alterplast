@@ -1,0 +1,10 @@
+"OBJID","C",9,0
+"ID","C",4,0
+"DATE","D",8,0
+"PARTNO","N",3,0
+"VALUE","C",23,0
+"DOCID","C",9,0
+"TIME","C",6,0
+"ACTNO","N",6,0
+"LINENO","N",4,0
+"TVALUE","C",3,0

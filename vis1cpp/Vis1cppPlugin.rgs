@@ -1,0 +1,26 @@
+HKCR
+{
+	Vis1cpp.Vis1cppPlugin.1 = s 'Vis1cppPlugin Class'
+	{
+		CLSID = s '{DF840278-740B-4025-BE44-C5FDE9DB6436}'
+	}
+	Vis1cpp.Vis1cppPlugin = s 'Vis1cppPlugin Class'
+	{
+		CLSID = s '{DF840278-740B-4025-BE44-C5FDE9DB6436}'
+		CurVer = s 'Vis1cpp.Vis1cppPlugin.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {DF840278-740B-4025-BE44-C5FDE9DB6436} = s 'Vis1cppPlugin Class'
+		{
+			ProgID = s 'Vis1cpp.Vis1cppPlugin.1'
+			VersionIndependentProgID = s 'Vis1cpp.Vis1cppPlugin'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{DD3D5FFD-2F06-402A-85AB-FE05A1E9B212}'
+		}
+	}
+}

@@ -1,0 +1,294 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Russian resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+#ifdef _WIN32
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// REGISTRY
+//
+
+IDR_VIS1CPPPLUGIN       REGISTRY DISCARDABLE    "Vis1cppPlugin.rgs"
+IDR_COCLASSINFO         REGISTRY DISCARDABLE    "CoClassInfo.rgs"
+IDR_COCLASSES           REGISTRY DISCARDABLE    "CoClasses.rgs"
+IDR_CODEFFILES          REGISTRY DISCARDABLE    "CoDefFiles.rgs"
+IDR_CODEFFILE           REGISTRY DISCARDABLE    "CoDefFile.rgs"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "1 TYPELIB ""Vis1cpp.tlb""\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1251)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\vis1cpp.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,1,0,1
+ PRODUCTVERSION 1,1,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x21L
+#else
+ FILEFLAGS 0x20L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041904e3"
+        BEGIN
+            VALUE "Comments", "Автор не дает никаких гарантий по поводу работы продукта\0"
+            VALUE "CompanyName", "Александр Орефков\r\norefkov@ezmail.ru\r\nhttp://www.1cpp.ru\0"
+            VALUE "FileDescription", "Visual 1C++\0"
+            VALUE "FileVersion", "1, 1, 0, 1 beta\0"
+            VALUE "InternalName", "vis1cpp\0"
+            VALUE "LegalCopyright", "Copyright 2003-2008\0"
+            VALUE "LegalTrademarks", "1C++\r\nРазработка Deb (Oxy software)\r\nРазработка artbear - синтакс-контроль и работа с классами в одном файле + объектная модель плагина для скриптов\0"
+            VALUE "OriginalFilename", "vis1cpp.dll\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "Оболочка для работы с классами 1С++ в среде Конфигуратора\0"
+            VALUE "ProductVersion", "1, 1, 0, 1 beta\0"
+            VALUE "SpecialBuild", "special from artbear\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x419, 1251
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_CLASS               ICON    DISCARDABLE     "res\\class.ico"
+IDI_PRIVMET             ICON    DISCARDABLE     "res\\privmet.ico"
+IDI_DECLPROC            ICON    DISCARDABLE     "res\\openmet.ico"
+IDI_PRIVMEMB            ICON    DISCARDABLE     "res\\privmemb.ico"
+IDI_OPENMEMB            ICON    DISCARDABLE     "res\\openmemb.ico"
+IDI_WRCCPACE            ICON    DISCARDABLE     "res\\deffile.ico"
+IDI_DEFFILE             ICON    DISCARDABLE     "res\\icon1.ico"
+IDI_OPENMET             ICON    DISCARDABLE     "res\\ico00001.ico"
+IDI_BASECLASSES         ICON    DISCARDABLE     "res\\ico00002.ico"
+IDR_MAIN                ICON    DISCARDABLE     "res\\class1.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_EMPTY DIALOG DISCARDABLE  0, 0, 237, 58
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "У выбранного объекта нет свойств",IDC_STATIC,44,23,126,
+                    9
+END
+
+IDD_ROOT DIALOG DISCARDABLE  0, 0, 218, 52
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Общие"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Размещение",IDC_STATIC,6,4,48,8
+    EDITTEXT        IDC_EDIT1,6,15,206,12,ES_AUTOHSCROLL | ES_READONLY | NOT 
+                    WS_BORDER
+    LTEXT           "Каталог программы",IDC_STATIC,6,27,76,8
+    EDITTEXT        IDC_EDIT2,6,38,206,12,ES_AUTOHSCROLL | ES_READONLY | NOT 
+                    WS_BORDER
+END
+
+IDD_CLASS DIALOG DISCARDABLE  0, 0, 252, 50
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Общие"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Файл заголовка",IDC_STATIC,5,11,60,8
+    LTEXT           "Файл модуля",IDC_STATIC,6,26,60,8
+    EDITTEXT        IDC_EDIT1,74,11,170,12,ES_AUTOHSCROLL | ES_READONLY | 
+                    NOT WS_BORDER
+    EDITTEXT        IDC_EDIT2,74,26,170,12,ES_AUTOHSCROLL | ES_READONLY | 
+                    NOT WS_BORDER
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_EMPTY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 51
+    END
+
+    IDD_ROOT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 211
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 45
+    END
+
+    IDD_CLASS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 245
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 43
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCELERATOR1 ACCELERATORS DISCARDABLE 
+BEGIN
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_RETURN,      100,                    VIRTKEY, ALT, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_TOOLBAR1 TOOLBAR DISCARDABLE  16, 15
+BEGIN
+    BUTTON      33188
+    BUTTON      ID_BUTTON32773
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_TOOLBAR1            BITMAP  DISCARDABLE     "res\\toolbar1.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAIN MENU DISCARDABLE 
+BEGIN
+    POPUP "Test"
+    BEGIN
+        MENUITEM "Test1",                       ID_TEST_TEST1
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_PROJNAME            "Vis1cpp.Vis1cppPlugin"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_BUTTON32772          "adfjlsdkjf\nsuefthas askugysdfukg"
+    ID_BUTTON32773          "sdfsagas\nuwtywerugftsw sghsdfuvgfsd"
+END
+
+#endif    // Russian resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+1 TYPELIB "Vis1cpp.tlb"
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1251)
+#endif //_WIN32
+#include "res\vis1cpp.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+ <component>
+ <?component error="true" debug="true"?>
+ 
+ <registration
+     description="Дополнительные скриптовый функции..."
+     progid="ScriptingPlus.Function"
+     version="1.00"
+     classid="{D4DDF39C-DB4C-4ac4-999D-CE6176A65475}"     
+
+ >
+ </registration>
+ <comment>Используем библиотеку типов OpenConf'a</comment> 
+ <comment>'Версия: $Revision: 1.1 $</comment> 
+ 
+
+ 
+ <public>
+     <method name="TrimEx">
+         <PARAMETER name="psLine"/>
+     </method>
+     <method name="TrimLEx">
+         <PARAMETER name="psLine"/>
+     </method>
+     <method name="TrimREx">
+         <PARAMETER name="psLine"/>
+     </method>
+     <method name="JGetNMatch">
+         <PARAMETER name="psStr"/>
+         <PARAMETER name="psPatern"/>
+         <PARAMETER name="psNMatch"/>
+     </method>
+     <method name="AppendStr">
+         <PARAMETER name="psLineToApd"/>
+         <PARAMETER name="psAddString"/>
+         <PARAMETER name="psSpliter"/>
+     </method>
+ </public>
+ 
+ <script language="VBScript">
+ <![CDATA[
+	
+	Dim RE
+	Set RE = New RegExp
+	RE.IgnoreCase = true 
+
+	' Проблема в том, что Trim не убирает табуляцию..
+	' А она нам как-бы не нужна
+	' Убираем ВСЕ ведущие и завершающие пробелы и табуляцию...
+	Function TrimEx( psLine )
+		cLine = TrimLEx ( psLine )	' Убираем слева
+		cLine = TrimREx( cLine )	' Убираем справа
+		TrimEx = cLine
+	End Function
+	
+	' Убираем ВСЕ ведущие пробелы и табуляцию...
+	Function TrimLEx ( psLine ) ' Убираем слева
+		cLine = Trim(psLine)
+		RE.Pattern = "^\s{1,}([^\s]{1,1})"
+		Set m = RE.Execute(cLine)
+		For i=0 To m.Count-1
+			cLine = Mid( cLine, Len(m.Item(i).Value))
+		Next
+		TrimLEx = cLine
+	End Function
+
+	' Убираем ВСЕ завершающие пробелы и табуляцию...
+	Function TrimREx ( psLine ) ' Убираем справа
+		cLine = Trim(psLine)
+		RE.Pattern = "([^\s]{1,1})\s{1,}$"
+		Set m = RE.Execute(cLine)
+		For i=0 To m.Count-1
+			cLine = Mid( cLine, 1,1+Len(cLine)-Len(m.Item(i).Value))
+		Next	
+		TrimREx = cLine
+	End Function
+
+	' Добавим к строке с разделителями еще строку
+	Function AppendStr ( psLineToApd, psAddString, psSpliter ) 
+		
+		if Len(psLineToApd)>0 Then
+			if Len(psAddString)> 0 Then
+				psLineToApd = psLineToApd + CStr(psSpliter) + CStr(psAddString)
+			End If	
+		Else
+			psLineToApd = CStr(psAddString)
+		End If			
+		AppendStr = psLineToApd
+	End Function	
+	
+ ]]>
+ </script>
+ <script language="JScript">
+ <![CDATA[
+	function JGetNMatch( psStr, psPatern,psNMatch) {
+		try {
+			var re = new RegExp(psPatern, "gmi");
+			var Matches = re.exec(psStr);
+			if (Matches != null) {
+				return Matches[psNMatch];			
+			}
+		}
+		catch (e) 
+		{
+		return "";
+		}
+	}
+ ]]>
+ </script>
+ 
+ </component>
+

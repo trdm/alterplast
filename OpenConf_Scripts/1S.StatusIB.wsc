@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!--
+
+	Определение статуса информационной базы 1С.
+	Используются следующие варианты:
+	1)	"В базе никого нет"
+	2)	"База работает или в монопольном режиме или один пользователь работает в разделенном режиме"
+	3)	"Выполнен некорректный выход из 1С, нужна переиндексация"
+	4)	"1С работает в разделенном режиме"
+	
+	Примечание. 
+	1) скриплет работает только для DBF-баз ( пока !!)
+	2) пока не удается разделить монопольный режим или работу одного пользователя в разделенном режиме 'все работает
+	
+    Copyright (c) Артур Аюханов aka artbear, 2004
+	E-mail:		<artbear@bashnet.ru>
+	ICQ UIN:	265666057
+
+-->
+<component>
+
+<?component error="true" debug="true"?>
+
+<registration
+	description="1S.IBState"
+	progid="1S.IBState"
+	version="1.00"
+	classid="{50ae727d-9377-4032-bd63-db8afc8f75f5}"
+>
+</registration>
+
+<public>
+	<method name="IBState">
+	<comment><![CDATA[
+	  Получить состояние базы в виде числа
+		-1	-->>	"Выполнен некорректный выход из 1С, нужна переиндексация"
+		0	-->>	"В базе никого нет"
+		1	-->>	"База работает в монопольном режиме"
+		2	-->>	"В базе работает один пользователь в разделенном режиме"
+		3	-->>	"1С работает в разделенном режиме"
+	]]></comment>
+		<PARAMETER name="strIBDir"/>
+	</method>
+	<method name="StringIBState">
+	<comment><![CDATA[
+	  Получить состояние базы в виде строки вида
+		1)	"Выполнен некорректный выход из 1С, нужна переиндексация"
+		2)	"В базе никого нет"
+		3)	"База работает в монопольном режиме"
+		4)	"В базе работает один пользователь в разделенном режиме"
+		5)	"1С работает в разделенном режиме"
+	]]></comment>
+		<PARAMETER name="strIBDir"/>
+	</method>
+	<method name="IBStateToString">
+	<comment><![CDATA[
+	  Конвертирует состояние базы, полученное из "IBState" в строка того же вида, что возвращает "StringIBState"
+	]]></comment>
+		<PARAMETER name="iIBState"/>
+	</method>
+	<method name="GetIBUsersCount">
+	<comment><![CDATA[
+	  Возвращает Количество пользователей в базе.
+	]]></comment>
+		<PARAMETER name="strIBDir"/>
+	</method>
+</public>
+
+<script language="VBScript">
+<![CDATA[
+
+Function StringIBState(strIBDir)
+	StringIBState = IBStateToString( IBState(strIBDir) )
+End Function
+
+function IBStateToString(iIBState)
+	IBStateToString = ""
+	if iIBState = 0 then
+		IBStateToString = "В базе никого нет"
+	end if
+	if iIBState = 1 then
+		 IBStateToString = "База работает в монопольном режиме"
+	end if
+	if iIBState = 2 then
+		 IBStateToString = "В базе работает один пользователь в разделенном режиме"
+	end if
+	if iIBState = -1 then
+		IBStateToString = "Выполнен некорректный выход из 1С, нужна переиндексация"
+	end if
+	if iIBState = 3 then
+		 IBStateToString = "1С работает в разделенном режиме"
+	end if
+end function
+
+Function IBState(strIBDir)
+	iIBUsersCount = GetIBUsersCount(strIBDir)
+	bIsAnyUserInIB = not TryFileOpen(strIBDir)
+
+	if (iIBUsersCount = 0) then ' убрал условие открытия. Если 0 какая разница можно писать или нет?
+		IBState = 0 ' в базе никого нет
+	end if
+	if (iIBUsersCount = -1) then '  то же самое. Если монопольно, какая разница можно открыть или нет?
+		IBState = 1 ' кто-то сидит монопольно
+	end if
+	if (iIBUsersCount = 1) and bIsAnyUserInIB then
+		IBState = 2 ' В базе работает один пользователь
+	end if
+	if (iIBUsersCount > 0) and not bIsAnyUserInIB then
+		IBState = -1 ' некорректный выход из программы, нужна переиндексация
+	end if
+	if (iIBUsersCount > 1) and bIsAnyUserInIB then
+		IBState = 3 '1С работает в разделенном режиме
+	end if
+End Function
+
+Function TryFileOpen(strIBDir)
+	TryFileOpen = false
+	set fso = CreateObject("Scripting.FileSystemObject")
+    
+	strIBDir2 = strIBDir
+	if Right(strIBDir, 1) <> "\" then
+		strIBDir2 = strIBDir & "\"
+	end if
+
+	on Error resume next
+	ForAppending = 8 
+	set file = fso.OpenTextFile(strIBDir2 & "1susers.dbf", ForAppending)
+	iErrNumber = Err.Number
+
+	on Error goto 0
+
+	if iErrNumber <> 0 then
+		Exit Function
+	end if
+	
+	file.Close
+	TryFileOpen = true
+End Function
+	
+Function GetIBUsersCount(strIBDir)
+	GetIBUsersCount = -1
+	strText = "select usrscnt from 1susers"
+	
+	'ConnectString =	"DRIVER=Microsoft Visual FoxPro Driver;Deleted=Yes;Null=Yes;Collate=RUSSIAN;"+ _
+	'					"Exclusive=No;SourceType=DBF;SourceDB="+strIBDir
+	ConnectString = "DRIVER=Driver do Microsoft dBase (*.dbf);FIL=dBase 5.0;DriverId=533;CollatingSequence=ASCII;DefaultDir=" & _
+						strIBDir & ";UID=Admin"
+						
+	set Connection=CreateObject("ADODB.Connection")
+	Connection.ConnectionTimeOut=600
+
+	Connection.Open(ConnectString)
+
+	set Rs=CreateObject("ADODB.RecordSet")
+	Rs.ActiveConnection=Connection
+	
+	on Error resume next
+
+	Rs.Open strText, Connection
+	iErrNumber = Err.Number
+
+	on Error goto 0
+	
+	if iErrNumber = 0 then
+		GetIBUsersCount = CInt(Rs.Fields(0).Value)
+	else
+		GetIBUsersCount = -1 ' монопольный режим
+	end if
+
+	on Error resume next
+	Rs.Close
+	Connection.Close
+	on Error goto 0
+End Function
+
+]]>
+</script>
+
+</component>

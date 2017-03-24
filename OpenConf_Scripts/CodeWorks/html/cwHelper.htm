@@ -1,0 +1,174 @@
+<html>
+
+<!--
+	Copyright (c) 2005 OpenConf Community	<http://openconf.itland.ru>
+	Copyright (c) 2005 Alexander Kuntashov	<kuntashov@yandex.ru>
+
+	HTML-интерфейс редактора шаблонов (скрипт cwHelper.js) для скрипта для 
+	массовой вставки кода Алексея Диркса (CodeIns.pl, CodeWorks.pm)
+
+	$Id: cwHelper.htm,v 1.1 2005/07/27 13:20:29 a13x Exp $
+
+	Авторы:  
+		Александр Кунташов aka a13x <kuntashov@yandex.ru> icq#338758861  
+-->
+
+<head><title>Code Works Helper</title>
+<link rel="stylesheet" type="text/css" href="./style.css" />
+
+<script language="JavaScript">
+
+var h = null;
+var ThisObj = null;
+
+function SetHandlers(handlers) 
+{ 
+	h = handlers;  
+	return baseFrame;
+}
+
+function onAddClick()		{ h.onAddClick(baseFrame)		}
+function onDelClick()		{ h.onDelClick(baseFrame)		}
+function onUpClick()		{ h.onUpClick(baseFrame)		}
+function onDownClick()		{ h.onDownClick(baseFrame)		}
+function onDlgSaveClick()	{ h.onDlgSaveClick(baseFrame)	}
+function onDlgCancelClick() { h.onDlgCancelClick(baseFrame)	}
+
+function onOpenProjectClick() { h.onOpenProjectClick() }
+function onSaveProjectClick() { h.onSaveProjectClick() }
+
+function onUnload()	{ h.onClose() }
+
+function editAction(ix) { h.editAction(ix) }
+
+</script>
+
+</head>
+<body onUnload="onUnload();">
+<center>
+<div id="baseFrame">
+	<div id="fmMain">
+			<div id="mainMenu">
+				<input type="button" name="btnAdd"	 value="Добавить"	onClick="onAddClick();" />
+				<input type="button" name="btnDel"	 value="Удалить"	onClick="onDelClick();" />
+				<input type="button" name="btnUp"	 value="Вверх"		onClick="onUpClick();" />
+				<input type="button" name="btnDown"	 value="Вниз"		onClick="onDownClick();" />				
+				<input type="button" name="btnOpen"	 value="Открыть"	onClick="onOpenProjectClick();" />
+				<input type="button" name="btnSave"	 value="Сохранить"	onClick="onSaveProjectClick();" />
+			</div>
+			<div id="projectContainer">
+			 	<!-- 
+					сюда будут записываться строки вида
+					Добавить объявление переменной МояПеременная в модуль
+					Удалить процедуру ПриОткрытии()
+					Добавить код в процедуру ПриЗакрытии()
+					и т.п.
+					-->
+			</div>
+		</div>	
+		<div id="fmDialog">
+			<div id="dlgBody">
+				<!-- сюда динамически вставляется html-код диалога -->
+			</div>
+			<div class="dlgFooter">
+				<input type="button" value="      OK      " onClick="onDlgSaveClick();" />
+				<input type="button" value="Отмена" onClick="onDlgCancelClick();" />
+			</div>
+
+		</div>
+
+<div id="allDialogs">
+			
+	<div id="dlgRemoveProc">
+		<h4>RemoveProc / Удалить подпрограмму</h4>
+		<input type="hidden" name="type" value="RemoveProc" />
+		<input type="hidden" name="actionIndex" value="" />
+		&nbsp;Имя подпрограммы:<br />
+		<input class="inp" type="text" name="p1"  /><br /> <!-- ProcName-->
+		<input type="checkbox" name="p2"/>Удалять вместе с комментариями <!-- WithComments --> 
+	</div>
+
+	<div id="dlgInsertCode">
+		<h4>InsertCode / Вставить программный код</h4>
+		<input type="hidden" name="type" value="InsertCode" />
+		<input type="hidden" name="actionIndex" value="" />
+		&nbsp;В подпрограмму (имя подпрограммы, если не задано, то в модуль):<br />
+		<input class="inp" type="text" name="p1"  /><br /> <!-- ProcName -->
+		&nbsp;Вставляемый код:<br />
+		<textarea class="inp" name="p2" rows="9"></textarea> <!-- Code -->
+		<input type="checkbox" name="p3"  />&nbsp;Вставлять в конец существующего кода <!-- AtEnd -->
+	</div>
+	
+	<div id="dlgCreateProc">
+		<h4>CreateProc / Создать подпрограмму</h4>
+		<input type="hidden" name="actionIndex" value="" />
+		<input type="hidden" name="type" value="CreateProc" />
+		&nbsp;Имя подпрограммы:<br />
+		<input class="inp" type="text" name="p1"  /><br /> <!-- ProcName -->
+		&nbsp;Код подпрограммы:<br />
+		<textarea class="inp" name="p2" rows="8"></textarea> <!-- ProcText -->
+		&nbsp;Вставить перед подпрограммой:<br />
+		<input class="inp" type="text" name="p3"  /> <!-- BeforeProc -->
+	</div>
+
+	<div id="dlgInsertVarDecl">
+		<h4>InsertVarDecl / Создать объявление переменной</h4>
+		<input type="hidden" name="type" value="InsertVarDecl" />
+		<input type="hidden" name="actionIndex" value="" />
+		&nbsp;Имя переменной:<br />
+		<input class="inp" type="text" name="p3"  /><br /> <!-- VarName -->
+		&nbsp;Объявить в подпрограмме с именем (если не задано - то в модуле):<br />
+		<input class="inp" type="text" name="p2"  /><br /> <!-- ProcName -->
+		&nbsp;Имя объекта метаданных (для подстановки вместо &lt;ObjectName&gt;):<br />
+		<input class="inp" type="text" name="p1"  /><br /> <!-- ObjName -->
+	</div>
+
+	<div id="dlgRemoveVarDecl">
+		<h4>RemoveVarDecl / Удалить объявление переменной</h4>
+		<input type="hidden" name="type" value="RemoveVarDecl" />
+		<input type="hidden" name="actionIndex" value="" />
+		&nbsp;Имя переменной:<br />
+		<input class="inp" type="text" name="p3"  /><br /> <!-- VarName -->
+		&nbsp;Удалить из подпрограммы с именем (если не задано - то из модуля):<br />
+		<input class="inp" type="text" name="p2"  /><br /> <!-- ProcName -->
+		&nbsp;Имя объекта метаданных (для подстановки вместо &lt;ObjectName&gt;):<br />
+		<input class="inp" type="text" name="p1"  /><br /> <!-- ObjName -->
+	</div>
+
+	<div id="dlgRenameObject">
+		<h4>RenameObject / Переименовать лексический объект</h4>
+		<input type="hidden" name="type" value="RenameObject" />
+		<input type="hidden" name="actionIndex" value="" />
+		&nbsp;Старое имя:<br />
+		<input class="inp" type="text" name="p3"  /><br /> <!-- OldName -->
+		&nbsp;Новое имя:<br />
+		<input class="inp" type="text" name="p4"  /><br /> <!-- NewName -->
+		&nbsp;В подпрограмме с именем (если не задано - то во всем модуле):<br />
+		<input class="inp" type="text" name="p2"  /><br /> <!-- ProcName -->
+		&nbsp;Имя объекта метаданных (для подстановки вместо &lt;ObjectName&gt;):<br />
+		<input class="inp" type="text" name="p1"  /><br /> <!-- ObjName -->
+	</div>
+
+	<div id="dlgReplaceCode">
+		<h4>ReplaceCode / Заменить код</h4>
+		<input type="hidden" name="type" value="ReplaceCode" />
+		<input type="hidden" name="actionIndex" value="" />
+		&nbsp;Старый код (regexp-шаблон, группировки запрещены!):<br />
+		<input class="inp" type="text" name="p3"  /><br /> <!-- OldCode -->
+		&nbsp;Новый код:<br />
+		<textarea class="inp" name="p4" rows="6"></textarea> <!-- NewCode -->
+		&nbsp;В подпрограмме с именем (если не задано - то во всем модуле):<br />
+		<input class="inp" type="text" name="p2"  /><br /> <!-- ProcName -->
+		&nbsp;Имя объекта метаданных (для подстановки вместо &lt;ObjectName&gt;):<br />
+		<input class="inp" type="text" name="p1"  /><br /> <!-- ObjName -->
+	</div>
+
+</div>
+
+	</div>
+</center>	
+
+
+</body>			
+</html>
+

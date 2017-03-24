@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<!--
+	Copyright (c) 2005 OpenConf Community	<http://openconf.itland.ru>
+	Copyright (c) 2005 Alexander Kuntashov	<kuntashov@yandex.ru>
+
+	OpenConf.CodeWorksProject - объект, реализующий программное представление
+	файла-шаблона для скрипта для массовой правки кода Алексея Диркса 
+	(CodeIns.pl, CodeWorks.pm)
+
+	Используется в скрипте для OpenConf cwHelper.js
+
+	$Id: cwProject.wsc,v 1.1 2005/07/27 13:19:28 a13x Exp $
+
+	Авторы:  
+		Александр Кунташов aka a13x <kuntashov@yandex.ru> icq#338758861  
+-->
+<package>
+<component>
+<?component error="true" debug="true"?>
+
+<registration
+	description="CodeWorksProject component for OpenConf"
+	progid="OpenConf.CodeWorksProject"
+	version="1.00"
+	classid="{A1D85710-E6B9-4655-9766-CD8AE38DF1D1}">
+</registration>
+
+<public>
+
+	<property name="Actions">
+		<get />
+		<comment><![CDATA[
+Коллекция элементов проекта
+		]]></comment>
+	</property>
+
+	<method name="Count" />
+
+	<property name="Action">
+		<get />
+		<put />
+		<comment><![CDATA[
+Элемент проекта, индексированное свойство
+		]]></comment>
+	</property>
+
+	<method name="CheckIndex">
+		<parameter name="index" />
+		<comment><![CDATA[
+Проверяет, не входит ли индекс элемента коллекции за границы
+		]]></comment>
+	</method>
+
+	<method name="Del">
+		<parameter name="index" />
+		<comment><![CDATA[
+Удалить заданный элемент проекта (либо элемент с заданым индексом)
+		]]></comment>
+	</method>
+
+	<method name="CreateAction">
+		<parameter name="Type" />
+		<comment><![CDATA[
+Создает и возвращает элемент проекта заданного типа,
+элемент в проект не помещается
+		]]></comment>
+	</method>
+
+	<method name="Add">
+		<parameter name="Action" />
+		<comment><![CDATA[
+Создает элемент проекта и помещает его в проект (если
+в качестве первого параметра передан элемент проекта, то просто
+помещает его в коллекцию)
+		]]></comment>
+	</method>
+
+	<method name="SaveToFile">
+		<parameter name="Path" />
+		<comment><![CDATA[
+Генерирует perl-код проекта и сохраняет его в заданный файл
+		]]></comment>
+	</method>
+
+	<method name="LoadFromFile">
+		<parameter name="Path" />
+		<comment><![CDATA[
+TODO
+		]]></comment>
+	</method>
+
+	<method name="ToHTML">
+		<comment><![CDATA[
+Возвращает HTML-представление проекта
+		]]></comment>
+	</method>
+	
+	<method name="ActionToHTML">
+		<parameter name="Action" />
+		<comment><![CDATA[
+Возвращает HTML-представление элемента проекта
+		]]></comment>
+	</method>
+
+	<method name="ActionToString">
+		<parameter name="Action" />
+		<comment><![CDATA[
+Возврашает строковое представление элемента проекта
+		]]></comment>
+	</method>
+
+	<method name="ActionToPerl">
+		<parameter name="Action" />
+		<comment><![CDATA[
+Возвращает perl-код, соответствующий заданному элементу проекта
+		]]></comment>
+	</method>
+
+	<method name="ToPerl">
+		<comment><![CDATA[
+Генерирует и возвращает perl-код проекта
+		]]></comment>
+	</method>
+
+</public>
+
+<script language="JScript">
+<![CDATA[
+
+var description = new CodeWorksProject;
+
+var Actions = new ActiveXObject("OpenConf.Collection");
+
+function CodeWorksProject(_)
+{
+	this.get_Actions = get_Actions;
+	this.get_Action = get_Action;
+	this.put_Action = put_Action;
+
+	this.Count = Count;
+	this.CheckIndex = CheckIndex;
+	this.CreateAction = CreateAction;
+
+	this.Del = Del;
+	this.Add = Add;
+
+	this.ActionToString = ActionToString;
+	this.ActionToHTML = ActionToHTML;
+	this.ToHTML = ToHTML;
+
+	this.ActionToPerl = ActionToPerl;
+	this.ToPerl	= ToPerl;
+
+	this.SaveToFile = SaveToFile;
+	this.LoadFromFile = LoadFromFile;
+}
+
+function Count()
+{
+	return Actions.Size();
+}
+
+function CheckIndex(index)
+{
+	return (-1 < index) && (index < Count());
+}
+
+function get_Actions()
+{
+	return Actions;
+}
+
+function get_Action(index)
+{
+	if (typeof(index) == 'string') index = parseInt(index);
+	if (CheckIndex(index)) {
+		return Actions.Get(index);
+	}
+	return null;
+}
+
+function put_Action(index, newValue)
+{
+	// Дабы однажды не произошло зацикливания, поскольку для ключей
+	// неявного преобразования строка-число не делается и "0" и 0 - будут 
+	// для Dictionary разными ключами (а Collection как раз на его основе и сделан!),
+	// выполняем явное преобразования к числу с помощью parseInt().
+	// Ни в коем случае нельзя пытаться делать преобразования к числу с помощью
+	// создания нового экземпляра объекта Number (index = new Number(index)),
+	// поскольку каждый новый экземпляр - это новый ключ!
+	if (typeof(index) == 'string') index = parseInt(index);
+	Actions.Item(index) = newValue;
+}
+
+function Del(IndexOrObj) 
+{
+	if (typeof(IndexOrObj) == 'object') {
+		return Actions.Remove(IndexOrObj);
+	}
+	if (CheckIndex(IndexOrObj)) {
+		return Actions.RemoveAt(IndexOrObj) != null;
+	}
+	return false;
+}
+/*	------------------------------------------------------------
+ *	 	Тип действия | 			Параметры
+ *	------------------------------------------------------------
+ *		RemoveProc		$ProcName	$WithComments
+ *		InsertCode		$ObjName	$ProcName	$Code		$AtEnd
+ *		CreateProc		$ProcName	$ProcText	$BeforeProc
+ *		InsertVarDecl	$ObjName	$ProcName	$VarName
+ *		RemoveVarDecl	$ObjName	$ProcName	$VarName
+ *		RenameObject	$ObjName	$ProcName	$OldName	$NewName
+ *		ReplaceCode		$ObjName	$ProcName	$OldCode	$NewCode		
+ */
+function CreateAction(type, p1, p2, p3, p4)
+{
+	var obj = null;
+	switch (type) {
+		case 'RemoveProc' :
+			obj = { Type:type, ProcName:p1, WithComments:p2 }
+			break;
+		case 'InsertCode' :
+			obj = { Type:type, ProcName:p1, Code:p2, AtEnd:p3 }
+			break;
+		case 'CreateProc' :
+			obj = { Type:type, ProcName:p1, ProcText:p2, BeforeProc:p3 }
+			break;
+		case 'InsertVarDecl' : 
+		case 'RemoveVarDecl' :
+			obj = { Type:type, ObjName:p1, ProcName:p2, VarName:p3 }
+			break;
+		case 'RenameObject' :
+			obj = { Type:type, ObjName:p1, ProcName:p2, OldName:p3, NewName:p4 }
+			break;
+		case 'ReplaceCode' :
+			obj = { Type:type, ObjName:p1, ProcName:p2, OldCode:p3, NewCode:p4 }
+			break;
+		default :
+			return null; // undefined;
+	}	
+	return obj;
+}
+
+function Add(p0, p1, p2, p3, p4)
+{
+	var obj = (typeof(p0)=='object') 
+			? p0 
+			: CreateAction(p0, p1, p2, p3, p4);
+	if (obj) 
+		Actions.Add(obj);
+}
+
+function ActionToString(ActionOrIndex, AllowHTML)
+{
+	var Action	= (typeof(ActionOrIndex)=='object') 
+				? ActionOrIndex 
+				: get_Action(ActionOrIndex);
+	if (!Action) return null;
+	var b = function(n) { 
+		return Action[n];
+	}
+	var p = function(n) { 
+		return (AllowHTML?'<code>':"") + Action[n] + (AllowHTML?'</code>':"") 
+	}	
+	var s25 = function(n) {
+		var s = Action[n];
+		var q1 = AllowHTML ? '<code>'  : '"';
+		var q2 = AllowHTML ? '</code>' : '"';
+		if (s.length<=25) return q1 + s + q2;
+		var r = s.substr(0,22).replace(/[\r\n]/g,' ') + '...';		
+		return q1 + r + q2;
+	}
+	switch (Action.Type) {
+		case 'RemoveProc' :
+			return "Удалить подпрограмму " + p('ProcName') 
+				 + (b('WithComments') ? " вместе с комментариями" : "");
+
+		case 'InsertCode' :
+			return "Вставить код " + s25('Code') + " в " + (!b('ProcName') ? "модуль" 
+				 : (b('AtEnd')?"конец":"начало") + " подпрограммы " + p('ProcName'));				
+
+		case 'CreateProc' :
+			return "Создать подпрограмму " + p('ProcName') 
+					+ (b('BeforeProc') ? (" перед подпрограммой " + p('BeforeProc')) : "");
+
+		case 'InsertVarDecl' : 
+			return "Добавить объявление переменной " + p('VarName') 
+				 + " в " + (b('ProcName') ? "подпрограмму " + p('ProcName') : "модуль");
+
+		case 'RemoveVarDecl' :
+			return "Удалить объявление переменной " + p('VarName') + " из "
+				 + (b('ProcName') ? "подпрограммы " + p('ProcName') : "модуля");
+
+		case 'RenameObject' :
+			return "Переименовать объект из " + p('OldName') + " в " + p('NewName') 
+				 +  (b('ProcName') ? " в подпрограмме " + p('ProcName') : " во всем модуле");
+			
+		case 'ReplaceCode' :
+			return "Заменить строку/шаблон " + s25('OldCode') 
+				 + " на код " + s25('NewCode') 
+				 + (b('ProcName') ? " в подпрограмме " + p('ProcName') : " во всем модуле");
+
+		default :
+			return null;
+	}	
+}
+
+function ActionToHTML(ActionOrIndex, prettyPrint, indent)
+{
+	var Action = null;
+	var Index = null;
+	if (typeof(ActionOrIndex)=='object') {
+		Action = ActionOrIndex;
+		Index = Actions.IndexOf(Action);
+	}
+	else {
+		Action = get_Action(ActionOrIndex);
+		Index = ActionOrIndex;
+	}
+	if (!(Action && CheckIndex(Index))) return null;
+
+	var ind		= (prettyPrint && indent) ? indent : "";
+	var nl		= prettyPrint ? "\n" : "";
+	var html	= ind + '<a class="action" href="javascript:void(0)" '
+				+ 'onClick="editAction(' + Index + ');">' + nl
+				+ ind + ActionToString(Action, true) + nl
+				+ ind + '</a>' + nl;
+	return html;
+}
+
+function ToHTML()
+{
+	var nl = "\n";
+	var html='<table class="cwProjectView">' + nl;
+	for (var i=0; i<Count(); i++) {
+		html += '<tr class="' + (i%2==0 ? 'darkRow' : 'lightRow') + '">' + nl
+			 +	'<td><input type="checkbox" name="chbAction' + i.toString() + '" /></td>' + nl
+			 +	'<td>' + ActionToHTML(i) + '</td>' + nl
+			 +	'</tr>' + nl;
+	}
+	html += '</table>'
+	return html;
+}
+
+function ActionToPerl(ActionOrIndex)
+{
+	var Action	= (typeof(ActionOrIndex)=='object')
+				? ActionOrIndex 
+				: get_Action(ActionOrIndex);
+
+	if (!Action) return null;
+
+	var nl = "\n";
+	var b = function (n) { return Action[n] }
+ 	var p = function (n) { return Action[n]?Action[n]:"" }
+	var q = function (n) { return '"' + p(n) + '"' }
+	var m = function (n) { return (p(n).substr(p(n).length-1)!=nl) ? p(n)+nl : p(n) }
+	var pl = 'CodeWorks::' + Action.Type + '('; 
+
+	//TODO проверки параметров, их заполненности и т.п.
+
+	switch (Action.Type) {
+		case 'RemoveProc' :			
+			pl	+= q('ProcName') + ', ' + (b('WithComments')?1:0) + ');'
+			break;
+		case 'InsertCode' :
+			pl	+=	q('ProcName') + ', <<EOF, ' + (b('AtEnd')?1:0) + ');' + nl
+				+	m('Code') 
+				+	'EOF' + nl 
+				+	';';
+			break;
+		case 'CreateProc' :
+			pl	+=	q('ProcName') + ', <<EOF, ' + q('BeforeProc') + ');' + nl
+				+	m('ProcText')
+				+	'EOF' + nl 
+				+	';';
+			break;
+		case 'InsertVarDecl' : 
+		case 'RemoveVarDecl' :
+			pl	+= q('ObjName')+', '+q('ProcName')+', '+q('VarName')+');';
+			break;
+		case 'RenameObject' :
+			pl	+= q('ObjName')+', '+q('ProcName')+', '+ q('OldName')+', '+ q('NewName')+');';
+			break;
+		case 'ReplaceCode' :
+			pl 	+=	q('ObjName')+', '+q('ProcName')+", q("+p('OldCode')+"), <<EOF);" + nl
+				+	m('NewCode')
+				+	'EOF' + nl
+				+	';';
+			break;
+		default :
+			return null; // undefined;
+	}		
+	return pl + nl;
+}
+
+function ToPerl()
+{
+	var pl = "";
+	for (var i=0; i<Count(); i++) {
+		pl += ActionToPerl(i) + "\n";
+	}
+	return pl;
+}
+
+function SaveToFile(Path)
+{
+	try {
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var f	= fso.CreateTextFile(Path, true);
+		f.Write(ToPerl());
+		f.Close();
+		return true;
+	}
+	catch (e) {
+		return false;
+	}
+}
+
+function LoadFromFile(Path)
+{
+	// TODO
+}
+
+]]>
+</script>
+</component>
+</package>

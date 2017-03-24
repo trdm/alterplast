@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!--
+
+Файл: Templates.wsc
+Версия: $Revision: 1.3 $
+Автор: Александр Кунташов <kuntashov@yandex.ru>
+
+Расширение типового механизма шаблонов конфигуратора 1С:Предприятия.
+
+В состав расширения входят файлы:
+        
+        OpenConf_Scripts\СистемныеФайлы\Templates.wsc 
+            библиотека, реализующая работу расширения
+
+        OpenConf_Scripts\Скрипты\Редактирование\Templates.vbs
+            скрипт для OpenConf, загружающий библиотеку и обрабатывающий 
+            событие OnTemplate плагина "Телепат 2" Александра Орефкова
+
+Полное описание скрипта см. на http://npj.ru/kuntashov/open_conf/templates
+
+Эта программа является свободным программным обеспечением. Вы можете
+распространять и (или) модифицировать ее на условиях GNU Generic Public License.
+
+Данная программа распространяется с надеждой оказаться полезной, но
+БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ, в том числе без гарантий пригодности для продажи или
+каких-либо других практических целей.
+
+С полным текстом лицензии на английском языке можно ознакомитсья по адресу
+http://www.gnu.org/licenses/gpl.txt
+
+С русским переводом лицензии можно ознакомиться по адресу
+http://gnu.org.ru/gpl.html  
+
+-->
+<package>
+<component>
+<?component error="true" debug="true"?>
+<comment><![CDATA[
+]]></comment>
+
+<registration
+	description="TemplatesManager component for OpenConf"
+	progid="OpenConf.TemplatesManager"
+	version="1.00"
+	classid="{FCC73AE7-7417-4FF2-A5F3-B3A966C8CCE4}">
+</registration>
+
+<comment>Используем библиотеку типов OpenConf'a</comment> 
+<reference guid="{578f85c8-89eb-4cda-ac7e-8f3bb34e8b54}" /> 
+
+<object id="SvcSvc" progid="SvcSvc.Service" />
+
+<public>
+
+    <method name="SetConfig">
+        <parameter name="Configurator" />
+    </method>
+
+    <method name="CreateTemplate">
+        <parameter name="Name" />
+        <parameter name="Text" />
+    </method>
+
+    <property name="Templates">
+        <get />
+    </property>
+
+    <property name="ParsingResult">
+        <get />
+    </property>
+
+    <property name="SubstValues">
+        <get />
+    </property>
+
+    <method name="ParseInteractively">
+        <parameter name="Template" /> 
+    </method>
+
+</public>
+
+<script language="JScript"><![CDATA[
+
+var Config = null;
+var _ParsingResult = ""; 
+var _Cache = {}; // кэш шаблонов
+
+var _Values = {};
+
+var CancelParsing = false;
+
+function SetConfig(Configurator)
+{
+    Config = Configurator;
+}
+
+function CreateTemplate(Name, Text, Recreate) 
+{
+    if( !Name ) return null;
+
+    if( _Cache[Name] && !Recreate )
+    {
+        return _Cache[Name];
+    }
+    
+    _Cache[Name] = { "Name":Name, "Text":Text };    
+    return _Cache[Name];
+}
+
+function get_Templates(Name) 
+{
+    if( Name && _Cache[Name] )
+    {
+        return _Cache[Name];
+    }
+
+    // todo парсить файл шаблонов
+    return null;
+}
+
+function get_SubstValues(name)
+{
+    return _Values[name] ? _Values[name] : "";
+}
+
+// управляющая конструкция шаблона
+//                                1       2 
+var re_tmpl_action = /\<\?\"([^\"]+)\"(.*?)\>|\<\?([\wА-я]+)(.*?)\>/;
+var re_tmpl_sname = /^\=([А-я\w]+)(.*)/;
+var re_tmpl_default = /^\s*ПоУмолчанию=\"(.+?)\"\s*(.*)/i;
+//Справочник|Документ|Журнал|Регистр|ПланСчетов|Счет|СчетПоКоду|Субконто|Перечисление|Отчет|Обработка|Формат|Список
+var re_tmpl_cmd = /^\s*,([\wА-я]+)(.*)/i;
+
+function get_ParsingResult()
+{
+    return _ParsingResult;
+}
+
+function ParseInteractively(Template)
+{
+    var m, action, type;
+    
+    _Values = {}; // значения установленных параметров
+
+    CancelParsing = false;
+
+//debugger
+
+    _ParsingResult = Template.Text; 
+    
+    var _parse = function (name, re) 
+    {
+        action[name] = "";
+        if( action.the_rest && (m = action.the_rest.match(re)) )
+        {
+            action[name]    = m[1];
+            action.the_rest = m[2];
+        }
+    };
+
+    while( true ) 
+    {
+        var str = "";
+
+        if( !(m = _ParsingResult.match(re_tmpl_action)) ) break;
+        
+        type = m[1] ? 1 : 3;
+        action = { hint:m[type], the_rest:m[type + 1] }
+
+        _parse('sname',     re_tmpl_sname);
+        _parse('defval',    re_tmpl_default);
+        _parse('command',   re_tmpl_cmd);
+
+        switch( action.command.toUpperCase() ) 
+        {
+            case 'СПИСОК':               
+               str = SelectFromCustomList(action.hint, action.the_rest, action.defval);
+            break;
+
+            case 'ЭЛЕМЕНТЫУПРАВЛЕНИЯ':
+                str = SelectFromControlsList(action.hint, action.the_rest, action.defval);
+            break;
+
+            case 'СПРАВОЧНИК':      case 'ДОКУМЕНТ':    case 'ЖУРНАЛ':      case 'РЕГИСТР': 
+            case 'ПЛАНСЧЕТОВ':      case 'СЧЕТ':        case 'СЧЕТПОКОДУ':  case 'СУБКОНТО':
+            case 'ПЕРЕЧИСЛЕНИЕ':    case 'ОТЧЕТ':       case 'ОБРАБОТКА':   case 'ФОРМАТ':
+                str = SelectMetadata(action.hint, action.the_rest, action.defval);
+            break;
+
+            default:
+                str = InputString(action.hint, action.defval); 
+        }
+
+        if( CancelParsing ) return false;
+
+        // В ПоУмолчанию можно задать значение $$, которое должно быть заменено
+        // на пустую строку при подстановке (так мы обходим проблему с
+        // отсутсвием возможности реализовать ввод пустой строки и одновременно
+        // оставить возможность отменять вставку шаблона из любого диалога, которые 
+        // независимо от того, вводишь ли ты пустую строку осознано или просто оменяешь 
+        // диалог по ESC или кнопке "Отмена" всегда возвращают пустую строку)
+        if( "$$"==str ) str = "";
+
+        // запомним выбранный параметр
+        _Values[action.sname ? action.sname : action.hint] = str;
+        
+        var pattern = ( 1 == type ) 
+                    ? ('<\\?"' + action.hint + '".*?>') 
+                    : ('<\\?' + action.hint + '.*?>');
+    
+        _ParsingResult = _ParsingResult.replace(new RegExp(pattern, "gi"), str);
+
+        if( action.sname )
+        {
+            re = new RegExp('\\$' + action.sname + '\\$', "gi");
+            _ParsingResult = _ParsingResult.replace(re, str);
+        }
+    }
+
+    return true;
+}
+
+function SelectFromCustomList(hint, list_source, def_value)
+{
+    var values = "";
+    var m = null;
+    
+    if( m = list_source.match(/\((.+)\)/) )
+    {
+        var delim = m[1].substr(0,1);
+        values = m[1].substr(1).replace(new RegExp('\\' + delim, "g"), "\r\n");
+    }
+
+    try 
+    {
+        // todo определять координаты центра окна редактора текстов
+        var result = SvcSvc.FilterValue(values, 1+8+16+32+256+512, (hint?hint:"Введите строку"), 400, 250);
+        
+        if( !result && def_value ) result = def_value;
+        CancelParsing = (!result);
+
+        return result;
+    }
+    catch( e )
+    {
+        Config.Message("Templates.WSC::SelectFromList(): " + e.description, mRedErr);
+        CancelParsing = true;
+    }
+
+    return "";
+}
+
+function SelectMetadata(hint, cmd)
+{
+    try 
+    {
+        var telepat = Config.Plugins("Телепат");
+        var result = telepat.ConvertTemplate('<?"'+hint+'",' + cmd+'>', 'Шаблоны');
+
+        if( !result && def_value ) result = def_value;
+        CancelParsing = (!result);
+        
+        return result; 
+    }
+    catch( e )
+    {
+        Config.Message("Templates.WSC::SelectMetadata(): " + e.description, mRedErr);
+        CancelParsing = true;
+    }
+
+    return "";
+}
+
+function SelectFromControlsList(hint, params)
+{
+    var skipCtrl, m, list_src = ""; 
+    var wnd = Config.Windows.ActiveWnd;
+
+    var conds = {};
+
+    if( params )
+    {
+        if( m = params.match(/Формула=\"(.*?)\"/i) )
+        {
+            conds[cpFormul] = m[1];
+        }
+    }
+
+    if( wnd && (docWorkBook == wnd.Document.Type) )
+    {
+        var dlg = wnd.Document.Page(0);
+        for( var i = 0; i < dlg.ctrlCount; i++ )
+        {
+            var ctrlStrId = dlg.ctrlProp(i, cpStrID);
+            if( ctrlStrId )
+            {     
+                skipCtrl = false;
+                for( var propIx in conds )
+                {
+                    skipCtrl = (dlg.ctrlProp(i, propIx) != conds[propIx]);
+                    if( skipCtrl ) break;
+                }
+                if( !skipCtrl )
+                    list_src += ',' + ctrlStrId;
+            }
+        }
+    }
+
+    return SelectFromCustomList(hint, '(' + list_src + ')'); 
+}
+
+]]></script>
+
+<script language="VBScript"><![CDATA[
+
+Function InputString(Hint, Default)
+
+    InputString = InputBox(Hint, "Шаблоны")
+    
+    If InputString = "" Then
+        InputString = Default
+        If InputString = "" Then    
+            CancelParsing = true
+        End If
+    End If
+
+End Function
+
+]]></script>
+
+</component>
+
+</package>

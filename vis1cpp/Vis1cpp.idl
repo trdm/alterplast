@@ -1,0 +1,152 @@
+// Vis1cpp.idl : IDL source for Vis1cpp.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (Vis1cpp.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+interface IClasses;
+interface IDefFiles;
+
+	[
+		object,
+		uuid(169A4E00-9085-46D2-90CE-D3BE8E45BF2E),
+		dual,
+		helpstring("IVis1cppPlugin Interface"),
+		pointer_default(unique)
+	]
+	interface IVis1cppPlugin : IDispatch
+	{
+		[id(1), helpstring("метод Method1 - for test")] HRESULT Method1();
+		[propget, id(2), helpstring("свойство FlagGroupByType - Группировать иконки в окне плагина по типу или нет")] HRESULT FlagGroupByType([out, retval] BOOL *pVal);
+		[propput, id(2), helpstring("свойство FlagGroupByType - Группировать иконки в окне плагина по типу или нет")] HRESULT FlagGroupByType([in] BOOL newVal);
+		[id(3), helpstring("метод RefreshAll - перезаполнить данные о классах")] HRESULT RefreshAll();
+		[id(4), helpstring("метод GetClasses - получить коллекцию классов 1С++")] HRESULT GetClasses([out, retval] IClasses** Classes);
+		[id(5), helpstring("метод GetDefFiles - получить коллекцию файлов описаний классов 1С++")] HRESULT GetDefFiles([out, retval] IDefFiles** DefFiles);
+	};
+
+[
+	uuid(DD3D5FFD-2F06-402A-85AB-FE05A1E9B212),
+	version(1.0),
+	helpstring("Vis1cpp 1.0 Type Library")
+]
+library VIS1CPPLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(39B1D89D-4037-4BAA-B4A3-20D9A7D22A06),
+		helpstring("_IVis1cppPluginEvents Interface")
+	]
+	dispinterface _IVis1cppPluginEvents
+	{
+		properties:
+		methods:
+		[id(1), helpstring("событие OnRefreshAll возникает после перезаполнения данных о классах 1С++")] HRESULT OnRefreshAll();
+	};
+	[
+		object,
+		uuid(A21696BE-C0A8-417C-B30B-E5E333D12C9D),
+		dual,
+		helpstring("IClassInfo Interface"),
+		pointer_default(unique)
+	]
+	interface IClassInfo : IDispatch
+	{
+		[propget, id(1), helpstring("свойство Name")] HRESULT Name([out, retval] BSTR *pVal);
+		[propget, id(2), helpstring("свойство Path")] HRESULT Path([out, retval] BSTR *pVal);
+		[id(3), helpstring("метод Open")] HRESULT Open();
+		[propget, id(4), helpstring("свойство DefFilePath")] HRESULT DefFilePath([out, retval] BSTR *pVal);
+		[propget, id(5), helpstring("Исходный текст класса. При этом неважно, сохранен ли открытый текст класс или нет, если текст открыт в окне Конфигуратора")] HRESULT SourceText([out, retval] BSTR *pVal);
+		[propget, id(6), helpstring("Возвращает коллекцию базовых классов")] HRESULT BaseClasses([out, retval] IClasses* *pVal);
+	};
+	[
+		object,
+		uuid(C5CA5F4C-7C1B-49C7-9C38-91EDC8EFD966),
+		dual,
+		helpstring("IClasses Interface"),
+		pointer_default(unique)
+	]
+	interface IClasses : IDispatch
+	{
+		[propget, id(1), helpstring("свойство Count - количество элементов в коллекции")] HRESULT Count([out, retval] long *pVal);
+		[id(2), helpstring("метод FindByPath - найти по имени файла класса или обработки конфигурации в виде ИмяОбработки@md")] HRESULT FindByPath([in] VARIANT strPath, [out, retval] IClassInfo** pElem);
+		[propget, id(DISPID_VALUE), helpstring("свойство Item - получить класс по индексу коллекции или по имени класса")] HRESULT Item([in] VARIANT IndexOrName, [out, retval] IClassInfo* *pVal);
+		[propget, restricted, id(DISPID_NEWENUM)] HRESULT _NewEnum([out, retval] LPUNKNOWN *pVal);
+	};
+	[
+		object,
+		uuid(0291182A-AC08-486C-B77E-AB860762E41F),
+		dual,
+		helpstring("IDefFile Interface"),
+		pointer_default(unique)
+	]
+	interface IDefFile : IDispatch
+	{
+		[propget, id(1), helpstring("свойство Name")] HRESULT Name([out, retval] BSTR *pVal);
+		[propget, id(2), helpstring("свойство Path")] HRESULT Path([out, retval] BSTR *pVal);
+		[id(3), helpstring("метод Open")] HRESULT Open();
+		[propget, id(4), helpstring("Возвращает коллекцию классов, определенных в данном файле определения")] HRESULT Classes([out, retval] IClasses* *pVal);
+	};
+	[
+		object,
+		uuid(08AA2CFC-1FEA-495F-8C1B-C3F63F3F43B7),
+		dual,
+		helpstring("IDefFiles Interface"),
+		pointer_default(unique)
+	]
+	interface IDefFiles : IDispatch
+	{
+		[propget, id(1), helpstring("свойство Count - количество элементов в коллекции")] HRESULT Count([out, retval] long *pVal);
+		[id(2), helpstring("метод FindByPath - найти по имени файла описания класса или обработки конфигурации в виде ИмяОбработки@md - аналог Item()")] HRESULT FindByPath([in] VARIANT strPath, [out, retval] IDefFile** pElem);
+		[propget, id(DISPID_VALUE), helpstring("свойство Item - получить файл определения по индексу коллекции или по пути к этому файлу")] HRESULT Item([in] VARIANT IndexOrDefPath, [out, retval] IDefFile* *pVal);
+		[propget, restricted, id(DISPID_NEWENUM)] HRESULT _NewEnum([out, retval] LPUNKNOWN *pVal);
+	};
+
+	[
+		uuid(DF840278-740B-4025-BE44-C5FDE9DB6436),
+		helpstring("Vis1cppPlugin Class")
+	]
+	coclass Vis1cppPlugin
+	{
+		[default] interface IVis1cppPlugin;
+		[default, source] dispinterface _IVis1cppPluginEvents;
+	};
+	[
+		uuid(20274885-04A8-4661-B2C9-9079641BEF89),
+		noncreatable,
+		helpstring("CoClassInfo Class")
+	]
+	coclass CoClassInfo
+	{
+		[default] interface IClassInfo;
+	};
+	[
+		uuid(7BDC1BAF-CD32-42D3-835F-E8C9C6D5A755),
+		noncreatable,
+		helpstring("CoClasses Class")
+	]
+	coclass CoClasses
+	{
+		[default] interface IClasses;
+	};
+	[
+		uuid(44A90FD6-7CD2-46BC-8921-E3CA83BAC582),
+		helpstring("CoDefFiles Class")
+	]
+	coclass CoDefFiles
+	{
+		[default] interface IDefFiles;
+	};
+	[
+		uuid(275A3D45-E17B-4174-A139-0C0BA174EF65),
+		helpstring("CoDefFile Class")
+	]
+	coclass CoDefFile
+	{
+		[default] interface IDefFile;
+	};
+};

@@ -1,0 +1,1997 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!--
+	Copyright (c) 2004 OpenConf Community
+	
+	Общие, часто используемые в скриптах для OpenConf функции
+
+	В качестве основы взят скрипт common.vbs Артура Аюханова (artbear)
+
+	Версия $Revision: 1.45 $	
+
+		Права принадлежат неофициальному "ОпенКонф Коммьюнити"; допускается 
+	свободное использование, распространение и модификация скриплета и его 
+	отдельных частей, если специально нигде это не оговорено при условии 
+	сохранения настоящего комментария. 
+	
+	В написании скрипта common.vbs и настоящего скриплета принимали участие:
+	
+		Артур Аюханов aka artbear <artbear@bashnet.ru> icq#265666057
+		Алексей Диркс aka ADirks <adirks@ngs.ru>
+		Александр Кунташов aka a13x <kuntashov@yandex.ru> icq#338758861  
+
+-->
+<component>
+<?component error="true" debug="true"?>
+<comment><![CDATA[
+
+	Общие, часто используемые в скриптах для OpenConf функции
+
+В скриптах компонент используется следующим образом (JScript):
+	
+	var CommonScripts = new ActiveXObject("OpenConf.CommonServices");
+	CommonScripts.SetConfig(Configurator);
+	var doc = CommonScripts.GetTextDoc();
+	
+или то же самое на VBScript
+
+	Dim CommonScripts ' as OpenConf.CommonServices
+	Set CommonScripts = CreateObject("OpenConf.CommonServices")
+	CommonScripts.SetConfig(Configurator)
+	Set Doс = CommonScripts.GetTextDoc()
+
+	Сам алгоритм инициализации скрипта лучше всего вынести в отдельную подпрограмму:
+
+	$NAME МойСкрипт
+	
+	' ---------------------------------------------------------------
+	' Пример скрипта, использующего компонент OpenConf.CommonServices
+	' ---------------------------------------------------------------
+	
+	' ... объявления, макросы, вспомогательные процедуры и функции
+	
+	Sub MyMacro()	 
+		
+		' ... что-то делаем
+		
+		CommonScripts.Echo "Выполняю"
+		
+		Set Doc = CommonScripts.GetTextDoc()
+		If Doc Is Nothing Then Exit Sub
+		
+		' ... остальной код макроса
+		
+	End Sub
+	
+	' ... другие макросы, вспомогательные процедуры и функции
+	
+	'
+	' Процедура инициализации скрипта
+	'
+	Private Sub Init() ' Фиктивный параметр, чтобы процедура не попадала в макросы
+		Set c = Nothing
+		On Error Resume Next
+		Set c = CreateObject("OpenConf.CommonServices")
+		On Error GoTo 0
+		If c Is Nothing Then
+			Message "Не могу создать объект OpenConf.CommonServices", mRedErr
+			Message "Скрипт " & SelfScript.Name & " не загружен", mInformation
+			Scripts.UnLoad SelfScript.Name 
+			Exit Sub
+		End If
+		c.SetConfig(Configurator)
+		SelfScript.AddNamedItem "CommonScripts", c, False
+	End Sub
+	 
+	Init ' При загрузке скрипта выполняем инициализацию
+		
+]]></comment>
+
+<registration
+	description="CommonServices component for OpenConf"
+	progid="OpenConf.CommonServices"
+	version="1.00"
+	classid="{3a41b5af-e65a-4b06-8460-7320957c12ca}">
+</registration>
+
+<comment>Используем библиотеку типов OpenConf'a</comment> 
+<reference guid="{578f85c8-89eb-4cda-ac7e-8f3bb34e8b54}" /> 
+
+<object id="WSH" progid="WScript.Shell" />
+<object id="FSO" progid="Scripting.FileSystemObject" />
+
+<public>
+	
+	<property name="FSO">
+		<get/>
+	</property>
+	
+	<property name="WSH">
+		<get/>
+	</property>		
+
+	<method name="SetConfig">
+		<PARAMETER name="Configurator"/>
+	</method>
+	<method name="Echo">
+		<parameter name="text"/>
+		<comment><![CDATA[
+		]]></comment>
+	</method>
+	<method name="Error">
+		<parameter name="text"/>
+		<comment><![CDATA[
+		]]></comment>
+	</method>
+	<method name="EchoError">
+		<parameter name="text"/>
+		<comment><![CDATA[
+		]]></comment>
+	</method>
+
+	<method name="CStr" internalName = "CStrInner" >
+		<parameter name="string"/>
+		<comment><![CDATA[
+Описание:
+	преобразовать значение в строку 
+	предназначено для использования в скриптах, написанных на JScript
+		]]></comment>
+	</method>
+
+	<method name="InputBox">
+		<parameter name="prompt"/>
+		<comment><![CDATA[
+Описание:
+	Ввести строку.
+	предназначено для использования в скриптах, написанных на JScript
+		]]></comment>
+	</method>
+
+	<method name="GetTextDoc">
+		<comment><![CDATA[
+Описание:
+	Получить модуль текущего окна (или текста), даже если закладка модуля не активна (опционально)
+	ВНИМАНИЕ: значением по умолчанию 0 пользоваться аккуратно, т.к. возможно невидимое для пользователя исправление текста
+Параметры:		
+	silent - [необязательный] не выводить никаких сообщений, по умолчанию - выводить
+	behaviour - [необязательный] поведение
+		Допустимые значения (по умолчанию - 0)
+			0 - Вернуть текстовый док, даже если страница не активирована (старая GetTextDoc())
+			1 - Активировать страницу и вернуть текстовый док (старая GetTextDocIfOpened(1))
+			2 - Вернуть текстовый док, если только активирована закладка модуля (старая GetTextDocIfOpened(0))  
+Возвращаемое значение:
+	В случае успеха возвращает объект TextDoc
+	В случае ошибки возвращает Nothing/null
+		]]></comment>
+	</method>
+	
+	<method name="GetTextDocIfOpened">
+		<comment><![CDATA[
+Описание:
+	Получить открытый модуль (формы или текста)
+Параметры:		
+	bActivateTextModule - [необязательный] активировать закладку модуля, если она не активирована
+	silent - [необязательный] не выводить никаких сообщений, по умолчанию - выводить
+Возвращаемое значение:
+	В случае успеха возвращает объект TextDoc
+	В случае ошибки возвращает Nothing/null
+]]></comment>
+	</method>
+
+	<method name="IsTextWindow">
+		<comment><![CDATA[
+Описание:
+	Проверяет, является ли активное окно конфигуратора текстовым (активна ли страница
+редактора текстов)
+Параметры:
+	нет
+Возвращаемое значение:
+	если активное окно текстовое, возвращает true, в противном случае - false
+		]]></comment>
+	</method>
+	
+	<method name="FindProc">
+		<comment><![CDATA[
+Описание:
+	Находит процедуру (функцию) в указанном модуле
+Параметры:
+	Doc - объект типа TextDoc
+	ProcName1 ... ProcNameN - имена процедур (функций) для поиска
+Возвращаемое значение:
+	Если процедура (функция) найдена, то номер строки; если не найдена - -1
+		]]></comment>
+	</method>
+	
+	<method name="Jump">
+		<comment><![CDATA[
+Описание:
+	Переход к строке в указанном модуле. Если плагин Телепат поддерживает метод Jump,
+то будет вызван метод плагтна. В противном случае всё делается средствами OpenConf.
+Параметры:
+	nLine1, nCol1, nLine2, nCol2 - координаты для перехода
+	ModuleName - имя модуля, куда переходить
+Возвращаемое значение:
+	Если переход возможен, то true; если невозможен - false
+		]]></comment>
+	</method>
+	
+	<method name="GetPluginByName">
+		<parameter name="PluginName"/>
+		<comment><![CDATA[
+		]]></comment>
+	</method>
+	<method name="GetScriptByName">
+		<parameter name="ScriptName"/>
+		<comment><![CDATA[
+		]]></comment>
+	</method>
+
+	<method name="GetScriptIndexByName">
+		<parameter name="ScriptName"/>
+		<comment><![CDATA[
+Описание:
+	Возвращает текущий числовой индекс скрипта по его имени
+Параметры:
+	ScriptName - имя скрипта (Значение $NAME, если указано, 
+				иначе - имя файла скрипта без расширения)
+Возвращаемое значение:
+	Числовой индекс скрипта или -1, если скрипта с таким 
+именем не существует
+		]]></comment>
+	</method>
+
+	<method name="ScriptLoaded">
+		<parameter name="ScriptName"/>
+		<comment><![CDATA[
+Описание:
+	Проверяет, загружен ли скрипт с именем ScriptName
+Параметры:
+	ScriptName - имя скрипта (Значение $NAME, если указано, 
+				иначе - имя файла скрипта без расширения)
+Возвращаемое значение:
+	true, если скрипт загружен и false в противном случае
+		]]></comment>
+	</method>
+
+	<method name="ResolvePath">
+		<parameter name="BasePath" />
+		<parameter name="RelPath" />
+		<comment><![CDATA[
+Описание:
+	Разрешает относительный путь RelPath в абсолютный, беря в
+качестве базового путь BasePath. Например, после вызова
+	var absPath = ResolvePath("C:\\home\\a13x\\Projects\\test", "..\\..\\Books\\cs\\wsc.chm");
+absPath будет содержать значение 
+	"C:\\home\\a13x\\Books\\cs\\wsc.chm"   
+Параметры:
+	BasePath - базовый путь, относительно которого выполняется разрешение
+	RelPath - относительный путь для разрешения
+Возвращаемое значение:
+	Строка - правильный полностью разрешенный абсолютный путь
+		]]></comment>
+	</method>
+
+	<method name="SelectValue">
+		<parameter name="ValueList" />	   
+		<comment><![CDATA[
+Описание:
+	Показывает диалог для выбора значения из списка, если установлена хотя бы
+однин из ActiveX-серверов - SelectValue.dll от IAm'а или SvcSvc.dll Александра
+Орефкова, в противном случае выдает сообшение об ощибке. По умолчанию сначала 
+производится попытка выбрать значение методом SelectPopUp сервера SelectValue.dll,
+и только в случае неуспеха - методом SelectValue сервера SvcSvc.dll. Поведение
+можно изменить (см. описание параметра SvcSvcFirst)
+Параметры:
+	ValueList - строка или словарь(Dictionary):
+		1) Если передана строка, то она должна содержать значения списка, разделенные разделителем
+		Delimeter; если последний не задан, по умолчанию используется vbCrLf (\r\n)
+		2) Если передан словарь (Dictionary)
+			 в этом случае ключи выводятся на экран для выбора, а возвращаются значения
+
+	Caption - необязательный, заголовок диалога (имеет смысл только в случае 
+		выбора методом SelectValue сервера SvcSvc.dll)
+	Delimeter - необязательный разделитель значений, по умолчанию - vbCrLf (\r\n);
+		если задан другой разделитель, то среди значений не допускается присутсвие
+		последовательности символов vbCrLf (\r\n)
+	SvcSvcFirst - необязательный, если true, то в первую очередь пытается использовать
+		метод SelectValue сервера SvcSvc.dll, если false (по умолчанию), то используется
+		SelectPopUp сервера SelectValue.dll
+Возвращаемое значение:
+	Выбранное пользователем из списка значение или пустая строка (""), если выбор отменен	
+		]]></comment>
+	</method>
+
+	<method name="AddPluginToScript">
+		<parameter name="Script"/>
+		<parameter name="PluginName"/>
+		<parameter name="PrefixForEvents"/>
+		<parameter name="ScriptVariable"/>
+		<comment><![CDATA[
+Описание: 
+	При загрузке скрипта инициализируем его
+		Init SelfScript, "Мастер 1С++", "Wizard1CPP", Wizard1CPP
+		]]></comment>
+	</method>
+	
+	<method name="RegExpTest">
+		<parameter name="patrn"/>
+		<parameter name="strng"/>
+		<comment><![CDATA[
+Описание: 
+	Проверить на соответствие шаблону (регулярному выражению).
+	Регистр символов не важен.
+		]]></comment>
+	</method>
+	
+	<method name="RegExpExecute">
+		<parameter name="patrn"/>
+		<parameter name="strng"/>
+		<comment><![CDATA[
+Описание: 
+	Проверить на соответствие шаблону (регулярному выражению).
+	Регистр символов не важен.
+Возвращаемое значение:
+	коллекция Matches (из RegExp.Execute)
+		]]></comment>
+	</method>
+	
+	<method name="MacrosExists">
+		<parameter name="ScriptName"/>
+		<parameter name="MacrosName"/>
+		<comment><![CDATA[
+Описание: 
+	Существует ли в указанном скрипте макрос с таким именем
+		]]></comment>
+	</method>
+	
+	<method name="CallMacros">
+		<parameter name="sScriptName"/>
+		<parameter name="sMacrosName"/>
+		<comment><![CDATA[
+Описание: 
+	Выполнить указанный макрос
+		]]></comment>
+	</method>
+	
+	<method name="RunCommand">
+		<parameter name="ProgramPath"/>
+		<parameter name="sArguments"/>
+		<parameter name="bWait"/>
+		<comment><![CDATA[
+Описание: 
+	Выполнить программу
+		]]></comment>
+	</method>
+	
+	<method name="RunCommandAndWait">
+		<parameter name="ProgramPath"/>
+		<parameter name="sArguments"/>
+		<comment><![CDATA[
+Описание: 
+	Выполнить программу и подождать ее завершения
+		]]></comment>
+	</method>
+	
+	<method name="SendCommand">
+		<parameter name="iCommand"/>
+		<comment><![CDATA[
+Описание: 
+	Послать команду для Конфигуратора.
+		Ввиду того, что OpenConf.SendCommand делает PostMessage(WM_COMMAND,число,0)
+	нужно вызвать принудительную обработку сообщений Windows
+	PS Пока это сделано через вызов любой маленькой проги (cscript.exe)
+		]]></comment>
+	</method>
+	
+	<method name="GetDocumentPosition">
+		<parameter name="Doc"/>
+		<comment><![CDATA[
+Описание: 
+	Пример использования:
+	---------------------------------------------------------
+		Set Pos = CommonScripts.GetDocumentPosition(Doc)
+		какой-то код, который меняет позицию курсора
+		Pos.Restore
+	---------------------------------------------------------
+		]]></comment>
+	</method>
+	
+	<method name="SelectFileForRead">
+		<parameter name="sFileName"/>
+		<parameter name="sFilesFilter"/>
+		<comment><![CDATA[
+		]]></comment>
+	</method>
+	
+	<method name="FormatDate">
+		<parameter name="aDate"/>
+		<parameter name="Format"/>
+		<comment><![CDATA[
+Описание: 
+	Простое форматирование даты
+	В форматной строке можно задавать поля 'd', 'm', 'MMMM', 'y'
+		количество символов 'd', 'm' и 'y' может быть любым - соотв. часть даты будет
+		дополнена слева нулями до нужной длины
+		MMMM будет заменено на название месяца
+		]]></comment>
+	</method>
+	
+	<method name="TogglePanel">
+		<parameter name="PanelName"/>
+		<comment><![CDATA[
+Описание: 
+	Макрос переключает видимость различных панелей. Например,
+ 		TogglePanel "Синтакс-Помощник"
+	 	TogglePanel "Окно сообщений"
+	 	TogglePanel "Список найденных вхождений"
+	 	TogglePanel "Стандартная"
+		]]></comment>
+	</method>
+	
+	<method name="IBDir">
+		<comment><![CDATA[
+Описание: 
+	Получить каталог ИБ в нормальном ("правильном") регистре 
+	(исправил баг Configurator.IBDir - все в маленьком регистре)
+		]]></comment>
+	</method>
+
+	<method name="SetQuietMode">
+		<parameter name="bNewMode"/>
+		<comment><![CDATA[
+Описание: 
+	Устанавливает режим вывода сообщений об ошибках
+Параметры:
+	bNewMode - режим; 1 - "тихий" режим - вывод об ошибках подавляется; 0 - обычный режим
+Возвращаемое значение:
+	Текущее значение режима (до вызова метода)
+		]]></comment>
+	</method>
+
+	<method name="MsgBox" internalName="MyMsgBox">
+		<parameter name="Text"/>
+		<comment><![CDATA[
+Описание: 
+		]]></comment>
+	</method>
+
+	<method name="MyMsgBox">
+		<parameter name="Text"/>
+		<comment><![CDATA[
+Описание: 
+		]]></comment>
+	</method>
+
+	<method name="GetLastError">
+		<comment><![CDATA[
+Описание: 
+    Возвращает последнее сообщение об ошибке, если был установлен "тихий" режим
+		]]></comment>
+	</method>
+
+	<method name="Debug" internalName="Debug1">
+		<parameter name="title"/>
+		<comment><![CDATA[
+Описание:
+	Если "тихий" режим выключен, выводится сообщение
+	Пример вызова:	CommonScrips.Debug "str", str
+				 :	CommonScrips.Debug (i+10)
+				 :	CommonScrips.Debug i, true
+	Примечание: второй параметр необязателен
+		<parameter name="msg"/>
+		]]></comment>
+	</method>
+
+	<method name="CopyToClipboard">
+		<parameter name="text"/>
+		<comment><![CDATA[
+Описание:
+	Поместить строку в буфер обмена Windows 
+	В случае успеха возвращает true, иначе false
+	Пример вызова:	CommonScrips.CopyToClipboard "Строка для буфера обмена"
+	Примечание: для работы требуется COM-объект из состава Windows Scripting Solutions 
+	[http://www.winnetmag.com/Files/07/23601/23601.zip]
+		]]></comment>
+	</method>
+
+	<method name="GetFromClipboard">
+		<comment><![CDATA[
+Описание:
+	Возвращает строку из буфера обмена Windows
+	Пример вызова:	str = CommonScrips.GetFromClipboard
+	Примечание: для работы требуется COM-объект из состава Windows Scripting Solutions 
+	[http://www.winnetmag.com/Files/07/23601/23601.zip]
+		]]></comment>
+	</method>
+	
+	<method name="GetFileNameFromClipboard">
+		<comment><![CDATA[
+Описание:
+	Если в буфере обмена путь к существующему файлу, возвращается этот путь
+	Если путь обрамлен кавычками, то кавычки отбрасываются
+	Пример вызова:	strFileName = CommonScrips.GetFileNameFromClipboard
+	Примечание: для работы требуется COM-объект из состава Windows Scripting Solutions 
+	[http://www.winnetmag.com/Files/07/23601/23601.zip]
+		]]></comment>
+	</method>
+
+	<method name="ClearError">
+		<comment><![CDATA[
+Описание:
+	Очищает переменную, хранящую сообщения об ошибке в "тихом" режиме
+	]]></comment>
+	</method>    
+
+	<property name="Registry">
+		<get />
+		<comment><![CDATA[
+Описание:
+	Объект OpenConf.Registry
+	]]></comment>		
+	</property>	
+
+	<method name="FindWindow">
+		<parameter name="caption" />
+		<comment><![CDATA[
+Описание:
+Параметры:
+	caption - заголовок окна, допускается использование регулярных выражений
+	flags - (не обязательный) - флаги регекспа; имеет смысл использовать 
+			только "i" - игнорировать регистр; по умолчанию поиск регистрозависим
+Возвращаемое значение:
+	Объект CfgWindow - найденное окно или null, если окна с таким заголовком 
+	не существует
+		]]></comment>
+	</method>
+
+	<method name="GetConstantNameFromTreeWithTypes">
+		<comment><![CDATA[
+Описание:
+	Вывести дерево констант, сгруппированное по типам констант
+Возвращаемое значение:
+	имя выбранной константы
+		]]></comment>
+	</method>
+
+	<method name="GetConstantNameFromList">
+		<comment><![CDATA[
+Описание:
+	Выбрать имя константы из списка констант
+Возвращаемое значение:
+	имя выбранной константы
+		]]></comment>
+	</method>
+
+	<method name="GetConstantNameFromListWithTypes">
+		<comment><![CDATA[
+Описание:
+	Выбрать имя константы из списка констант со строчками типа
+	ГлБухгалтер [ Справочник.Сотрудники ]
+Возвращаемое значение:
+	имя выбранной константы
+		]]></comment>
+	</method>
+
+	<method name="FindOpenDocument">
+		<parameter name="documentPath" />
+		<comment><![CDATA[
+Описание:
+	находит открытый документ по его пути
+Параметры:
+	documentPath - путь к документу
+Возвращаемое значение:
+	Объект CfgDocument - найденный документ или null, если документ с таким путем
+	не открыт
+ВНИМАНИЕ: т.к. в случае неудачного поиска метод возвращает null (JScript),
+	в VB-скриптах проверку необходимо осуществлять через ф. IsNull
+	пример:
+		if IsNull(CommonScripts.FindOpenDocument(Path)) then
+	но не так 
+		if CommonScripts.FindOpenDocument(Path) is Nothing then
+
+		]]></comment>
+	</method>
+
+	<property name="Version">
+		<get />
+		<comment><![CDATA[
+Описание:
+	Текущая версия скриптлета
+		]]></comment>
+	</property>	
+
+	<property name="SelectedText">
+		<get />
+		<put />
+		<comment><![CDATA[
+Описание:
+	Выделенный текст
+		]]></comment>
+	</property>
+
+	<method name="GetSelectedTextInAnyCase">
+		<comment><![CDATA[
+Описание:
+	Получить выделенный текст.
+	Если ничего не выделено, возвращается строка, на которой находится курсор
+Возможен параметр "bSelectLineOnly" (по умолчанию - 0)
+	0 - обычное выделение.
+	1 - выделение строк целиком.
+		]]></comment>
+	</method>
+
+	<method name="TypeName" internalName="MyTypeName">
+		<parameter name="varname" />
+		<comment><![CDATA[
+Описание:
+	Получить тип переменной.
+	для скриптлетов возвращается их guid,
+	для COM-объектов возвращается наименование их интерфейсов
+Примечание 
+	Использует функцию VBScript "TypeName"
+		]]></comment>
+	</method>
+
+	<method name="CheckDocOnExtension">
+		<parameter name="Doc" />
+		<parameter name="strExtensionsList" />
+		<comment><![CDATA[
+Описание:
+	Проверить, совпадает ли расширение пути документа с переданной строкой.
+	Строка расширений типа ".vbs.js.wsc.prm", "vbs;js;wsc;prm", "vbs,js,wsc,prm"
+	расширения могут быть разделены точками, запятыми, точками с запятой
+Возвращаемое значение: 
+	true - если расширение документа совпадает с одним из переданных расширений
+	false - если не совпадает
+		]]></comment>
+	</method>
+
+	<method name="VBSort">
+		<parameter name="VBArray" />
+		<comment><![CDATA[
+Описание:
+	Сортировать переданный массив
+	Использовать из VBScript
+Возвращаемое значение:
+	нет
+		]]></comment>
+	</method>
+
+	<method name="SortString">
+		<parameter name="String" />
+		<parameter name="Delimiter" />
+		<comment><![CDATA[
+Описание:
+	Сортировать переданную строка по подстрокам.
+	Подстроки разделены разделителем Delimiter
+Возвращаемое значение:
+	отсортированная строка.
+		]]></comment>
+	</method>
+
+	<method name="CommandLineToDictionary">
+		<parameter name="strCommandLine" />
+		<comment><![CDATA[
+Описание:
+	Разложить командную строку на аргументы
+	Аргументы складываются в словарь, в котором ключ - номер аргумента, значение - сам аргумент
+Возвращаемое значение:
+	словарь Dictionary.
+Пример вызова: (из JScript)	
+	Dict = CommandLineToDictionary(str);
+	a = (new VBArray(Dict.Keys())).toArray();
+	for (var i in a)
+		Echo( "Аргумент "+a[i] + " - " + "<"+ Dict(a[i])+">" );
+
+		]]></comment>
+	</method>
+
+	<method name="Sleep">
+		<parameter name="iTime" />
+		<comment><![CDATA[
+Описание:
+	Усыпить скрипт на некоторое время.
+	Используется прямой доступ к WinAPI через DynaWrap.dll
+
+		]]></comment>
+	</method>
+	
+</public>
+
+<script language="JScript"><![CDATA[
+
+	function get_FSO()
+	{
+		return FSO;
+	}
+
+	function get_WSH()
+	{
+		return WSH;
+	}
+
+	function Error(text, ShowMsgBox) 
+	{ 
+ 		if (ShowMsgBox) { 
+ 			WSH.Popup(text, 0, "OpenConf", 0|48); 
+ 		} 
+ 		else { 
+ 			Config.Message(text, mRedErr); 
+		 } 
+	} 
+	
+	// описано как метод "Debug"
+	function Debug1(title) //(title, msg)
+	{   
+		var a = Debug1.arguments;
+		var msg = "";
+		if (a.length > 1)
+			msg = CStrInner(a[1]);
+
+		if (!QuietMode)
+		{
+			title = CStrInner(title);
+			if (msg=="")
+			{
+				LastErrorStr = title;
+				Echo(title);
+			}
+			else
+			{
+				LastErrorStr = title + " - " + msg;
+				Echo(title + " - " + msg);
+			}
+		}
+	}
+
+]]></script>
+
+<script language="VBScript"><![CDATA[
+
+	Dim Config ' as Configurator
+	
+	Sub SetConfig(Configurator)
+		Set Config = Configurator
+	End Sub
+	
+	' -----------------------------------------------------------------------------
+	Sub Echo(text)
+		Config.Message text, mNone
+	End Sub ' Echo
+	
+	' -----------------------------------------------------------------------------
+	Sub EchoError(text)
+		Config.Message text, mRedErr
+	End Sub ' EchoError
+	
+	Function InputBoxInnerVBS(prompt, title, default)
+		InputBoxInnerVBS = InputBox(prompt, title, default)
+	End Function
+	
+	Dim QuietMode
+	Dim LastErrorStr
+	
+	QuietMode = false
+	LastErrorStr = ""
+	
+	Function SetQuietMode(bNewMode)
+		SetQuietMode = QuietMode
+		QuietMode = bNewMode
+	End Function
+	
+	Sub MyMsgBox(Text)
+		If QuietMode Then
+			LastErrorStr = text
+		Else
+			MsgBox text
+		End If
+	End Sub
+	
+	Function GetLastError()
+		GetLastError = LastErrorStr
+	End Function	
+
+	Sub ClearError()
+		LastErrorStr = ""
+	End Sub
+   
+	Sub SetErrorStr(ErrorStr)
+		LastErrorStr = ErrorStr
+	End Sub
+	
+	' описано как метод "Debug"
+	Sub Debug2(ByVal title, ByVal msg)
+		If not QuietMode Then
+
+			if not (IsEmpty(msg) or IsNull(msg)) then
+				msg = CStr(msg)
+			end if
+			if not (IsEmpty(title) or IsNull(title)) then
+				title = CStr(title)
+			end if
+			If msg="" Then
+				LastErrorStr = title
+				Echo(title)
+			else
+				LastErrorStr = title & " - " & msg
+				Echo(title & " - " & msg)
+			End If
+		End If
+	End Sub
+	
+	Function CStrInner(string1) ' для использования в скриптах JScript
+		CStrInner = CStr(string1)
+	End Function
+
+	' -----------------------------------------------------------------------------   
+	' Private (не входит в интерфейс компонента, 
+	'   используется в функциях GetTextDoc() и GetTextDocIfOpened()
+	Function GetTextDocVBS(Behaviour, bSilent)
+	
+		Set GetTextDocVBS = Nothing
+	
+		If Config.Windows.ActiveWnd Is Nothing Then
+			If bSilent <> 1 Then
+				MsgBox "Нет активного окна"
+			End If			
+			Exit Function
+		End If
+	  
+		Set doc = Config.Windows.ActiveWnd.Document
+	  
+		If doc = docWorkBook Then
+			If doc.ActivePage <> 1 Then
+				If Behaviour = 1 Then ' активировать страницу и веернуть TextDoc				
+					doc.ActivePage = 1		   
+				ElseIf Behaviour = 2 Then ' вернуть Nothing, если страница не активирована
+					If bSilent <> 1 Then
+						MsgBox "Нет активного окна"
+					End If			
+					Exit Function		
+				End If			
+			End If
+			Set doc=doc.Page(1)
+		End If
+	  
+		If doc <> docText Then
+			If bSilent <> 1 Then
+				MsgBox "Окно не текстовое"
+			End If
+			Exit Function
+		End If
+	
+		Set GetTextDocVBS = doc
+	End Function ' GetTextDocVBS
+
+]]></script>
+
+<script language="JScript"><![CDATA[
+	/* GetTextDoc
+	"обертка" для GetTextDocVBS - позволяет опускать 
+	параметры при вызове функции
+	Параметры:		
+		silent - [необязательный] не выводить никаких сообщений, по умолчанию - выводить
+		behaviour - [необязательный] поведение
+			Допустимые значения (по умолчанию - 0)
+				0 - Вернуть текстовый док, даже если страница не активирована (старая GetTextDoc())
+				1 - Активировать страницу и вернуть текстовый док (старая GetTextDocIfOpened(1))
+				2 - Вернуть текстовый док, если только активирована закладка модуля (старая GetTextDocIfOpened(0))  
+	*/
+	function GetTextDoc(/* silent, behaviour */)
+	{
+		var a = GetTextDoc.arguments;
+		
+		return GetTextDocVBS(
+				(a.length > 1) ? a[1] : 0, /* behaviour */
+				((a.length > 0) && a[0]) ? 1 : 0  /* silent */);
+	}
+	
+	/* GetTextDocIfOpened
+	"обертка" для GetTextDocVBS - позволяет опускать 
+	параметры при вызове функции
+	Параметры:		
+		bActivateTextModule - [необязательный] активировать закладку модуля, если она не активирована
+		silent - [необязательный] не выводить никаких сообщений, по умолчанию - выводить
+	*/
+	function GetTextDocIfOpened(/* bActivateTextModule, silent */)
+	{
+		var a = GetTextDocIfOpened.arguments;	
+		
+		return GetTextDocVBS(
+				((a.length > 0) && a[0]) ? 1 : 2, /* bActivateTextModule -> behaviour */
+				((a.length > 1) && a[1]) ? 1 : 0  /* silent */); 
+	}
+	
+	/* Активное окно - текстовый документ? */
+	function IsTextWindow()
+	{
+		return (GetTextDocIfOpened(false, true) !== null);
+	}
+	
+	function FindProc(/*Doc, ProcName1, ProcName2, ...*/)
+	{
+		arg = FindProc.arguments;
+		Doc = arg[0];
+		n = Doc.LineCount;
+		for(n_proc = 1; n_proc < arg.length; n_proc++)
+		{
+			re = new RegExp("^\\s*((procedure)|(function)|(процедура)|(функция))\\s+" + arg[n_proc] 
+					+ "\\s*\\([^/()]*\\)\\s*([\\wА-яёЁ]*).*$", "i");
+			for(i = 0; i < n; i++)
+			{
+				str = Doc.Range(i);
+				Matches = re.exec(str);
+				if( Matches != null )
+				{
+					forward = Matches[6].toLowerCase();
+					if( (forward != "forward") && (forward != "далее") )
+						return i;
+				}
+			}
+		}
+		
+		return -1;
+	}
+	
+	function Jump(/*nLine1, [nCol1 = -1], [nLine2 = -1], [nCol2 = -1], [ModuleName = ""]*/)
+	{
+		arg = Jump.arguments;
+		nLine1 = arg[0];
+		if( arg.length == 0 ) throw "Не указана строка для перехода";
+		
+		nCol1 = arg.length >= 2 ? arg[1] : -1;
+		if( typeof(nCol1) != "number" ) nCol1 = -1;
+		nLine2 = arg.length >= 3 ? arg[2] : -1;
+		if( typeof(nLine2) != "number" ) nLine2 = -1;
+		nCol2 = arg.length >= 4 ? arg[3] : -1;
+		if( typeof(nCol2) != "number" ) nCol2 = -1;
+		ModuleName = arg.length >= 5 ? arg[4] : "";
+		if( typeof(ModuleName) != "string" ) ModuleName = "";
+		
+		TelepatJump = 1;
+		try {
+			Telepat = Config.Plugins.item("Телепат");
+			Telepat.Jump(nLine1, nCol1, nLine2, nCol2, ModuleName);
+			return true;
+		}
+		catch(e) {
+			TelepatJump = false;
+		}
+		
+		if( !TelepatJump )
+		{
+			if( nCol1 < 0 ) nCol1 = 0;
+			if( nLine2 < 0 ) nLine2 = nLine1;
+			if( nCol2 < 0 ) nCol2 = 0;
+			try {
+				if( ModuleName == "")
+					Doc = GetTextDoc(true, 2);
+				else
+					Doc = Config.Documents.item(ModuleName);
+				Doc.Open();
+				Doc.MoveCaret(nLine1, nCol1, nLine2, nCol2);
+				return true;
+			}
+			catch(e) {
+			}
+		}
+		
+		return false;
+	}
+	
+]]></script>
+
+<script language="VBScript"><![CDATA[
+	' -----------------------------------------------------------------------------
+	' получить плагин по названию
+	' если плагин отсутствует, возвращается Nothing
+	'
+	Function GetPluginByName(PluginName)
+		Set GetPluginByName = Nothing
+	
+		Err.Clear
+		On Error Resume Next
+		temp = Config.Plugins(CStr(PluginName))
+		iErrNumber = Err.Number
+		On Error GoTo 0
+	
+		If iErrNumber = 438 Then ' такой плагин действительно существует
+			Err.Clear
+			Set GetPluginByName = Config.Plugins(CStr(PluginName))
+			Exit Function
+		ElseIf iErrNumber = 0 Then
+			Set GetPluginByName = Config.Plugins(CStr(PluginName))
+		End If
+	End Function ' GetPluginByName
+	
+	' -----------------------------------------------------------------------------
+	' получить скрипт по названию
+	' если скрипт отсутствует, возвращается Nothing
+	'
+	Function GetScriptByName(ScriptName)
+		Set GetScriptByName = Nothing
+	
+		On Error Resume Next
+	  
+		Err.Clear
+		temp = Config.Scripts(CStr(ScriptName))
+		iErrNumber = Err.Number
+		On Error GoTo 0
+	  
+		 If iErrNumber = 438 Then ' такой скрипт действительно существует
+			Err.Clear
+			Set GetScriptByName = Config.Scripts(CStr(ScriptName))
+			Exit Function
+		ElseIf iErrNumber = 0 then
+			Set GetScriptByName = Config.Scripts(CStr(ScriptName))
+		End If
+	End Function ' GetScriptByName
+	
+	' -----------------------------------------------------------------------------
+	' возвращает текущий числовой индекс скрипта с именем ScriptName
+	'
+	Function GetScriptIndexByName(ScriptName)
+		GetScriptIndexByName = -1
+		For i = 0 To Config.Scripts.Count - 1
+			sScriptName = Config.Scripts.Name(i)
+			If LCase(sScriptName) = LCase(Trim(ScriptName)) Then
+				GetScriptIndexByName = i
+				Exit Function
+			End If
+		Next
+	End Function ' GetScriptIndexByName
+
+]]></script>
+
+<script language="JScript"><![CDATA[
+
+	// Проверяет, загружен ли скрипт с заданным именем 
+	function ScriptLoaded(name)
+	{
+		return (GetScriptIndexByName(name) > -1);
+	}
+	
+	/* обертка для SelectValueVBS, делающая
+		четыре последних параметра необязательными */
+	function SelectValue(ValueList)
+	{
+		var a = SelectValue.arguments;
+		var delim = "", svcSvcFirst = false;	
+		var Caption = "Выберите значение";
+		var svcSvcFirst = true;
+		var EnableFreeInput = false;
+		
+		if (a.length > 1) {
+			Caption = a[1];
+		}
+		if (a.length > 2) {
+			delim = (a[2]&&(typeof(a[2]) == 'string')) ? a[2] : "";
+		}
+		if (a.length > 3) {
+			svcSvcFirst = a[3] ? true : false;
+		}
+		if (a.length > 4) {
+			EnableFreeInput = a[4] ? true : false;
+		}
+		return SelectValueVBS(ValueList, Caption, delim, svcSvcFirst, EnableFreeInput);
+	}
+	
+]]></script>
+
+<script language="VBScript"><![CDATA[
+	' ADirks
+	'Функция служит для выбора строки из набора вариантов.
+	'Для отображения окна списка используется ActiveX-сервер SelectValue.dll от IAm или 
+	'svcsvc.dll от Александра Орефкова.
+	' (a13x) два последних параметра добавлены мной, по умолчанию поведение
+	' функции аналогично оригинальной реализации SelectValue Алексея Диркса
+	'
+	' artbear 
+	'   Описание параметра Flags от FilterValue в svcsvc.dll от Александра Орефкова.
+	' Может быть суммой следующих значений:
+	' 1 - Фильтровать по вхождению подстрок. Если флаг не указан,
+	' значения будут фильтроваться с начала строки.
+	' 2 - Вывести окно в позиции мыши.
+	' 4 - Вывести окно в позиции курсора
+	' 8 - Вывести окно в указанных координатах
+	' 16 - Допускать ввод своих значений. В этом случае функция возвратит
+  	' то, что пользователь набрал в окне ввода. Иначе будет возвращен
+  	' выбранный пункт списка.
+	' 32 - Использовать заголовок. В этом случае список выбора выведется
+  	' с указанным заголовком.
+	' 64	- Использовать заголовок в качестве начального значения фильтра.
+		' В этом случае список выбора выведется уже отфильтрованным по данному значению.
+	' 128	- Попытаться заполнить список из активного комбобокса или листбокса
+	' 256	- Сортировка списка
+	' 512	- Автоширина окна (автоматически при изменении списка ширина окна подстраивается
+    '
+	Function SelectValueVBS(ValueList, Caption, Delimeter, SvcSvcFirst, EnableFreeInput)
+		SelectValueVBS = ""
+		Set SelObj = Nothing
+		SelType = ""
+	
+		On Error Resume Next	
+		'Попробуем создать SelectValue.SelectVal, и если не получилось, 
+		' то скажем доблестному программисту, что он отстал от жизни
+	
+		If SvcSvcFirst Then
+			Set SelObj = CreateObject("SvcSvc.Service")
+			If Not SelObj Is Nothing Then SelType = "SvcSvc"
+		End If
+		
+		If SelObj is Nothing Then
+			Set SelObj = CreateObject("SelectValue.SelectVal")  
+			If Not SelObj Is Nothing Then SelType = "SelectValue"
+		End If
+				
+		If SelObj is Nothing Then  
+			Set SelObj = CreateObject("SvcSvc.Service")
+			If Not SelObj Is Nothing Then SelType = "SvcSvc"
+		End If
+		
+		On Error Goto 0
+	
+		If SelObj Is Nothing Then
+			Config.Message "Не установлен (или не зарегистрирован) ActiveX сервер " _ 
+							& "для отображения списка выбора!", mExclamation 
+			Config.Message "   Сервер SelectValue.dll можно найти в наборе " _ 
+							& "'Intellisence for OpenConf' от IAm.", mInformation				
+			Config.Message "   Сервер SvcSvc.dll можно найти в наборе скриптов от artbear.", mInformation
+			Config.Message "   Адрес: http://1c.proclub.ru/modules/mydownloads/viewcat.php?cid=1002", mInformation		   
+			Exit Function
+		End If
+		
+		' проверю, а не словарь (Dictionary) ли передали ?  
+		' в этом случае ключи выводятся на экран для выбора, а возвращаются значения
+		bUseDictionary = false
+		Err.Clear
+		on Error resume next
+		atemp = ValueList.Exists(1895328554979797)
+		iErrNumber = Err.Number
+		Err.Clear
+		on Error goto 0
+		if iErrNumber = 0 then ' точно словарь
+			bUseDictionary = true
+			EnableFreeInput = false ' только те значения, что есть в списке !
+			
+			set Dict = ValueList
+			ValueList = ""
+			Keys = Dict.Keys
+			Dim i
+			i = 0
+			for i = 0 to Dict.Count-1 
+				ValueList = ValueList & Keys(i) & vbCrLf
+			next
+		end if
+		
+		If (Delimeter <> "") And (InStr(ValueList, vbCrLf) = 0) Then		
+			ValueList = Replace(ValueList, Delimeter, vbCrLf)	   
+		End If	
+		If SelType = "SelectValue" Then
+			SelectValueVBS = SelObj.SelectPopUp(ValueList, Config.Windows.ActiveWnd.HWnd, vbCrLf)  
+		Else
+			SelectValueVBS = -1
+			On Error Resume Next
+			bFlags = 1 ' позволяю фильтрацию по вхождению подстрок
+			'bFlags = bFlags + 4 ' вывести окно в позиции курсора
+			if Trim(Caption) <> "" then
+				bFlags = bFlags + 32 ' добавлю заголовок
+			end if
+			if EnableFreeInput then
+				bFlags = bFlags + 16 ' Допускать ввод своих значений
+			end if
+			bFlags = bFlags + 256 ' сортировка
+			bFlags = bFlags + 512 ' автоширина окна выбора
+			
+			SelectValueVBS = SelObj.FilterValue(ValueList, bFlags, Caption)
+			If SelectValueVBS = -1 Then
+				SelectValueVBS = SelObj.SelectValue(ValueList, Caption, false)
+			End If
+			On Error Goto 0
+		End If
+		
+		if bUseDictionary then
+			if Dict.Exists(SelectValueVBS) then
+				' проверка: а вдруг возвращается объект 
+				Err.Clear
+				on Error resume next
+				SelectValueVBS = Dict.Item(SelectValueVBS) ' Если не объект
+				iErrNumber = Err.Number
+				Err.Clear
+				on Error goto 0
+				if iErrNumber <> 0 then ' возвращаю объект
+					set SelectValueVBS = Dict.Item(SelectValueVBS)
+				end if
+			end if
+		end if
+	End Function ' SelectValueVBS
+
+]]></script>
+
+<script language="JScript"><![CDATA[
+
+	/* разрешает относительный путь q в абсолютный, беря в 
+		качестве базового путь p */
+	function ResolvePath(p, q)
+	{
+		var a, b, k;   
+	 		
+		b = q.replace(/\//g, "\\").split("\\")
+		
+		if (b[0] == '.')
+			return FSO.BuildPath(p, b.slice(1).join("\\"))
+	
+		for (k = 0; (k < b.length)&&(b[k] == '..'); k++)
+			; // do nothing :-)
+		
+		a = p.replace(/\//g, "\\").split("\\");
+				
+		var root = (a.length-k-1)?a.slice(0, a.length-k-1).join("\\"):(a[0] + "\\")
+				
+		return FSO.BuildPath(root, b.slice(k).join("\\"))
+	}
+
+]]></script>
+
+<script language="VBScript"><![CDATA[
+
+	Sub AddPluginToScript(Script,PluginName, PrefixForEvents, ByRef ScriptVariable)
+	
+		Set ScriptVariable1 = GetPluginByName(CStr(PluginName))
+		If ScriptVariable1 Is Nothing Then
+			' в "Тихом" режиме запоминаем ошибку и скрипт должен сам ее обработать
+			' в обычном режиме отсутствие плагина и другие ошибки связанные с его
+			' инициализацией трактуем как критические для скрипта и выгружаем его        
+			SetErrorStr "Плагин " & PluginName & " не загружен!"
+			If Not QuietMode Then
+				' Сообщаем об ошике и выгружаем скрипт
+				EchoError GetLastError()                
+				Config.Scripts.Unload Script.Name
+			End If    
+		Else
+			' Привязываем скрипт к событиям плагина
+			Set ScriptVariable = ScriptVariable1
+
+			On Error Resume Next
+			Err.Clear
+			Script.AddNamedItem PrefixForEvents, ScriptVariable1, False
+			iErrNumber = Err.Number
+			On Error GoTo 0
+
+			If iErrNumber = -2147024809 Then ' Имя уже зарегистрировано
+				SetErrorStr "ОШИБКА в скрипте " & Script.Name & ": " & Err.Description _
+							& vbCRLF & "Необходимо использовать другой префикс для событий!"
+				If Not QuietMode Then          
+					EchoError GetLastError()
+					Config.Scripts.Unload Script.Name
+				End If    
+				Err.Clear
+			ElseIf iErrNumber <> 0 Then ' другая ошибка
+				SetErrorStr "ОШИБКА в скрипте " & Script.Name & ": " & Err.Description
+				If Not QuietMode Then    
+					EchoError GetLastError()
+					Config.Scripts.Unload Script.Name
+				End If   
+				Err.Clear
+			End If
+			Set ScriptVariable = ScriptVariable1
+		End If		
+		
+	End Sub ' AddPluginToScript
+	
+	' проверить на соответствие шаблону (регулярному выражению)
+	' регистр символов не важен
+	Dim regExTest
+	Function RegExpTest(ByVal patrn, ByVal strng)
+		if IsEmpty(regExTest) then
+			Set regExTest = New RegExp		 	' Create regular expression.
+		end if
+		regExTest.Pattern = patrn		 		' Set pattern.
+		regExTest.IgnoreCase = true				' disable case sensitivity.
+		RegExpTest = regExTest.Test(strng)		' Execute the search test.
+	End Function
+		
+	'Описание: 
+	'	Проверить на соответствие шаблону (регулярному выражению).
+	'	Регистр символов не важен.
+	'Возвращаемое значение:
+	'	коллекция Matches (из RegExp.Execute)
+	Function RegExpExecute(ByVal patrn, ByVal strng)
+		if IsEmpty(regExTest) then
+			Set regExTest = New RegExp		 	' Create regular expression.
+		end if
+		regExTest.Pattern = patrn		 		' Set pattern.
+		regExTest.IgnoreCase = true				' disable case sensitivity.
+		set RegExpExecute = regExTest.Execute(strng)		' Execute the search test.
+	End Function ' RegExpExecute
+	
+	' существует ли в указанном скрипте макрос с таким именем
+	Function MacrosExists(ScriptName, MacrosName)
+		MacrosExists = false
+
+		on error resume next
+		Err.Clear
+		Set e = CreateObject("Macrosenum.Enumerator")
+		if Err.Number <> 0 then
+			Echo "Не удалось создать объект Macrosenum.Enumerator" & vbCRLF & _
+				"Зарегистрируйте соответствующий dll(ocx) файл"
+			Exit Function
+		end if
+		on error goto 0
+
+		Set script = GetScriptByName(ScriptName)
+		if script is Nothing then
+			Exit Function
+		end if
+
+		arr=e.EnumMacros(script)						' Получение массива макросов объекта
+		for j=0 to ubound(arr)
+		if trim(LCase(arr(j))) = trim(LCase(MacrosName)) then
+			MacrosExists = True
+			Exit Function
+		End if
+		Next
+	End Function ' MacrosExists
+	
+	' выполнить программу
+	Sub RunCommand(ProgramPath, sArguments, bWait)
+		ProgramPath1 = ProgramPath
+		' если есть пробелы в имени файла, заключим путь в кавычки
+		if fso.FileExists(ProgramPath) then
+			if InStr(ProgramPath, " ") > 0 then
+				ProgramPath1 = """"+ ProgramPath +""""
+			end if
+		end if
+		CmdLine = ProgramPath1 & " " & sArguments
+	
+		on Error resume next
+		WSH.Run CmdLine, 1, bWait
+		if Err.Number <> 0 then
+			WSH.Popup("ОШИБКА: не удалoсь выполнить программу" & _
+				vbCRLF & vbCRLF & CmdLine & vbCRLF & vbCRLF & _
+				"Возможно, указанный файл или не существует, или не находится на пути поиска " _
+				& "(если указано только имя программы)")
+			Err.Clear
+		end if
+		on Error goto 0
+	End Sub ' RunCommand
+	
+	' выполнить программу и подождать ее завершения
+	Sub RunCommandAndWait(ProgramPath, sArguments)
+		RunCommand ProgramPath, sArguments, true
+	End Sub ' RunCommandAndWait
+	
+	' послать команду для Конфигуратора
+	' Ввиду того, что OpenConf.SendCommand делает PostMessage(WM_COMMAND,число,0)
+	' нужно вызвать принудительную обработку сообщений Windows
+	' пока это сделано через вызов любой маленькой проги (cscript.exe)
+	'
+	Sub SendCommand(iCommand)
+		Config.SendCommand(iCommand)
+	
+		CmdLine = "cscript "
+		WSH.Run CmdLine, 0, true
+	End Sub ' SendCommand
+	
+	
+	' пример использования:
+	'----------------------
+	'		Set Pos = CommonScripts.GetDocumentPosition(Doc)
+	'		какой-то код, который меняет позицию курсора
+	'		Pos.Restore
+	'----------------------
+	
+	Class TDocumentPosition
+		Private Doc
+		Private Line1
+		Private Col1
+		Private Line2
+		Private Col2
+	
+		Public Sub Save(aDoc)
+			If aDoc Is Nothing then
+				Exit Sub
+			End if
+			set Doc = aDoc
+			Line1 = Doc.SelStartLine
+			Col1 = Doc.SelStartCol
+			Line2 = Doc.SelEndLine
+			Col2 = Doc.SelEndCol
+		End Sub
+	
+		Public Sub Restore()
+			If not Doc Is Nothing Then
+				Doc.MoveCaret Line1, Col1, Line2, Col2
+			end if
+		End Sub
+	End Class ' TDocumentPosition
+	
+	Function GetDocumentPosition(Doc)
+		Set GetDocumentPosition = new TDocumentPosition
+		GetDocumentPosition.Save(Doc)
+	End Function ' GetDocumentPosition
+	
+	Function SelectFileForRead(sFileName, sFilesFilter)
+		SelectFileForRead = ""
+	
+		Set srv = CreateObject("Svcsvc.Service")
+		'sFileName = srv.SelectFile(False, sFileName, "Текстовые файлы|*.txt|Все файлы|*", False)
+		sDstFileName = srv.SelectFile(False, sFileName, sFilesFilter, False)
+		If sDstFileName = "" Then
+			Exit Function
+		End If
+	
+		If Not fso.FileExists(sDstFileName) Then
+			Error "Указанный файл не существует"
+			Exit Function
+		End If
+	
+		SelectFileForRead = sDstFileName
+	End Function ' SelectFileForRead
+	
+	
+	' ADirks
+	'Функция добавляет к числу N нули слева до достижения ширины width
+	Private Function MyFormatNumber(N, width)
+		MyFormatNumber = Trim(CStr(N))
+		do while len(MyFormatNumber) < width
+			MyFormatNumber = "0" & MyFormatNumber
+		loop
+	End Function
+	
+	' ADirks
+	'Простое форматирование даты
+	'В форматной строке можно задавать поля 'd', 'm', 'MMMM', 'y'
+	'	количество символов 'd', 'm' и 'y' может быть любым - соотв. часть даты будет
+	'	дополнена слева нулями до нужной длины
+	'	MMMM будет заменено на название месяца
+	Function FormatDate(aDate, Format)
+		Dim format_d, format_m, format_y
+		Dim d, m, y
+	
+		Set RE = New RegExp
+		RE.IgnoreCase = true
+	
+		format_d = ""
+		format_m = ""
+		format_y = ""
+	
+	
+		RE.Pattern = "[^d]*(d*)"
+		RE.IgnoreCase = true
+		Set Matches = RE.Execute(Format)
+		If Matches.Count > 0 Then format_d = Matches(0).SubMatches(0)
+	
+		RE.Pattern = "[^m]*(m*)"
+		Set Matches = RE.Execute(Format)
+		If Matches.Count > 0 Then format_m = Matches(0).SubMatches(0)
+	
+		RE.Pattern = "[^y]*(y*)"
+		Set Matches = RE.Execute(Format)
+		If Matches.Count > 0 Then format_y = Matches(0).SubMatches(0)
+	
+		d = MyFormatNumber(DatePart("d", aDate), len(format_d))
+		If format_m = "MMMM" Then
+			m = MonthName(DatePart("m", aDate))
+		Else
+			m = MyFormatNumber(DatePart("m", aDate), len(format_m))
+		End If
+		y = MyFormatNumber(DatePart("yyyy", aDate), len(format_y))
+	
+		FormatDate = Format
+		FormatDate = Replace(FormatDate, format_d, d)
+		FormatDate = Replace(FormatDate, format_m, m)
+		FormatDate = Replace(FormatDate, format_y, y)
+	End Function
+	
+	' Orefkov
+	' Макрос переключает видимость различных панелей. Например,
+	' 	TogglePanel "Синтакс-Помощник"
+	' 	TogglePanel "Окно сообщений"
+	' 	TogglePanel "Список найденных вхождений"
+	' 	TogglePanel "Стандартная"
+	Sub TogglePanel(PanelName)
+		Config.Windows.PanelVisible(PanelName) = Not Config.Windows.PanelVisible(PanelName)
+	End Sub
+	
+	' Получить каталог ИБ в нормальном регистре 
+	' (исправил баг Configurator.IBDir (до версии 1.0.1.8) - все в маленьком регистре)
+	Function IBDir()
+	
+	 	set Folder = fso.GetFolder(Config.IBDir)
+	 	IBDir = Folder.Path + "\"
+	
+	End Function
+
+' работа с буфером обмена Windows		
+' Примечание: для работы требуется COM-объект из состава Windows Scripting Solutions 
+' [http://www.winnetmag.com/Files/07/23601/23601.zip]
+'
+	Function GetClipboardObjectInner()
+		Set GetClipboardObjectInner = Nothing
+
+		Set clip = Nothing
+		On Error Resume Next
+		Set clip = CreateObject("WshExtra.Clipboard")
+		On Error Goto 0
+		If clip Is Nothing Then
+			Exit Function
+		End If
+	    set GetClipboardObjectInner = clip
+	End Function
+
+	' Поместить строку в буфер обмена Windows
+	' В случае успеха возвращает true, иначе false
+	Function CopyToClipboard(str)
+		CopyToClipboard = false
+		
+		set clipboard = GetClipboardObjectInner
+		If clipboard Is Nothing Then
+			Exit Function
+		End If
+
+		clipboard.Copy str
+		CopyToClipboard = true
+	End Function
+
+	' Возвращает строку из буфера обмена Windows
+	Function GetFromClipboard()
+		GetFromClipboard = false
+		
+		set clipboard = GetClipboardObjectInner
+		If clipboard Is Nothing Then
+			Exit Function
+		End If
+		
+		GetFromClipboard = clipboard.Paste()
+	End Function
+
+	' если в буфере обмена путь к существующему файлу, возвращается этот путь
+	' если путь обрамлен кавычками, то кавычки отбрасываются
+	Function GetFileNameFromClipboard()
+		GetFileNameFromClipboard = ""
+		
+		strText = GetFromClipboard
+		strText = Trim(strText)
+		If strText = "" Then Exit Function
+	
+		If InStr(strText, Chr(34)) = 1 Then
+			strText = Mid(strText, 2)
+		End If
+		If InStrRev(strText, Chr(34)) = Len(strText) Then
+			strText = Mid(strText, 1, Len(strText) - 1)
+		End If
+		If fso.FileExists(strText) Then
+			GetFileNameFromClipboard = strText
+		End If
+	End Function
+    
+	' Автор - trdm
+	Function GetConstantNameFromTreeWithTypes()
+	  Dim TypeConstArr
+	  
+	  GetConstantNameFromTreeWithTypes = ""
+	  TypeConstStr = ""
+	  tree = ""
+	  
+	  Set Childs = Config.MetaData.TaskDef.Childs(CStr("Константа"))
+	  For i = 0 To Childs.Count - 1 
+	    Set mdo = Childs(i)
+	    if Len(TypeConstStr) = 0 Then
+	      TypeConstStr = mdo.Type.FullName & "##"
+	    elseIf InStr(1,TypeConstStr,mdo.Type.FullName&"##")=0 Then
+	      TypeConstStr = TypeConstStr & mdo.Type.FullName & "##" 
+	    End if
+	  next
+	  TypeConstArr = split(TypeConstStr,"##")
+	  if UBound(TypeConstArr)<>-1 Then
+	    For i = 0 To UBound(TypeConstArr)-1 
+	      tree = tree & TypeConstArr(i)& vbCrLf
+	      For tt = 0 To Childs.Count - 1 
+	        Set mdo = Childs(tt)
+	        if (mdo.Type.FullName = TypeConstArr(i)) Then
+	          tree = tree & vbTab & mdo.Name& vbCrLf
+	        End if
+	      next
+	    next
+	  End if
+	  Set srv=CreateObject("Svcsvc.Service")
+	  Cmd = srv.SelectInTree(tree,"Выберите константу....",false)
+
+	  If Len(Cmd) = 0 Then
+	    Exit Function
+	  else
+	    rrrr = split(Cmd,"\")
+	    if UBound(rrrr)<> -1 Then
+	      GetConstantNameFromTreeWithTypes = rrrr(UBound(rrrr))
+	    End if
+	  End if
+	End Function  ' GetConstantNameFromTreeWithTypes
+            
+	' Автор - trdm
+	Function GetConstantNameFromList()
+		GetConstantNameFromList = ""
+		
+		Set Childs = Config.MetaData.TaskDef.Childs(CStr("Константа"))
+		StrKO = ""
+		For i = 0 To Childs.Count - 1			
+			Set mdo = Childs(i)
+			if Len(StrKO) = 0 Then
+				StrKO = mdo.Name
+			else
+				StrKO = StrKO & vbCrLf & mdo.Name
+			End if
+		next
+		IF Len(StrKO) = 0 Then
+			Exit Function 
+		End If 
+		
+		GetConstantNameFromList = SelectValue(StrKO,Caption)		
+		
+	End Function ' GetConstantNameFromList
+            
+	' Автор - artbear
+	Function GetConstantNameFromListWithTypes()
+		GetConstantNameFromListWithTypes = ""
+		
+		Set Childs = Config.MetaData.TaskDef.Childs(CStr("Константа"))
+		StrKO = ""
+		For i = 0 To Childs.Count - 1			
+			Set mdo = Childs(i)
+			if Len(StrKO) = 0 Then
+				StrKO = mdo.Name & "[ " & mdo.Type.FullName & " ]"
+			else
+				StrKO = StrKO & vbCrLf & mdo.Name & "[ " & mdo.Type.FullName & " ]"
+			End if
+		next
+		IF Len(StrKO) = 0 Then
+			Exit Function 
+		End If 
+		
+		Cmd = SelectValue(StrKO,Caption)		
+
+		If Len(Cmd) = 0 Then
+			Exit Function
+		else
+			rrrr = split(Cmd,"[")
+			if UBound(rrrr)<> -1 Then
+				GetConstantNameFromListWithTypes = rrrr(UBound(rrrr))
+			End if
+		End if
+		
+	End Function ' GetConstantNameFromListWithTypes
+    
+	'Описание:
+	'	Получить тип переменной.
+	'	для скриптлетов возвращается их guid,
+	'	для COM-объектов возвращается наименование их интерфейсов
+	Function MyTypeName(varname)
+		MyTypeName = TypeName(varname)
+	End Function ' MyTypeName
+    
+	'Описание:
+	'	Проверить, совпадает ли расширение пути документа с переданной строкой.
+	'	Строка расширений типа ".vbs.js.wsc.prm", "vbs;js;wsc;prm", ".vbs,js,wsc,prm"
+	'	расширения могут быть разделены точками, запятыми, точками с запятой
+	'Возвращаемое значение: 
+	'	true - если расширение документа совпадает с одним из переданных расширений
+	'	false - если не совпадает
+	Function CheckDocOnExtension(Doc, ExtensionsList)
+		CheckDocOnExtension = false
+		if Doc is Nothing then
+			Exit Function
+		end if
+		
+		strExtensionsList = Mid(ExtensionsList, 1) ' копия, чтобы не менять исходную строку
+		strExtensionsList = Replace(strExtensionsList, ";", ".")
+		strExtensionsList = Replace(strExtensionsList, ",", ".")
+		if Left(strExtensionsList, 1) <> "." then strExtensionsList = "." & strExtensionsList ' вдруг забыли :)
+		
+		ext = "." & fso.GetExtensionName(doc.Path)
+		If ext <> "." and InStr(strExtensionsList, ext) > 0 Then 
+			CheckDocOnExtension = true
+		end if
+
+	End Function ' CheckDocOnExtension
+    
+	'Описание:
+	'	Сортировать переданный массив
+	'	Использовать из VBScript
+	'Возвращаемое значение:
+	'	нет
+	Sub VBSort(VBArray)
+		'if VBArray is nothing then Exit Sub
+		if not isArray(VBArray) then Exit Sub
+			
+		SortContinue = True 
+		eee = 0	
+		do while(SortContinue)
+			eee = eee + 0
+			SortContinue=False
+			for i=0 To  UBound(VBArray)-1
+				if ( VBArray(i) > VBArray(i+1))  Then
+					ItemOfListForSort = VBArray(i)
+					VBArray(i) = VBArray(i+1)
+					VBArray(i+1) = ItemOfListForSort
+					SortContinue = True
+				end if
+			Next 
+		Loop 
+	End Sub ' VBSort
+	
+	Sub Sleep(iTime)
+		Set Wrapper = CreateObject("DynamicWrapper")
+		Wrapper.Register "KERNEL32.DLL", "Sleep", "I=l", "f=s", "R=l"
+	
+		Wrapper.Sleep iTime
+
+	End Sub ' Sleep
+]]></script>
+
+<script language="JScript"><![CDATA[
+
+	var OCReg = null;
+
+	function get_Registry()
+	{
+		if (OCReg ==  null) {			
+			try {
+				OCReg = new ActiveXObject("OpenConf.Registry");
+				return OCReg;
+			}
+			catch(e) {
+				SetErrorStr(e.description);
+				OCReg = null;
+			}
+		}
+		return OCReg;
+	}
+
+	function FindWindow(caption, flags)
+	{
+		var re = new RegExp(caption, flags)
+		for (var wnd = Config.Windows.FirstWnd; wnd; wnd = Config.Windows.NextWnd(wnd)) {
+			if (re.exec(wnd.Caption)) {
+				return wnd;
+			}
+		}
+		return null;
+	}
+
+	function FindOpenDocument(documentPath)
+	{
+		for (var wnd = Config.Windows.FirstWnd; wnd; wnd = Config.Windows.NextWnd(wnd)) {
+			doc = wnd.Document;
+			if (documentPath == doc.Path) {
+				return doc;
+			}
+		}
+		return null;
+	}
+
+	function get_Version()
+	{
+		return "$Revision: 1.45 $".replace(/\s|\$/ig, "").replace(/^Revision:/, "");
+	}
+
+	function get_SelectedText()
+	{        
+		var doc = GetTextDocIfOpened();
+		if (!doc)
+			return ""; // TODO исключение ?
+		return doc.Range(doc.SelStartLine, doc.SelStartCol, doc.SelEndLine, doc.SelEndCol);
+	}
+
+	function put_SelectedText(newText)
+	{
+		var doc = GetTextDocIfOpened();
+		if (!doc)
+			return ""; // TODO исключение ?
+		
+		doc.Range(doc.SelStartLine, doc.SelStartCol, doc.SelEndLine, doc.SelEndCol) = newText;
+		//doc.MoveCaret(doc.SelStartLine, doc.SelStartCol, doc.SelEndLine, doc.SelEndCol);
+
+		return doc.Range(doc.SelStartLine, doc.SelStartCol, doc.SelEndLine, doc.SelEndCol);
+	}
+
+	function GetSelectedTextInAnyCase(/* bSelectLineOnly = 0 */)
+	{
+		bSelectLineOnly = 0; // по умолчанию выделяю как обычно
+
+		var doc = GetTextDocIfOpened();
+		if (!doc)
+			return ""; // TODO исключение ?
+		
+		arg = GetSelectedTextInAnyCase.arguments;
+		if( arg.length > 0 ) 
+			bSelectLineOnly = arg[0];
+
+	    Line1 = doc.SelStartLine;
+	    Line2 = doc.SelStartLine;
+	    Col1 = 0;
+	    Col2 = doc.LineLen(doc.SelStartLine);
+	
+	    if (doc.SelStartLine != doc.SelEndLine) // есть выделение на нескольких строках
+		{
+			if (!doc.SelStartCol && !doc.SelEndCol) // выделено ровно одна или несколько строк
+			{
+	            Line2 = doc.SelEndLine - 1;
+	            Col2 = doc.LineLen(doc.SelEndLine - 1);
+			}
+			else
+			{   
+	            Line2 = doc.SelEndLine;
+				if (bSelectLineOnly)
+		            Col2 = doc.LineLen(doc.SelEndLine);
+				else
+		            Col2 = doc.SelEndCol;
+	        }
+		}
+		else
+		{        
+			if (!bSelectLineOnly)
+			{
+			    Col1 = doc.SelStartCol;
+			    Col2 = doc.SelEndCol;
+				if (Col1 == Col2) // если ничего не выделено, получаю всю строку
+				{
+					Col1 = 0;
+				    Col2 = doc.LineLen(doc.SelEndLine);
+				}
+			}	
+	    }
+	    return doc.Range(Line1, Col1, Line2, Col2)
+	} // GetSelectedTextInAnyCase
+
+	//Описание:
+	//	Сортировать переданную строка по подстрокам.
+	//	Подстроки разделены разделителем Delimiter
+	//Возвращаемое значение:
+	//	отсортированная строка.
+	function SortString(SourceString, Delimiter)
+	{
+		var arr = SourceString.split(Delimiter);
+		arr.sort();
+		return arr.join(Delimiter);
+	}
+
+	//	методы для получения аргументов командной строки
+	function CharNext(P)
+	{
+		return P.substr(1);
+	}
+	
+	// выделяет очередной параметр, помещает его в словарь с ключом Key 
+	// возвращает остальную часть строки
+	function GetParamStr(SourceString, Dict, Key)
+	{
+		var	i, Len,
+	  		Start, S, Q;
+	  		                    
+	  P = new String(SourceString);
+	
+	  while(1)
+	  {
+	    while (P.length && (P.charAt(0) <= " "))
+	      P = CharNext(P);
+	
+	    if ((P.charAt(0) == "\"") && (P.charAt(1) == "\""))
+			P = P.substr(2);
+		else 
+			break;
+	  }
+	  
+	  Len = 0;
+	  Start = P.substr(0);
+	  while (P.charAt(0) > " ")
+	  {
+	    if (P.charAt(0) == "\"")
+	    {
+	      P = CharNext(P);
+	      while (P.length && (P.charAt(0) != "\""))
+	      {
+			Q = CharNext(P);
+			if (Q.length)
+				Len = Len + 1;
+	        P = Q.substr(0);
+	      }
+	      if (P.length)
+	        P = CharNext(P);
+	    }
+	    else
+	    {
+			Q = CharNext(P);
+			if (Q.length)
+				Len = Len + 1;
+	        P = Q.substr(0);
+	    }
+	  }
+	
+		S = "";
+		P = Start;
+		S = S;
+		i = 0;
+	
+		while (P.charAt(0) > " ")
+	  	{
+		    if (P.charAt(0) == "\"")
+		    {
+		      P = CharNext(P);
+		      while (P.length && (P.charAt(0) != "\""))
+		      {
+		        Q = CharNext(P);
+		        while (P != Q)
+		        {
+					S += P.charAt(0);
+				  	
+					P = CharNext(P);
+					i = i + 1;
+		        }
+		      }
+		      if (P.length)
+			  	P = CharNext(P);
+		    }
+		    else
+		    {
+		      Q = CharNext(P); 
+		      while (P != Q)
+		      {
+					S += P.charAt(0);
+	
+					P = CharNext(P);
+					i = i + 1;
+		      }
+		    }
+		}
+	
+		Dict.Add(Key, S)
+	
+		return P;
+	} // GetParamStr 
+	 
+	// разложить командную строку
+	// вернуть словарь, в котором ключ - номер аргумента, значение - сам аргумент
+	function CommandLineToDictionary(strCmdLine)
+	{
+		var Dict = new ActiveXObject("Scripting.Dictionary");
+		str = new String(strCmdLine);
+		for (var i= 0;str.length;i++)
+		{
+			str = GetParamStr(str, Dict, i);
+		}
+		return Dict;
+	} // CommandLineToDictionary
+
+	// Вызывает макрос с именем Macros скрипта с именем ($NAME) Script
+	function CallMacros(Script, Macros)
+	{
+		try 
+		{
+			Config.Scripts(Script)[Macros]()
+			return true
+		}
+		catch (e) 
+		{
+			if (QuietMode) 
+			{
+				SetErrorStr(e.description)
+			}
+			else 
+			{
+				Error(e.description)
+			}
+			return false
+		}			
+	}
+
+	function InputBox(prompt, title, value)
+	{
+		return InputBoxInnerVBS(
+			 (prompt? prompt: "Введите строку")
+			,(title ? title : "")
+			,(value ? value : "")
+		);
+	}
+
+]]></script>
+
+</component>

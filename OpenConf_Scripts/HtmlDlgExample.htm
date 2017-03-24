@@ -1,0 +1,106 @@
+<!--
+ ========================================================================
+ 2005-11-07
+ a13x <kuntashov at yandex dot ru>
+ Пример скрипта с html-диалогом, html-файл диалогового окна
+ ========================================================================
+
+Предполагается, что файл располагается в калалоге
+<BinDir>\config\data
+
+-->
+<html>
+	<title> Пример HTML-диалога для OpenConf</title>
+<head>
+
+<script language="JScript">
+var ep; function SetEventProxy(eventProxy) { ep = eventProxy }
+</script>
+
+</head>
+
+<body onUnload="ep.OnClose()" onLoad="ep.OnOpen()">
+
+<form name="ThisForm">
+
+<h3> Пример 1</h3>
+<p>Кнопка и чекбокс, если чекбокс отмечен, то при нажатии на кнопку выводится приветсвие
+по умолчанию, иначе - текст приветсвия запрашавается у пользователя </p>
+<p>
+
+<input type="button" name="Button1" value="Кнопка 1" onclick="ep.Button1OnClick(ThisForm)" />&nbsp;
+<input type="checkbox" name="CheckBox1" text="Использовать приветствие по умолчанию" checked />
+
+</p>
+
+<br/>
+<hr />
+
+<h3>Пример 2</h3>
+<p>
+При нажатии на кнопку выводится текст сообщения, введенный в поле "Текст сообщения"
+</p>
+
+<p>
+
+Текст сообщения: <input type="text" name="Edit1" size="15" value="Привет, Мир!" >&nbsp;
+<input type="button" name="Button2" value="Кнопка 2" onclick="ep.Button2OnClick(ThisForm)" />
+
+</p>
+
+<br/>
+<hr />
+
+
+<h3>Пример 3</h3>
+<p>
+Статичный листбокс - с предопределенными элементами
+</p>
+
+<p>
+<select name="ListBox1" onChange="ep.ListBox1OnChange(ThisForm)">
+	<option value="1">Первый</option>
+	<option value="2">Второй</option>
+	<option value="3">Третий</option>
+</select>
+</p>
+
+<br/>
+<hr />
+
+<h3>Пример 4</h3>
+<p>
+Динамически формируемый список - элементы списка добавляются "на лету" нажатии на кнопку "Заполнить".
+Сделан в виде комбобокса (это все тот же select, только с заданным атрибутом size - количество строк в списке).
+</p>
+
+<p>
+<select name="ComboBox1" onChange="ep.ComboBox1OnChange(ThisForm)" size="10" style="width:65pt;">
+</select>
+<input type="button" name="Button3" value="Заполнить список" onclick="ep.Button3OnClick(ThisForm)"/>&nbsp;
+</p>
+
+<br/>
+<hr />
+
+<h3>Пример 5</h3>
+<p>
+Простой пример с радиобатонами (у радиобаттнов из одной группы идентификаторы (name) должны быть одинаковыми).
+</p>
+
+<p>
+Выберите...<br />
+<input type="radio" name="RadioButton1" value="1" checked onclick="ep.RadioButton1OnClick(ThisForm, 0)" />...либо это<br/>
+<input type="radio" name="RadioButton1" value="2" onclick="ep.RadioButton1OnClick(ThisForm, 1)"/>...либо вот это<br/>
+<input type="radio" name="RadioButton1" value="3" onclick="ep.RadioButton1OnClick(ThisForm, 2)"/>...ну, либо это<br/>
+</p>
+
+
+
+<br/>
+<hr />
+
+</form>
+
+</body>
+</html>

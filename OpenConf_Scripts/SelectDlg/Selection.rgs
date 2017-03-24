@@ -1,0 +1,26 @@
+HKCR
+{
+	SelectDialog.Selection.1 = s 'Selection Class'
+	{
+		CLSID = s '{517A7574-B37D-4BA0-A9CC-586D95703561}'
+	}
+	SelectDialog.Selection = s 'Selection Class'
+	{
+		CLSID = s '{517A7574-B37D-4BA0-A9CC-586D95703561}'
+		CurVer = s 'SelectDialog.Selection.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {517A7574-B37D-4BA0-A9CC-586D95703561} = s 'Selection Class'
+		{
+			ProgID = s 'SelectDialog.Selection.1'
+			VersionIndependentProgID = s 'SelectDialog.Selection'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{D8E7C9B3-AB26-4114-91F8-AFAAAAECC07A}'
+		}
+	}
+}

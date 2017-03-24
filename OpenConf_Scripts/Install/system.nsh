@@ -1,0 +1,1 @@
+!include "system.auto.nsh"

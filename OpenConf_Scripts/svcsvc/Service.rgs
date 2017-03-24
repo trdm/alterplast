@@ -1,0 +1,26 @@
+HKCR
+{
+	Svcsvc.Service.1 = s 'Service Class'
+	{
+		CLSID = s '{6CDD75A4-C42E-4DE3-B87A-C75DAB91DD02}'
+	}
+	Svcsvc.Service = s 'Service Class'
+	{
+		CLSID = s '{6CDD75A4-C42E-4DE3-B87A-C75DAB91DD02}'
+		CurVer = s 'Svcsvc.Service.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {6CDD75A4-C42E-4DE3-B87A-C75DAB91DD02} = s 'Service Class'
+		{
+			ProgID = s 'Svcsvc.Service.1'
+			VersionIndependentProgID = s 'Svcsvc.Service'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{489FF226-90AD-4CC9-B497-FD17CDC48BF8}'
+		}
+	}
+}

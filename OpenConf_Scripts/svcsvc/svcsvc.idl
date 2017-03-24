@@ -1,0 +1,94 @@
+// svcsvc.idl : IDL source for svcsvc.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (svcsvc.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+[
+	uuid(489FF226-90AD-4CC9-B497-FD17CDC48BF8),
+	version(1.0),
+	helpstring("Набор полезных в скриптах функций")
+]
+library SVCSVCLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+	[
+		object,
+		uuid(A5194858-F330-4E3A-980A-FF487A5C3F6F),
+		dual,
+		helpstring("IService Interface"),
+		pointer_default(unique)
+	]
+	interface IService : IDispatch
+	{
+		[id(1), helpstring("Преобразовывает строку из кодировки ANSI в OEM")]
+			HRESULT AnsiToOEM([in] BSTR Ansi, [out, retval] BSTR* OEM);
+		[id(2), helpstring("Преобразовывает строку из кодировки OEM в ANSI")]
+			HRESULT OEMToAnsi([in] BSTR OEM, [out, retval] BSTR* Ansi);
+		[id(3), helpstring("Выбрать файл")]
+			HRESULT SelectFile([in] VARIANT_BOOL ForSave, [in] BSTR FileName,
+				[in] BSTR Filter, [in, optional, defaultvalue(0)] VARIANT_BOOL MultiSelect,
+				[out, retval] BSTR* FilePath);
+		[id(4), helpstring("Выбрать папку")]
+			HRESULT SelectFolder([in, optional, defaultvalue(NULL)] BSTR Caption,
+				[in,optional,defaultvalue(NULL)] BSTR StartFolder,
+				[in,optional,defaultvalue(NULL)] long Flags,
+				[in, optional, defaultvalue(NULL)] BSTR Root,
+				[out, retval] BSTR* FolderPath);
+		[id(5), helpstring("Преобразовать файл из кодировки ANSI в OEM")]
+			HRESULT FileA2O([in] BSTR Path);
+		[id(6), helpstring("Преобразовать файл из кодировки OEM в ANSI")]
+			HRESULT FileO2A([in] BSTR Path);
+		[id(7), helpstring("Выбрать значение из списка")]
+			HRESULT SelectValue([in] BSTR Values, [in] BSTR Caption,
+				[in, optional, defaultvalue(0)] VARIANT_BOOL Mark,
+				[out, retval] BSTR* Select);
+		[id(8), helpstring("Выбрать значение из дерева значений")]
+			HRESULT SelectInTree([in] BSTR Values, [in] BSTR Caption,
+				[in, optional, defaultvalue(0)] VARIANT_BOOL Mark,
+				[in,optional,defaultvalue(-1)] VARIANT_BOOL OnlyItems,
+				[out, retval] BSTR* Select);
+		[id(9), helpstring("Показать контекстное меню")]
+			HRESULT PopupMenu([in] BSTR Values,
+				[in, optional,defaultvalue(0)] short ShowIn,
+				[in, optional,defaultvalue(0)] long X,
+				[in, optional,defaultvalue(0)] long Y,
+				[out, retval] BSTR* Select);
+		[id(10), helpstring("Выбрать значение из фильтрующегося фильтра")]
+			HRESULT FilterValue([in] BSTR Values,
+				[in, optional, defaultvalue(0)] short Flags,
+				[in, optional, defaultvalue(NULL)] BSTR Caption,
+				[in, optional, defaultvalue(0)] long X,
+				[in, optional, defaultvalue(0)] long Y,
+				[in, optional, defaultvalue(0)] long W,
+				[in, optional, defaultvalue(0)] long H,
+				[out, retval] BSTR* Result);
+		[id(11), helpstring("Получить текст окна")] 
+			HRESULT GetWindowText(
+				[in, optional, defaultvalue(0)] long WH,
+				[in, optional, defaultvalue(0)] VARIANT_BOOL IsList,
+				[out, retval] BSTR* Result);
+		[id(12), helpstring("Установить текст окна")] 
+			HRESULT SetWindowText(
+				[in, optional, defaultvalue(0)] long WH,
+				[in] BSTR Text);
+		[propget, id(13), helpstring("Версия библиотеки")] 
+			HRESULT Version([out, retval] long *pVal);
+
+		[id(14), helpstring("Установить ImageList для использования совместно с FilterValue")]
+			HRESULT SetImageList([in] BSTR Values,
+				[out, retval] BSTR* Result);
+	};
+
+	[
+		uuid(6CDD75A4-C42E-4DE3-B87A-C75DAB91DD02),
+		helpstring("Объект Сервис")
+	]
+	coclass Service
+	{
+		[default] interface IService;
+	};
+};

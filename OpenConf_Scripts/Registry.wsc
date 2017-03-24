@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<!--
+	Copyright (c) 2004 OpenConf Community
+    
+	$Id $
+    
+	Функции для работы с реестром
+    
+	Александр Кунташов aka a13x <kuntashov@yandex.ru> icq#338758861  
+
+-->
+
+<component>
+
+<registration
+	description="Registry component for OpenConf"
+	progid="OpenConf.Registry"
+	version="1.00"
+	classid="{87e25a94-69b5-3f15-1634-aa5cfd63d52a}">
+</registration>
+
+<comment>Библиотека типов OpenConf'а</comment> 
+<reference guid="{578f85c8-89eb-4cda-ac7e-8f3bb34e8b54}" /> 
+<object id="WSH" progid="WScript.Shell" />
+
+<public>
+
+	<method name="SetConfig">
+		<parameter name="c" />
+	</method>
+    
+	<property name="WSH" >
+	<get />
+	</property>    
+    
+	<property name="ScriptRootKey">
+		<get />
+		<comment><![CDATA[
+Свойство, только чтение        
+Ключ, в котором хранятся глобальные настройки скрипта.
+Если не задан индекс, то значением свойства будет
+	HKCU\Software\1C\1Cv7\7.7\OpenConf\Scripts\
+Если задан индекс (имя скрипта), то значением свойства будет
+	HKCU\Software\1C\1Cv7\7.7\OpenConf\Scripts\<ИмяСкрипта>\    
+		]]></comment>
+	</property>
+
+	<property name="ScriptRootKeyIB">
+		<get />
+		<comment><![CDATA[
+Свойство, только чтение
+Ключ, в котором хранятся настройки скрипта для текущей базы
+Если не задан индекс, то значением свойства будет
+	HKCU\Software\1C\1Cv7\7.7\<Имя_текущей_базы>\OpenConf\Scripts\
+Если задан индекс (имя скрипта), то значением свойства будет
+	HKCU\Software\1C\1Cv7\7.7\<Имя_текущей_базы>\OpenConf\Scripts\<ИмяСкрипта>\    
+		]]></comment>        
+    </property>
+
+    <property name="Param">
+		<get />
+		<put />
+		<comment><![CDATA[
+Свойство, чтение/запись
+Содержит значение параметра с заданным именем (второй индекс), 
+хранящегося в заданном ключе реестра (второй индекс).
+Только для строковых параметров.
+Пример использования (JScript):
+	// чтение настроек
+	OCReg = new ActiveXObject("OpenConf.Scripts");
+	OCReg.SetConfig(Configurator);
+	var rk = OCReg.ScriptRootKey(SelfScript.Name);
+	var MyParam = OCReg.Param(rk, "MyParam");
+	// сохранение настроек
+	OCReg.Param(rk, "MyParam") = "My value";
+		]]></comment>
+	</property>
+
+	<method name="KeyExists">
+		<parameter name="Key"/>
+		<comment><![CDATA[
+Описание:
+	Проверяет, существует ли заданный ключ в реестре.
+Параметры:
+	Key - проверяемый ключ
+		]]></comment>
+	</method>    
+
+	<method name="DeleteParam">
+		<parameter name="RootKey" />
+		<parameter name="Name" />
+		<comment><![CDATA[
+Описание:
+	Удаляет параметр с именем Name из ключа RootKey
+Параметры:
+	RootKey - проверяемый ключ		
+	Name - имя параметра
+Возвращаемое значение:
+	true - параметр успешно удален
+	false - параметр не удален (произошла ошибка)
+		]]></comment>
+	</method>	
+
+</public>
+
+<script language="JavaScript">
+<![CDATA[
+
+	var Config;
+
+	function SetConfig(c)
+	{       
+		Config = c;
+	}
+
+	function get_WSH()
+	{
+		return WSH;
+	}    
+
+	function get_ScriptRootKey(ScriptName)
+	{
+		return getScriptRootKeyEx(null, ScriptName);
+	}
+    
+	function get_ScriptRootKeyIB(ScriptName)
+	{
+		var IBName = Config.AppProps(appIBName);
+		return getScriptRootKeyEx(IBName, ScriptName);
+	}
+
+	function getScriptRootKeyEx(IBName, ScriptName)
+    {      
+		return "HKCU\\Software\\1C\\1Cv7\\7.7\\" + (IBName ? IBName + "\\" : "") 
+			+ "OpenConf\\Scripts\\" + (ScriptName ? ScriptName + "\\" : "");
+    }
+
+	function get_Param(RootKey, Name)
+	{
+		var val = null;
+		try {
+			val = WSH.RegRead(RootKey + Name);			
+		} 
+		catch (e) {
+			if (e.number == -2147024894) {  
+				// ключ еще не существует
+				val = null;
+			}
+			else {
+				// обработка всех остальных исключений - в скрипте
+				throw(e); 
+			}
+		}
+		return val;
+	}
+
+	function put_Param(RootKey, Name, Value)
+	{
+    	return WSH.RegWrite(RootKey + Name, Value);
+	}
+
+	function DeleteParam(RootKey, Name)
+	{
+		try {
+			WSH.RegDelete(RootKey + Name)	
+			return true;
+		}
+		catch (e) {
+			return false;
+		}
+	}
+
+	function KeyExists(key)
+	{
+		try {
+			val = WSH.RegRead(key);    
+			return true;
+		}
+		catch (e) {
+			return false;
+		}
+	}
+]]>
+</script>
+</component> 

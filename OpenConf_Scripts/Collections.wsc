@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!--
+
+    Copyright (c) http://scrhostplugin.sourceforge.net/
+
+    Slightly modifyed by Alexander Kuntashov <kuntashov@yandex.ru>
+
+-->
+<package>
+<component id="OpenConfCollection">
+<?component error="true" debug="true"?>
+<registration
+  description="Collection Component for OpenConf"
+  progid="OpenConf.Collection"
+  version="1.0"
+  classid="{4EEA1308-180A-4712-81C0-745DC19525C0}"
+>
+</registration>
+<public>
+<comment>
+  properties and methods here 
+</comment>
+<method name="toString" />
+<method name="Iterator"/>
+<method name="Add">
+    <parameter name="o"/>
+</method>
+<method name="AddAll">
+    <parameter name="co"/>
+</method>
+<method name="Clear"/>
+<method name="Contains">
+    <parameter name="a"/>
+</method>
+<method name="IndexOf">
+    <parameter name="o"/>
+</method>
+<method name="Insert">
+    <PARAMETER name="Index"/>
+    <parameter name="o"/>
+</method>
+<method name="InsertAll">
+    <PARAMETER name="Index"/>
+    <parameter name="co"/>
+</method>
+<method name="IsEmpty"/>
+<method name="LastIndexOf">
+    <parameter name="o"/>
+</method>
+<method name="Remove">
+    <parameter name="o"/>
+</method>
+<method name="RemoveAll">
+    <parameter name="co"/>
+</method>
+<method name="RemoveAt">
+    <PARAMETER name="Index"/>
+</method>
+<method name="Size"/>
+<method name="SubList">
+    <parameter name="FromIndex"/>
+    <parameter name="ToIndex"/>
+</method>
+<method name="Get">
+    <parameter name="Index"/>
+</method>
+<method name="Set">
+    <parameter name="Index"/>
+    <parameter name="Value"/>
+</method>
+
+<!-- 	записать текстовое представление объектов коллекции 
+	удобно использовать, например, для показа списка выбора через OpenConf.CommonServices.SelectValue
+-->
+<method name="SaveToString">
+    <parameter name="Delims"/>
+</method>
+
+<method name="LoadFromString">
+    <parameter name="Text"/>
+    <parameter name="Delims"/>
+</method>
+
+<property name="Item" get="get_Item" put="put_Item"/>
+<!-- <property name="Count" get="get_Count"/> -->
+<property name="Text" get="get_Text" put="put_Text"/>
+
+<!--  TODO нужно ли немедленное удаление дубликатов при установке в false
+//<property name="AllowDuplicates" get="get_AllowDuplicates" put="put_AllowDuplicates"/>
+-->
+<property name="AllowDuplicates" internalName="bAllowDuplicates"/>
+
+</public>
+<script language="JavaScript" id="collection_mp"><![CDATA[
+
+var CollectionContainer = new ActiveXObject("Scripting.Dictionary");
+var bAllowDuplicates = false
+
+//An iterator over the elements in this collection
+function Iterator()
+{
+    var Result=createComponent("OpenConfCollectionIterator");
+    Result.pCollection = CollectionContainer;
+    return Result;
+}
+
+function toString()
+{
+    return '[object OpenConf.Collection]';
+}
+
+//Returns a view of the portion of this list 
+function SubList(FromIndex,ToIndex)
+{
+    var Result=createComponent("OpenConfCollectionSubList")
+    Result.pCollection = this;
+    Result.FromIndex = FromIndex;
+    Result.ToIndex   = ToIndex;
+    return Result;    
+}
+
+function RemoveAll(co) //co - Collection of objects
+{
+    var e, Result = false;
+    //Remove all of the elements in the specified collection from this collection   
+    e=co.Iterator()
+    for( ;e.HasNext(); ) {
+        Result |= Remove(e.Next())
+    }
+    return Result
+} //RemoveAll
+
+/***
+Removes a single instance of the specified element 
+from this collection, if it is present 
+Returns true if this collection contained the specified */
+function Remove(o)
+{
+    if(!((ii=IndexOf(o)) < 0)) {
+        return (RemoveAt(ii) != null);
+    }
+    return false;
+} //remove
+
+function RemoveAt(Index)
+{
+    Result=false; retval=null;
+    retval=CollectionContainer.Item(Index)
+    CollectionContainer.Remove(Index)
+    Result=true
+    //recalc indexes
+    if(Result){
+        for(var i=Index+1;i<CollectionContainer.Count+1;i++)
+            CollectionContainer.Key(i)=i-1
+    }
+    else 
+        retval=null
+    return retval
+}
+
+function Size(){ //Returns the number of elements in this collection
+    return (CollectionContainer==null)?0:CollectionContainer.Count
+}
+function IsEmpty(){ //Returns true if this collection contains no elements
+    return Size()==0;
+} //isEmpty
+/*
+function get_Count(){
+    return Size()
+}
+*/
+function Get(Index){
+    return CollectionContainer.Item(Index)
+} //get
+function Set(Index,Value){
+    var result=Get(Index);
+    CollectionContainer.Item(Index) = Value
+    return(result);
+} //Set
+//indexed property Item
+function get_Item(Index){
+    return CollectionContainer.Item(Index)
+} //get_Item
+function put_Item(Index,newVal){
+    CollectionContainer.Item(Index) = newVal
+} //put_Item
+
+////property AllowDuplicates
+//function get_AllowDuplicates(){
+//    return CollectionContainer.Item(Index)
+//} //get_AllowDuplicates
+//function get_AllowDuplicates(newVal){
+//    CollectionContainer.Item(Index) = newVal
+//} //get_AllowDuplicates
+
+function Contains(o){
+//Returns true if this collection contains the specified element.
+return !(IndexOf(o)<0)
+} //contains
+function Clear(){
+//Removes all of the elements from this collection 
+    CollectionContainer.RemoveAll()
+}
+function Insert(Index,o){//Inserts the specified element at the specified position 
+    //recalc indexes to shift right
+    for(var i=CollectionContainer.Count-1;i>Index-1;i--) //с конца, чтоб не было дублей ключей
+        CollectionContainer.Key(i) = (i+1)
+    CollectionContainer.Add(Index,o) //inserting our element
+}
+function InsertAll(Index,co){//Inserts the specified collection at the specified position 
+    //recalc indexes to shift right
+    for(var i=CollectionContainer.Count-1;i>Index-1;i--) //с конца, чтоб не было дублей ключей
+        CollectionContainer.Key(i)=i+co.Size()
+    var e=co.Iterator(); ;
+    for(var i=0;e.HasNext();i++)
+        CollectionContainer.Add(Index+i, e.Next())
+}
+
+function AddAll(co){ //co - Collection of objects
+//Adds all of the elements in the specified collection to this collection
+    var Result=false
+    var e //as Iterator
+    = co.Iterator()
+    for(;e.HasNext();)
+        Result |= Add(e.Next())
+    return Result
+} //addAll
+function Add(o){
+//Returns true if this collection changed as a result of the call
+    //var Result = !Contains(o) || true
+    var Result = !Contains(o) || bAllowDuplicates
+    if(Result)
+        CollectionContainer.Add(CollectionContainer.Count, o)
+    return Result;
+} //add
+function IndexOf(o){
+    var retval=-1
+    for(var i=0;i<CollectionContainer.Count;i++)
+        if(CollectionContainer.Item(i)==o){
+            retval=i;
+            return retval    //break
+        }
+    return retval
+} //IndexOf
+function LastIndexOf(o){
+    var retval=-1
+    for(var i=CollectionContainer.Count-1;i>-1;i--)
+        if(CollectionContainer.Item(i)==o){
+            retval=i;
+            return retval  //break
+        }
+    return retval
+} //LastIndexOf
+
+// 	записать текстовое представление объектов коллекции 
+//	удобно использовать, например, для показа списка выбора через OpenConf.CommonServices.SelectValue
+function SaveToString(Delims){
+	var str = "";
+	var i = Iterator();
+	
+	if(i.HasNext())
+		str += i.Next();
+	while (i.HasNext())
+		str += Delims + i.Next();
+	
+    return str;
+}
+function LoadFromString(a, Delims){
+    Clear();
+    var s=(a==null)?"":new String(a);
+    var arr=s.split(Delims);
+    for(var i in arr) Add(arr[i]);
+}
+
+function put_Text(a){
+	LoadFromString(a, "\r\n")
+}
+function get_Text(a){
+	return SaveToString("\r\n");
+}
+
+function AsInt(i1,i2){
+return (parseInt(i1)<parseInt(i2))?-1:(parseInt(i1)>parseInt(i2))?1:0
+}
+function RandomKey(){
+    //@todo:rewrite to counter
+    return CollectionContainer.Count
+    //return (new ActiveXObject("scriptlet.typelib")).guid.substr(0,38)
+}
+]]></script>
+</component>
+<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+<component id="OpenConfCollectionSubList">
+<?component error="true" debug="true"?>
+<public>
+<comment>
+  properties and methods here 
+</comment>
+<method name="Add">
+    <parameter name="o"/>
+</method>
+<method name="AddAll">
+    <parameter name="co"/>
+</method>
+<method name="Clear"/>
+<method name="Insert">
+    <PARAMETER name="Index"/>
+    <parameter name="o"/>
+</method>
+<method name="InsertAll">
+    <PARAMETER name="Index"/>
+    <parameter name="co"/>
+</method>
+<method name="Iterator"/>
+<method name="Remove">
+    <parameter name="o"/>
+</method>
+<method name="RemoveAll">
+    <parameter name="co"/>
+</method>
+<method name="RemoveAt">
+    <PARAMETER name="Index"/>
+</method>
+<method name="Size"/>
+<property name="Item">
+    <get/>
+    <put/>
+</property>
+<property name="pCollection" get="get_pCollection" put="put_pCollection"/>
+<property name="FromIndex" put="put_FromIndex"/>
+<property name="ToIndex" put="put_ToIndex"/>
+<!-- <property name="Count" get="get_Count"/> -->
+</public>
+<script language="JavaScript" id="JS_SubList"><![CDATA[
+var pCollection // : Dictionary 
+var FromIndex,ToIndex
+function get_pCollection(){ return pCollection }
+function put_pCollection(pC){ pCollection = pC }
+function put_FromIndex(Index){ FromIndex = Index }
+function put_ToIndex(Index){ToIndex = Index }
+function Add(o){
+if(pCollection.Insert(ToIndex,o)) 
+    ToIndex++
+}
+function AddAll(co){
+if(pCollection.InsertAll(ToIndex,co)) 
+    ToIndex+=co.Size()
+}
+function Clear(){
+for(var i=FromIndex;i<ToIndex;i++)
+    pCollection.RemoveAt(FromIndex)
+}
+function Insert(Index,o){ //relative index
+if(!(Index<0 || Index>ToIndex-FromIndex-1)){
+    pCollection.Insert( FromIndex+Index, o)
+    ToIndex++
+}
+}
+function InsertAll(Index,co){ //relative index
+if(!(Index<0 || Index>ToIndex-FromIndex-1)){
+    pCollection.InsertAll( FromIndex+Index, co)
+    ToIndex+=co.Size()
+}
+}
+//An iterator over the elements in this collection
+function Iterator(){
+    var Result=pCollection.Iterator();
+    //Result.pCollection = pCollection
+    Result.FromIndex = FromIndex
+    Result.ToIndex   = ToIndex
+    return Result;
+}
+function Remove(o){
+for(var i=FromIndex;i<ToIndex;i++)
+    if(pCollection(i+FromIndex)==o){
+        if((Result = (pCollection.RemoveAt(i+FromIndex,o))) != null)  ToIndex--
+        return Result != null
+    }
+}
+function RemoveAll(co){
+    var Result=false
+    e=co.Iterator()
+    for(;e.HasNext();)
+        Result |= Remove(e.Next())
+    return Result
+}
+function RemoveAt(Index){ //relative index
+if( !(Index<0 || Index>ToIndex-FromIndex-1) ){
+    Result = pCollection.RemoveAt(FromIndex+Index)
+    if(Result != null) ToIndex--
+    return Result
+    }
+}
+function Size(){ return ToIndex-FromIndex }
+//indexed property Item
+function get_Item(Index){
+    //return pCollection.Item(Index+FromIndex)
+    return pCollection.Get(Index+FromIndex)
+} //get_Item
+function put_Item(Index,Value){
+    pCollection.Item(Index+FromIndex) = Value
+} //put_Item
+
+]]></script>
+</component>
+<!-- ********************************************************** -->
+<component id="OpenConfCollectionIterator">
+<?component error="true" debug="true"?>
+<public>
+<comment>
+  properties and methods here 
+</comment>
+<property name="pCollection" get="get_pCollection" put="put_pCollection" />
+<property name="FromIndex" get="get_FromIndex" put="put_FromIndex"/>
+<property name="ToIndex" get="get_ToIndex" put="put_ToIndex"/>
+<method name="GoFirst"/>
+<method name="HasNext"/>
+<method name="Next"/>
+<method name="NextIndex"/>
+<method name="PreviousIndex"/>
+<method name="HasPrevious"/>
+<method name="Reset"/>
+</public>
+<script language="VBScript" id="VBS_err"><![CDATA[
+'Created using SuperScript
+Option Explicit
+Sub raiseError(Num,Description)
+  Err.Raise Num,"OpenConf.Collection.Iterator",Description
+End Sub 'raiseError
+]]></script>
+<script language="JavaScript" id="iterator_mp"><![CDATA[
+//
+var pCollection // : Dictionary 
+//коллекция-владелец
+//var enumerator //as Enumerator
+var FromIndex=0
+var ToIndex=-2
+var cIndex  // текущий индекс
+function put_FromIndex(Value){ FromIndex=Value; Reset() }
+function get_FromIndex(){ return FromIndex }
+function put_ToIndex(Value){ ToIndex = Value; Reset() }
+function get_ToIndex(){ return ToIndex }
+function get_pCollection(){ return pCollection }
+function put_pCollection(pC){ pCollection = pC; Reset() }
+function Reset(){ cIndex=FromIndex-1 }
+function GoFirst(){ 
+//enumerator.moveFirst();
+cIndex=0 
+}
+function PreviousIndex(){
+if(HasPrevious())
+    return cIndex-1
+else
+    return -1
+}
+function NextIndex(){
+if(HasNext())
+    return cIndex+1
+else
+    return pCollection.Size() //Count
+}
+
+function Next(){
+var retval
+    if(HasNext()){
+        retval = pCollection.Item(++cIndex)
+    }
+    else{
+        retval = null
+        //throw (new Error(7777,"End of collection"))
+        raiseError(7777,"End of collection") //vbs procedure, see above
+        //enumerator.moveFirst()
+        //cIndex=0
+        Reset()
+    }
+    return retval
+}
+function HasNext(){
+    return (cIndex < (ToIndex==-2?pCollection.Count:ToIndex)-1) //Count
+} //hasNext 
+function HasPrevious(){ return (cIndex > FromIndex) }
+
+]]></script>
+</component>
+</package>

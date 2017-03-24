@@ -1,0 +1,82 @@
+// ParserPlugin.idl : IDL source for ParserPlugin.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (ParserPlugin.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+	[
+		object,
+		uuid(513B102D-9967-485E-8E1A-7D5829C46AD4),
+		dual,
+		helpstring("ICodeAnalyser Interface"),
+		pointer_default(unique)
+	]
+	interface ICodeAnalyser : IDispatch
+	{
+		[propget, id(3), helpstring("property Line")] HRESULT Line([out, retval] long *pVal);
+		[propput, id(3), helpstring("property Line")] HRESULT Line([in] long newVal);
+		[propget, id(4), helpstring("property Column")] HRESULT Column([out, retval] long *pVal);
+		[propput, id(4), helpstring("property Column")] HRESULT Column([in] long newVal);
+		[id(5), helpstring("method GetTypeInPos")] HRESULT GetTypeInPos();
+		[propget, id(6), helpstring("property Type")] HRESULT Type([out, retval] BSTR *pVal);
+		[propget, id(7), helpstring("property TimeSpent")] HRESULT TimeSpent([out, retval] long *pVal);
+
+		[propput, id(8), helpstring("property TypePropertyName")] HRESULT TypePropertyName([in] BSTR newVal);
+		[propget, id(8), helpstring("property TypePropertyName")] HRESULT TypePropertyName([out, retval] BSTR* pVal);
+		
+		[propput, id(9), helpstring("property TypePropertyType")] HRESULT TypePropertyType([in] BSTR newVal);
+		[propget, id(9), helpstring("property TypePropertyType")] HRESULT TypePropertyType([out, retval] BSTR* pVal);
+		
+		[propget, id(10), helpstring("property TypeName")] HRESULT TypeName([out, retval] BSTR *pVal);
+		[propput, id(10), helpstring("property TypeName")] HRESULT TypeName([in] BSTR newVal);
+
+		[id(11), helpstring("method AddType")] HRESULT AddType([in] BSTR TypeName);
+		[id(12), helpstring("method AddTypeProperty")] HRESULT AddTypeProperty([in] BSTR PropName, [in] BSTR PropType);
+		[id(13), helpstring("method FindType")] HRESULT FindType([in] BSTR TypeName, [out, retval] BOOL* pFound);
+		[id(14), helpstring("method StartPropsIteration")] HRESULT StartPropsIteration();
+		[id(15), helpstring("method NextProperty")] HRESULT NextProperty([out, retval] BSTR* pPropName);
+
+		[id(16), helpstring("method FindVar")] HRESULT FindVar([in] BSTR bstrVarName, [out, retval]BOOL* pFound);
+		[id(17), helpstring("method FindTypeProp")] HRESULT FindTypeProp(BSTR bstrPropName, [out, retval] BOOL* pFound);
+
+		[id(18), helpstring("method FindVarProp")] HRESULT FindVarProp([in] BSTR bstrPropName, [out, retval] BOOL* pFound);
+		[propget, id(19), helpstring("property VarPropType")] HRESULT VarPropType([out, retval] BSTR *pVal);
+		[propput, id(19), helpstring("property VarPropType")] HRESULT VarPropType([in] BSTR newVal);
+		[propget, id(20), helpstring("property VarPropName")] HRESULT VarPropName([out, retval] BSTR *pVal);
+		[propput, id(20), helpstring("property VarPropName")] HRESULT VarPropName([in] BSTR newVal);
+
+		[id(21), helpstring("method StartVarPropsIteration")] HRESULT StartVarPropsIteration();
+		[id(22), helpstring("method NextVarProp")] HRESULT NextVarProp([out, retval] BSTR* pPropName);
+		[id(23), helpstring("method AddExemplarModifyingMethod")] HRESULT AddExemplarModifyingMethod([in] BSTR bstrMethodName, [in] long nParam_PropName, [in] long nParam_PropType);
+		[id(24), helpstring("method AnalyseGlobalModule")] HRESULT AnalyseGlobalModule();
+		[id(25), helpstring("method RemoveAllTypes")] HRESULT RemoveAllTypes();
+		[id(26), helpstring("method RemoveType")] HRESULT RemoveType([in] BSTR bstrTypeName);
+		[id(27), helpstring("method LC_AddVar")] HRESULT LC_AddVar([in] BSTR bstrVarName, [in] BSTR bstrVarType);
+		[id(28), helpstring("method LC_AddFunction")] HRESULT LC_AddFunction([in] BSTR bstrFuncName, [in] BSTR bstrFuncType);
+		[id(29), helpstring("method LC_AddVarProperty")] HRESULT LC_AddVarProperty([in] BSTR bstrVarName, [in] BSTR bstrPropName, [in] BSTR bstrPropType);
+		[id(30), helpstring("method ResetLocalContext")] HRESULT ResetLocalContext();
+		[id(31), helpstring("method AddBaseType")] HRESULT AddBaseType([in] BSTR bstrBaseType);
+		[id(32), helpstring("method AnalyseModule")] HRESULT AnalyseModule([in] BSTR bstrModuleBody, [in] long line, [in] long col);
+	};
+
+[
+	uuid(06C1B9A0-5634-40F3-B795-1E47FFAD5AB4),
+	version(1.0),
+	helpstring("ParserPlugin 1.0 Type Library")
+]
+library PARSERPLUGINLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(05C61FC5-A72C-42DA-82C0-0513A9618FBA),
+		helpstring("CodeAnalyser Class")
+	]
+	coclass CodeAnalyser
+	{
+		[default] interface ICodeAnalyser;
+	};
+};

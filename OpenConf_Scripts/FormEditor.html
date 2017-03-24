@@ -1,0 +1,175 @@
+<html>
+	<head>
+		<title>Редактор колонок табличной части формы</title>
+		<style type="text/css">
+			tr { height: 18px; }
+			tr.selected { border: 1px solid black; background-color: 6699ff; }
+		</style>
+		<script language=JavaScript>
+		<!--
+		var handlers;
+		function setHandlers(h) {
+			handlers = h;
+			return true;
+		}
+		
+		function onLoad() {
+			handlers.onLoad(document);
+			document.attachEvent("onkeydown", onKeyDown);
+		}
+		
+		function onKeyDown(e) {
+			//alert(e.keyCode);
+			if (e.keyCode == 27) {	//Esc
+				handlers.closeForm();
+			}
+			else if (e.keyCode == 38) {	//Up
+				if (e.ctrlKey)
+					handlers.moveColumnUp(document);
+				else
+					handlers.selectPreviousColumn(document);
+
+				window.event.returnValue = false;
+			}
+			else if (e.keyCode == 40) {	//Down
+				if (e.ctrlKey)
+					handlers.moveColumnDown(document);
+				else
+					handlers.selectNextColumn(document);
+
+				window.event.returnValue = false;
+			}
+			else if (e.keyCode == 35) { //end
+				if (e.ctrlKey)
+					handlers.moveColumnLast(document);
+				else
+					handlers.selectLastColumn(document);
+
+				window.event.returnValue = false;
+			}
+			else if (e.keyCode == 36) { //home
+				if (e.ctrlKey)
+					handlers.moveColumnFirst(document);
+				else
+					handlers.selectFirstColumn(document);
+
+				window.event.returnValue = false;
+			}
+			else if (e.keyCode == 13) {	//Enter
+				handlers.updateColumn(document);
+				if (e.ctrlKey)
+					handlers.closeForm();
+			}
+		}
+		
+		-->
+		</script>
+	</head>
+	<body onLoad="onLoad()" onUnload="handlers.onUnload()"><form name="editor">
+		<input type="button" name="btNew" value="Добавить" onClick="handlers.addColumn(document)"/>
+		<input type="button" name="btInsert" value="Вставить" onClick="handlers.insertColumn(document)"/>
+		<input type="button" name="btDel" value="Удалить" onClick="handlers.deleteColumn(document)"/>
+		<input type="button" name="btUp" value="Вверх" onClick="handlers.moveColumnUp(document)"/>
+		<input type="button" name="btDown" value="Вниз" onClick="handlers.moveColumnDown(document)"/>
+		<br/>
+		<br/>
+
+		<div id="columnsTableContainer" style="border: 1px solid black; height: 250px; width: 600px; overflow: auto">
+		<table id="columns" style="table-layout: fixed; width: 100%; border-collapse: collapse;">
+		<!--caption><b>Список колонок табличной части</b></caption-->
+		<thead>
+			<tr style="font-size: 18px;">
+				<td style="width: 30px;">№</td>
+				<td>Идентификатор</td>
+				<td>Заголовок</td>
+				<td>Формула</td>
+			</tr>
+		</thead>
+		<tbody id="columnsbody">
+		</tbody>
+		</table>
+		</div>
+		<br/>
+		<input name="selectedColumnIndex" type="hidden"/>
+		<table>
+			<tr>
+				<td>
+					Номер
+				</td>
+				<td>
+					<input name="index" type="text"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Идентификатор
+				</td>
+				<td>
+					<input name="id" type="text"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Заголовок
+				</td>
+				<td>
+					<input name="caption" type="text">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Формула
+				</td>
+				<td>
+					<input name="formula" type="text" size="75">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Описание
+				</td>
+				<td>
+					<textarea name="help" rows="5" cols="30">
+					</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Подсказка
+				</td>
+				<td>
+					<input name="tip"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Ширина
+				</td>
+				<td>
+					<input name="width"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Положение
+				</td>
+				<td>
+					<input name="location" type="radio" value="1" checked="true">Новая колонка</input>
+					<input name="location" type="radio" value="2">На следующей строке</input>
+					<input name="location" type="radio" value="3">В той же колонке</input>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+					<input name="invisible" type="checkbox" checked="true">Сделать невидимым</input>
+				</td>
+			</tr>
+		
+		</table>
+		<input type="button" name="btUpdateColumn" value="Применить" onClick="handlers.updateColumn(document)"/>
+		<input type="button" name="btResetColumnEdit" value="Сброс" onClick="handlers.resetColumnEdit(document)" />
+		<input type="button" name="btClose" value="Закрыть" onClick="handlers.closeForm()" />
+	</form></body>
+</html>

@@ -1,0 +1,54 @@
+// SelectDialog.idl : IDL source for SelectDialog.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (SelectDialog.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+	[
+		object,
+		uuid(FD0634F7-4A92-488E-A87B-85035EFF672C),
+		dual,
+		helpstring("ISelection Interface"),
+		pointer_default(unique)
+	]
+	interface ISelection : IDispatch
+	{
+		[propput, id(1), helpstring("property ListToChoose")] HRESULT ListToChoose([in] BSTR newVal);
+		[propget, id(2), helpstring("property DoSelection")] HRESULT DoSelection([out, retval] BSTR *pVal);
+		[propget, id(3), helpstring("property WndDescrsSet")] HRESULT WndDescrsSet(long ConfDescr, long ModuleDescr, [out, retval] long *pVal);
+		[id(4), helpstring("method Try")] HRESULT Try();
+		[propput, id(5), helpstring("property InitialText")] HRESULT InitialText([in] BSTR* newVal);
+	};
+
+[
+	uuid(D8E7C9B3-AB26-4114-91F8-AFAAAAECC07A),
+	version(1.0),
+	helpstring("SelectDialog 1.0 Type Library")
+]
+library SELECTDIALOGLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(D6599353-3CE3-47AE-8373-075C24FDACD3),
+		helpstring("_ISelectionEvents Interface")
+	]
+	dispinterface _ISelectionEvents
+	{
+		properties:
+		methods:
+	};
+
+	[
+		uuid(517A7574-B37D-4BA0-A9CC-586D95703561),
+		helpstring("Selection Class")
+	]
+	coclass Selection
+	{
+		[default] interface ISelection;
+		[default, source] dispinterface _ISelectionEvents;
+	};
+};

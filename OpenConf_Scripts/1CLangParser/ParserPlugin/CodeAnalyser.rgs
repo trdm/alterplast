@@ -1,0 +1,26 @@
+HKCR
+{
+	ParserPlugin.CodeAnalyser.1 = s 'CodeAnalyser Class'
+	{
+		CLSID = s '{05C61FC5-A72C-42DA-82C0-0513A9618FBA}'
+	}
+	ParserPlugin.CodeAnalyser = s 'CodeAnalyser Class'
+	{
+		CLSID = s '{05C61FC5-A72C-42DA-82C0-0513A9618FBA}'
+		CurVer = s 'ParserPlugin.CodeAnalyser.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {05C61FC5-A72C-42DA-82C0-0513A9618FBA} = s 'CodeAnalyser Class'
+		{
+			ProgID = s 'ParserPlugin.CodeAnalyser.1'
+			VersionIndependentProgID = s 'ParserPlugin.CodeAnalyser'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{06C1B9A0-5634-40F3-B795-1E47FFAD5AB4}'
+		}
+	}
+}

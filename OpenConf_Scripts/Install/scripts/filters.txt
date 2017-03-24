@@ -1,0 +1,15 @@
+ignore:ExtFormsTreeManage\.vbs$
+ignore:SubSystemsManage\.vbs$
+include:[\\\/]Intellisence\.vbs$
+include:RunAllIntellisence\.vbs$
+include:author\.js$
+include:navigator\.js
+ignore:wizard1cpp\.vbs$
+ignore:ManageInspector2\.vbs$
+ignore:telepat\.vbs
+ignore:cwHelperLoader\.js$
+ignore:hotKeysList\.js$
+ignore:ОткрытьВПредприятии\.vbs$
+include:Меню макросов из файла\.vbs$
+ignore:code_beautifier\.pl$
+ignore:RunPerlScripts\.vbs$

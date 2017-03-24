@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<component>
+
+<!--
+	Copyright (c) 2004 OpenConf Community
+	
+	Функции для удобной работы с реестром или ини-файлом.
+	Между использованием реестра и ини-файла довольно легко переключиться.
+
+	В качестве основы взят скриптлет Registry.wsc, автор: Александр Кунташов aka a13x <kuntashov@yandex.ru> icq#338758861  
+	
+	Автор: Артур Аюханов aka artbear <artbear@bashnet.ru> icq#265666057
+
+	Версия: $Revision: 1.3 $ 
+
+-->
+
+<?component error="true" debug="true"?>
+
+
+<registration
+	description="Registry or ini-file component for OpenConf"
+	progid="OpenConf.RegistryIniFile"
+	version="1.00"
+	classid="{b6535f28-677b-427d-ada2-e2f06d1b7f3f}"
+>
+</registration>
+
+<!--
+<comment>Библиотека типов OpenConf'а</comment> 
+<reference guid="{578f85c8-89eb-4cda-ac7e-8f3bb34e8b54}" /> 
+-->
+<object id="OpenconfRegistry" progid="OpenConf.Registry" />
+<object id="FSO" progid="Scripting.FileSystemObject" />
+
+<public>
+	<method name="SetConfig">
+		<PARAMETER name="c"/>
+	</method>
+	
+	<property name="UsedIniFile">
+		<get/>
+		<put />
+		<comment><![CDATA[
+			Получить/установить флаг использования ини-файла, а не реестра
+		]]></comment>
+	</property>
+
+	<property name="IniFile">
+		<get/>
+		<put />
+		<comment><![CDATA[
+			Получить/установить путь к ини-файлу
+		]]></comment>
+	</property>
+
+	<method name="GetIniParam">
+		<comment><![CDATA[
+			Вернуть несколько строк параметров в виде "Ключ = Значение"
+		]]></comment>
+	</method>
+
+	<method name="Refresh">
+		<comment><![CDATA[
+			Обновить данные из файла
+		]]></comment>
+	</method>
+
+	<method name="SaveToFile">
+		<comment><![CDATA[
+			Немедленная запись параметров в файл
+		]]></comment>
+	</method>
+
+	<method name="SaveToRegistry">
+		<parameter name="RootKey" />
+		<comment><![CDATA[
+			Немедленная запись параметров в реестр по указанному ключу 
+			Но если не переключить флаг "UsedIniFile", считывание и запись данных по-прежнему будет из ини-файла
+		]]></comment>
+	</method>
+
+	<property name="OpenconfRegistry">
+		<get/>
+		<comment><![CDATA[
+			Вернуть объект "Openconf.Registry"
+		]]></comment>
+	</property>
+    
+	<property name="ScriptRootKey">
+		<get />
+		<comment><![CDATA[
+Свойство, только чтение        
+Ключ, в котором хранятся глобальные настройки скрипта.
+Если не задан индекс, то значением свойства будет
+	HKCU\Software\1C\1Cv7\7.7\OpenConf\Scripts\
+Если задан индекс (имя скрипта), то значением свойства будет
+	HKCU\Software\1C\1Cv7\7.7\OpenConf\Scripts\<ИмяСкрипта>\    
+		]]></comment>
+	</property>
+
+	<property name="ScriptRootKeyIB">
+		<get />
+		<comment><![CDATA[
+Свойство, только чтение
+Ключ, в котором хранятся настройки скрипта для текущей базы
+Если не задан индекс, то значением свойства будет
+	HKCU\Software\1C\1Cv7\7.7\<Имя_текущей_базы>\OpenConf\Scripts\
+Если задан индекс (имя скрипта), то значением свойства будет
+	HKCU\Software\1C\1Cv7\7.7\<Имя_текущей_базы>\OpenConf\Scripts\<ИмяСкрипта>\    
+		]]></comment>        
+    </property>
+
+    <property name="Param">
+		<get />
+		<put />
+		<comment><![CDATA[
+Свойство, чтение/запись
+Содержит значение параметра с заданным именем (второй индекс), 
+хранящегося в заданном ключе реестра (второй индекс).
+Только для строковых параметров.
+Пример использования (JScript):
+	// чтение настроек
+	OCReg = new ActiveXObject("OpenConf.Registry");
+	OCReg.SetConfig(Configurator);
+	var rk = OCReg.ScriptRootKey(SelfScript.Name);
+	var MyParam = OCReg.Param(rk, "MyParam");
+	// сохранение настроек
+	OCReg.Param(rk, "MyParam") = "My value";
+		]]></comment>
+	</property>
+
+	<method name="KeyExists">
+		<parameter name="Key"/>
+		<comment><![CDATA[
+Описание:
+	Проверяет, существует ли заданный ключ в реестре.
+Параметры:
+	Key - проверяемый ключ
+		]]></comment>
+	</method>    
+
+	<method name="DeleteParam">
+		<parameter name="RootKey" />
+		<parameter name="Name" />
+		<comment><![CDATA[
+Описание:
+	Удаляет параметр с именем Name из ключа RootKey
+Параметры:
+	RootKey - проверяемый ключ		
+	Name - имя параметра
+Возвращаемое значение:
+	true - параметр успешно удален
+	false - параметр не удален (произошла ошибка)
+		]]></comment>
+	</method>	
+
+	<method name="GetDataFromIniFile">
+		<parameter name="IniFileName" />
+		<parameter name="ResDict" />
+		<parameter name="NamesDict" />
+		<comment><![CDATA[
+		]]></comment>
+	</method>	
+	
+</public>
+
+<script language="JScript">
+<![CDATA[
+
+	var Config;
+	
+	function SetConfig(c)
+	{
+		Config = c;
+		OpenconfRegistry.SetConfig(c);
+	}
+	
+	var bUsedIniFile = false;
+	var IniFilePath = "";
+	var IniDict = new ActiveXObject("Scripting.Dictionary"); // ключи = значение
+	var NamesDict = new ActiveXObject("Scripting.Dictionary"); // ключ - это ключ первого словаря в нижнем регистре, значение - в "правильном" регистре
+
+	function get_UsedIniFile()
+	{
+		return bUsedIniFile;
+	}
+	
+	function put_UsedIniFile(Value)
+	{
+		bUsedIniFile = Value;
+		if (!bUsedIniFile)
+			IniFilePath = "";
+	}
+	
+	function get_IniFile()
+	{
+		if (!bUsedIniFile)
+			return "";
+		return IniFilePath;
+	}
+	
+	function throwIfIniFileNotExists()
+	{
+		if (!FSO.FileExists(IniFilePath))
+			throw("Файл "+IniFilePathA+" не существует");
+	}
+	
+	function put_IniFile(IniFilePathA)
+	{
+		//if (!bUsedIniFile)
+		//	return;
+		IniFilePath = IniFilePathA;
+		throwIfIniFileNotExists();
+
+		bUsedIniFile = true;
+
+//			Refresh();
+		try {
+			Refresh();
+		}
+		catch (e) {
+			throw(e);
+		}
+	}
+	
+	function GetIniParam()
+	{
+		if (!bUsedIniFile)
+			return true;
+                      
+		d = IniDict;
+	   a = (new VBArray(d.Keys())).toArray();   // Get the keys.
+	   s = "";
+	   for (i in a)                  // Iterate the dictionary.
+	   {
+	      s += a[i] + " - " + d(a[i]) + "\n";
+	   }
+	   return s;
+	}
+	
+	function Refresh()
+	{
+		if (!bUsedIniFile)
+			return true;
+		throwIfIniFileNotExists();
+                            
+		// получу все значения в словарь
+		// ключи - в нижнем регистре
+		IniDict.RemoveAll();
+		NamesDict.RemoveAll();
+		strError = GetDataFromIniFile(IniFilePath, IniDict, NamesDict);
+		if ("" == strError) // нет ошибок
+			return true;
+
+		throw(strError);
+	}
+	
+	function SaveToFile()
+	{
+		if (!bUsedIniFile)
+			return true;
+		if ("" == IniFilePath)
+			return false;
+
+		var file = fso.CreateTextFile(IniFilePath, true);
+		keys = (new VBArray(IniDict.Keys())).toArray();
+		for (i in keys)
+			file.WriteLine(NamesDict.Item(keys[i]) + " = " + IniDict(keys[i]));
+		file.Close();
+		return true;
+	}
+
+	function SaveToRegistry(RootKey)
+	{
+		keys = (new VBArray(IniDict.Keys())).toArray();
+		for (i in keys)
+			OpenconfRegistry.Param(RootKey, NamesDict.Item(keys[i])) = IniDict(keys[i]);
+	}
+
+	function get_OpenconfRegistry()
+	{
+		return OpenconfRegistry;
+	}
+
+	function get_ScriptRootKey(ScriptName)
+	{
+		if (!bUsedIniFile)
+			return OpenconfRegistry.ScriptRootKey(ScriptName);
+		return "";
+	}
+    
+	function get_ScriptRootKeyIB(ScriptName)
+	{
+		if (!bUsedIniFile)
+			return OpenconfRegistry.ScriptRootKeyIB(ScriptName);
+		return "";
+	}
+
+	function get_Param(RootKey, Name)
+	{
+		if (!bUsedIniFile)
+			return OpenconfRegistry.Param(RootKey, Name)
+		else
+			//if (!IniDict.Exists(Name))
+			//	throw("Не существует параметр "+Name);
+			return IniDict.Item(Name.toLowerCase());
+	}
+
+	function put_Param(RootKey, Name, Value)
+	{
+		if (!bUsedIniFile)
+			OpenconfRegistry.Param(RootKey, Name) = Value;
+		else
+		{
+			IniDict.Item(Name.toLowerCase()) = Value;
+			NamesDict.Item(Name.toLowerCase()) = Name;
+			SaveToFile();
+		}
+
+    	return true;
+	}
+
+	function DeleteParam(RootKey, Name)
+	{
+		if (!bUsedIniFile)
+			return OpenconfRegistry.DeleteParam(RootKey, Name);
+		else
+		{
+			IniDict.Remove(Name.toLowerCase());
+			NamesDict.Remove(Name.toLowerCase());
+			SaveToFile();
+		}
+	}
+
+	function KeyExists(key)
+	{
+		if (!bUsedIniFile)
+			return OpenconfRegistry.KeyExists(key);
+		else
+			return IniDict.Exists(key.toLowerCase());
+	}
+
+]]>
+</script>
+
+<script language="VBScript"><![CDATA[
+	
+	' получить данные из INI-файла
+	' ResDict - объект Dictionary, где хранятся пары Ключ(в нижнем регистре)/значение
+	' NamesDict - объект Dictionary, где хранятся пары Ключ(в нижнем регистре)/Ключ(в "правильном" регистре)
+	'	
+	Function GetDataFromIniFile(ByVal IniFileName, ResDict, NamesDict)
+		GetDataFromIniFile = ""
+	
+		Dim IniFile 'As TextStream
+	
+		On Error Resume Next
+		Dim ForRead
+		ForRead =1
+		Set IniFile = fso.OpenTextFile(IniFileName,ForRead)
+		if err.Number<>0 then
+		  Err.Clear()
+		  GetDataFromIniFile = "Ini-файл "& IniFileName &" не удалось открыть!"
+		  Exit Function
+		end if
+		on error goto 0
+		
+		Dim s, Matches, Match
+		Dim reg 'As RegExp
+		Set reg = new RegExp
+		  reg.Pattern="^\s*([^=]+)\s*=\s*([^;']+)[;']?"
+		  reg.IgnoreCase = True
+		
+		Dim elem, index
+		
+		Do While IniFile.AtEndOfStream <> True
+			s = IniFile.ReadLine
+			' если не строка-комментарий
+		  	if not RegExpTest("^\s*[;']",s) then
+				' выделить ключ и значение в Ini-файле, убрав возможные комментарии
+			    Set Matches = reg.Execute(s)
+			    if Matches.Count>0 then
+					' добавить новую пару, исключив из значения табуляцию и левые(и правые) пробелы
+				  	KeyName = Trim(replace(Matches(0).SubMatches(0),vbTab," "))
+				  	KeyName = LCase(KeyName)
+				  	if (not ResDict.Exists(KeyName)) then
+				      	ResDict.Add LCase(KeyName),Trim(replace(Matches(0).SubMatches(1),vbTab," "))
+				      	NamesDict.Add LCase(KeyName), KeyName
+					  end if
+			    end if
+			end if
+		Loop
+		IniFile.Close()
+		
+		if ResDict.Count=0 then ' не нашли ни одного ключа
+		  GetDataFromIniFile = "Не удалось прочесть данные из Ini-файла " & IniFileName
+		else
+		  GetDataFromIniFile = ""
+		end if
+	End Function 'GetDataFromIniFile
+	
+	' проверить на соответствие шаблону
+	' регистр символов не важен
+	  Dim regExTest               ' Create variable.
+	Function RegExpTest(ByVal patrn, ByVal strng)
+	  if IsEmpty(regExTest) then
+	    Set regExTest = New RegExp         ' Create regular expression.
+	  end if
+	  regExTest.Pattern = patrn         ' Set pattern.
+	  regExTest.IgnoreCase = true      ' disable case sensitivity.
+	  RegExpTest = regExTest.Test(strng)      ' Execute the search test.
+	'  regEx = null
+	End Function
+
+]]>
+</script>
+
+</component>

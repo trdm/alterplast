@@ -1,0 +1,8 @@
+#include <windows.h>
+
+100 ICON ert1.ico
+101 ICON ert2.ico
+110 ICON main.ICO
+120 ICON MDTree.ico
+130 ICON DDIcon.ico
+140 ICON mxl.ico

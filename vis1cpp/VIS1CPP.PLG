@@ -1,0 +1,64 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: vis1cpp - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\WINDOWS\TEMP\RSP270.tmp" with contents
+[
+/nologo /subsystem:windows /dll /incremental:no /pdb:"Release/vis1cpp.pdb" /machine:I386 /def:".\vis1cpp.def" /out:"Release/vis1cpp.dll" /implib:"Release/vis1cpp.lib" 
+.\Release\BaseClsFolderInfo.obj
+.\Release\ClassInfo.obj
+.\Release\ClassProp.obj
+.\Release\CPPDoc.obj
+.\Release\CPPView.obj
+.\Release\DeclProcInfo.obj
+.\Release\DefFileInfo.obj
+.\Release\Info.obj
+.\Release\InfoWrcSpace.obj
+.\Release\ModuleParser.obj
+.\Release\MyModule.obj
+.\Release\MyTextDoc.obj
+.\Release\ProcExInfo.obj
+.\Release\ProcInfo.obj
+.\Release\RootProp.obj
+.\Release\StdAfx.obj
+.\Release\Syntax.obj
+.\Release\txtget.obj
+.\Release\ValExInfo.obj
+.\Release\ValInfo.obj
+.\Release\vis1cpp.obj
+.\Release\ComputeExpression.obj
+.\Release\MetaDataOfClasses.obj
+.\Release\ModuleString.obj
+.\Release\Preprocessor.obj
+.\Release\vis1cpp.res
+.\LIBS\userdef.lib
+.\LIBS\bkend.lib
+.\LIBS\blang.lib
+.\LIBS\br32.lib
+.\LIBS\dbeng32.lib
+.\LIBS\editr.lib
+.\LIBS\FRAME.lib
+.\LIBS\moxel.lib
+.\LIBS\mxl2xl.lib
+.\LIBS\rgproc.lib
+.\LIBS\seven.lib
+.\LIBS\txtedt.lib
+.\LIBS\type32.lib
+.\LIBS\BASIC.lib
+]
+Creating command line "link.exe @C:\WINDOWS\TEMP\RSP270.tmp"
+<h3>Output Window</h3>
+Linking...
+   Creating library Release/vis1cpp.lib and object Release/vis1cpp.exp
+
+
+
+<h3>Results</h3>
+vis1cpp.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

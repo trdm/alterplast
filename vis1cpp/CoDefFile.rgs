@@ -1,0 +1,26 @@
+HKCR
+{
+	Vis1cpp.CoDefFile.1 = s 'CoDefFile Class'
+	{
+		CLSID = s '{275A3D45-E17B-4174-A139-0C0BA174EF65}'
+	}
+	Vis1cpp.CoDefFile = s 'CoDefFile Class'
+	{
+		CLSID = s '{275A3D45-E17B-4174-A139-0C0BA174EF65}'
+		CurVer = s 'Vis1cpp.CoDefFile.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {275A3D45-E17B-4174-A139-0C0BA174EF65} = s 'CoDefFile Class'
+		{
+			ProgID = s 'Vis1cpp.CoDefFile.1'
+			VersionIndependentProgID = s 'Vis1cpp.CoDefFile'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{DD3D5FFD-2F06-402A-85AB-FE05A1E9B212}'
+		}
+	}
+}

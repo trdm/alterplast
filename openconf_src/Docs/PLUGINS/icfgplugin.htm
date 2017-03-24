@@ -1,0 +1,158 @@
+<html>
+ <head>
+  <link rel="stylesheet" href="../styles.css" type="text/css">
+  <title>
+   Интерфейс IConfigPlugin
+  </title>
+ </head>
+ <body>
+  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+   <tr>
+    <td class="GrayTitle">
+     Интерфейс IConfigPlugin
+    </td>
+   </tr>
+   <tr>
+    <td class="Simple">
+     Интерфейс <b>IConfigPlugin</b> может быть реализован OLE-плагином для
+     получения доступа к объектной модели OpenConf и задания различных
+     особенностей обработки плагина <b>OpenConf'ом</b>. На данный момент
+     интерфейс включает три метода: 
+     <ul type="square">
+      <li>
+       <a href="#Init">Init</a>
+      </li>
+      <li>
+       <a href="#Done">Done</a>
+      </li>
+      <li>
+       <a href="#Caps">GetPluginCaps</a>
+      </li>
+     </ul>
+    </td>
+   </tr>
+   <tr>
+    <td class="Header">
+     <a name="Init"></a>IConfigPlugin::Init
+    </td>
+   </tr>
+   <tr>
+    <td class="Simple">
+     <ul type="square">
+      <li>
+       Описание метода для VB.<br>
+        <b>Function Init(pConfigurator As Configurator) As String</b>
+      </li>
+      <li>
+       Описание для C++<br>
+        <b>STDMETHOD(Init)(IConfigurator *pConfigurator,BSTR
+       *PluginName);</b>
+      </li>
+     </ul>
+     Метод вызывается сразу после загрузки плагина для его инициализации.
+     Параметры: 
+     <ul type="square">
+      <li>
+       <div><b>pConfigurator</b></div>
+        Объект Configurator, корневой элемент объектной модели <b>
+       OpenConf</b>.
+      </li>
+      <li>
+       <div><b>PluginName</b></div>
+        Возвращаемое значение - имя плагина.
+      </li>
+     </ul>
+     Данный метод позволяет плагину получить доступ к объектам <b>
+     OpenConf</b>. Должен вернуть имя плагина, под которым он будет
+     зарегистрирован в списке плагинов. Если метод не вернет имя, в его
+     качестве будет использоваться ProgID плагина.<br>
+     <b><a href="Samples/samplesvb.htm#Init">Пример реализации на
+     VB</a></b><br>
+     <br>
+    </td>
+   </tr>
+   <tr>
+    <td class="Header">
+     <a name="Done"></a>IConfigPlugin::Done
+    </td>
+   </tr>
+   <tr>
+    <td class="Simple">
+     <ul type="square">
+      <li>
+       Описание метода для VB.<br>
+        <b>Sub Done()</b>
+      </li>
+      <li>
+       Описание для C++<br>
+        <b>STDMETHOD(Done)(void);</b>
+      </li>
+     </ul>
+     Вызывается перед завершением работы Конфигуратора. Парамтров нет. При
+     вызове данного метода плагин должен освободить все используемые
+     экземпляры объектов OpenConf'а.<br>
+     <b><a href="Samples/samplesvb.htm#Done">Пример реализации на
+     VB</a></b><br>
+     <br>
+    </td>
+   </tr>
+   <tr>
+    <td class="Header">
+     <a name="Caps"></a>IConfigPlugin::GetPluginCaps
+    </td>
+   </tr>
+   <tr>
+    <td class="Simple">
+     <ul type="square">
+      <li>
+       Описание метода для VB.<br>
+        <b>Function GetPluginCaps(capNum As PluginCaps)</b>
+      </li>
+      <li>
+       Описание для C++<br>
+        <b>STDMETHOD(GetPluginCaps)(PluginCaps capNum,VARIANT
+       *pResult);</b>
+      </li>
+     </ul>
+     Метод предназначен для получения информации о возможностях
+     плагина.<br>
+     Параметры: 
+     <ul type="square">
+      <li>
+       <div><b>CapsNum</b></div>
+       Перечисление, определяющее номер запрашиваемой возможности плагина
+      </li>
+      <li>
+       <div><b>pResult</b></div>
+       Возвращаемый результат. Зависит от запрашиваемой информации
+      </li>
+     </ul>
+     Пока определены следующие возможности: 
+     <ul type="square">
+      <li>
+       <b>capOpenIn</b><br>
+       Запрашивает у визуального плагина, где его отображать. При возврате
+       <b>0</b> отображает плагин в правой панели OpenConf. При возврате
+       <b>1</b> - отображает на отдельной вкладке окна Конфигурации
+      </li>
+      <li>
+       <b>capShowMacros</b><br>
+       Отображать или нет <a href="../macros.htm">макросы</a> плагина. При
+       возврате <b>true</b> - макросы отображаются в списке, при <b>
+       false</b> - нет.
+      </li>
+      <li>
+       <b>capIconNum</b><br>
+       Запрашивает порядковый номер иконки в файле плагина для отображения
+       его значка. Нумерация начинается с <b>0</b>.
+      </li>
+     </ul>
+     <b><a href="Samples/samplesvb.htm#Caps">Пример реализации на
+     VB</a></b><br>
+     <br>
+    </td>
+   </tr>
+  </table>
+ </body>
+</html>
+

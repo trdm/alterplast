@@ -1,0 +1,1521 @@
+// interfaces.idl
+#include "tlibversion.h"
+
+import "oaidl.idl";
+import "ocidl.idl";
+[
+	uuid(578F85C8-89EB-4cda-AC7E-8F3BB34E8B54),
+	version(TLIB_VERSION),
+	helpstring("Набор интерфейсов для автоматизации Конфигуратора 1С 7.7")
+]
+library OpenConf
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+	interface IMetaData;
+	interface IMetaDataObj;
+	interface IMetaDataObjArray;
+	interface ICfgWindows;
+	interface IScripts;
+	interface IPlugins;
+	interface ITaskDef;
+	interface IConstants;
+	interface ICfgDocuments;
+	interface ICfgDoc;
+	interface ICfgWindow;
+	interface ICfgTimer;
+	interface IAllTypedObj;
+	interface IMDWindow;
+	interface IDialogDoc;
+
+
+	// Маркеры окна сообщений
+	[helpstring("Маркеры окна сообщений")]
+	typedef enum
+	{
+		[helpstring("Без маркеров")]				mNone			= 0,
+		[helpstring("Синий треугольник")]			mBlueTriangle	= 1,
+		[helpstring("Восклицательный знак")]		mExclamation	= 2,
+		[helpstring("Два восклицательных знака")]	mExclamation2	= 3,
+		[helpstring("Три восклицательных знака")]	mExclamation3	= 4,
+		[helpstring("Информация")]					mInformation	= 5,
+		[helpstring("Черная ошибка")]				mBlackErr		= 6,
+		[helpstring("Красная ошибка")]				mRedErr			= 7,
+		[helpstring("Метаданные")]					mMetaData		= 8,
+		[helpstring("Подчеркнутая ошибка")]			mUnderlinedErr	= 9,
+	}MsgLineMarkers;
+
+	// Типы объектов метаданных
+	[helpstring("Типы объектов метаданных")]
+	typedef enum
+	{
+		[helpstring("Константа")]					tmdConstant		=  1,
+		[helpstring("Реквизит справочника")]		tmdRefRekv		=  2,
+		[helpstring("Справочник")]					tmdReference	=  3,
+		[helpstring("Измерение регистра")]			tmdRegIzm		=  4,
+		[helpstring("Ресурс регистра")]				tmdRegResurs	=  5,
+		[helpstring("Регистр")]						tmdRegister		=  6,
+		[helpstring("Реквизит шапки документа")]	tmdDocHeadRekv	=  7,
+		[helpstring("Реквизит ТЧ документа")]		tmdDocTableRekv	=  8,
+		[helpstring("Документ")]					tmdDocument		=  9,
+		[helpstring("Графа журнала документов")]	tmdJDGrafa		= 10,
+		[helpstring("Журнал документов")]			tmdJournalDoc	= 11,
+		[helpstring("Значение перечисления")]		tmdEnumVal		= 12,
+		[helpstring("Перечисление")]				tmdEnum			= 13,
+		[helpstring("Список ссылок")]				tmdListRefs		= 14,
+		[helpstring("Форма списка")]				tmdFormList		= 15,
+		[helpstring("Отчет")]						tmdReport		= 16,
+		[helpstring("Конфигурация")]				tmdTask			= 17,
+		[helpstring("Календарь")]					tmdKalendar		= 18,
+		[helpstring("Вид расчета")]					tmdCalcKind		= 19,
+		[helpstring("Группа расчетов")]				tmdCalcGroup	= 20,
+		[helpstring("Реквизит журнала расчетов")]	tmdCJRekv		= 21,
+		[helpstring("Журнал расчетов")]				tmdCalcJournal	= 22,
+		[helpstring("Обработка")]					tmdCalcVar		= 23,
+		[helpstring("Реквизит регистра")]			tmdRegRekv		= 25,
+		[helpstring("Общий реквизит документов")]	tmdCommonRekv	= 26,
+		[helpstring("План счетов")]					tmdAccountChart	= 27,
+		[helpstring("Реквизит счета")]				tmdAccRekv		= 28,
+		[helpstring("Счет")]						tmdAcount		= 30,
+		[helpstring("Субконто счета")]				tmdAccountSubc	= 31,
+		[helpstring("Реквизит проводки")]			tmdProvRekv		= 32,
+		[helpstring("Реквизит операции")]			tmdOperRekv		= 33,
+		[helpstring("Графа отбора")]				tmdSelGraf		= 34,
+		[helpstring("Нумератор")]					tmdNumbers		= 35,
+		[helpstring("Вид субконто")]				tmdSubconto		= 36,
+		[helpstring("Последовательность")]			tmdStream		= 43,
+		[helpstring("Правило перерасчета")]			tmdRecalcRule	= 44,
+	}TypeOfMetaDataObj;
+
+
+	[helpstring("Команды Конфигуратора")]
+	typedef enum
+	{
+		[helpstring("Открыть окно конфигурации")]				cmdOpenConfigWnd= 33188,
+		[helpstring("Загрузить измененную конфигурацию...")]	cmdLoadMD		= 33206,
+		[helpstring("Объединение конфигураций...")]				cmdMergeMD		= 33260,
+		[helpstring("Файл - Сохранить")]						cmdSave			= 0xE103,
+	}ConfigCommands;
+	
+	// Типы сообщений
+	[helpstring("Типы сообщений")]
+	typedef enum
+	{
+		[helpstring("OK")]								mbOK				= 0,
+		[helpstring("OK/Отмена")]						mbOkCancel			= 1,
+		[helpstring("Прервать/Повторить/Игнорировать")]	mbAbortRetryIgnore	= 2,
+		[helpstring("Да/Нет/Отмена")]					mbYesNoCancel		= 3,
+		[helpstring("Да/Нет")]							mbYesNo				= 4,
+		[helpstring("Повтор/Отмена")]					mbRetryCancel		= 5,
+	}MsgBoxStyles;
+
+	// Типы ответов
+	[helpstring("Типы ответов")]
+	typedef enum
+	{
+		[helpstring("OK")]				mbaOK		= 1,
+		[helpstring("Отмена")]			mbaCancel	= 2,
+		[helpstring("Прервать")]		mbaAbort	= 3,
+		[helpstring("Повторить")]		mbaRetry	= 4,
+		[helpstring("Игнорировать")]	mbaIgnore	= 5,
+		[helpstring("Да")]				mbaYes		= 6,
+		[helpstring("Нет")]				mbaNo		= 7,
+	}MsgBoxAnswers;
+
+	[helpstring("Категории записей журнала регистрации")]
+	typedef enum
+	{
+		[helpstring("Сеанс")]				ecSession	= 0,
+		[helpstring("Административное")]	ecAdmin		= 1,
+		[helpstring("Изменение данных")]	ecChangeData= 2,
+		[helpstring("Информация")]			ecInfo		= 3,
+		[helpstring("Предупреждение")]		ecWarning	= 4,
+		[helpstring("Ошибка")]				ecError		= 5
+	}EventCategories;
+	
+	[helpstring("Режимы запуска приложений 1С")]
+	typedef enum
+	{
+		[helpstring("Предприятие")]	rmEnterprise= -1,
+		[helpstring("Отладчик")]	rmDebugger	= 2,
+		[helpstring("Монитор")]		rmMonitor	= 4
+	}RunAppModes;
+
+	[helpstring("Номера строковых свойств Конфигуратора")]
+	typedef enum
+	{
+		[helpstring("Каталог исполняемых файлов")]		appBinDir			= 0x00,
+		[helpstring("Каталог ИБ")]						appIBDir			= 0x01,
+		[helpstring("Каталог пользователя")]			appUserDir			= 0x02,
+		[helpstring("Временный каталог")]				appTempDir			= 0x03,
+		[helpstring("Полный путь к файлу 1Cv7.CFG")]	appCfgPath			= 0x04,
+		[helpstring("Полный путь к файлу 1Cv7.DD")]		appDDPath			= 0x05,
+		[helpstring("Полный путь к файлу 1Cv7.DDS")]	appDDSPath			= 0x06,
+		[helpstring("Полный путь к файлу 1Cv7.DBA")]	appDBAPath			= 0x07,
+		[helpstring("Полный путь к файлу 1Cv7.MD")]		appMDPath			= 0x08,
+		[helpstring("Полный путь к файлу 1Cv7.LCK")]	appLCKPath			= 0x09,
+		[helpstring("Имя текущей ИБ в списке баз")]		appIBName			= 0x0C,
+		[helpstring("Имя пользователя")]				appUserName			= 0x0D,
+		[helpstring("Полное имя пользователя")]			appFullUserName		= 0x0E,
+		[helpstring("Название набора прав")]			appRightName		= 0x10,
+		[helpstring("Название интерфейса текущего пользователя?")]	appInterfaceName = 0x11,
+		[helpstring("Путь в реестре к установкам текущего пользователя")]	appRegSettingsPath = 0x12,
+	}AppProperties;
+
+	[helpstring("Режимы открытия объектов дерева метаданных")]
+	typedef enum
+	{
+		[helpstring("Найти в дереве")]			mdaSelect		= 0,
+		[helpstring("Свойства")]				mdaProps		= 1,
+		[helpstring("Редактировать")]			mdaEdit			= 0x83AF,
+		[helpstring("Редактировать описание")]	mdaEditDescr	= 0x83B6,
+		[helpstring("Удалить")]					mdaDelete		= 0x83AD,
+		[helpstring("Переместить вверх")]		mdaMoveUp		= 0x83B1,
+		[helpstring("Переместить вниз")]		mdaMoveDown		= 0x83B0,
+		[helpstring("Упорядочить")]				mdaOrder		= 0x83B2,
+		[helpstring("Поиск ссылок")]			mdaTestRefers	= 0x81F4,
+	}mdActions;
+
+
+	// Интерфейс окна конфигурации
+	[
+		uuid(a0c9c161-59bd-42d4-95ed-0d4275cb820f),
+		version(1.0),
+		dual,
+		nonextensible,
+		helpstring("Окно конфигурации")
+	]
+	interface IMDWindow:IDispatch
+	{
+			[id(1), helpstring("Активизировать окно конфигурации")] HRESULT
+		Activate();
+			[propget, id(2), helpstring("Количество закладок")] HRESULT
+		TabCount([out, retval] long *pVal);
+			[propget, id(3), helpstring("Имя закладки")] HRESULT
+		TabName([in] long idx, [out, retval] BSTR *pVal);
+			[propget, id(4), helpstring("Текущая закладка")] HRESULT
+		ActiveTab([out, retval] long *pVal);
+			[propput, id(4), helpstring("Текущая закладка")] HRESULT
+		ActiveTab([in] long newVal);
+			[id(5), helpstring("Выполнить действия с узлом в дереве метаданных")] HRESULT
+		DoAction([in] BSTR PathInTree, [in, optional, defaultvalue(mdaEdit)] mdActions Action);
+			[propget, id(6), helpstring("HWND окна конфигурации (0 если окно закрыто)")] HRESULT
+		hWnd([out, retval] long *pVal);
+			[id(7), helpstring("Полный путь в дереве метаданных к текущему выбранному объекту")] HRESULT
+		GetSelected([out, retval] BSTR* Path);
+	};
+	[
+		uuid(cfaedc45-305a-4a97-b21b-89148533eb21),
+		version(1.0),
+		noncreatable,
+		helpstring("Окно конфигурации")
+	]
+	coclass MDWindow
+	{
+		[default] interface IMDWindow;
+	}
+
+	// Основной интерфейс Конфигуратора
+	[
+		uuid(FF862867-BB20-44b2-949C-5EA7C09842EE),
+		dual,
+		nonextensible,
+		version(1.0),
+		helpstring("Объект Configurator")
+	]
+	interface IConfigurator:IDispatch
+	{
+			[propget, id(1), helpstring("Имя базы в реестре")]HRESULT
+		IBName([out, retval] BSTR *pVal);
+			[propput, id(1), helpstring("Имя базы в реестре")]HRESULT
+		IBName([in] BSTR newVal);
+			[propget, id(2), helpstring("Каталог ИБ")]HRESULT
+		IBDir([out, retval] BSTR *pVal);
+			[propget, id(3), helpstring("Каталог исполняемых файлов")]HRESULT
+		BinDir([out, retval] BSTR *pVal);
+			[propget, id(4), helpstring("Строка запуска Конфигуратора")]HRESULT
+		CommandLine([out, retval] BSTR *pVal);
+			[id(5), helpstring("Вывести текст в окно сообщений")]HRESULT
+		Message([in] BSTR msgLine,[in, optional, defaultvalue(mNone)]MsgLineMarkers marker);
+			[id(6), helpstring("Вывести текст в строку состояния")]HRESULT
+		Status([in] BSTR text);
+			[id(8), helpstring("Открыть форму OLE объекта")]HRESULT
+		OpenOLEForm([in] BSTR progID,[in] BSTR title,[out,retval]IDispatch** ppDisp);
+			[propget, id(9), helpstring("Текущая версия")]HRESULT
+		Version([out, retval] long *pVal);
+			[propget, id(10), helpstring("Объект \"Метаданные\"")]HRESULT
+		MetaData([out, retval] IMetaData **pVal);
+			[id(11), helpstring("Послать команду")]HRESULT
+		SendCommand([in] ConfigCommands cmd);
+			[id(12), helpstring("Открыто ли окно конфигурации")]HRESULT
+		IsConfigWndOpen([out,retval] VARIANT_BOOL* pResult);
+			[propget, id(14), helpstring("Менеджер плагинов")]HRESULT
+		Plugins([out, retval] IPlugins* *pVal);
+			[propget, id(15), helpstring("Менеджер скриптов")]HRESULT
+		Scripts([out, retval] IScripts* *pVal);
+			[propget, id(16), helpstring("Доступ к окнам Конфигуратора")]HRESULT
+		Windows([out, retval] ICfgWindows* *pVal);
+			[id(17), helpstring("Завершить работу Конфигуратора")]HRESULT
+		Quit([in, optional, defaultvalue(-1)] VARIANT_BOOL PromptSave);
+			[id(18), helpstring("ЗаписьЖурналаРегистрации")]HRESULT
+		LogMessageWrite([in] EventCategories EventCategory,[in] BSTR Message, [in, optional, defaultvalue("User")] BSTR strEventType, [in,optional, defaultvalue("UserMsg")] BSTR Event);
+			[id(19), helpstring("Запустить приложение 1С")]HRESULT
+		Run1CApp([in,optional, defaultvalue(rmEnterprise)] RunAppModes mode);
+			[propget, id(20), helpstring("Документы")]HRESULT
+		Documents([out, retval] ICfgDocuments* *pVal);
+			[propget, id(21), helpstring("Доступ к таймерам")]HRESULT
+		CfgTimer([out, retval] ICfgTimer* *pVal);
+			[propget, id(22), helpstring("Строковые свойства Конфигуратора")] HRESULT
+		AppProps([in] AppProperties idx, [out, retval] BSTR *pVal);
+			[propget, id(23), helpstring("Окно конфигурации")] HRESULT
+		MDWnd([out, retval] IMDWindow* *pVal);
+			[propget, id(24), helpstring("Отменить срабатывание \"горячей\" клавиши")] HRESULT
+		CancelHotKey([out, retval] VARIANT_BOOL *pVal);
+			[propput, id(24), helpstring("Отменить срабатывание \"горячей\" клавиши")] HRESULT
+		CancelHotKey([in] VARIANT_BOOL newVal);
+	};
+	
+	// События Конфигуратора
+	[
+		uuid(FF862868-BB20-44b2-949C-5EA7C09842EE),
+		version(1.0),
+		nonextensible,
+		helpstring("События Конфигуратора")
+	]
+	dispinterface IConfigEvents
+	{
+		properties:
+		methods:
+			[id(0), helpstring("Открытие окна конфигурации")]HRESULT
+		ConfigWindowCreate();
+			[id(1), helpstring("Все загруженные плагины и скрипты инициализированы")]HRESULT
+		AllPluginsInit();
+			[id(2), helpstring("Вызывается после сохранения метаданных")]HRESULT
+		MetaDataSaved([in] BSTR FileName);
+			[id(3), helpstring("Вызывается перед выводом запроса пользователя\nПозволяет програмно ответить на него")]HRESULT
+		OnMsgBox([in] BSTR Text,[in] MsgBoxStyles Style,[in]MsgBoxAnswers DefAnswer,[in,out] VARIANT* Answer);
+			[id(4), helpstring("Вызывается перед запросом имени файла\nПозволяет програмно указать имя файла")]HRESULT
+		OnFileDialog([in] VARIANT_BOOL Saved,[in] BSTR Caption,[in] BSTR Filter,[in,out] VARIANT* FileName, [in,out] VARIANT* Answer);
+			[id(5), helpstring("Вызывается перед выводом модальных диалогов\nПозволяет програмно обработать диалог и закрыть его")]HRESULT
+		OnDoModal([in] long Hwnd,[in] BSTR Caption,[in,out] VARIANT* Answer);
+			[id(6), helpstring("Вызывается при срабатывании таймера")]HRESULT
+		OnTimer([in] long TimerID);
+			[id(7), helpstring("Вызывается при простое программы")]HRESULT
+		OnIdle();
+			[id(8), helpstring("Вызывается при активации/деактивации окна")]HRESULT
+		OnActivateWindow([in] ICfgWindow* Wnd,[in] VARIANT_BOOL bActive);
+			[id(9), helpstring("Вызывается при активации/деактивации основного окна")]HRESULT
+		OnActivateMainWnd([in] VARIANT_BOOL bActive);
+			[id(10), helpstring("Вызывается после сохранения файла текста или внешнего отчета")] HRESULT
+		OnFileSaved([in] ICfgDoc* Doc);
+			[id(11), helpstring("Запрос завершения программы")] HRESULT
+		OnQueryQuit([out, retval] VARIANT_BOOL* pCancel);
+			[id(12), helpstring("Завершение работы программы")] HRESULT
+		OnQuit();
+			[id(13), helpstring("Вызывается при изменении диалога формы")] HRESULT
+		OnDialogChange([in] IDialogDoc* Dialog);
+	};
+	[
+		uuid(FF862869-BB20-44b2-949C-5EA7C09842EE),
+		noncreatable,
+		appobject,
+		helpstring("Глобальный объект для доступа к Конфигурации")
+	]
+	coclass Configurator
+	{
+		[default] interface IConfigurator;
+		[source] dispinterface IConfigEvents;
+	};
+
+	// Интерфейс плагинов.
+	[helpstring("Типы возможностей плагина")]
+	typedef enum
+	{
+		[helpstring("Где отображать визуальный плагин")]	capOpenIn		= 0,
+		[helpstring("Отображать ли макросы плагина")]		capShowMacros	= 1,
+		[helpstring("Номер иконки плагина")]				capIconNum		= 2,
+		[helpstring("Получить контекстное меню")]			capGetMenu		= 3,
+	}PluginCaps;
+
+	[helpstring("Типы действий плагина")]
+	typedef enum{
+		[helpstring("Выбрана команда меню")]	paMenu=0,
+	}PluginAction;
+
+	[
+		uuid(8BDEC9EA-C6F4-4b74-AC73-F3B0ED3B8D4B),
+		version(1.0),
+		helpstring("Интерфейс плагинов. Должен реализовываться плагином")
+	]
+	interface IConfigPlugin:IUnknown
+	{
+			[id(1), helpstring("Инициализация плагина")]HRESULT
+		Init([in] IConfigurator* pConfigurator,[out, retval]BSTR* PluginName);
+			[id(2), helpstring("Выгрузка плагина")]HRESULT
+		Done();
+			[id(3), helpstring("Получить возможности плагина")]HRESULT
+		GetPluginCaps([in] PluginCaps capNum,[out,retval] VARIANT* pResult);
+			[id(4), helpstring("Выполнить указанное действие")]HRESULT
+		DoAction([in] PluginAction Action,[in] VARIANT Param,[out,retval] VARIANT* pResult);
+	};
+	
+	[
+		uuid(1556e6a0-b699-4f77-9496-d745de374465),
+		dual,
+		nonextensible,
+		version(1.0),
+		helpstring("Менеджер скриптов")
+	]
+	interface IScripts:IDispatch
+	{
+			[propget, id(0), helpstring("Получить скрипт")]HRESULT
+		item([in] VARIANT Idx, [out, retval] IDispatch* *pVal);
+			[propget, id(1), helpstring("Количество скриптов")]HRESULT
+		Count([out, retval] long *pVal);
+			[id(2), helpstring("Загрузить скрипт из файла")]HRESULT
+		Load([in] BSTR Path, [out, retval] IDispatch** pRetVal);
+			[id(3), helpstring("Перезагрузить скрипт")]HRESULT
+		ReLoad([in] VARIANT Idx);
+			[id(4), helpstring("Прервать и выгрузить скрипт")]HRESULT
+		UnLoad([in] VARIANT Idx);
+			[propget, id(5), helpstring("Файл скрипта")] HRESULT
+		Path([in] VARIANT idx, [out, retval] BSTR *pVal);
+			[propget, id(6), helpstring("Имя скрипта")] HRESULT
+		Name([in] VARIANT idx, [out, retval] BSTR *pVal);
+			[propget, id(7), helpstring("Название движка скрипта")] HRESULT
+		Engine([in] VARIANT idx, [out, retval] BSTR *pVal);
+	};
+	[
+		uuid(bf10b93e-eba9-473f-b5c7-04e138eee7f3),
+		version(1.0),
+		helpstring("Менеджер скриптов"),
+		noncreatable
+	]
+	coclass Scripts
+	{
+		[default] interface IScripts;
+	};
+
+	[
+		uuid(59de83b2-a571-4a2e-9c84-da789b5858a6),
+		version(1.0),
+		dual,
+		nonextensible,
+		helpstring("Менеджер плагинов")
+	]
+	interface IPlugins:IDispatch
+	{
+			[propget, id(0), helpstring("Получить плагин")]HRESULT
+		item([in] VARIANT Idx, [out, retval] IDispatch* *pVal);
+			[propget, id(1), helpstring("Количество плагинов")]HRESULT
+		Count([out, retval] long *pVal);
+			[id(2), helpstring("Загрузить плагин")]HRESULT
+		LoadPlugin([in] BSTR From);
+			[propget, id(3), helpstring("Файл плагина")]HRESULT
+		Path([in] VARIANT idx, [out, retval] BSTR *pVal);
+			[propget, id(4), helpstring("Имя плагина")]HRESULT
+		Name([in] VARIANT idx, [out, retval] BSTR *pVal);
+	};
+	[
+		uuid(72227927-708f-4b6f-937f-850a34b3035c),
+		version(1.0),
+		helpstring("Менеджер плагинов"),
+		noncreatable
+	]
+	coclass Plugins
+	{
+		[default] interface IPlugins;
+	};
+
+	// Интерфейс типа
+	[helpstring("Типы данных")]
+	typedef enum{
+		[helpstring("Неопределенный")]	ttVoid		=  0,
+		[helpstring("Число")]			ttNumber	=  1,
+		[helpstring("Строка")]			ttString	=  2,
+		[helpstring("Дата")]			ttDate		=  3,
+		[helpstring("Перечисление")]	ttEnum		= 10,
+		[helpstring("Справочник")]		ttReference	= 11,
+		[helpstring("Документ")]		ttDocument	= 12,
+		[helpstring("Календарь")]		ttKalendar	= 13,
+		[helpstring("Вид расчета")]		ttCalcKind	= 14,
+		[helpstring("Счет")]			ttAccnt		= 15,
+		[helpstring("Вид субконто")]	ttSbcKind	= 16,
+		[helpstring("План счетов")]		ttAccntChrt	= 17,
+	}tTypes;
+
+	[
+		uuid(9f07065b-8434-41c8-bc54-2c64c4e90110),
+		dual,
+		oleautomation,
+		nonextensible,
+		version(1.0),
+		helpstring("Тип данных")
+	]
+	interface IType1C:IDispatch
+	{
+			[propget, id(0), helpstring("Тип данных")]HRESULT
+		Type([out, retval] tTypes *pVal);
+			[propput, id(0), helpstring("Тип данных")]HRESULT
+		Type([in] tTypes newVal);
+			[propget, id(1), helpstring("Полное имя типа")]HRESULT
+		FullName([out, retval] BSTR *pVal);
+			[propget, id(2), helpstring("Имя типа")]HRESULT
+		Name([out, retval] BSTR *pVal);
+			[propget, id(3), helpstring("Код типа")]HRESULT
+		Code([out, retval] BSTR *pVal);
+			[propget, id(4), helpstring("ID типа объекта метаданных")]HRESULT
+		ID([out, retval] long *pVal);
+			[propput, id(4), helpstring("ID типа объекта метаданных")]HRESULT
+		ID([in] long newVal);
+			[propget, id(5), helpstring("Длина")]HRESULT
+		Length([out, retval] long *pVal);
+			[propput, id(5), helpstring("Длина")]HRESULT
+		Length([in] long newVal);
+			[propget, id(6), helpstring("Точность")]HRESULT
+		Precision([out, retval] long *pVal);
+			[propput, id(6), helpstring("Точность")]HRESULT
+		Precision([in] long newVal);
+			[propget, id(7), helpstring("Только положительные")]HRESULT
+		PositiveOnly([out, retval] VARIANT_BOOL *pVal);
+			[propput, id(7), helpstring("Только положительные")]HRESULT
+		PositiveOnly([in] VARIANT_BOOL newVal);
+			[propget, id(8), helpstring("Разделять триады")]HRESULT
+		NumSeparated([out, retval] VARIANT_BOOL *pVal);
+			[propput, id(8), helpstring("Разделять триады")]HRESULT
+		NumSeparated([in] VARIANT_BOOL newVal);
+	};
+	[
+		uuid(d3ae2151-3a84-4df2-b801-43ded99a013d),
+		version(1.0),
+		helpstring("Тип 1С"),
+		noncreatable
+	]
+	coclass Type1C
+	{
+		[default] interface IType1C;
+	};
+
+	// Интерфейс потомков объекта метаданных
+	[
+		uuid(5b0cde51-3bb2-4c60-8aa5-63739fd67873),
+		dual,
+		oleautomation,
+		nonextensible,
+		version(1.0),
+		helpstring("Потомки объекта метаданных")
+	]
+	interface IMetaDataObjChilds:IDispatch
+	{
+			[propget, id(0), helpstring("Набор объектов метаданных")]HRESULT
+		item([in] VARIANT idx, [out, retval] IMetaDataObjArray **pVal);
+			[propget, id(1), helpstring("Количество потомков")]HRESULT
+		Count([out, retval] long *pVal);
+			[propget, id(2), helpstring("Имя потомков объекта")]HRESULT
+		Name([in] VARIANT idx, [in,optional,defaultvalue(-1)] VARIANT_BOOL Rus,[out, retval] BSTR *pVal);
+	};
+	[
+		uuid(e8855e48-e8a4-48d2-8e50-5e1970331a7b),
+		version(1.0),
+		helpstring("Набор потомков объекта метаданных"),
+		noncreatable
+	]
+	coclass MetaDataObjChilds
+	{
+		[default] interface IMetaDataObjChilds;
+	};
+
+	// Интерфейс свойств объекта метаданных
+	[
+		uuid(b2aa9fd4-c643-4d40-a0d7-d52babf55b3d),
+		dual,
+		oleautomation,
+		nonextensible,
+		version(1.0),
+		helpstring("Cвойства объекта метаданных")
+	]
+	interface IMetaDataObjProps:IDispatch
+	{
+			[propget, id(0), helpstring("Свойство объекта метаданных")]HRESULT
+		item([in] VARIANT idx, [out, retval] BSTR *pVal);
+			[propget, id(1), helpstring("Количество свойств")]HRESULT
+		Count([out, retval] long *pVal);
+			[propget, id(2), helpstring("Имя свойства объекта")]HRESULT
+		Name([in] VARIANT idx, [in,optional,defaultvalue(-1)] VARIANT_BOOL Rus,[out, retval] BSTR *pVal);
+	};
+	[
+		uuid(8d97b6f5-f5b9-41db-9193-a921a63bb0f6),
+		version(1.0),
+		helpstring("Набор свойств объекта метаданных"),
+		noncreatable
+	]
+	coclass MetaDataObjProps
+	{
+		[default] interface IMetaDataObjProps;
+	};
+
+	// Правила миграции
+	[helpstring("Правила миграции")]
+	typedef enum
+	{
+		[helpstring("Все информационные базы")]		mrAll			= 0,
+		[helpstring("Место создания")]				mrCreate		= 1,
+		[helpstring("Место создания и центр")]		mrCreateCentr	= 2,
+	}MigrationRules;
+
+
+	// Интерфейс правил миграции
+	[
+		uuid(59f10fca-4e12-4381-9440-b5475a4ddd6d),
+		dual,
+		oleautomation,
+		nonextensible,
+		version(1.0),
+		helpstring("Правила миграции")
+	]
+	interface IMigration:IDispatch
+	{
+			[propget, id(0), helpstring("Правило миграции")]HRESULT
+		RuleOfMigration([out, retval] MigrationRules *pVal);
+			[propput, id(0), helpstring("Правило миграции")]HRESULT
+		RuleOfMigration([in] MigrationRules newVal);
+			[propget, id(1), helpstring("Автоматическая регистрация изменений")]HRESULT
+		AutoRegister([out, retval] VARIANT_BOOL *pVal);
+			[propput, id(1), helpstring("Автоматическая регистрация изменений")]HRESULT
+		AutoRegister([in] VARIANT_BOOL newVal);
+			[propget, id(2), helpstring("Дополнительные префиксы баз")]HRESULT
+		AdditDBSigns([out, retval] BSTR *pVal);
+			[propput, id(2), helpstring("Дополнительные префиксы баз")]HRESULT
+		AdditDBSigns([in] BSTR newVal);
+	};
+	[
+		uuid(81477568-abbb-4ff3-9627-e1402985b108),
+		version(1.0),
+		helpstring("Правила миграции"),
+		noncreatable
+	]
+	coclass Migration
+	{
+		[default] interface IMigration;
+	};
+
+	// Интерфейс объекта метаданных
+	[
+		uuid(057D4F98-D060-4ad6-BF96-BB3DD13AA1D7),
+		dual,
+		oleautomation,
+		nonextensible,
+		version(1.0),
+		helpstring("Объект метаданных")
+	]
+	interface IMetaDataObj:IDispatch
+	{
+			[propget, id(0), helpstring("Вид объекта метаданных")]HRESULT
+		WhatIsIt([out, retval] TypeOfMetaDataObj *pVal);
+			[propget, id(1), helpstring("ID")]HRESULT
+		ID([out, retval] long *pVal);
+			[propget, id(2), helpstring("Идентификатор")]HRESULT
+		Name([out, retval] BSTR *pVal);
+			[propput, id(2), helpstring("Идентификатор")]HRESULT
+		Name([in] BSTR newVal);
+			[propget, id(3), helpstring("Синоним")]HRESULT
+		Present([out, retval] BSTR *pVal);
+			[propput, id(3), helpstring("Синоним")]HRESULT
+		Present([in] BSTR newVal);
+			[propget, id(4), helpstring("Комментарий")]HRESULT
+		Descr([out, retval] BSTR *pVal);
+			[propput, id(4), helpstring("Комментарий")]HRESULT
+		Descr([in] BSTR newVal);
+			[id(5), helpstring("Объект жив")]HRESULT
+		IsValid([out,retval] VARIANT_BOOL* pRet);
+			[propget, id(7), helpstring("Полное имя")]HRESULT
+		FullName([out, retval] BSTR *pVal);
+			[propget, id(8), helpstring("Cвойства объекта")]HRESULT
+		Props([out, retval] IMetaDataObjProps* *pVal);
+			[propget, id(9), helpstring("Потомки объекта")]HRESULT
+		Childs([out, retval] IMetaDataObjChilds* *pVal);
+			[propget, id(10), helpstring("Тип объекта")]HRESULT
+		Type([out, retval] IType1C* *pVal);
+			[propput, id(10), helpstring("Тип объекта")]HRESULT
+		Type([in] IType1C* newVal);
+			[id(11), helpstring("Возвращает текстовое описание объекта метаданных")]HRESULT
+		DescribeObject([in,optional,defaultvalue(0)] VARIANT_BOOL WithChilds,[out,retval]BSTR* retVal);
+			[propget, id(12), helpstring("Родительский объект")]HRESULT
+		Parent([out, retval] IMetaDataObj* *pVal);
+	};
+	[
+		uuid(B5E36B88-CDA7-4107-82BF-6B20A8158B7A),
+		helpstring("Описание объекта метаданных"),
+		noncreatable,
+	]
+	coclass MetaDataObj
+	{
+		[default] interface IMetaDataObj;
+	};
+
+	// Интерфейс набора объектов метаданных
+	[
+		uuid(9F1E178B-C0AD-4d9a-A083-9A952F2BDF31),
+		dual,
+		nonextensible,
+		version(1.0),
+		helpstring("Коллекция объектов метаданных")
+	]
+	interface IMetaDataObjArray:IDispatch
+	{
+			[propget, id(0), helpstring("Объект по имени или номеру")] HRESULT
+		Item([in] VARIANT idx, [out, retval] IMetaDataObj **pVal);
+			[propget, id(2), helpstring("Количество объектов")] HRESULT
+		Count([out, retval] long *pVal);
+	};
+	[
+		uuid(8cda8e20-913a-4eeb-9172-a1569f663e16),
+		version(1.0),
+		helpstring("Набор объектов метаданных"),
+		noncreatable
+	]
+	coclass MetaDataObjArray
+	{
+		[default] interface IMetaDataObjArray;
+	};
+
+
+	// Интерфейс Скрипта
+	[
+		uuid(d7ba8eb5-b237-4323-b971-bcb37bf3d01e),
+		dual,
+		nonextensible,
+		version(1.0),
+		helpstring("Сам скрипт")
+	]
+	interface ISelfScript:IDispatch
+	{
+			[propget, id(0), helpstring("Имя скрипта")]HRESULT
+		Name([out, retval] BSTR *pVal);
+			[id(1), helpstring("Добавить объект в пространство имен скрипта")]HRESULT
+		AddNamedItem([in] BSTR Name,[in] IDispatch* Object, [in] VARIANT_BOOL AsGlobal);
+	};
+	[
+		uuid(02a7af19-b1ad-4f20-be50-d644bb9ddd8f),
+		version(1.0),
+		noncreatable,
+		helpstring("Сам скрипт")
+	]
+	coclass SelfScript
+	{
+		[default] interface ISelfScript;
+	};
+
+	// Интерфейс Значения Перечисления
+	[
+		uuid(9205eda0-4587-486e-816d-50e9aa24738d),
+		dual,
+		nonextensible,
+		version(1.0),
+		helpstring("Значение перечисления")
+	]
+	interface IMetaEnumVal:IMetaDataObj
+	{
+			[propget, id(13), helpstring("Представление значения перечисления")]HRESULT
+		Title([out, retval] BSTR *pVal);
+			[propput, id(13), helpstring("Представление значения перечисления")]HRESULT
+		Title([in] BSTR newVal);
+	};
+	[
+		uuid(f40fd0f0-54af-4fed-89a6-6d4233e282e5),
+		version(1.0),
+		noncreatable,
+		helpstring("Значение перечисления")
+	]
+	coclass MetaEnumVal
+	{
+		[default] interface IMetaEnumVal;
+	};
+
+	// Интерфейс Перечисления
+	[
+		uuid(0a75dad6-e6f3-4116-862b-133e26bd8377),
+		dual,
+		nonextensible,
+		version(1.0),
+		helpstring("Перечисление")
+	]
+	interface IMetaEnum:IMetaDataObj
+	{
+			[propget, id(13), helpstring("Количество значений перечисления")]HRESULT
+		ValsCount([out, retval] long *pVal);
+			[propget, id(14), helpstring("Значение перечисления с указанным индексом (номер или имя)")]HRESULT
+		EnumVal(VARIANT idx, [out, retval] IMetaEnumVal* *pVal);
+			[id(15), helpstring("Добавить значение перечисления")]HRESULT
+		Add([in] BSTR Name, [out, retval] IMetaEnumVal** pVal);
+			[id(16), helpstring("Удалить значение перечисления")]HRESULT
+		Remove([in] VARIANT idx);
+	};
+	[
+		uuid(03a11169-8a38-42d4-9b96-7b788537c3e5),
+		version(1.0),
+		noncreatable,
+		helpstring("Перечисление")
+	]
+	coclass MetaEnum
+	{
+		[default] interface IMetaEnum;
+	};
+
+	// Интерфейс Перечислений
+	[
+		uuid(6d5c5f96-05d5-4444-8fbd-3247ea6ac4ca),
+		dual,
+		nonextensible,
+		version(1.0),
+		helpstring("Набор всех перечислений")
+	]
+	interface IMetaEnums:IDispatch
+	{
+			[propget, id(0), helpstring(
+			"Получить перечисление с заданным индексом (номер или имя)"
+			)]HRESULT
+		Enum(VARIANT idx, [out, retval] IMetaEnum* *pVal);
+			[propget, id(1), helpstring(
+			"Количество перечислений"
+			)]HRESULT
+		Count([out, retval] long *pVal);
+			[id(2), helpstring(
+			"Удалить перечисление"
+			)]HRESULT
+		Remove([in] VARIANT idx);
+			[id(3), helpstring(
+			"Добавить перечисление"
+			)]HRESULT
+		Add([in] BSTR Name, [out, retval] IMetaEnum** pVal);
+	};
+	[
+		uuid(036e513a-1a68-41f9-8c39-b97e1f8d8627),
+		version(1.0),
+		noncreatable,
+		helpstring("Набор всех перечислений")
+	]
+	coclass MetaEnums
+	{
+		[default] interface IMetaEnums;
+	};
+
+	// Интерфейс МетаДанных
+	[
+		uuid(2576069C-DBF4-4b30-A839-36355F461F50),
+		dual,
+		nonextensible,
+		version(1.0),
+		helpstring("Объект MetaData")
+	]
+	interface IMetaData:IDispatch
+	{
+			[propget, id(1), helpstring("Объект \"Задача\"")]HRESULT
+		TaskDef([out, retval] ITaskDef **pVal);
+			[propget, id(2), helpstring("Измененность метаданных (0 - нет,1 - Документ*,2 - БД*, Документ*")]HRESULT
+		Modified([out, retval] short *pVal);
+			[id(4), helpstring("Найти объект метаданных по идентификатору")]HRESULT
+		FindObject([in] long id,[out,retval] IMetaDataObj** pObj);
+			[id(5), helpstring("Обновить окно метаданных для отображения изменений")]HRESULT
+		RefreshMDWnd();
+			[id(6), helpstring("Сохранить свежую версию мдшника в указанный файл")]HRESULT
+		SaveMDToFile([in] BSTR path,[in,optional, defaultvalue(0)]VARIANT_BOOL FireEvent,[out, retval] VARIANT_BOOL* retVal);
+			[id(7), helpstring("Получить описание метаданных")]HRESULT
+		Describe([out,retval] BSTR* pRet);
+			[propget, id(8), helpstring("Развернутая информация о конфигурации")]HRESULT
+		LongCopyright([out, retval] BSTR *pVal);
+			//[propput, id(8), helpstring("Развернутая информация о конфигурации")]
+			//	HRESULT LongCopyright([in] BSTR newVal);
+			[propget, id(9), helpstring("Краткая информация о конфигурации")]HRESULT
+		ShortCopyright([out, retval] BSTR *pVal);
+			//[propput, id(9), helpstring("Краткая информация о конфигурации")]
+			//	HRESULT ShortCopyright([in] BSTR newVal);
+			[id(10), helpstring("Сохранить Main MetaDataStream в файл")]HRESULT
+		SaveMMDS(BSTR Path);
+			[propget, id(11), helpstring("Правило миграции объекта с указанным ID")]HRESULT
+		Migration([in] long Id, [out, retval] IMigration* *pVal);
+			[propget, id(12), helpstring("Все константы")]HRESULT
+		Constants([out, retval] IConstants* *pVal);
+			[id(13), helpstring("Найти ссылки на объект")] HRESULT
+		TestRefers([in] long ID, [in,optional,defaultvalue(0)] VARIANT_BOOL FindAll, [out, retval] IMetaDataObjArray** pRetArr);
+			[propget, id(14), helpstring("Перечисления")] HRESULT
+		Enums([out, retval] IMetaEnums* *pVal);
+	};
+	[
+		uuid(43A6FDE2-747B-44dd-A595-512183EE5BEB),
+		helpstring("Набор всех метаданных"),
+		noncreatable,
+	]
+	coclass MetaData
+	{
+		[default] interface IMetaData;
+	};
+
+	// Интерфейс CTaskDef
+	[
+		uuid(b6b67039-2433-4151-b344-6ad3ce0d4a77),
+		dual,
+		oleautomation,
+		nonextensible,
+		version(1.0),
+   		helpstring("Задача")
+	]
+	interface ITaskDef:IMetaDataObj
+	{
+			[propget, id(15), helpstring("Основной язык")]HRESULT
+		Language([out, retval] long *pVal);
+			[propput, id(15), helpstring("Основной язык")]HRESULT
+		Language([in] long newVal);
+			[propget, id(16), helpstring("Непосредственное удаление")]HRESULT
+		ImmediateDelete([out, retval] VARIANT_BOOL *pVal);
+			[propput, id(16), helpstring("Непосредственное удаление")]HRESULT
+		ImmediateDelete([in] VARIANT_BOOL newVal);
+			[propget, id(17), helpstring("Округлять 1.5 до 2")]HRESULT
+		Round15_2([out, retval] VARIANT_BOOL *pVal);
+			[propput, id(17), helpstring("Округлять 1.5 до 2")]HRESULT
+		Round15_2([in] VARIANT_BOOL newVal);
+	};
+	[
+		uuid(d685f452-6ab6-4e57-b5c2-4c3c9fc9e0d2),
+		version(1.0),
+		helpstring("Описание объекта Задача"),
+		noncreatable
+	]
+	coclass TaskDef
+	{
+		[default] interface ITaskDef;
+	};
+
+	// Перебор всех объектов
+	[
+		uuid(19484b30-4771-453b-af31-5ee02de544d8),
+		dual,
+		oleautomation,
+		nonextensible,
+		version(1.0),
+   		helpstring("Набор всех форм и модулей")
+	]
+	interface IAllTypedObj:IDispatch
+	{
+			[propget, id(0), helpstring("Объект с указанным номером/именем")] HRESULT
+		item(VARIANT idx, [out, retval] ICfgDoc* *pVal);
+			[propget, id(1), helpstring("Количество объектов")] HRESULT
+		Count([out, retval] long *pVal);
+			[propget, id(2), helpstring("Количество дочерних элементов")]HRESULT
+		ChildsCount(BSTR Parent, [out, retval] long *pVal);
+			[propget, id(3), helpstring("Имя дочернего элемента")]HRESULT
+		ChildName(BSTR Parent, long idx, [out, retval] BSTR *pVal);
+			[propget, id(4), helpstring("Количество объектов в указанной ветке")] HRESULT
+		ObjectCount(BSTR Parent, [out, retval] long *pVal);
+	};
+
+	[
+		uuid(ea8c84ee-0c03-4c8d-9548-8837f3cd163a),
+		version(1.0),
+		noncreatable,
+		helpstring("Набор всех форм и модулей")
+	]
+	coclass AllTypedObj
+	{
+		[default] interface IAllTypedObj;
+	};
+
+	// Константa
+	[
+		uuid(6abd59ab-7517-4c6c-9f8d-30a312073ad7),
+		dual,
+		oleautomation,
+		nonextensible,
+		version(1.0),
+   		helpstring("Константа")
+	]
+	interface IConstDef:IMetaDataObj
+	{
+			[propget, id(100), helpstring("Периодическая")]HRESULT
+		Periodic([out, retval] VARIANT_BOOL *pVal);
+			[propput, id(100), helpstring("Периодическая")]HRESULT
+		Periodic([in] VARIANT_BOOL newVal);
+	};
+
+	[
+		uuid(1b100ee6-0a82-40c1-9285-ea329d8ffa9c),
+		version(1.0),
+		noncreatable,
+		helpstring("Определение Константы")
+	]
+	coclass ConstDef
+	{
+		[default] interface IConstDef;
+	};
+
+	// Константы
+	[
+		uuid(30869711-4da3-445e-8607-1953b0850c46),
+		dual,
+		oleautomation,
+		nonextensible,
+		version(1.0),
+   		helpstring("Константы")
+	]
+	interface IConstants:IDispatch
+	{
+			[propget, id(0), helpstring("Получить константу по номеру или названию")]HRESULT
+		item([in] VARIANT idx, [out, retval] IConstDef* *pVal);
+			[propget, id(1), helpstring("Количество констант")]HRESULT
+		Count([out, retval] long *pVal);
+			[propget, id(2), helpstring("Имя константы")]HRESULT
+		Name([in] VARIANT idx, [out, retval] BSTR *pVal);
+			[id(3), helpstring("Добавить константу")]HRESULT
+		Add([in] BSTR name, [in, optional, defaultvalue(NULL)] BSTR Present, [out,retval] IConstDef* *pRetVal);
+			[id(4), helpstring("Удалить константу")]HRESULT
+		Remove([in] VARIANT idx);
+	};
+
+	[
+		uuid(756afc1e-9a0a-4b8d-a459-97df55a79c70),
+		version(1.0),
+		noncreatable,
+		helpstring("Набор всех констант Конфигурации")
+	]
+	coclass Constants
+	{
+		[default] interface IConstants;
+	};
+
+	[helpstring("Виды документов")]
+	typedef enum
+	{
+		[helpstring("Неизвестный")]			docUnknown		= 0,
+		[helpstring("Набор страниц")]		docWorkBook		= 1,
+		[helpstring("Текст")]				docText			= 2,
+		[helpstring("Таблица")]				docTable		= 3,
+		[helpstring("Редактор форм")]		docDEdit		= 4,
+	}DocTypes;
+	// Интерфейс Документа
+	[
+		uuid(d1c2bb80-7206-11d8-9fcd-e9053813da08),
+		dual,
+		nonextensible,
+		version(1.0),
+   		helpstring("Документ")
+	]
+	interface ICfgDoc:IDispatch
+	{
+			[propget, id(0), helpstring("Тип документа")]HRESULT
+		Type([out, retval] DocTypes *pVal);
+			[propget, id(1), helpstring("ID объекта метаданных")]HRESULT
+		ID([out, retval] long *pVal);
+			[propget, id(2), helpstring("Вид документа")]HRESULT
+		Kind([out, retval] BSTR *pVal);
+			[propget, id(3), helpstring("Путь документа")]HRESULT
+		Path([out, retval] BSTR *pVal);
+			[id(4), helpstring("Открыть документ")]HRESULT
+		Open();
+			[propget, id(5), helpstring("Открыт ли документ")]HRESULT
+		IsOpen([out, retval] VARIANT_BOOL *pVal);
+			[id(6), helpstring("Сохранить документ")]HRESULT
+		Save();
+			[propget, id(7), helpstring("Имя документа")]HRESULT
+		Name([out, retval] BSTR *pVal);
+	};
+	[
+		uuid(f9f6c920-7206-11d8-9fcd-e9053813da08),
+		version(1.0),
+		noncreatable,
+		helpstring("Документ с данными о Конфигурации")
+	]
+	coclass CfgDoc
+	{
+		[default] interface ICfgDoc;
+	}
+
+	// Интерфейс Документов
+	[
+		uuid(16623674-ecad-484b-a399-751229940cdc),
+		dual,
+		nonextensible,
+		version(1.0),
+   		helpstring("Документы")
+	]
+	interface ICfgDocuments:IDispatch
+	{
+			[propget, id(0), helpstring("Получить документ")]HRESULT
+		item([in] BSTR name, [out, retval] ICfgDoc **pVal);
+			[id(1), helpstring("Открыть внешний файл")]HRESULT
+		Open([in] BSTR Path,[out,retval] ICfgDoc** pDoc);
+			[id(2), helpstring("Получить документ по ID")]HRESULT
+		DocFromID([in] long id, [in] DocTypes type, [in] BSTR Path, [in] BSTR kind, [out, retval] ICfgDoc** pRetDoc);
+			[id(3), helpstring("Создать новый документ (Внешний отчет, Таблица, Текст")]HRESULT
+		New([in] DocTypes type, [out, retval] ICfgDoc** pDoc);
+			[id(4), helpstring("Получить набор всех форм и модулей конфигурации ")]HRESULT
+		EnumAllTypedObj([out, retval] IAllTypedObj** pRet);
+	};
+
+	[
+		uuid(30ecb402-4e56-44bd-8e7c-6521efdb58ce),
+		version(1.0),
+		helpstring("Объект для доступа к документам конфигуратора"),
+		noncreatable
+	]
+	coclass CfgDocuments
+	{
+		[default] interface ICfgDocuments;
+	};
+
+	// Интерфейс WorkBook
+	[
+		uuid(3904cfac-714b-4241-af65-5fd6967a065c),
+		dual,
+		nonextensible,
+		version(1.0),
+   		helpstring("WorkBook")
+	]
+	interface IWorkBook:ICfgDoc
+	{
+			[propget, id(8), helpstring("Количество страниц")]HRESULT
+		CountPages([out, retval] long *pVal);
+			[propget, id(9), helpstring("Имя страницы")]HRESULT
+		NamePage([in] VARIANT idx, [out, retval] BSTR *pVal);
+			[propput, id(9), helpstring("Имя страницы")]HRESULT
+		NamePage([in] VARIANT idx, [in] BSTR newVal);
+			[propget, id(10), helpstring("Получить документ страницы")]HRESULT
+		Page([in] VARIANT idx, [out, retval] ICfgDoc* *pVal);
+			[propget, id(11), helpstring("Активная страница (только при открытом окне)")]HRESULT
+		ActivePage([out, retval] VARIANT *pVal);
+			[propput, id(11), helpstring("Активная страница (только при открытом окне)")]HRESULT
+		ActivePage([in] VARIANT newVal);
+			[id(12), helpstring("Добавить таблицу")]HRESULT
+		AddPage([in] BSTR Name, [out,retval] ICfgDoc** ppNewPage);
+			[id(13), helpstring("Удалить таблицу")]HRESULT
+		RemovePage([in] VARIANT idx);
+	};
+
+	[
+		uuid(46d26a73-3d4c-4ee7-ab1f-26f42e028976),
+		version(1.0),
+		helpstring("Форма, набор таблиц"),
+		noncreatable
+	]
+	coclass WorkBook
+	{
+		[default] interface IWorkBook;
+	};
+
+	// Интерфейс Текстового Документа
+	[
+		uuid(dee7bd6f-1af8-4dac-a203-4e27f8c608f7),
+		dual,
+		nonextensible,
+		version(1.0),
+   		helpstring("Текстовый документ")
+	]
+	interface ITextDoc:ICfgDoc
+	{
+			[id(8), helpstring("Сохранить текст в файл")]HRESULT
+		SaveToFile([in] BSTR FileName, [out, retval] VARIANT_BOOL* bSucces);
+			[id(9), helpstring("Загрузить текст из файла")]HRESULT
+		LoadFromFile([in] BSTR FileName, [out,retval] VARIANT_BOOL* bSuccess);
+			[propget, id(10), helpstring("Текст документа")]HRESULT
+		Text([out, retval] BSTR *pVal);
+			[propput, id(10), helpstring("Текст документа")]HRESULT
+		Text([in] BSTR newVal);
+			[propget, id(11), helpstring("Количество строк")]HRESULT
+		LineCount([out, retval] long *pVal);
+			[propget, id(12), helpstring("Длина строки")]HRESULT
+		LineLen([in] long LineNum, [out, retval] long *pVal);
+			[propget, id(13), helpstring("Отображать как текст модуля")]HRESULT
+		IsModule([out, retval] VARIANT_BOOL *pVal);
+			[propput, id(13), helpstring("Отображать как текст модуля")]HRESULT
+		IsModule([in] VARIANT_BOOL newVal);
+			[propget, id(14), helpstring("Только для чтения")]HRESULT
+		ReadOnly([out, retval] VARIANT_BOOL *pVal);
+			[propput, id(14), helpstring("Только для чтения")]HRESULT
+		ReadOnly([in] VARIANT_BOOL newVal);
+			[propget, id(15), helpstring("Блок текста документа")]HRESULT
+		Range([in] long StartLine, [in, optional] VARIANT StartCol, [in, optional] VARIANT EndLine, [in, optional] VARIANT EndCol, [out, retval] BSTR *pVal);
+			[propput, id(15), helpstring("Блок текста документа")]HRESULT
+		Range([in] long StartLine, [in, optional] VARIANT StartCol, [in, optional] VARIANT EndLine, [in, optional] VARIANT EndCol, [in] BSTR newVal);
+			[propget, id(16), helpstring("Начальная строка выделенного блока")]HRESULT
+		SelStartLine([out, retval] long *pVal);
+			[propget, id(17), helpstring("Начальная колонка выделенного блока")]HRESULT
+		SelStartCol([out, retval] long *pVal);
+			[propget, id(18), helpstring("Конечная строка выделения")]HRESULT
+		SelEndLine([out, retval] long *pVal);
+			[propget, id(19), helpstring("Конечная колонка выделения")]HRESULT
+		SelEndCol([out, retval] long *pVal);
+			[propget, id(20), helpstring("Слово под курсором")]HRESULT
+		CurrentWord([out, retval] BSTR *pVal);
+			[id(21), helpstring("Переместить курсор в указанную позицию")]HRESULT
+		MoveCaret([in] long LineStart, [in] long ColStart, [in, optional] VARIANT LineEnd, [in, optional] VARIANT ColEnd);
+			[propget, id(22), helpstring("Поставить/убрать закладку на указанной строке")]HRESULT
+		BookMark([in] long LineNum, [out, retval] VARIANT_BOOL *pVal);
+			[propput, id(22), helpstring("Поставить/убрать закладку на указанной строке")]HRESULT
+		BookMark([in] long LineNum, [in] VARIANT_BOOL newVal);
+			[id(23), helpstring("Получить номер строки со следующей закладкой, начиная с указанной строки")]HRESULT
+		NextBookmark([in] long StartLine, [out,retval] long* pNextBookmark);
+			[id(24), helpstring("Получить номер строки с предыдущей закладкой, начиная с указанной строки")]HRESULT
+		PrevBookmark([in] long StartLine, [out, retval] long* pRet);
+			[id(25), helpstring("Убрать все закладки")]HRESULT
+		ClearAllBookMark();
+			[propget, id(26), helpstring("Можно отменить последнюю операцию?")]HRESULT
+		CanUndo([out, retval] VARIANT_BOOL *pVal);
+			[propget, id(27), helpstring("Можно вернуть отмененную операцию?")]HRESULT
+		CanRedo([out, retval] VARIANT_BOOL *pVal);
+			[id(28), helpstring("Отменить последнюю операцию")]			HRESULT
+		Undo();
+			[id(29), helpstring("Вернуть отмененную операцию")]			HRESULT
+		Redo();
+			[id(30), helpstring("Вырезать текст в буфер обмена")]		HRESULT
+		Cut();
+			[id(31), helpstring("Копировать текст в буфер обмена")]		HRESULT
+		Copy();
+			[id(32), helpstring("Вставить текст из буфера обмена")]		HRESULT
+		Paste();
+			[id(33), helpstring("Закомментировать выделенный блок")]	HRESULT
+		CommentSel();
+			[id(34), helpstring("Раскомментировать выделенный блок")]	HRESULT
+		UncommentSel();
+			[id(35), helpstring("Отформатировать выделенный блок")]		HRESULT
+		FormatSel();
+	};
+
+	[
+		uuid(08b07dc4-919a-4d05-9412-a1cc7f01c4b9),
+		version(1.0),
+		noncreatable,
+		helpstring("Текстовый документ")
+	]
+	coclass TextDoc
+	{
+		[default] interface ITextDoc;
+	};
+
+
+	[helpstring("Форматы файлов таблиц")]
+	typedef enum
+	{
+		[helpstring("mxl")]		tbMxl,
+		[helpstring("Excel")]	tbExc,
+		[helpstring("html")]	tbHtml,
+		[helpstring("Текст")]	tbText,
+	}TableSaveTypes;
+	// Интерфейс Таблицы
+	[
+		uuid(cefb0920-7a8f-11d8-9fcd-d6268c95b908),
+		dual,
+		nonextensible,
+		version(1.0),
+   		helpstring("Таблица")
+	]
+	interface ITableDoc:ICfgDoc
+	{
+			[id(8), helpstring("Сохранить таблицу в mxl")]HRESULT
+		SaveToFile([in] BSTR FileName, [out, retval] VARIANT_BOOL* bSucces);
+			[id(9), helpstring("Загрузить таблица из mxl")]HRESULT
+		LoadFromFile([in] BSTR FileName, [out,retval] VARIANT_BOOL* bSuccess);
+			[id(10), helpstring("Сохранить таблицу в файл")]HRESULT
+		SaveToFileAs([in] BSTR FileName, [in,optional,defaultvalue(tbMxl)] TableSaveTypes type,[out, retval] VARIANT_BOOL* bSucces);
+	};
+
+	[
+		uuid(cefb0921-7a8f-11d8-9fcd-d6268c95b908),
+		version(1.0),
+		helpstring("Таблица"),
+		noncreatable
+	]
+	coclass TableDoc
+	{
+		[default] interface ITableDoc;
+	};
+
+	// Флаги элементов диалога
+	[helpstring("Флаги элементов диалога")]
+	typedef enum
+	{
+		[helpstring("Пропускать при вводе")]					ctrlSkipEnter		=0x4,
+		[helpstring("Быстрый выбор")]							ctrlQuickChoise		=0x8,
+		[helpstring("Использовать описание как подсказку")]		ctrlUseHelpAsTip	=0x10,
+		[helpstring("Имеет кнопку выбора")]						ctrlHaveSelBtn		=0x20,
+		[helpstring("Использует шрифт формы")]					ctrlDefaultFont		=0x40,
+		[helpstring("Цвет шрифта - авто")]						ctrlAutoFontColor	=0x80,
+		[helpstring("Растянуь картинку (Для объекта Картинка)")]ctrlPictureStretch	=0x100,
+		[helpstring("Автовыбор выключен")]						ctrlDisableAutoChoise=0x200,
+		[helpstring("Картинка по центру")]						ctrlPictureCenter	=0x400,
+		[helpstring("Картинка пропорционально")]				ctrlPictureAspect	=0x800,
+		[helpstring("Многострочное поле ввода")]				ctrlMultiLine		=0x1000,
+		[helpstring("Невидимый")]								ctrlUnVisible		=0x2000,
+		[helpstring("Недоступный")]								ctrlDisabled		=0x4000,
+							// 0x8000
+		[helpstring("Прозрачный фон")]							ctrlTransparent		=0x10000,
+		[helpstring("Рамка простая (для Картинки)")]			ctrlBorderSimple	=0x20000,
+		[helpstring("Рамка выпуклая (для Картинки)")]			ctrlBorderEtch		=0x40000,
+		[helpstring("Рамка вдавленная(для Картинки)")]			ctrlBorderRaise		=0x80000,
+		[helpstring("Автовыбор (для Неопределенный)")]			ctrlAutoChoise		=0x100000,		//?бит 20: Автовыбор  (для 1CEDIT) 
+							// 0x200000	бит 21: Неизвестный флаг(появляется у колонок многострочн. части, логику появления отследить не смог)
+		[helpstring("На следующей строке")]						ctrlOnNextRow		=0x400000,		//бит 22: На следующей строке (положение колонки многострочн. части)
+		[helpstring("В той же колонке")]						ctrlInThisColumn	=0x800000,		//бит 23: В той же колонке  (положение колонки многострочн. части)
+		[helpstring("НЕ сохранять при сохранении настройки")]	ctrlDontSaveSettings=0x1000000,		//НЕ сохранять при сохрании настройки
+		[helpstring("Список с пометками")]						ctrlSelList			=0x2000000,		//бит 25: Список с пометками (для списка значений)
+		[helpstring("Отрицательные красным")]					ctrlNegativeRed		=0x4000000,		//бит 26: Отрицательное красным (для полей ввода типа "Число")
+		[helpstring("Выводить пиктограммы в ТЗ")]				ctrlUsePicture		=0x8000000,		//бит 27: Выводить пиктограммы (Для таблицы значений)
+		[helpstring("Запретить редактирование")]				ctrlDisableEdit		=0x10000000,	//бит 28: Запретить редактирование.
+	}CtrlFlags;
+
+	[helpstring("Номера свойств контролов")]
+	typedef enum
+	{
+		[helpstring("Левая координата")]			cpLeft		=0,
+		[helpstring("Правая координата")]			cpTop		=1,
+		[helpstring("Ширина")]						cpWidth		=2,
+		[helpstring("Высота")]						cpHeight	=3,
+		[helpstring("Идентификатор")]				cpStrID		=4,
+		[helpstring("Заголовок")]					cpTitle		=5,
+		[helpstring("Формула")]						cpFormul	=6,
+		[helpstring("Подсказка")]					cpToolTip	=7,
+		[helpstring("Описание")]					cpHelpString=8,
+		[helpstring("Слой")]						cpLayer		=9,
+		[helpstring("ID метаданных реквизита")]		cpMetaID	=10,
+		[helpstring("Основной набор флагов")]		cpFlags		=11,
+		[helpstring("Дополнительный набор флагов")] cpFlagsEx	=12,
+		[helpstring("Связан с")]					cpLinkWith	=13,
+		[helpstring("Имя шрифта")]					cpFontName	=14,
+		[helpstring("Размер шрифта")]				cpFontSize	=15,
+		[helpstring("Толщина шрифта")]				cpFontWeight=16,
+		[helpstring("Шрифт наклонный")]				cpFontItalic=17,
+		[helpstring("Шрифт подчернутый")]			cpFontUnderline=18,
+		[helpstring("Цвет шрифта")]					cpFontColor =19,
+		[helpstring("Хоткей")]						cpHotKey	=20,
+		[helpstring("ИД картинки")]					cpPictID	=21,
+		[helpstring("Положение картинки")]			cpPictMode	=22,
+	}CtrlPropsIdx;
+
+	[helpstring("Номера свойств формы")]
+	typedef enum
+	{
+		[helpstring("Ширина")]					fpWidth			=0,
+		[helpstring("Высота")]					fpHeight		=1,
+		[helpstring("Панель инструментов")]		fpToolBar		=2,
+		[helpstring("Изменять размер")]			fpAutoSize		=3,
+		[helpstring("Автом. порядок обхода")]	fpAutoLayout	=4,
+		[helpstring("Шрифт по умолчанию")]		fpUseAutoFont	=5,
+		[helpstring("Имя шрифта")]				fpFontName		=6,
+		[helpstring("Размер шрифта")]			fpFontSize		=7,
+		[helpstring("Толщина шрифта")]			fpFontWeight	=8,
+		[helpstring("Шрифт наклонный")]			fpFontItalic	=9,
+		[helpstring("Шрифт подчернутый")]		fpFontUnderline	=10,
+		[helpstring("Заголовок")]				fpTitle			=11,
+		[helpstring("Набор флагов")]			fpFlags			=12,
+		[helpstring("ИД картинки")]				fpPictID		=13,
+		[helpstring("Положение картинки")]		fpPictMode		=14,
+		[helpstring("Цвет фона")]				fpBkColor		=15,
+		/*
+		[helpstring("")]	fp=,
+		[helpstring("")]	fp=,
+		[helpstring("")]	fp=,
+		[helpstring("")]	fp=,
+		[helpstring("")]	fp=,
+		*/
+	}FormPropsIdx;
+	// Интерфейс Диалога
+	[
+		uuid(2e1ccc5f-1fc5-41a0-9bf7-f4b77033a23c),
+		dual,
+		nonextensible,
+		version(1.0),
+   		helpstring("Диалог")
+	]
+	interface IDialogDoc:ICfgDoc
+	{
+			[id(8), helpstring("Сохранить диалог в файл")]HRESULT
+		SaveToFile([in] BSTR FileName, [out, retval] VARIANT_BOOL* bSucces);
+			[id(9), helpstring("Загрузить диалог из файла")]HRESULT
+		LoadFromFile([in] BSTR FileName, [out,retval] VARIANT_BOOL* bSuccess);
+			[propget, id(10), helpstring("Поток диалога")]HRESULT
+		Stream([out, retval] BSTR *pVal);
+			[propput, id(10), helpstring("Поток диалога")]HRESULT
+		Stream([in] BSTR newVal);
+			[id(11), helpstring("Добавить слой")]HRESULT
+		AddLayer([in] BSTR Name,[in, optional,defaultvalue(-1)] VARIANT_BOOL Visible);
+			[propget, id(12), helpstring("Количество слоев")]HRESULT
+		LayerCount([out, retval] long *pVal);
+			[propget, id(13), helpstring("Прочитать/установить имя слоя")]HRESULT
+		LayerName([in] long idx, [out, retval] BSTR *pVal);
+			[propput, id(13), helpstring("Прочитать/установить имя слоя")]HRESULT
+		LayerName([in] long idx, [in] BSTR newVal);
+			[propget, id(14), helpstring("Прочитать установить видимость слоя")]HRESULT
+		LayerVisible([in] BSTR Name, [out, retval] VARIANT_BOOL *pVal);
+			[propput, id(14), helpstring("Прочитать установить видимость слоя")]HRESULT
+		LayerVisible([in] BSTR Name, [in] VARIANT_BOOL newVal);
+			[propget, id(15), helpstring("Прочитать/установить активный слой")]HRESULT
+		ActiveLayer([out, retval] BSTR *pVal);
+			[propput, id(15), helpstring("Прочитать/установить активный слой")]HRESULT
+		ActiveLayer([in] BSTR newVal);
+			[id(16), helpstring("Удалить слой")]HRESULT
+		DeleteLayer([in] BSTR Name, [in, optional, defaultvalue("")] BSTR CopyControlsTo);
+			[id(17), helpstring("Передвинуть слой")]HRESULT
+		MoveLayer([in] BSTR From, [in] VARIANT_BOOL Down);
+			[propget, id(18), helpstring("Количество контролов")] HRESULT
+		ctrlCount([out, retval] long *pVal);
+			[propget, id(19), helpstring("Тип контрола")] HRESULT
+		ctrlType([in] long idx, [out, retval] BSTR *pVal);
+			[id(20), helpstring("Уникальный ID контрола по его номеру")] HRESULT
+		ctrlUID([in] long idx, [out, retval] long* pVal);
+			[id(21), helpstring("Текущий номер контрола по его уникальному ID")] HRESULT
+		ctrlIdx([in] long UID, [out, retval] long* pVal);
+			[propget, id(22), helpstring("Прочитать/установить номера выделенных контролов")] HRESULT
+		Selection([out, retval] BSTR *pVal);
+			[propput, id(22), helpstring("Прочитать/установить номера выделенных контролов")] HRESULT
+		Selection([in] BSTR newVal);
+			[propget, id(23), helpstring("Свойство контрола")] HRESULT
+		ctrlProp([in] long ctrlIdx, [in] CtrlPropsIdx propIdx, [out, retval] VARIANT *pVal);
+			[propput, id(23), helpstring("Свойство контрола")] HRESULT
+		ctrlProp([in] long ctrlIdx, [in] CtrlPropsIdx propIdx, [in] VARIANT newVal);
+			[propget, id(24), helpstring("Свойство формы")] HRESULT
+		formProp([in] FormPropsIdx formPropIdx, [out, retval] VARIANT *pVal);
+			[propput, id(24), helpstring("Свойство формы")] HRESULT
+		formProp([in] FormPropsIdx formPropIdx, [in] VARIANT newVal);
+			[propget, id(25), helpstring("property ctrlType1C")] HRESULT
+		ctrlType1C([in] long idx, [out, retval] IType1C* *pVal);
+			[propput, id(25), helpstring("property ctrlType1C")] HRESULT
+		ctrlType1C([in] long idx, [in] IType1C* newVal);
+	};
+
+	[
+		uuid(a1c16c44-abb4-48da-a77d-1ea349bbe197),
+		version(1.0),
+		helpstring("Диалог"),
+		noncreatable
+	]
+	coclass DialogDoc
+	{
+		[default] interface IDialogDoc;
+	};
+
+
+	// Интерфейс Окна
+	[
+		uuid(6e8f8c6a-b9fb-46fc-affa-cb0f7eb93fb9),
+		dual,
+		nonextensible,
+		version(1.0),
+   		helpstring("Окно")
+	]
+	interface ICfgWindow:IDispatch
+	{
+			[propget, id(0), helpstring("Дескриптор окна")]HRESULT
+		hWnd([out, retval] long *pVal);
+			[propget, id(1), helpstring("Заголовок окна")]HRESULT
+		Caption([out, retval] BSTR *pVal);
+			[propput, id(1), helpstring("Заголовок окна")]HRESULT
+		Caption([in] BSTR newVal);
+			[propget, id(2), helpstring("Документ окна")]HRESULT
+		Document([out, retval] ICfgDoc* *pVal);
+			[id(3), helpstring("Закрыть окно")]HRESULT
+		Close();
+			[propget, id(4), helpstring("Развернуть окно")]HRESULT
+		Maximized([out, retval] VARIANT_BOOL *pVal);
+			[propput, id(4), helpstring("Развернуть окно")]HRESULT
+		Maximized([in] VARIANT_BOOL newVal);
+			[propget, id(5), helpstring("Свернуть окно")]HRESULT
+		Minimized([out, retval] VARIANT_BOOL *pVal);
+			[propput, id(5), helpstring("Свернуть окно")]HRESULT
+		Minimized([in] VARIANT_BOOL newVal);
+			[propget, id(6), helpstring("Координата верха окна")]HRESULT
+		Top([out, retval] long *pVal);
+			[propget, id(7), helpstring("Координата левой стороны окна")]HRESULT
+		Left([out, retval] long *pVal);
+			[propget, id(8), helpstring("Координата низа окна")]HRESULT
+		Bottom([out, retval] long *pVal);
+			[propget, id(9), helpstring("Координата правой стороны окна")]HRESULT
+		Right([out, retval] long *pVal);
+			[id(10), helpstring("Переместить окно")]HRESULT
+		Move([in] long left, [in] long top, [in] long right, [in] long bottom);
+			[propget, id(11), helpstring("Ширина клиентской части окна")]HRESULT
+		ClientWidth([out, retval] long *pVal);
+			[propget, id(12), helpstring("Высота клиентской части окна")]HRESULT
+		ClientHeight([out, retval] long *pVal);
+	};
+
+	[
+		uuid(06c7e522-cbc8-431b-b6ad-c367152fe189),
+		version(1.0),
+		helpstring("Окно"),
+		noncreatable
+	]
+	coclass CfgWindow
+	{
+		[default] interface ICfgWindow;
+	};
+
+
+	// Интерфейс Окон
+	[
+		uuid(765e4da0-4951-11d8-8d5f-adb28b91f406),
+		dual,
+		nonextensible,
+		version(1.0),
+   		helpstring("Окна")
+	]
+	interface ICfgWindows:IDispatch
+	{
+			[propget, id(0), helpstring("Главное окно")]HRESULT
+		MainWnd([out, retval] ICfgWindow* *pVal);
+			[propget, id(1), helpstring("Активное окно")]HRESULT
+		ActiveWnd([out, retval] ICfgWindow* *pVal);
+			[propput, id(1), helpstring("Активное окно")]HRESULT
+		ActiveWnd([in] ICfgWindow* newVal);
+			[propget, id(2), helpstring("Первое окно")]HRESULT
+		FirstWnd([out, retval] ICfgWindow* *pVal);
+			[propget, id(3), helpstring("Следующее окно")]HRESULT
+		NextWnd([in] ICfgWindow* CurrentWnd, [out, retval] ICfgWindow* *pVal);
+			[propget, id(4), helpstring("Видимость панели")]HRESULT
+		PanelVisible([in] BSTR Caption, [out, retval] VARIANT_BOOL *pVal);
+			[propput, id(4), helpstring("Видимость панели")]HRESULT
+		PanelVisible([in] BSTR Caption, [in] VARIANT_BOOL newVal);
+	};
+	[
+		uuid(765e4da1-4951-11d8-8d5f-adb28b91f406),
+		version(1.0),
+		helpstring("Менеджер окон"),
+		noncreatable
+	]
+	coclass CfgWindows
+	{
+		[default] interface ICfgWindows;
+	};
+
+	// Таймер
+	[
+		uuid(04539fb9-4790-4556-9055-da5d10cfa0a5),
+		dual,
+		oleautomation,
+		nonextensible,
+		version(1.0),
+   		helpstring("Таймер")
+	]
+	interface ICfgTimer:IDispatch
+	{
+			[propget, id(0), helpstring("Интервал таймера")]HRESULT
+		Time([in] long Num, [out, retval] long *pVal);
+			[id(1), helpstring("Создать таймер")]HRESULT
+		SetTimer([in] long Interval, [in] VARIANT_BOOL OneTimeOnly, [out,retval] long* TimerID);
+			[id(2), helpstring("Удалить таймер")]HRESULT
+		KillTimer([in] long TimerID);
+			[propget, id(3), helpstring("Количество запущенных таймеров")]HRESULT
+		Count([out, retval] long *pVal);
+			[id(4), helpstring("Удалить все таймеры")] HRESULT
+		KillAll();
+			[propget, id(5), helpstring("Идентификатор таймера")] HRESULT
+		ID([in] long Num, [out, retval] long *pVal);
+	};
+	[
+		uuid(62520e90-ffc6-4a86-94dd-83bbc19435cb),
+		version(1.0),
+		noncreatable,
+		helpstring("Таймер")
+	]
+	coclass CfgTimer
+	{
+		[default] interface ICfgTimer;
+	};
+};

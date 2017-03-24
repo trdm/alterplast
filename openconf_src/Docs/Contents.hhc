@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+	<param name="Window Styles" value="0x800027">
+	<param name="ImageType" value="Folder">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="OpenConf">
+		<param name="ImageNumber" value="1">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Открытый Конфигуратор">
+			<param name="Local" value="main.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Установка">
+				<param name="Local" value="setup.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Порядок работы">
+				<param name="Local" value="working.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="История версий">
+				<param name="Local" value="history.htm">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Благодарности">
+				<param name="Local" value="respect.htm">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Скрипты">
+			<param name="Local" value="Scripts\scripts.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Плагины">
+			<param name="Local" value="plugins\plugins.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Типы плагинов">
+				<param name="Local" value="plugins\plugins.htm">
+				<param name="ImageNumber" value="1">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Обычные DLL">
+					<param name="Local" value="plugins\plugins.htm#SimpleDLL">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="OLE - плагины">
+					<param name="Local" value="plugins\plugins.htm">
+					</OBJECT>
+			</UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Интерфейс IConfigPlugin">
+				<param name="Local" value="plugins\icfgplugin.htm">
+				<param name="ImageNumber" value="1">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Init">
+					<param name="Local" value="plugins\icfgplugin.htm#Init">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Done">
+					<param name="Local" value="plugins\icfgplugin.htm#Done">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="GetPluginCaps">
+					<param name="Local" value="plugins\icfgplugin.htm#Caps">
+					</OBJECT>
+			</UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Примеры плагинов">
+				<param name="ImageNumber" value="1">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Плагин на VC++ (ATL+MFC)">
+					<param name="Local" value="plugins\plugins.htm">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Плагин на VB">
+					<param name="Local" value="plugins\plugins.htm">
+					</OBJECT>
+			</UL>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Объекты OpenConf">
+			<param name="Local" value="objects\objects.htm">
+			<param name="ImageNumber" value="1">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Configurator">
+				<param name="Local" value="objects\config.htm">
+				<param name="ImageNumber" value="1">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Методы">
+					<param name="Local" value="objects\config.htm#Methods">
+					<param name="ImageNumber" value="1">
+					</OBJECT>
+				<UL>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="DoMsgLine">
+						<param name="Local" value="objects\config.htm#DoMsgLine">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Status">
+						<param name="Local" value="objects\config.htm#Status">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="OpenFile">
+						<param name="Local" value="objects\config.htm#OpenFile">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="OpenOLEForm">
+						<param name="Local" value="objects\config.htm#OpenOLEForm">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="SendCommand">
+						<param name="Local" value="objects\config.htm#SendCommand">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="IsConfigWndOpen">
+						<param name="Local" value="objects\config.htm#IsConfigWndOpen">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Quit">
+						<param name="Local" value="objects\config.htm#Quit">
+						</OBJECT>
+				</UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Свойства">
+					<param name="Local" value="objects\config.htm#Props">
+					<param name="ImageNumber" value="1">
+					</OBJECT>
+				<UL>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Caption">
+						<param name="Local" value="objects\config.htm#Caption">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="BinDir">
+						<param name="Local" value="objects\config.htm#BinDir">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="CommandLine">
+						<param name="Local" value="objects\config.htm#CommandLine">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="IBDir">
+						<param name="Local" value="objects\config.htm#IBDir">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="IBName">
+						<param name="Local" value="objects\config.htm#IBName">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="MetaData">
+						<param name="Local" value="objects\config.htm#MetaData">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Plugins">
+						<param name="Local" value="objects\config.htm#Plugins">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Scripts">
+						<param name="Local" value="objects\config.htm#Scripts">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Version">
+						<param name="Local" value="objects\config.htm#Version">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Windows">
+						<param name="Local" value="objects\config.htm#Windows">
+						</OBJECT>
+				</UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="События">
+					<param name="Local" value="objects\config.htm#Events">
+					<param name="ImageNumber" value="1">
+					</OBJECT>
+				<UL>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="ConfigWindowCreate">
+						<param name="Local" value="objects\config.htm#ConfigWindowCreate">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="AllPluginsInit">
+						<param name="Local" value="objects\config.htm#AllPluginsInit">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="MetaDataSaved">
+						<param name="Local" value="objects\config.htm#MetaDataSaved">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="OnMsgBox">
+						<param name="Local" value="objects\config.htm#OnMsgBox">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="OnFileDialog">
+						<param name="Local" value="objects\config.htm#OnFileDialog">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="OnDoModal">
+						<param name="Local" value="objects\config.htm#OnDoModal">
+						</OBJECT>
+				</UL>
+			</UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="MetaData">
+				<param name="ImageNumber" value="1">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="MetaDataObj">
+				<param name="ImageNumber" value="1">
+				</OBJECT>
+		</UL>
+	</UL>
+</UL>
+</BODY></HTML>
+
+
+
+
+
+

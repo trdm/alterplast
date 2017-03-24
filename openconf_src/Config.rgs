@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		{7C510808-A3B4-4441-BABD-09D89F2DF295} = s 'Config'
+		'Config.EXE'
+		{
+			val AppID = s {7C510808-A3B4-4441-BABD-09D89F2DF295}
+		}
+	}
+}

@@ -1,0 +1,33 @@
+[OPTIONS]
+Binary TOC=Yes
+Compatibility=1.1 or later
+Compiled file=OpenConf.chm
+Contents file=Contents.hhc
+Default Window=Main
+Default topic=main.htm
+Display compile progress=No
+Full-text search=Yes
+Index file=Index.hhk
+Language=0x419 Русский
+Title=OpenConf
+
+[WINDOWS]
+Main="OpenConf","Contents.hhc","Index.hhk","main.htm",,,,,,0x2420,,0x180e,,0x78f0000,,,0,,,0
+Samples="Примеры",,,,,,,,,,,0x0,[271,372,593,566],0xc0000,0x208,,0,,,0
+
+
+[FILES]
+main.htm
+Scripts\scripts.htm
+setup.htm
+working.html
+macros.htm
+plugins\plugins.htm
+plugins\icfgplugin.htm
+history.htm
+respect.htm
+objects\objects.htm
+objects\config.htm
+
+[INFOTYPES]
+

@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetPluginCaps">
+		<param name="Name" value="Интерфейс IConfigPlugin">
+		<param name="Local" value="plugins\icfgplugin.htm#Caps">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Done">
+		<param name="Name" value="Интерфейс IConfigPlugin">
+		<param name="Local" value="plugins\icfgplugin.htm#Done">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IConfigPlugin">
+		<param name="Name" value="Интерфейс IConfigPlugin">
+		<param name="Local" value="plugins\icfgplugin.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Init">
+		<param name="Name" value="Интерфейс IConfigPlugin">
+		<param name="Local" value="plugins\icfgplugin.htm#Init">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Скрипт">
+		<param name="Name" value="OpenConf - Скрипты">
+		<param name="Local" value="Scripts\scripts.htm">
+		</OBJECT>
+</UL>
+</BODY></HTML>

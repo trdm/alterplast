@@ -1,0 +1,370 @@
+<html>
+ <head>
+  <link rel="stylesheet" href="../styles.css" type="text/css">
+  <title>
+   Объект Configurator
+  </title>
+ </head>
+ <body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0"
+ marginwidth="0" marginheight="0">
+  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+   <tr>
+    <td class="GrayTitle">
+     Объект Configurator
+    </td>
+   </tr>
+   <tr>
+    <td class="Simple">
+     Объект <b>Configurator</b> является корнем объектной модели
+     <b>OpenConf</b>, аналогично Application в VB. Он существует в
+     единственном экземпляре и позволяет получить доступ ко всем остальным
+     объектам. Данный объект добавляется в пространство имен каждого
+     запускаемого скрипта как <b>глобальный</b>, т.е. к его методам и
+     свойствам можно обращатся напрямую, без указания объекта Configurator.
+     Например, на VBScript допустимо будет написать
+    </td>
+   </tr>
+   <tr>
+    <td class="Simple">
+<pre class="Code">
+&#39; так правильно
+Configurator.DoMsgLine &quot;Hello World !!!&quot;,mNone
+&#39; и так правильно
+DoMsgLine &quot;Hello World !!!&quot;,mNone
+</pre>
+     <p>
+      <a href="../plugins/plugins.htm">Плагины</a> могут получить доступ к
+      объекту <b>Configurator</b>, реализовав интерфейс <a href=
+      "../plugins/icfgplugin.htm">IConfigPlugin</a>, при инициализации
+      плагина в методе <a href="../plugins/icfgplugin.htm#Init">Init</a>.
+     </p>
+     <p>
+      Объекты <b>ActiveDocument</b>, открываемые методом <a href="#OpenOLEForm">OpenOLEForm</a>, могут
+      получить доступ к <b>Configurator</b> стандартным для OLE Automation
+      способом обращения к Application/Parent.
+     </p>
+     Например для VB: 
+<pre class="Code">
+&#39;При показе формы
+Private Sub UserDocument_Show()
+    Set Configurator = Parent
+End Sub
+</pre>
+     Из нормальных языков нужно при получении IOleClientSite запросить у
+     него IServiceProvider, у которого в свою очередь запросить сервис
+     SID_Application. Например, VC++ (MFC сервер ActiveDocument) 
+<pre class="Code">
+DEFINE_GUID(SID_Application,
+    0xB722BE00,
+    0x4E68,
+    0x101B,
+    0xA2,0xBC,0x00,0xAA,0x00,0x40,0x47,0x70);
+
+IConfigurator* CActivedocDoc::GetConfig()
+{
+    IServiceProviderPtr iSrv=m_lpClientSite;
+    if(iSrv!=NULL)
+    {
+        IConfigurator* pConfig=NULL;
+        iSrv-&gt;QueryService(SID_Application,
+            __uuidof(IConfigurator),(void**)&amp;pConfig);
+        return pConfig;
+    }
+}
+</pre>
+    </td>
+   </tr>
+   <tr>
+    <td class="Header">
+     <a name="Methods"></a>Методы
+    </td>
+   </tr>
+   <tr>
+    <td class="Simple">
+     <ul compact>
+      <li>
+       <a href="#DoMsgLine">DoMsgLine</a>
+      </li>
+      <li>
+       <a href="#Status">Status</a>
+      </li>
+      <li>
+       <a href="#OpenFile">OpenFile</a>
+      </li>
+      <li>
+       <a href="#OpenOLEForm">OpenOLEForm</a>
+      </li>
+      <li>
+       <a href="#SendCommand">SendCommand</a>
+      </li>
+      <li>
+       <a href="#IsConfigWndOpen">IsConfigWndOpen</a>
+      </li>
+      <li>
+       <a href="#Quit">Quit</a>
+      </li>
+     </ul>
+    </td>
+   </tr>
+   <tr>
+    <td class="Header">
+     <a name="Props"></a>Свойства
+    </td>
+   </tr>
+   <tr>
+    <td class="Simple">
+     <ul compact>
+      <li>
+       <a href="#Caption">Caption</a>
+      </li>
+      <li>
+       <a href="#IBName">IBName</a>
+      </li>
+      <li>
+       <a href="#IBDir">IBDir</a>
+      </li>
+      <li>
+       <a href="#BinDir">BinDir</a>
+      </li>
+      <li>
+       <a href="#CommandLine">CommandLine</a>
+      </li>
+      <li>
+       <a href="#Version">Version</a>
+      </li>
+      <li>
+       <a href="#MetaData">MetaData</a>
+      </li>
+      <li>
+       <a href="#GlobalModule">GlobalModule</a>
+      </li>
+      <li>
+       <a href="#Plugins">Plugins</a>
+      </li>
+      <li>
+       <a href="#Scripts">Scripts</a>
+      </li>
+      <li>
+       <a href="#Windows">Windows</a>
+      </li>
+     </ul>
+    </td>
+   </tr>
+   <tr>
+    <td class="Header">
+     <a name="Events"></a>События
+    </td>
+   </tr>
+   <tr>
+    <td class="Simple">
+     <ul compact>
+      <li>
+       <a href="#ConfigWindowCreate">ConfigWindowCreate</a>
+      </li>
+      <li>
+       <a href="#AllPluginsInit">AllPluginsInit</a>
+      </li>
+      <li>
+       <a href="#MetaDataSaved">MetaDataSaved</a>
+      </li>
+      <li>
+       <a href="#OnMsgBox">OnMsgBox</a>
+      </li>
+      <li>
+       <a href="#OnFileDialog">OnFileDialog</a>
+      </li>
+      <li>
+       <a href="#OnDoModal">OnDoModal</a>
+      </li>
+     </ul>
+    </td>
+   </tr>
+   <tr><td>&nbsp;</td></tr>
+   <tr><td>&nbsp;</td></tr>
+   <tr>
+   <td class="Header">
+   <a name="DoMsgLine"></a>Метод DoMsgLine
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   
+   </td>
+   </tr>
+   <tr><td class="Header">
+   <a name="Status"></a>Метод Status
+   </td></tr>
+   <tr><td class="Header">
+   <a name="OpenFile"></a>Метод OpenFile
+   </td></tr>
+   <td class="Header">
+   <a name="OpenOLEForm"></a>Метод OpenOLEForm
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="SendCommand"></a>Метод SendCommand
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="IsConfigWndOpen"></a>Метод IsConfigWndOpen
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="Quit"></a>Метод Quit
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="Caption"></a>Свойство Caption
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="IBName"></a>Свойство IBName
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="IBDir"></a>Свойство IBDir
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="BinDir"></a>Свойство BinDir
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="CommandLine"></a>Свойство CommandLine
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="Version"></a>Свойство Version
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="MetaData"></a>Свойство MetaData
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="GlobalModule"></a>Свойство GlobalModule
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="Plugins"></a>Свойство Plugins
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="Scripts"></a>Свойство Scripts
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="Windows"></a>Свойство Windows
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="ConfigWindowCreate"></a>Событие ConfigWindowCreate
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="AllPluginsInit"></a>Событие AllPluginsInit
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="MetaDataSaved"></a>Событие MetaDataSaved
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="OnMsgBox"></a>Событие OnMsgBox
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="OnFileDialog"></a>Событие OnFileDialog
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+   <td class="Header">
+   <a name="OnDoModal"></a>Событие OnDoModal
+   </td></tr>
+   <tr>
+   <td class="Simple">
+   Insert This
+   </td>
+   </tr>
+  </table>
+ </body>
+</html>
+

@@ -1,0 +1,35 @@
+<HTML>
+<head>
+<LINK REL=stylesheet HREF="../../styles.css" TYPE="text/css">
+<title>Пример плагина на VB</title>
+</head>
+<body>
+<pre class="Code">
+<a name="Impl"></a>Implements OpenConf.IConfigPlugin
+<a name="DimSource"></a>Dim WithEvents Conf As OpenConf.Configurator
+</pre>
+<pre class="Code">
+<a name="Init"></a>Private Function IConfigPlugin_Init(ByVal pConfigurator As OpenConf.IConfigurator) As String
+    IConfigPlugin_Init = "SimplePlugin"
+    Set Configurator = pConfigurator
+    Set Conf = pConfigurator
+    DoMsgLine "Hello from SimplePlugin", mBlackErr
+End Function
+</pre>
+<pre class="Code">
+<a name="Done"></a>Private Sub IConfigPlugin_Done()
+    MsgBox "SimplePlugin Done"
+    Set Configurator = Nothing
+    Set Conf = Nothing
+End Sub
+</pre>
+<pre class="Code">
+<a name="Caps"></a>Private Function IConfigPlugin_GetPluginCaps(ByVal capNum As OpenConf.PluginCaps) As Variant
+    If capNum = capIconNum Then IConfigPlugin_GetPluginCapabilities = 0
+    If capNum = capShowMacros Then IConfigPlugin_GetPluginCapabilities = False
+    If capNum = capOpenIn Then IConfigPlugin_GetPluginCapabilities = 1
+End Function
+</pre>
+
+</BODY>
+</HTML>

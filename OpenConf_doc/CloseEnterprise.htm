@@ -1,0 +1,70 @@
+<html><head>
+<meta http-equiv="Content-Language" content="ru">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<title>CloseEnterprise</title>
+<meta name="keywords" content="плагин CloseEnterprise OpenConf 1С:Предприятие">
+<meta name="description" content="Плагин CloseEnterprise для платформы OpenConf">
+<style type="text/css"> 
+	.paragraph {text-align:justify; text-indent:2em; margin-top:0; margin-bottom:0}
+</style>
+</head>
+<body bgcolor=#E0E0E0>
+
+<p><a href="index.html">Перейти на главную страничку сайта (список статей, файлы для скачивания)</a></p>
+<p><a href="http://forum.script-coding.com">ФОРУМ (здесь можно обсудить эту статью, а также любые
+проблемы программирования на различных макроязыках и в скриптовых средах)</a></p>
+
+<h1>Плагин CloseEnterprise для платформы OpenConf</h1>
+
+<p class="paragraph">
+Плагин проверяет при запуске Предприятия из Конфигуратора, запущено ли оно уже, и если да, то автоматически закрывает его. Вы можете скачать плагин <a href="CloseEnterprise_plugin.zip">здесь</a> (версия 1.0.1.0 от 19.10.2006, 13 521 байт).
+</p>
+
+<p class="paragraph">
+Ник автора плагина: MetaEditor.
+</p>
+
+<p class="paragraph">
+Чтобы установить плагин, просто скопируйте DLL-файл плагина в папку "config", расположенную в каталоге исполняемых файлов 1С:Предприятия (чаще всего это C:\Program Files\1Cv77\bin\config).
+</p>
+
+<p class="paragraph">
+Плагин закрывает Предприятие "правильно", несмотря на модальные диалоги или несохраненные документы, то есть не просто прерывает процесс (переиндексация при следующем запуске запрашиваться не будет). Автоматически закрываются, если есть, модальные диалоги, затем закрывается главное окно, а на возникающие вопросы о сохранении документов автоматически отвечается "нет". То же самое происходит и при сохранении конфигурации (если метаданные заблокированы открытым в данный момент Предприятием, то происходит его закрытие).
+</p>
+
+<p class="paragraph">
+Примечание: естественно, закрывается только Предприятие, запущенное из Конфигуратора.
+</p>
+
+<p class="paragraph">
+Плагин при необходимости будет выдавать вопрос о закрытии Предприятия, если в реестре создать строковый параметр <b>AskBeforeClose</b> со значением "1" в следующей ветви:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<pre>
+HKEY_CURRENT_USER\Software\1C\1Cv7\7.7\OpenConf\Plugins\CloseEnterprise\Options\
+</pre>
+</span>
+
+<h2 style="text-indent:1.3em">Версия 1.0.1.1</h2>
+
+<p class="paragraph">
+Вы можете скачать плагин <a href="CloseEnterprise1011.zip">здесь</a> (версия 1.0.1.1 от 07.11.2006, 13 681 байт).
+</p>
+
+<p class="paragraph">
+Улучшен метод проверки, закрыто ли Предприятие, или нет.
+</p>
+
+<p style="text-align:right">
+<small>Людоговский Александр</small>
+</p>
+
+<p><a href="index.html">Перейти на главную страничку сайта (список статей, файлы для скачивания)</a></p>
+
+<p><small>&copy; 2007 <A HREF='http://www.script-coding.com/'>http://www.script-coding.com</A> При любом использовании материалов сайта обязательна <b>ссылка</b> на него как на источник информации, а также сохранение <b>целостности</b> и <b>авторства</b> материалов.</small>
+
+
+
+</body></html>

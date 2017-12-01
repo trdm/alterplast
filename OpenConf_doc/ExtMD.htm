@@ -1,0 +1,123 @@
+<html><head>
+<meta http-equiv="Content-Language" content="ru">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<title>ExtMD</title>
+<meta name="keywords" content="плагин ExtMD OpenConf 1С:Предприятие">
+<meta name="description" content="Плагин ExtMD для платформы OpenConf">
+<style type="text/css"> 
+	.paragraph {text-align:justify; text-indent:2em; margin-top:0; margin-bottom:0}
+</style>
+</head>
+<body bgcolor=#E0E0E0>
+
+<p><a href="index.html">Перейти на главную страничку сайта (список статей, файлы для скачивания)</a></p>
+<p><a href="http://forum.script-coding.com">ФОРУМ (здесь можно обсудить эту статью, а также любые
+проблемы программирования на различных макроязыках и в скриптовых средах)</a></p>
+
+<h1>Плагин ExtMD для платформы OpenConf</h1>
+
+<p class="paragraph">
+Плагин предоставляет возможность просмотра структуры, форм и модулей других файлов конфигурации (.md). Получение наборов прав, интерфейсов, списков пользователей в текстовом виде.
+</p>
+
+<p class="paragraph">
+Автор плагина: Сергей Ушаков.
+</p>
+
+<p class="paragraph">
+Плагин можно скачать <a href="ExtMD.zip">здесь</a> (версия 1.0.0.0 с исходниками на Delphi 2005, размер архива 813 197 байт).
+</p>
+
+<p class="paragraph">
+Чтобы установить плагин, скопируйте файл <b>ExtMD.dll</b> в подкаталог <b>\BIN\Config\</b> установки 1С:Предприятия. Если 1С:Предприятие было запущено, перезапустите его. Если установка прошла успешно, в окне конфигурации вы должны увидеть дополнительную вкладку "ExtMD".
+</p>
+
+<p class="paragraph">
+Назначение копок "Открыть файл МД" и "Закрыть файл МД" понятно из названий. После открытия файла конфигурации дерево его метаданных появится в окне плагина. Можно открыть одновременно несколько файлов конфигурации.
+</p>
+
+<p class="paragraph">
+При работе в дереве метаданных в окне плагина двойной щелчок по формам и модулям открывает выбранный объект в текстовом редакторе 1С:Предприятия. То же самое делает кнопка плагина "Открыть". Кнопка плагина "Сохранить" позволяет сохранить содержимое выбранного объекта в указанном текстовом файле.
+</p>
+
+<p class="paragraph">
+Чтобы использовать список избранного, необходимо создать текстовый файл по такому пути:
+</p>
+
+<span style="color:navy; font-weight:bold;">
+<pre>
+C:\Program Files\1Cv77\BIN\config\Data\ExtDMFavorites.lst
+</pre>
+</span>
+
+<p class="paragraph">
+Данный текстовый файл должен содержать строки вида:
+</p>
+
+<span style="color:navy; font-weight:bold;">
+<pre>
+Первый MD := D:\Folder\SubFolder\1cv7.md
+Второй MD := E:\Folder\SubFolder\1cv7.md
+...
+</pre>
+</span>
+
+<p class="paragraph">
+После этого нажатие кнопки плагина "Избранное" приведёт к выдаче меню с пунктами "Первый MD" и "Второй MD".
+</p>
+
+<hr>
+
+<p class="paragraph">
+Плагин обладает рядом методов, которые вы можете использовать в скриптах для OpenConf. Вы можете просмотреть перечень методов плагина, например, с помощью Microsoft Script Editor:
+</p>
+
+<span style="color:navy; font-weight:bold;">
+<pre>
+C:\Program Files\Microsoft Office\OFFICE11\MSE7.EXE
+</pre>
+</span>
+
+<p class="paragraph">
+Для просмотра методов добавьте ссылку на ExtMD.dll в панель "Object Browser".
+</p>
+
+<p class="paragraph">
+Пример получения списка пользователей в скрипте:
+</p>
+
+<span style="color:navy; font-weight:bold;">
+<pre>
+Set EMD	= Plugins("ExtMD")
+Set vLstUsers = EMD.GetListUsers
+vLstUsers.OpenFile("D:\Folder\SubFolder\users.usr")
+Message vLstUsers.ReadNamesList, mInformation
+</pre>
+</span>
+
+<p class="paragraph">
+Пример получения списков интерфейсов и наборов прав в скрипте:
+</p>
+
+<span style="color:navy; font-weight:bold;">
+<pre>
+Set EMD	= Plugins("ExtMD")
+Set vMDFile = EMD.GetMDFile
+vMDFile.OpenFile("D:\Folder\SubFolder\1Cv7.MD")
+Message vMDFile.GetInterfacesNamesList, mInformation
+Message vMDFile.GetRightsNamesList, mInformation
+</pre>
+</span>
+
+<p style="text-align:right">
+<small>Людоговский Александр</small>
+</p>
+
+<p><a href="index.html">Перейти на главную страничку сайта (список статей, файлы для скачивания)</a></p>
+
+<p><small>&copy; 2007 <A HREF='http://www.script-coding.com/'>http://www.script-coding.com</A> При любом использовании материалов сайта обязательна <b>ссылка</b> на него как на источник информации, а также сохранение <b>целостности</b> и <b>авторства</b> материалов.</small>
+
+
+
+</body></html>

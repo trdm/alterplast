@@ -1,0 +1,125 @@
+<html><head>
+<meta http-equiv="Content-Language" content="ru">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<title>oc2vba</title>
+<meta name="keywords" content="плагин oc2vba OpenConf 1С:Предприятие">
+<meta name="description" content="Плагин oc2vba для платформы OpenConf">
+<style type="text/css"> 
+	.paragraph {text-align:justify; text-indent:2em; margin-top:0; margin-bottom:0}
+</style>
+</head>
+<body bgcolor=#E0E0E0>
+
+<p><a href="index.html">Перейти на главную страничку сайта (список статей, файлы для скачивания)</a></p>
+<p><a href="http://forum.script-coding.com">ФОРУМ (здесь можно обсудить эту статью, а также любые
+проблемы программирования на различных макроязыках и в скриптовых средах)</a></p>
+
+<h1>Плагин oc2vba для платформы OpenConf</h1>
+
+<p class="paragraph">
+Плагин служит для сопряжения OpenConf с VBA и возможности создания графического интерфейса для скриптов. Вы можете скачать плагин <a href="oc2vba6x.zip">здесь</a> (версия 1.0.0.3, 62 604 байт). Автор плагина - Александр Орефков.
+</p>
+
+<p class="paragraph">
+При написании скриптов для OpenConf одна из сложностей - это организация взаимодействия скрипта с пользователем. Кроме InputBox, в VBScript практически никаких других возможностей для ввода информации нет. Кроме того, хочется иметь и Intellisense, и просмотр объектной модели OpenConf. Этих недостатков нет в среде VBA, которая к тому же многим знакома и привычна.
+</p>
+
+<p class="paragraph">
+Для интеграции VBA со своим приложением Microsoft предлагает использовать "Application Programmability Components" (APC), входящий в "VBA SDK". Для распространения дистрибутива VBA и APC со своим приложением необходимо получить лицензию от MS. Стоимость лицензии не разглашается и определяется индивидуально. Если у вас уже установлено какое-либо приложение, интегрированное с VBA (кроме MS Office), то всё необходимое для работы у вас уже есть.
+</p>
+
+<p class="paragraph">
+Чтобы проверить, установлен ли у вас APC и VBA, посмотрите папку <b>"Program Files\Common Files\Microsoft Shared\VBA\VBA6"</b>. Если в ней есть файл <b>apc60.dll</b> или <b>apc63.dll</b>, значит, плагин у вас заработает. Из приложений, устанавливающих VBA, навскидку можно назвать Visio, AutoCAD, Corel Draw.
+</p>
+
+<p class="paragraph">
+Итак, если VBA и APC у вас уже установлены, то можно начинать использовать плагин. Если у вас установлен apc63.dll, то вы должны использовать oc2vba63.dll, а если у вас установлен apc60.dll, то вы должны использовать oc2vba60.dll. Чтобы установить плагин, просто скопируйте DLL-файл плагина в папку "config", расположенную в каталоге исполняемых файлов 1С:Предприятия (чаще всего это C:\Program Files\1Cv77\bin\config).
+</p>
+
+<p class="paragraph">
+При загрузке плагин создаёт подключение к среде VBA и пытается загрузить VBA-проекты по умолчанию. Это файлы <b>openconf.ocp</b> в каталоге ИБ и в каталоге BIN. Далее, если в проекте есть макрос с именем main, плагин запустит его.
+</p>
+
+<p class="paragraph">
+Плагин предоставляет три макроса, которые можно вызвать через меню "OpenConf" - "Макросы" - "Выполнить...", или непосредственно с закладки "OpenConf" в окне конфигурации:
+</p>
+
+<UL style="text-indent:0em; margin-top:5; margin-bottom:5">
+<LI>OpenIDE - открыть окно среды разработки VBA.</LI>
+<LI>OpenProject - загрузить VBA проект из файла.</LI>
+<LI>ShowMacrosDialog - вызвать окно "Макросы".</LI>
+</UL>
+
+<p class="paragraph">
+Также у плагина из скриптов доступны следующие методы и свойства:
+</p>
+
+<UL style="text-indent:0em; margin-top:5; margin-bottom:5">
+<LI>Метод ShowIDE(boolean Show) - позволяет отобразить/скрыть среду VBA IDE.</LI>
+<LI>Метод LoadProject(FilePath As String) - загрузить проект из указанного файла.</LI>
+<LI>Свойство APC (As MSAPC.APC).</LI>
+<LI>Свойство APCGlobal (As MSAPC.APCGlobal).</LI>
+</UL>
+
+<p class="paragraph">
+В дистрибутив плагина входит пример проекта на VBA, openconf.ocp. Расположите его в каталоге BIN 1С:Предприятия. В примере показывается, как подключиться к событиям Конфигуратора, а также есть пример работы с формой VBA, демонстрирующий вставку текста формирования новой колонки Таблицы значений.
+</p>
+
+<h2 style="text-indent:1.3em">Анализатор взаимосвязей процедур</h2>
+
+<p class="paragraph">
+Этот VBA-проект для плагина oc2vba призван упростить анализ незнакомых модулей и выводит дерево вызова процедур (какие процедуры вызываются в процедуре, далее какие вызываются в них). Вы можете скачать проект <a href="analyse.zip">здесь</a> (36 617 байт). Ник автора проекта - nikolka.
+</p>
+
+<p class="paragraph">
+Установка: вы можете просто подменить файл openconf.ocp в каталоге BIN. Другой способ: создайте в папке BIN\config папку oc2vba_Projects и скопируйте туда ocp-файл проекта. После этого создайте в папке BIN\config\Scripts скрипт oc2vba.vbs следующего содержания:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<pre>
+Private Sub Init
+    On Error Resume Next
+    Set oc2vba = Plugins("oc2vba")
+    if oc2vba Is Nothing Then
+        message "Плагин ""oc2vba"" не загружен", mExclamation
+        Scripts.UnLoad SelfScript.Name
+        Exit Sub
+    End If
+    on error goto 0 
+
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set files = fso.GetFolder(bindir & "\Config\oc2vba_Projects").Files
+    For Each file in files
+        oc2vba.LoadProject file.path
+    Next
+End Sub
+Init()
+</pre>
+</span>
+
+<p class="paragraph">
+Такой скрипт будет автоматически подгружать все файлы проектов из каталога BIN\config\oc2vba_Projects при запуске Конфигуратора (файл openconf.ocp из каталога BIN, само собой, будет загружаться тоже).
+</p>
+
+<p class="paragraph">
+Чтобы начать работать, находясь в тексте какого-либо модуля, необходимо вызвать макрос ShowMacrosDialog плагина oc2vba, и выбрать макрос TreeMethods из проекта TreeMethodProc. С помощью меню "OpenConf" - "Макросы" - "Клавиатура..." можно назначить быструю клавишу для макроса ShowMacrosDialog (например, Ctrl+7).
+</p>
+
+<p class="paragraph">
+В выпадающем списке "Название метода" будут содержаться все функции и процедуры данного модуля. Ниже будет  отображено дерево их вызовов. При установке курсора на метод в дереве происходит обновление списков "Вызываются процедуры" и "Используется в процедурах", а также позиционирование в тексте самого модуля.
+</p>
+
+<br><img src="pics/analyse.jpg">
+
+<p style="text-align:right">
+<small>Людоговский Александр</small>
+</p>
+
+<p><a href="index.html">Перейти на главную страничку сайта (список статей, файлы для скачивания)</a></p>
+
+<p><small>&copy; 2007 <A HREF='http://www.script-coding.com/'>http://www.script-coding.com</A> При любом использовании материалов сайта обязательна <b>ссылка</b> на него как на источник информации, а также сохранение <b>целостности</b> и <b>авторства</b> материалов.</small>
+
+
+
+</body></html>

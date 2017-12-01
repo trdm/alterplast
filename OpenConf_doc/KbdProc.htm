@@ -1,0 +1,118 @@
+<html><head>
+<meta http-equiv="Content-Language" content="ru">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<title>KbdProc</title>
+<meta name="keywords" content="плагин KbdProc OpenConf 1С:Предприятие">
+<meta name="description" content="Плагин KbdProc для платформы OpenConf">
+<style type="text/css"> 
+	.paragraph {text-align:justify; text-indent:2em; margin-top:0; margin-bottom:0}
+</style>
+</head>
+<body bgcolor=#E0E0E0>
+
+<p><a href="index.html">Перейти на главную страничку сайта (список статей, файлы для скачивания)</a></p>
+<p><a href="http://forum.script-coding.com">ФОРУМ (здесь можно обсудить эту статью, а также любые
+проблемы программирования на различных макроязыках и в скриптовых средах)</a></p>
+
+<h1>Плагин KbdProc для платформы OpenConf</h1>
+
+<h2 style="text-indent:1.3em">Назначение и установка</h2>
+
+<p class="paragraph">
+Плагин позволяет обрабатывать в скриптах нажатия клавиш клавиатуры. Вы можете скачать плагин <a href="http://1c.proclub.ru/modules/mydownloads/personal.php?lid=5705&cid=1001"> в Клубе Профессионалов 1С</a> или <a href="kbdproc_1030.zip">здесь</a> (версия 1.0.3.0, 238 019 байт).
+</p>
+
+<p class="paragraph">
+Ник автора плагина: MetaEditor.
+</p>
+
+<p class="paragraph">
+Чтобы установить плагин, проделайте следующее:
+</p>
+
+<UL style="text-indent:0em; margin-top:5; margin-bottom:5;">
+<LI>Скопируйте файл <b>KbdProcs.dll</b> в папку "config", расположенную в каталоге исполняемых файлов 1С:Предприятия (чаще всего это C:\Program Files\1Cv77\bin\config).</LI>
+<LI>Скопируйте файл <b>KbdProcsHandler.vbs</b> в подкаталог "config\scripts\" каталога исполняемых файлов 1С:Предприятия.</LI>
+<LI>Перезапустите Конфигуратор, если он был запущен.</LI>
+</UL>
+
+<h2 style="text-indent:1.3em">Использование</h2>
+
+<p class="paragraph">
+В скрипте <i>KbdProcsHandler.vbs</i> реализовано следующее:
+</p>
+
+<UL style="text-indent:0em; margin-top:5; margin-bottom:5;">
+<LI>Обрабатывается нажатие Shift+Enter:
+<UL style="text-indent:0em; margin-top:5; margin-bottom:5;">
+<LI>Если нет открытых окон, открывается окно конфигурации.</LI>
+<LI>В текстовом документе в строке комментария знак "//" переносится на следующую строку (как в Телепате - перенос знака | на следующую строку в тексте запроса).</LI>
+<LI>В форме сообщается тип и заголовок текущего выделенного элемента управления.</LI>
+</UL>
+<LI>Автозамены:
+<UL style="text-indent:0em; margin-top:5; margin-bottom:5;">
+<LI>"ЭЭ" на двойные кавычки с установкой курсора между ними</LI>
+<LI>"БЮ" на "&lt;&gt;"</LI>
+<LI>"!=" на "&lt;&gt;"</LI>
+<LI>"ж" на ";" после закрывающей скобки</LI>
+<LI>"ХЪ" на "[]" (удобно при работе с запросами 1С++)</LI>
+<LI>";" на "$" после пробела (удобно при работе с запросами 1С++)</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+</UL>
+
+<p class="paragraph">
+Макрос <b>TogglePluginState</b> скрипта <i>KbdProcsHandler.vbs</i> включает/выключает плагин (работает как переключатель).
+</p>
+
+<h2 style="text-indent:1.3em">Программное управление</h2>
+
+<p class="paragraph">
+События, свойства и методы плагина:
+</p>
+
+<br>
+<TABLE border="1" width="100%" cellspacing="0">
+
+<TR>
+<TD>OnKeyPress(ASCIIKeyCode, ByRef CancelKey, IsVirtual)</TD>
+<TD>Событие вызывается при нажатии кнопки клавиатуры. Параметры:
+<UL style="text-indent:0em; margin-top:5; margin-bottom:5;">
+<LI>ASCIIKeyCode - ASCII код нажатой клавиши.</LI>
+<LI>CancelKey - если true, то происходит отмена нажатой клавиши.</LI>
+<LI>IsVirtual - признак того, что клавиша виртуальная (не алфавитно-цифровая). Например, левая скобка "(" и стрелка "вниз" имеют ASCII код 40, но для стрелки IsVirtual - true, а для скобки - false.</LI>
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD>GetKeyState(VirtualKeyCode)</TD>
+<TD>Состояние клавиши (нажата, отпущена). Подробнее - см. описание API-функции GetKeyState.</TD>
+</TR>
+
+<TR>
+<TD>GetKeyboardLayout()</TD>
+<TD>Получить текущую раскладку клавиатуры. Подробнее - см. описание API-функции GetKeyboardLayout.</TD>
+</TR>
+
+<TR>
+<TD>Enabled</TD>
+<TD>True/false - вкл./выкл. плагин.</TD>
+</TR>
+
+</TABLE>
+
+<p style="text-align:right">
+<small>Людоговский Александр</small>
+</p>
+
+<p><a href="index.html">Перейти на главную страничку сайта (список статей, файлы для скачивания)</a></p>
+
+<p><small>&copy; 2007 <A HREF='http://www.script-coding.com/'>http://www.script-coding.com</A> При любом использовании материалов сайта обязательна <b>ссылка</b> на него как на источник информации, а также сохранение <b>целостности</b> и <b>авторства</b> материалов.</small>
+
+
+
+</body></html>

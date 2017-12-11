@@ -1,0 +1,92 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: SimplSubs - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "I:\Tmp\RSP5DD2.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_MBCS" /D "_AFXEXT" /FR"Release/" /Fo"Release/" /Fd"Release/" /FD /c 
+"J:\Progekts\1C-sourses\OpenConf\SimplSubs\MyADO.cpp"
+"J:\Progekts\1C-sourses\OpenConf\SimplSubs\SubsView.cpp"
+]
+Creating command line "cl.exe @I:\Tmp\RSP5DD2.tmp" 
+Creating temporary file "I:\Tmp\RSP5DD3.tmp" with contents
+[
+/nologo /subsystem:windows /dll /incremental:no /pdb:"Release/SimplSubs.pdb" /machine:I386 /def:".\SimplSubs.def" /out:"C:\Program Files\1Cv77\BIN\config\SimplSubs.dll" /implib:"Release/SimplSubs.lib" 
+".\Release\BaseView.obj"
+".\Release\ColumnTreeCtrl.obj"
+".\Release\ColumnTreeView.obj"
+".\Release\config.obj"
+".\Release\InputStrDlg.obj"
+".\Release\MDSplitter.obj"
+".\Release\MltiTree.obj"
+".\Release\MyADO.obj"
+".\Release\MyDoc.obj"
+".\Release\MyListBox.obj"
+".\Release\MyView.obj"
+".\Release\SetupDlg.obj"
+".\Release\SimplSubs.obj"
+".\Release\StdAfx.obj"
+".\Release\SubsView.obj"
+".\Release\SubsViewMain.obj"
+".\Release\SimplSubs.res"
+".\LIBS\userdef.lib"
+".\LIBS\Account.lib"
+".\LIBS\BASIC.lib"
+".\LIBS\bkend.lib"
+".\LIBS\blang.lib"
+".\LIBS\br32.lib"
+".\LIBS\dbeng32.lib"
+".\LIBS\editr.lib"
+".\LIBS\FRAME.lib"
+".\LIBS\moxel.lib"
+".\LIBS\mxl2xl.lib"
+".\LIBS\rgproc.lib"
+".\LIBS\Salary.lib"
+".\LIBS\seven.lib"
+".\LIBS\Tracer.lib"
+".\LIBS\Trade.lib"
+".\LIBS\txtedt.lib"
+".\LIBS\type32.lib"
+]
+Creating command line "link.exe @I:\Tmp\RSP5DD3.tmp"
+<h3>Output Window</h3>
+Compiling...
+MyADO.cpp
+SubsView.cpp
+Generating Code...
+Linking...
+   Creating library Release/SimplSubs.lib and object Release/SimplSubs.exp
+Creating temporary file "I:\Tmp\RSP5DD7.tmp" with contents
+[
+/nologo /o"Release/SimplSubs.bsc" 
+".\Release\StdAfx.sbr"
+".\Release\BaseView.sbr"
+".\Release\ColumnTreeCtrl.sbr"
+".\Release\ColumnTreeView.sbr"
+".\Release\config.sbr"
+".\Release\InputStrDlg.sbr"
+".\Release\MDSplitter.sbr"
+".\Release\MltiTree.sbr"
+".\Release\MyADO.sbr"
+".\Release\MyDoc.sbr"
+".\Release\MyListBox.sbr"
+".\Release\MyView.sbr"
+".\Release\SetupDlg.sbr"
+".\Release\SimplSubs.sbr"
+".\Release\SubsView.sbr"
+".\Release\SubsViewMain.sbr"]
+Creating command line "bscmake.exe @I:\Tmp\RSP5DD7.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+SimplSubs.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

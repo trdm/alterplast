@@ -1,0 +1,359 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Используя Расширение</title>
+</head>
+
+<body>
+
+<table width="0" align="right" border="0">
+  <tr>
+    <td>
+    <object id="hhobj_1" type="application/x-oleobject" classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11">
+      <param NAME="Width" VALUE="0">
+      <param NAME="Height" VALUE="0">
+      <param NAME="Command" VALUE="ALink">
+      <param NAME="Item1" VALUE>
+      <param NAME="Item2" VALUE="_vc_addpf_home">
+    </object>
+    <object id="hhobj_2" type="application/x-oleobject" classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11">
+      <param NAME="Width" VALUE="0">
+      <param NAME="Height" VALUE="0">
+      <param NAME="Command" VALUE="ALink">
+      <param NAME="Item1" VALUE>
+      <param NAME="Item2" VALUE="_MFCNOTES_TN011">
+    </object>
+    <object id="hhobj_3" type="application/x-oleobject" classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11">
+      <param NAME="Width" VALUE="0">
+      <param NAME="Height" VALUE="0">
+      <param NAME="Command" VALUE="ALink">
+      <param NAME="Item1" VALUE>
+      <param NAME="Item2" VALUE="_MFCNOTES_TN033">
+    </object>
+    </td>
+  </tr>
+</table>
+<font face="verdana,arial,helvetica" size="2">
+<h1>Используя Расширение(Продление) <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font>, База данных/OLE/Гнезда в Правильном
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font></h1>
+<p><a href="javascript:hhobj_1.Click()">Домой</a> |&nbsp;
+<a href="mk:@MSITStore:C:\Program%20Files\Microsoft%20Visual%20Studio\MSDN98\98VSa\1033\vccore.chm::/html/_core_dlls.3a_.overview.htm">
+Краткий обзор</a> |&nbsp;
+<a href="mk:@MSITStore:C:\Program%20Files\Microsoft%20Visual%20Studio\MSDN98\98VSa\1033\vccore.chm::/html/_core_dll_tasks.htm">
+Как Делают меня</a> |&nbsp;
+<a href="mk:@MSITStore:C:\Program%20Files\Microsoft%20Visual%20Studio\MSDN98\98VSa\1033\vccore.chm::/html/_core_dlls.3a_.frequently_asked_questions.htm">
+Страница популярных вопросов</a> |&nbsp;
+<a href="mk:@MSITStore:C:\Program%20Files\Microsoft%20Visual%20Studio\MSDN98\98VSa\1033\vccore.chm::/html/_core_dll_topics.htm">
+Подробности</a> |&nbsp;
+<a href="mk:@MSITStore:C:\Program%20Files\Microsoft%20Visual%20Studio\MSDN98\98VSa\1033\vccore.chm::/html/_core_dll_sample_programs.htm">
+Выборка</a></p>
+<p>При использовании расширения(продления) <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font> от правильного <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font>, если расширение(продление)
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> не 
+телеграфировано(не связано) в <b><font color="#ff0000"><span id="UNKNOWN_WORD">
+CDynLinkLibrary</span></font></b> цепочку <font color="#008000">
+<span id="PRESERVED_WORD">object</span></font> правильного <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font>, Вы можете столкнуться один или больше 
+набора связанных проблем. Поскольку отладочные версии <font color="#ff0000">
+<span id="UNKNOWN_WORD">MFC</span></font> Базы данных, OLE, и Гнезд поддерживают
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLLs</span></font>, осуществлены 
+как расширение(продление) <font color="#ff0000"><span id="UNKNOWN_WORD">DLLs</span></font>, 
+Вы могли бы видеть подобные проблемы, если Вы используете эти особенности
+<font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font>, даже если Вы 
+явно не используете ни одного вашего собственного расширения(продления)
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLLs</span></font>. Немного 
+признаков: </p>
+<ul type="disc">
+  <li>При попытке де-преобразовать в последовательную форму
+  <font color="#008000"><span id="PRESERVED_WORD">object</span></font> типа 
+  класса, определенного в расширении(продлении) <font color="#ff0000">
+  <span id="UNKNOWN_WORD">DLL</span></font>, сообщение &quot;Предупреждение: Не может 
+  загрузить <font color="#ff0000"><span id="UNKNOWN_WORD">CYourClass</span></font> 
+  от архива. Класс, не определенный. &quot; появляется в окне отладки СЛЕДА, и
+  <font color="#008000"><span id="PRESERVED_WORD">object</span></font> будет не 
+  в состоянии преобразовывать в последовательную форму.<br>
+  <br>
+&nbsp;</li>
+  <li>Исключение, указывающее 'плохой класс может быть брошено.<br>
+  <br>
+&nbsp;</li>
+  <li>Ресурсы, сохраненные в расширении(продлении) <font color="#ff0000">
+  <span id="UNKNOWN_WORD">DLL</span></font> будут не в состоянии загружаться, 
+  потому что <b><font color="#ff0000"><span id="UNKNOWN_WORD">
+  AfxFindResourceHandle</span></font></b> возвращает <b>ПУСТОЙ УКАЗАТЕЛЬ</b> или 
+  неправильный маркер(дескриптор) ресурса.<br>
+  <br>
+&nbsp;</li>
+  <li><b><font color="#ff0000"><span id="UNKNOWN_WORD">DllGetClassObject</span></font></b>,
+  <b><font color="#ff0000"><span id="UNKNOWN_WORD">DllCanUnloadNow</span></font></b>, 
+  и <b><font color="#ff0000"><span id="UNKNOWN_WORD">UpdateRegistry</span></font></b>,
+  <b>Отменяют</b>, <b><font color="#ff0000"><span id="UNKNOWN_WORD">RevokeAll</span></font></b>, 
+  и <b><font color="#ff0000"><span id="UNKNOWN_WORD">RegisterAll</span></font></b> 
+  функции члена <b><font color="#ff0000"><span id="UNKNOWN_WORD">
+  COleObjectFactory</span></font></b> будут не в состоянии определять 
+  местонахождение фабрики класса, определенной в расширении(продлении)
+  <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font>.<br>
+  <br>
+&nbsp;</li>
+  <li><b><font color="#ff0000"><span id="UNKNOWN_WORD">AfxDoForAllClasses</span></font></b> 
+  не работает ни для каких классов в расширении(продлении) <font color="#ff0000">
+  <span id="UNKNOWN_WORD">DLL</span></font>.<br>
+  <br>
+&nbsp;</li>
+  <li>Стандарт <font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font> 
+  база данных, гнезда, или ресурсы OLE будет не в состоянии загружаться. 
+  Например, <b><font color="#ff0000"><span id="UNKNOWN_WORD">AfxLoadString</span></font></b> 
+  (<b>AFX_IDP_SQL_CONNECT_FAIL</b>) возвращает пустую строку, даже когда 
+  правильный <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> 
+  должным образом использует <font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font> 
+  классы Базы данных. </li>
+</ul>
+<p>Решение этих проблем состоит в том, чтобы создать и экспортировать функцию 
+инициализации в расширении(продлении) <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font>, который создает <b>
+<font color="#ff0000"><span id="UNKNOWN_WORD">CDynLinkLibrary</span></font></b>
+<font color="#008000"><span id="PRESERVED_WORD">object</span></font>. 
+Назовите(вызовите) эту функцию инициализации точно однажды от каждого 
+правильного <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font>, 
+который использует расширение(продление) <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font>.</p>
+<h2><font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font> OLE,
+<font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font> База данных (или
+<font color="#ff0000"><span id="UNKNOWN_WORD">DAO</span></font>), или
+<font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font> Поддержка Гнезд
+</h2>
+<p>Если Вы используете любое <font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font> 
+OLE, <font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font> База данных 
+(или <font color="#ff0000"><span id="UNKNOWN_WORD">DAO</span></font>), или
+<font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font> поддержка Гнезд 
+в вашем правильном <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font>, 
+соответственно, расширение(продление) отладки <font color="#ff0000">
+<span id="UNKNOWN_WORD">MFC</span></font> <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLLs</span></font> <font color="#ff0000">
+<span id="UNKNOWN_WORD">MFCOxxD.DLL</span></font>, <font color="#ff0000">
+<span id="UNKNOWN_WORD">MFCDxxD.DLL</span></font>, и <font color="#ff0000">
+<span id="UNKNOWN_WORD">MFCNxxD.DLL</span></font> (где обман - номер версии), 
+связаны в автоматически. Вы должны назвать(вызвать) предопределенную функцию 
+инициализации для каждого из&nbsp; этих <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLLs</span></font>, которые Вы используете. </p>
+<p>Для поддержки базы данных, добавьте запрос к <b><font color="#ff0000">
+<span id="UNKNOWN_WORD">AfxDbInitModule</span></font></b> к <b>
+<font color="#ff0000"><span id="UNKNOWN_WORD">CWinApp</span></font></b> вашего 
+правильного <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font><b>::</b> 
+функция <b>InitInstance</b>. Удостоверьтесь, что этот запрос происходит перед 
+любым запросом базового класса или любым добавленным кодом, который обращается к
+<font color="#ff0000"><span id="UNKNOWN_WORD">MFCDxxD.DLL</span></font>. Эта 
+функция не берет никаких параметров и возвращается пусто.</p>
+<p>Для поддержки OLE, добавьте запрос к <b><font color="#ff0000">
+<span id="UNKNOWN_WORD">AfxOleInitModule</span></font></b> к <b>
+<font color="#ff0000"><span id="UNKNOWN_WORD">CWinApp</span></font></b> вашего 
+правильного <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font><b>::
+<font color="#ff0000"><span id="UNKNOWN_WORD">InitInstance</span></font></b>. 
+Обратите внимание, что <b><font color="#ff0000"><span id="UNKNOWN_WORD">
+COleControlModule</span></font></b> функция <b>InitInstance</b> 
+называет(вызывает) <b><font color="#ff0000"><span id="UNKNOWN_WORD">
+AfxOleInitModule</span></font></b> уже, так если Вы строите OLE, управляют и 
+используют <b><font color="#ff0000"><span id="UNKNOWN_WORD">COleControlModule</span></font></b>, 
+Вы не должны добавить этот запрос к <b><font color="#ff0000">
+<span id="UNKNOWN_WORD">AfxOleInitModule</span></font></b>.</p>
+<p>Для поддержки Гнезд, добавьте запрос к <b><font color="#ff0000">
+<span id="UNKNOWN_WORD">AfxNetInitModule</span></font></b> к <b>
+<font color="#ff0000"><span id="UNKNOWN_WORD">CWinApp</span></font></b> вашего 
+правильного <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font><b>::
+<font color="#ff0000"><span id="UNKNOWN_WORD">InitInstance</span></font></b>.</p>
+<p>Обратите внимание, что компоновки выпуска <font color="#ff0000">
+<span id="UNKNOWN_WORD">MFC</span></font> <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLLs</span></font> и приложений не используют отдельный
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLLs</span></font> для базы 
+данных, гнезд, или поддержки OLE. Однако, безопасно назвать(вызвать) эти функции 
+инициализации в режиме выпуска.</p>
+<h2><font color="#ff0000"><span id="UNKNOWN_WORD">CDynLinkLibrary</span></font> 
+Объекты</h2>
+<p>В течение каждой из операций, упомянутых в начале этой статьи(изделия),
+<font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font> должен искать 
+желательное значение или <font color="#008000"><span id="PRESERVED_WORD">object</span></font>. 
+Например, в течение де-преобразования в последовательную форму,
+<font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font> должен перерыть 
+все в настоящее время доступные классы во время выполнения, чтобы 
+соответствовать объектам в архиве с их надлежащим классом во время выполнения.</p>
+<p>Поскольку часть этих исследований, <font color="#ff0000">
+<span id="UNKNOWN_WORD">MFC</span></font> просматривает через все 
+расширение(продление) <font color="#ff0000"><span id="UNKNOWN_WORD">DLLs</span></font> 
+в использовании, идя цепочка объектов <b>CDynLinkLibrary</b>. <b>
+<font color="#ff0000"><span id="UNKNOWN_WORD">CDynLinkLibrary</span></font></b> 
+объекты присоединяются автоматически к цепочке в течение их конструктора и 
+созданы каждым расширением(продлением) <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font> в свою очередь в течение 
+инициализации. Кроме того, каждый модуль (прикладной или правильный
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font>) имеет его 
+собственную цепочку объектов <b>CDynLinkLibrary</b>. </p>
+<p>Для расширения(продления) <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font>, 
+чтобы телеграфироваться(связаться) в <b><font color="#ff0000">
+<span id="UNKNOWN_WORD">CDynLinkLibrary</span></font></b> цепочку, это должно 
+создать <b><font color="#ff0000"><span id="UNKNOWN_WORD">CDynLinkLibrary</span></font></b>
+<font color="#008000"><span id="PRESERVED_WORD">object</span></font> в контексте 
+каждого модуля что использования расширение(продление) <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font>. Поэтому, если расширение(продление)
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> собирается 
+использоваться от правильного <font color="#ff0000"><span id="UNKNOWN_WORD">DLLs</span></font>, 
+это должно обеспечить экспортируемую функцию инициализации, которая создает <b>
+<font color="#ff0000"><span id="UNKNOWN_WORD">CDynLinkLibrary</span></font></b>
+<font color="#008000"><span id="PRESERVED_WORD">object</span></font>. Каждый 
+правильный <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font>, что 
+использования расширение(продление) <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font> должны назвать(вызвать) экспортируемую 
+функцию инициализации.</p>
+<p>Если расширение(продление) <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> 
+только собирается использоваться от приложения MFC <font color="#ff0000">
+<span id="UNKNOWN_WORD">(.EXE)</span></font> и никогда от правильного
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font>, то достаточно 
+создать <b><font color="#ff0000"><span id="UNKNOWN_WORD">CDynLinkLibrary</span></font></b>
+<font color="#008000"><span id="PRESERVED_WORD">object</span></font> в <b>
+<font color="#ff0000"><span id="UNKNOWN_WORD">DllMain</span></font></b>
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLL's</span></font> 
+расширения(продления). Это - то, что <font color="#ff0000">
+<span id="UNKNOWN_WORD">AppWizard</span></font> расширение(продление)
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> код делает. При 
+загрузке расширения(продления) <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> 
+неявно, <b><font color="#ff0000"><span id="UNKNOWN_WORD">DllMain</span></font></b> 
+загружается и выполняется прежде, чем приложение когда-либо начинается. Любые <b>
+<font color="#ff0000"><span id="UNKNOWN_WORD">CDynLinkLibrary</span></font></b> 
+создания телеграфированы(связаны) в заданную по умолчанию цепочку, которую
+<font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font>
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> резервирует для 
+приложения MFC.</p>
+<p>Обратите внимание, что это - плохая идея, чтобы иметь множественные объекты
+<b>CDynLinkLibrary</b> от одного расширения(продления) <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font> в любом цепочка, особенно если 
+расширение(продление) <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> 
+будет динамически разгружено от памяти. Назовите функцию инициализации не раз от 
+любого модулем.</p>
+<h2>Типовой Код</h2>
+<p>Этот типовой код предполагает, что правильный <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font> неявно связывается с 
+расширением(продлением) <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font>. 
+Это достигнуто, связываясь с библиотекой импорта <font color="#ff0000">
+<span id="UNKNOWN_WORD">(.LIB)</span></font> расширения(продления)
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> при 
+строительстве(формировании) правильного <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font>. </p>
+<p>Эти строки должны быть в источнике расширения(продления)
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font>:</p>
+<pre><code>// <font color="#ff0000"><span id="UNKNOWN_WORD">YourExtDLL.cpp</span></font>:
+
+// стандарт <font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font> расширение(продление) <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> подпрограммы
+*include <font color="#ff0000"><span id="UNKNOWN_WORD">&quot;afxdllx.h&quot;</span></font>
+
+статический AFX_EXTENSION_MODULE ОКОЛО <font color="#ff0000"><span id="UNKNOWN_WORD">extensionDLL</span></font> = {ПУСТОЙ УКАЗАТЕЛЬ, ПУСТОЙ УКАЗАТЕЛЬ};
+
+экскрачка &quot;C&quot; <font color="#ff0000"><span id="UNKNOWN_WORD">int</span></font> <font color="#ff0000"><span id="UNKNOWN_WORD">APIENTRY</span></font>
+<font color="#ff0000"><span id="UNKNOWN_WORD">DllMain</span></font> (<font color="#ff0000"><span id="UNKNOWN_WORD">HINSTANCE</span></font> <font color="#ff0000"><span id="UNKNOWN_WORD">hInstance</span></font>, <font color="#ff0000"><span id="UNKNOWN_WORD">DWORD</span></font> <font color="#ff0000"><span id="UNKNOWN_WORD">dwReason</span></font>, <font color="#ff0000"><span id="UNKNOWN_WORD">LPVOID</span></font> <font color="#ff0000"><span id="UNKNOWN_WORD">lpReserved</span></font>)
+{если
+    (<font color="#ff0000"><span id="UNKNOWN_WORD">dwReason</span></font> == DLL_PROCESS_ATTACH)
+    {//
+        расширение(продление) <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> одноразовая(бывшая) инициализация.
+        если (! <font color="#ff0000"><span id="UNKNOWN_WORD">AfxInitExtensionModule</span></font> (<font color="#ff0000"><span id="UNKNOWN_WORD">extensionDLL</span></font>, <font color="#ff0000"><span id="UNKNOWN_WORD">hInstance</span></font>))
+           возвращаются 0;}
+    возвращаются
+    1; // хорошо}
+
+// Экспортирован <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> инициализация, работают в
+контексте // прикладной или правильной <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font>
+экскрачки &quot;C&quot; пусто <font color="#ff0000"><span id="UNKNOWN_WORD">WINAPI</span></font> <font color="#ff0000"><span id="UNKNOWN_WORD">InitYourExtDLL</span></font> ()
+{//,
+    создают новый <font color="#ff0000"><span id="UNKNOWN_WORD">CDynLinkLibrary</span></font> для этого приложения
+    новый <font color="#ff0000"><span id="UNKNOWN_WORD">CDynLinkLibrary</span></font> (<font color="#ff0000"><span id="UNKNOWN_WORD">extensionDLL</span></font>);
+
+    // добавить другую инициализацию здесь}</code>
+</pre>
+<p>Убедитесь, что экспортировали функцию <b>InitYourExtDLL</b>. Это могло быть 
+сделано, используя <b>__ <font color="#ff0000"><span id="UNKNOWN_WORD">declspec</span></font>
+<font color="#ff0000"><span id="UNKNOWN_WORD">(dllexport)</span></font></b>, или 
+в <font color="#ff0000"><span id="UNKNOWN_WORD">.DEF</span></font> файле вашего
+<font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> следующим 
+образом:</p>
+<pre><code>// <font color="#ff0000"><span id="UNKNOWN_WORD">YourExtDLL.Def</span></font>:
+БИБЛИОТЕКА      <font color="#ff0000"><span id="UNKNOWN_WORD">YOUREXTDLL</span></font>
+ЗАКОДИРУЕТ         ПРЕДВАРИТЕЛЬНУЮ ЗАГРУЗКУ ПОДВИЖНАЯ НЕЗАЩИЩЕННАЯ
+ПРЕДВАРИТЕЛЬНАЯ ЗАГРУЗКА ДАННЫХ         ЕДИНСТВЕННЫЙ(ОТДЕЛЬНЫЙ)
+ЭКСПОРТ
+    <font color="#ff0000"><span id="UNKNOWN_WORD">InitYourExtDLL</span></font></code>
+</pre>
+<p>Добавьте запрос к <b><font color="#ff0000"><span id="UNKNOWN_WORD">
+InitInstance</span></font></b> члену <b>CWINAPP-ПОЛУЧЕННОГО</b>
+<font color="#008000"><span id="PRESERVED_WORD">object</span></font> в каждом 
+правильном <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> 
+использование расширения(продления) <font color="#ff0000">
+<span id="UNKNOWN_WORD">DLL</span></font>: </p>
+<pre><code>// <font color="#ff0000"><span id="UNKNOWN_WORD">YourRegularDLL.cpp</span></font>:
+
+класс <font color="#ff0000"><span id="UNKNOWN_WORD">CYourRegularDLL</span></font>: публика <font color="#ff0000"><span id="UNKNOWN_WORD">CWinApp</span></font>
+{публика:
+виртуальный
+    <font color="#ff0000"><span id="UNKNOWN_WORD">BOOL</span></font> <font color="#ff0000"><span id="UNKNOWN_WORD">InitInstance</span></font> (); // Инициализация
+    виртуальный <font color="#ff0000"><span id="UNKNOWN_WORD">int</span></font> <font color="#ff0000"><span id="UNKNOWN_WORD">ExitInstance</span></font> (); // Завершение
+
+    // ничто специальное для конструктора
+    <font color="#ff0000"><span id="UNKNOWN_WORD">CYourRegularDLL</span></font> (<font color="#ff0000"><span id="UNKNOWN_WORD">LPCTSTR</span></font> <font color="#ff0000"><span id="UNKNOWN_WORD">pszAppName</span></font>): <font color="#ff0000"><span id="UNKNOWN_WORD">CWinApp</span></font> <font color="#ff0000"><span id="UNKNOWN_WORD">(pszAppName)</span></font> {}};
+
+<font color="#ff0000"><span id="UNKNOWN_WORD">BOOL</span></font> <font color="#ff0000"><span id="UNKNOWN_WORD">CYourRegularDLL</span></font>:: <font color="#ff0000"><span id="UNKNOWN_WORD">InitInstance</span></font> ()
+{//
+  любая <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> инициализация идет сюда
+    TRACE0 (&quot;ВАШ правильный <font color="#ff0000"><span id="UNKNOWN_WORD">DLL</span></font> initializing\n&quot;);
+
+  // телеграфировать(связать) любое расширение(продление) <font color="#ff0000"><span id="UNKNOWN_WORD">DLLs</span></font> в <font color="#ff0000"><span id="UNKNOWN_WORD">CDynLinkLibrary</span></font>цепочку
+    <font color="#ff0000"><span id="UNKNOWN_WORD">InitYourExtDLL</span></font> ();
+
+    возвращение ИСТИНА;}</code>
+</pre>
+<h3>Что Вы хотите сделать?</h3>
+<ul type="disc">
+  <li>
+  <a href="mk:@MSITStore:C:\Program%20Files\Microsoft%20Visual%20Studio\MSDN98\98VSa\1033\vccore.chm::/html/_core_initialize_extension_dlls.htm">
+  Инициализируйте расширение(продление) <font color="#ff0000">
+  <span id="UNKNOWN_WORD">DLL</span></font></a><br>
+  <br>
+&nbsp;</li>
+  <li>
+  <a href="mk:@MSITStore:C:\Program%20Files\Microsoft%20Visual%20Studio\MSDN98\98VSa\1033\vccore.chm::/html/_core_initialize_regular_dlls.htm">
+  Инициализируйте правильный <font color="#ff0000"><span id="UNKNOWN_WORD">DLLs</span></font></a>
+  </li>
+</ul>
+<h3>О чем Вы хотите знать больше?</h3>
+<ul type="disc">
+  <li>
+  <a href="mk:@MSITStore:C:\Program%20Files\Microsoft%20Visual%20Studio\MSDN98\98VSa\1033\vccore.chm::/html/_core_extension_dlls.htm">
+  Расширение(Продление) <font color="#ff0000"><span id="UNKNOWN_WORD">DLLs</span></font></a><br>
+  <br>
+&nbsp;</li>
+  <li>
+  <a href="mk:@MSITStore:C:\Program%20Files\Microsoft%20Visual%20Studio\MSDN98\98VSa\1033\vccore.chm::/html/_core_regular_dlls_statically_linked_to_mfc.htm">
+  Правильный <font color="#ff0000"><span id="UNKNOWN_WORD">DLLs</span></font>, 
+  статически связанный с <font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font></a><br>
+  <br>
+&nbsp;</li>
+  <li>
+  <a href="mk:@MSITStore:C:\Program%20Files\Microsoft%20Visual%20Studio\MSDN98\98VSa\1033\vccore.chm::/html/_core_regular_dlls_dynamically_linked_to_mfc.htm">
+  Правильный <font color="#ff0000"><span id="UNKNOWN_WORD">DLLs</span></font>, 
+  динамически связанный с <font color="#ff0000"><span id="UNKNOWN_WORD">MFC</span></font></a><br>
+  <br>
+&nbsp;</li>
+  <li><a href="javascript:hhobj_2.Click()">Использование <font color="#ff0000">
+  <span id="UNKNOWN_WORD">MFC</span></font> как Часть <font color="#ff0000">
+  <span id="UNKNOWN_WORD">DLL</span></font></a><br>
+  <br>
+&nbsp;</li>
+  <li><a href="javascript:hhobj_3.Click()"><font color="#ff0000">
+  <span id="UNKNOWN_WORD">DLL</span></font> Версия <font color="#ff0000">
+  <span id="UNKNOWN_WORD">MFC</span></font></a> </li>
+</ul>
+</font>
+
+</body>
+
+</html>

@@ -1,0 +1,311 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Russian resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+#ifdef _WIN32
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\SimplSubs.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MY_DLG DIALOG DISCARDABLE  0, 0, 31, 37
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+END
+
+IDD_INPUT_STR_DLG DIALOG DISCARDABLE  0, 0, 212, 47
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Введите название подсистемы"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_EDIT_INPUT,2,11,208,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,109,31,50,14
+    PUSHBUTTON      "Отмена",IDCANCEL,160,31,50,14
+END
+
+IDD_SUBS_DLG DIALOGEX 0, 0, 26, 17
+STYLE DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    LISTBOX         IDC_SUB_LIST,4,3,19,9,LBS_SORT | LBS_MULTIPLESEL | 
+                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | 
+                    LBS_NOINTEGRALHEIGHT | NOT WS_BORDER | WS_VSCROLL | 
+                    WS_TABSTOP
+END
+
+IDD_SETUP_DLG DIALOG DISCARDABLE  0, 0, 236, 161
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Настройки"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Показать столбцы:",IDC_STATIC,3,6,86,42
+    CONTROL         "Тип",IDC_SHOW_COL_TYPE,"Button",BS_AUTOCHECKBOX | 
+                    WS_DISABLED | WS_TABSTOP,9,15,29,10
+    CONTROL         "Комментарий",IDC_SHOW_COL_COMM,"Button",BS_AUTOCHECKBOX | 
+                    WS_DISABLED | WS_TABSTOP,9,25,62,10
+    CONTROL         "ID метаданного",IDC_SHOW_COL_ID,"Button",
+                    BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,9,35,69,10
+    GROUPBOX        "Drag&&Drop",IDC_STATIC,88,6,141,62
+    CONTROL         "Разрешить перетаскивание всех выделенных объектов",
+                    IDC_ENABBLE_GR_DD,"Button",BS_AUTOCHECKBOX | 
+                    BS_MULTILINE | WS_TABSTOP,95,15,130,17
+    LTEXT           "Симол разделитель:",IDC_STATIC_DD_GR_TERM,95,34,70,8
+    EDITTEXT        IDC_EDT_CHAR_TERMINATOR_DD,169,32,40,12,ES_AUTOHSCROLL
+    LTEXT           "При перетаскивании объекта вставлять текст:",IDC_STATIC,
+                    3,103,161,8,WS_DISABLED
+    CONTROL         "List1",IDC_LST_ADD_DD_TEXT,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | 
+                    LVS_NOSORTHEADER | WS_DISABLED | WS_BORDER | WS_TABSTOP,
+                    2,111,229,28
+    DEFPUSHBUTTON   "OK",IDOK,143,145,43,14
+    PUSHBUTTON      "Отмена",IDCANCEL,187,145,45,14
+    CONTROL         "активировать режим перетаскивания польного пути...",
+                    IDC_ENABBLE_FULL_PATH_DD,"Button",BS_AUTOCHECKBOX | 
+                    BS_MULTILINE | WS_TABSTOP,95,45,125,20
+    COMBOBOX        IDC_CMB_PLACE_SUBS,171,71,58,145,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Отображать панель подсистем (относительно дерева метаданных)*:",
+                    IDC_STATIC_DD_GR_TERM2,5,68,161,17
+    RTEXT           "* - требует перезапуск конфигуратора:",
+                    IDC_STATIC_DD_GR_TERM3,0,148,134,8,WS_DISABLED
+    CONTROL         "Показывать ID в дереве",IDC_SHOW_ID_TO_TREE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,3,86,99,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_MY_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 2
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 36
+    END
+
+    IDD_INPUT_STR_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 2
+        RIGHTMARGIN, 210
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 45
+    END
+
+    IDD_SETUP_DLG, DIALOG
+    BEGIN
+        RIGHTMARGIN, 233
+        TOPMARGIN, 2
+        BOTTOMMARGIN, 159
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICN_SUBS            ICON    DISCARDABLE     "res\\icon1.ico"
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041904b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "Плагин для OpenConf, Вешается ТОЛЬКО в панели, отображает существенную информацию об объектах метаданных, отображает их с фильтром.\0"
+            VALUE "FileVersion", "1, 0, 0, 2\0"
+            VALUE "InternalName", "Простые подсистемы\0"
+            VALUE "LegalCopyright", "(c) Трошин Д. В. as trdm 2006 ICQ 308-779-620 email trdmval@gmail.com\0"
+            VALUE "LegalTrademarks", "(c) Трошин Д. В. as trdm\0"
+            VALUE "OriginalFilename", "SimplSubs.DLL\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "SimplSubs Dynamic Link Library\0"
+            VALUE "ProductVersion", "1, 0, 0, 2\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x419, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_TOOLBAR1            BITMAP  DISCARDABLE     "res\\toolbar1.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_TOOLBAR1 TOOLBAR DISCARDABLE  16, 16
+BEGIN
+    BUTTON      ID_BUTTON32771
+    BUTTON      ID_BUTTON32772
+    BUTTON      ID_BUTTON32773
+    SEPARATOR
+    BUTTON      ID_BUTTON32779
+    BUTTON      ID_BUTTON32780
+    SEPARATOR
+    BUTTON      ID_BUTTON32774
+    BUTTON      ID_BUTTON32775
+    SEPARATOR
+    BUTTON      ID_BUTTON32781
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_SETUP_DLG DLGINIT
+BEGIN
+    IDC_CMB_PLACE_SUBS, 0x403, 7, 0
+0xefd1, 0xe0f0, 0xe0e2, "\000" 
+    IDC_CMB_PLACE_SUBS, 0x403, 6, 0
+0xedd1, 0xe7e8, 0x00f3, 
+    IDC_CMB_PLACE_SUBS, 0x403, 6, 0
+0xebd1, 0xe2e5, 0x00e0, 
+    IDC_CMB_PLACE_SUBS, 0x403, 7, 0
+0xe2d1, 0xf0e5, 0xf3f5, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_BUTTON32771          "Новая подсистема"
+    ID_BUTTON32772          "Редактировать подсистему"
+    ID_BUTTON32773          "Удалить подсистему"
+    ID_BUTTON32774          "Настройка....."
+    ID_BUTTON32775          "Справка... (не от психиатора.)"
+    ID_BUTTON32779          "Режим пометки"
+    ID_BUTTON32780          "Режим фильтрации"
+END
+
+#endif    // Russian resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\SimplSubs.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

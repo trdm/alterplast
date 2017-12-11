@@ -1,0 +1,60 @@
+ orefkov (16:50:05 30/05/2006)
+Открытие чисто-текстовых документов:
+CModuleCont* pCont=NULL;
+CString path;
+if(CConfigCont::IDToTextModule(id, sKind, path, &pCont,FALSE))
+{
+     if(pCont)
+          pCont->ShowDocument(sKind);
+}
+где id - идентификатор метаданных, а sKind - может быть строкой:
+"ModuleText" - Глобальник
+"CalcAlg" - Вид расчета
+"UserHelp" - описание
+"Transact" - модуль документа.
+Ща для остальных форм распишу
+
+ orefkov (16:50:10 30/05/2006)
+а теперь?
+
+ trdm (16:50:20 30/05/2006)
+Теперь все читабельно )
+
+ orefkov (16:50:45 30/05/2006)
+CTypedCont* pCont=NULL;
+CString path;
+CConfigCont::IDToPath(id, sKind, path, &pCont,0);
+if(pCont)
+     pCont->ShowDocument(id);
+
+где id - идентификатор метаданных, а sKind - может быть строкой:
+"SubList" - форма списка справочника
+"SubFolder" - форма группы справочника
+"Subconto" - форма элемента справочника
+"Document" - форма документа
+"Journal" - форма журнала
+"CalcJournal" - форма ЖР
+"AccountChartList" - это че-то из плана счетов
+"Ac
+
+ orefkov (16:50:45 30/05/2006)
+countChart" - аналогично
+"OperationList" - журнал операций
+"Operation" - операция
+"ProvList" - журнал проводок
+"Report" - отчет
+"CalcVar" - обработка
+"GlobalData" - общие таблицы (id==1)
+
+ orefkov (16:50:49 30/05/2006)
+а это?
+
+ trdm (16:52:24 30/05/2006)
+Читается. Я скажу если что.
+Уххх.. Знал бы ты сколько я времени и нервов потратил на решение этой задачи....
+
+ orefkov (16:52:40 30/05/2006)
+ 
+
+ trdm (16:53:21 30/05/2006)
+Ощущение финиша, после марафона (42 км.) с победой.. )

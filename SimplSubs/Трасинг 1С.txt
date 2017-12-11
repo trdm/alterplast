@@ -1,0 +1,17 @@
+при вызове открытия формы настройки документа проходим:
+.text:291502A9 call    ?Create@CFormView@@MAEHPBD0KABUtagRECT@@PAVCWnd@@IPAUCCreateContext@@@Z ; CFormView::Create(char const *,char const *,ulong,tagRECT const &,CWnd *,uint,CCreateContext *)
+
+при создании главного окна конфигурации:
+text:291BB59E call    ?GetActiveView@CFrameWnd@@QBEPAVCView@@XZ ; CFrameWnd::GetActiveView(void)
+.
+.text:291BBA10 call    ?GetDocumentTemplateID@CTemplate7@@SAIPAVCDocument@@@Z ; CTemplate7::GetDocumentTemplateID(CDocument *)
+
+.text:291BBA21 call    ?FromID@CTemplate7@@SAPAV1@I@Z  ; CTemplate7::FromID(uint)
+
+.text:291BBB88 call    ?OnCreate@CMDIChildWnd@@IAEHPAUtagCREATESTRUCTA@@@Z ; CMDIChildWnd::OnCreate(tagCREATESTRUCTA *)
+
+text:291BB5C9 call    ?IsKindOf@CObject@@QBEHPBUCRuntimeClass@@@Z ; CObject::IsKindOf(CRuntimeClass const *)
+
+debug077:1F325C20 frame_?FromID@CTemplate7@@SAPAV1@I@Z:
+
+

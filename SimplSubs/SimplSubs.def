@@ -1,0 +1,7 @@
+; SimplSubs.def : Declares the module parameters for the DLL.
+
+LIBRARY      "SimplSubs"
+DESCRIPTION  'SimplSubs Windows Dynamic Link Library'
+
+EXPORTS
+    ; Explicit exports can go here

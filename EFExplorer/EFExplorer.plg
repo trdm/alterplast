@@ -1,0 +1,33 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: EFExplorer - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\dima\LOCALS~1\Temp\RSP118.tmp" with contents
+[
+/nologo /subsystem:windows /dll /incremental:no /pdb:"Release/EFExplorer.pdb" /machine:I386 /out:"C:/Program Files/1Cv77/BIN/config/EFExplorer.dll" /implib:"Release/EFExplorer.lib" 
+.\Release\EFDoc.obj
+.\Release\EFEditView.obj
+.\Release\EFExplorer.obj
+.\Release\EFFrame.obj
+.\Release\EFTreeView.obj
+.\Release\EFView.obj
+.\Release\EFWnd.obj
+.\Release\StdAfx.obj
+.\EFExplorer.res
+]
+Creating command line "link.exe @C:\DOCUME~1\dima\LOCALS~1\Temp\RSP118.tmp"
+<h3>Output Window</h3>
+Linking...
+   Creating library Release/EFExplorer.lib and object Release/EFExplorer.exp
+
+
+
+<h3>Results</h3>
+EFExplorer.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

@@ -1,0 +1,91 @@
+// Created by Microsoft (R) C/C++ Compiler Version 12.00.8447.0 (8bb17e2e).
+//
+// ServerCOM.tlh
+//
+// C++ source equivalent of Win32 type library C:\2C\ServerCOM.dll
+// compiler-generated file created 06/29/04 at 17:41:18 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct /* coclass */ Connect;
+struct __declspec(uuid("03fd46f1-4fee-4b0b-8b40-1e943652ca08"))
+/* dual interface */ IConnect;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IConnect, __uuidof(IConnect));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("0497d803-c0f6-4e37-9247-6fc0080d1096"))
+Connect;
+    // [ default ] interface IConnect
+
+struct __declspec(uuid("03fd46f1-4fee-4b0b-8b40-1e943652ca08"))
+IConnect : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall Test (
+        int a ) = 0;
+    virtual HRESULT __stdcall Test2 ( ) = 0;
+    virtual HRESULT __stdcall Test3 (
+        VARIANT a ) = 0;
+    virtual HRESULT __stdcall put_Test4 (
+        BSTR _arg1 ) = 0;
+    virtual HRESULT __stdcall put_Test5 (
+        BSTR a,
+        BSTR _arg2 ) = 0;
+    virtual HRESULT __stdcall Test6 ( ) = 0;
+    virtual HRESULT __stdcall Test7 (
+        BSTR a ) = 0;
+    virtual HRESULT __stdcall EvalExpr (
+        BSTR Str ) = 0;
+    virtual HRESULT __stdcall EvalExpr2 (
+        BSTR Str,
+        VARIANT * Ret ) = 0;
+    virtual HRESULT __stdcall get_Test8 (
+        BSTR * * pVal ) = 0;
+    virtual HRESULT __stdcall put_Test8 (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_Test9 (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_Test9 (
+        BSTR pVal ) = 0;
+    virtual HRESULT __stdcall get_Test10 (
+        VARIANT * pVal ) = 0;
+    virtual HRESULT __stdcall put_Test10 (
+        VARIANT pVal ) = 0;
+    virtual HRESULT __stdcall get_Test11 (
+        VARIANT * * pVal ) = 0;
+    virtual HRESULT __stdcall get_Array (
+        VARIANT * pVal ) = 0;
+    virtual HRESULT __stdcall put_Array (
+        VARIANT pVal ) = 0;
+};
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_SERVERCOMLib =
+    {0xf1598f54,0xbf00,0x4950,{0xa1,0x1b,0xc4,0x7e,0xc4,0x9c,0x82,0x4f}};
+extern "C" const GUID __declspec(selectany) CLSID_Connect =
+    {0x0497d803,0xc0f6,0x4e37,{0x92,0x47,0x6f,0xc0,0x08,0x0d,0x10,0x96}};
+extern "C" const GUID __declspec(selectany) IID_IConnect =
+    {0x03fd46f1,0x4fee,0x4b0b,{0x8b,0x40,0x1e,0x94,0x36,0x52,0xca,0x08}};
+
+#pragma pack(pop)

@@ -1,0 +1,51 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: ServerSQL - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "D:\DOCUME~1\子晾世\LOCALS~1\Temp\RSP78.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SERVERSQL_EXPORTS" /D "_WINDLL" /D "_AFXDLL" /FR"../../../ServerSQLDebug/" /Fp"../../../ServerSQLDebug/ServerSQL.pch" /Yu"stdafx.h" /Fo"../../../ServerSQLDebug/" /Fd"../../../ServerSQLDebug/" /FD /GZ /c 
+"C:\Visual C++\2C\Enterprise\Compiler\OutToDebug.cpp"
+"C:\Visual C++\2C\Enterprise\Plugins\ServerSQL\ServerSQL.cpp"
+"C:\Visual C++\2C\Enterprise\Plugins\ServerSQL\SQLLite.cpp"
+]
+Creating command line "cl.exe @"D:\DOCUME~1\子晾世\LOCALS~1\Temp\RSP78.tmp"" 
+Creating temporary file "D:\DOCUME~1\子晾世\LOCALS~1\Temp\RSP79.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SERVERSQL_EXPORTS" /D "_WINDLL" /D "_AFXDLL" /FR"../../../ServerSQLDebug/" /Fp"../../../ServerSQLDebug/ServerSQL.pch" /Yc"stdafx.h" /Fo"../../../ServerSQLDebug/" /Fd"../../../ServerSQLDebug/" /FD /GZ /c 
+"C:\Visual C++\2C\Enterprise\Plugins\ServerSQL\StdAfx.cpp"
+]
+Creating command line "cl.exe @"D:\DOCUME~1\子晾世\LOCALS~1\Temp\RSP79.tmp"" 
+Creating temporary file "D:\DOCUME~1\子晾世\LOCALS~1\Temp\RSP7A.tmp" with contents
+[
+/nologo /dll /incremental:yes /pdb:"../../../ServerSQLDebug/ServerSQLD.pdb" /debug /machine:I386 /out:"c:\2c\ServerSQLD.dll" /implib:"../../../ServerSQLDebug/ServerSQLD.lib" /pdbtype:sept 
+"\Visual C++\2C\ServerSQLDebug\OutToDebug.obj"
+"\Visual C++\2C\ServerSQLDebug\ServerSQL.obj"
+"\Visual C++\2C\ServerSQLDebug\SQLLite.obj"
+"\Visual C++\2C\ServerSQLDebug\StdAfx.obj"
+".\sqlitedll\sqlite.lib"
+"..\..\..\..\..\2C\Enterprise.lib"
+]
+Creating command line "link.exe @"D:\DOCUME~1\子晾世\LOCALS~1\Temp\RSP7A.tmp""
+<h3>Output Window</h3>
+Compiling...
+StdAfx.cpp
+Compiling...
+OutToDebug.cpp
+ServerSQL.cpp
+SQLLite.cpp
+Generating Code...
+Linking...
+   Creating library ../../../ServerSQLDebug/ServerSQLD.lib and object ../../../ServerSQLDebug/ServerSQLD.exp
+
+
+
+<h3>Results</h3>
+ServerSQLD.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

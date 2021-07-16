@@ -1,0 +1,36 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Test - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "c:\temp\RSP4BE.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "PLUG2C_EXPORTS" /D "_WINDLL" /D "_AFXDLL" /FR"Release/" /Fp"Release/Test.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\Visual C++\2C\Enterprise\Plugins\Functions\Test.cpp"
+]
+Creating command line "cl.exe @c:\temp\RSP4BE.tmp" 
+Creating temporary file "c:\temp\RSP4BF.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "PLUG2C_EXPORTS" /D "_WINDLL" /D "_AFXDLL" /FR"Release/" /Fp"Release/Test.pch" /Yc"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\Visual C++\2C\Enterprise\Plugins\Functions\StdAfx.cpp"
+]
+Creating command line "cl.exe @c:\temp\RSP4BF.tmp" 
+Creating command line "link.exe /nologo /dll /incremental:no /pdb:"Release/Test.pdb" /machine:I386 /out:"c:\2c\Test.dll" /implib:"Release/Test.lib"  ".\Release\StdAfx.obj" ".\Release\Test.obj" ".\Enterprise\Enterprise.lib" "
+<h3>Output Window</h3>
+Compiling...
+StdAfx.cpp
+Compiling...
+Test.cpp
+Linking...
+   Creating library Release/Test.lib and object Release/Test.exp
+
+
+
+<h3>Results</h3>
+Test.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

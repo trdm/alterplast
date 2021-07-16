@@ -1,0 +1,162 @@
+//
+//                  by Alexey Bazhitov aka avb
+//                     Moscow,  august 2002 
+//                  mailto: avb@dmitrovka.net
+//
+//-----------------------------------------------------------------------------
+//
+var sSave,cdoAutoPromoteBodyParts,
+cdoFlushBuffersOnWrite,
+cdoHTTPCookies,
+cdoLanguageCode,
+cdoNNTPAccountName,
+cdoNNTPAuthenticate,
+cdoNNTPConnectionTimeout,
+cdoNNTPServer,
+cdoNNTPServerPickupDirectory,
+cdoNNTPServerPort,
+cdoNNTPUseSSL,
+cdoPostEmailAddress,
+cdoPostPassword,
+cdoPostUserName,
+cdoPostUserReplyEmailAddress,
+cdoPostUsingMethod,
+cdoSaveSentItems,
+cdoSendEmailAddress,
+cdoSendPassword,
+cdoSendUserName,
+cdoSendUserReplyEmailAddress,
+cdoSendUsingMethod,
+cdoSMTPAccountName,
+cdoSMTPAuthenticate,
+cdoSMTPConnectionTimeout,
+cdoSMTPServer,
+cdoSMTPServerPickupDirectory,
+cdoSMTPServerPort,
+cdoSMTPUseSSL,
+cdoURLGetLatestVersion,
+cdoURLProxyBypass,
+cdoURLProxyServer,
+cdoUseMessageResponseText; 
+
+///////////////////////////////////////////////////////////////////////
+//Процедура обработки нажатия кнопки Закрыть - выполняет закрытие формы
+Процедура ЗакрытьФорму()
+	Форма.Закрыть();
+КонецПроцедуры
+
+///////////////////////////////////////////////////////////////////////
+//Предопределенная процедура - вызывается при первом открытии формы
+Процедура ПриОткрытии()
+	глВосстановитьЗначенияФормы(Контекст);
+КонецПроцедуры
+
+///////////////////////////////////////////////////////////////////////
+//Предопределенная процедура - вызывается при закрытии формы
+Процедура ПриЗакрытии()
+	глЗапомнитьЗначенияФормы(Контекст);
+КонецПроцедуры
+
+///////////////////////////////////////////////////////////////////////
+//Обработка события объекта sAttach
+Процедура РедактированиеSAttach()
+	f=sAttach; d="";
+	fs=СоздатьОбъект("Файловая система"); 
+	if fs.selectFile(0,f,d,"Файл аттачмента","Все файлы (*.*) |*.*")=1 then
+	sAttach=d+f;
+	endif;              
+КонецПроцедуры
+
+//-----------------------------------------------------------------------------
+procedure sendMsg()   
+sFrom = """CDOMessage"" <test@test.ru>";
+
+iConf = createObject("CDO.Configuration"); 
+
+iConf.fields(cdoSendUsingMethod).value = 2;
+//cdoSendUsingPickup    1  Send message using the local SMTP service pickup directory. 
+//cdoSendUsingPort      2  Send the message using the network (SMTP protocol over the
+//                         network).  
+//cdoSendUsingExchange  3  Send the message using the Exchange mail submission URI.
+//                         This URI is found in the user's 
+//                         urn:schemas:httpmail:sendmsg mailbox folder property. 
+iConf.fields(cdoSMTPServer).value         = SMTP;
+iConf.fields(cdoSMTPServerPort).value   	= 25;
+iConf.fields(cdoSMTPAuthenticate).value   = 0;
+iConf.fields(cdoSendUserName).value       = "";
+iConf.fields(CdoSendPassword).value       = "";
+iConf.fields(cdoSendEmailAddress).value   = """CDOMessage"" <test@test.ru>";
+iConf.fields(cdoSMTPUseSSL).value         = 0;  //Secure Sockets Layer 
+iConf.fields.update();            
+
+iMsg=createObject("CDO.Message");
+iMsg.configuration = iConf; 
+
+iMsg.to=sTo;
+iMsg.from=sFrom;
+iMsg.subject=sSubject; 
+
+if vlFrm.curSel()=1 then 
+iMsg.HTMLBody=sBody;  
+else
+iMsg.textBody=sBody; 
+iMsg.textBodypart.charset="iso-8859-5";  //либо "koi8-r"
+endif;
+
+if isBlankString(sAttach)=0 then iMsg.addAttachment(sAttach) endif;
+if isBlankString(sSave)=0 then
+stream=iMsg.getStream();
+stream.saveToFile(sSave,2);   //1 новый 2 перезапись
+endif;
+iMsg.send();  
+message("Сообщение отправлено.");
+endProcedure   
+
+vlFrm.addValue("html");
+vlFrm.addValue("plain text");
+vlFrm.curSel(2);
+
+sSubject="Пример сообщения";
+sBody="Привет пользователи 2С";
+
+
+cdoSendPassword              = "http://schemas.microsoft.com/cdo/configuration/sendpassword";      
+cdoSendEmailAddress          = "http://schemas.microsoft.com/cdo/configuration/sendemailaddress";   
+cdoAutoPromoteBodyParts      = "http://schemas.microsoft.com/cdo/configuration/autopromotebodyparts" ;
+cdoFlushBuffersOnWrite       = "http://schemas.microsoft.com/cdo/configuration/flushbufferson;write" ;
+cdoHTTPCookies               = "http://schemas.microsoft.com/cdo/configuration/httpcookies" ;
+cdoLanguageCode              = "http://schemas.microsoft.com/cdo/configuration/languagecode" ;
+cdoNNTPAccountName           = "http://schemas.microsoft.com/cdo/configuration/nntpaccountname" ;
+cdoNNTPAuthenticate          = "http://schemas.microsoft.com/cdo/configuration/nntpauthenticate" ;
+cdoNNTPConnectionTimeout     = "http://schemas.microsoft.com/cdo/configuration/nntpconnectiontimeout" ;
+cdoNNTPServer                = "http://schemas.microsoft.com/cdo/configuration/nntpserver" ;
+cdoNNTPServerPickupDirectory = "http://schemas.microsoft.com/cdo/configuration/nntpserverpickupdirectory" ;
+cdoNNTPServerPort            = "http://schemas.microsoft.com/cdo/configuration/nntpserverport" ;
+cdoNNTPUseSSL                = "http://schemas.microsoft.com/cdo/configuration/nntpusessl" ;
+cdoPostEmailAddress          = "http://schemas.microsoft.com/cdo/configuration/postemailaddress" ;
+cdoPostPassword              = "http://schemas.microsoft.com/cdo/configuration/postpassword" ;
+cdoPostUserName 		    		 = "http://schemas.microsoft.com/cdo/configuration/postusername" ;
+cdoPostUserReplyEmailAddress = "http://schemas.microsoft.com/cdo/configuration/postuserreplyemailaddress" ;
+cdoPostUsingMethod           = "http://schemas.microsoft.com/cdo/configuration/postusing" ;
+cdoSaveSentItems             = "http://schemas.microsoft.com/cdo/configuration/savesentitems" ;
+cdoSendEmailAddress          = "http://schemas.microsoft.com/cdo/configuration/sendemailaddress" ;
+cdoSendPassword              = "http://schemas.microsoft.com/cdo/configuration/sendpassword" ;
+cdoSendUserName              = "http://schemas.microsoft.com/cdo/configuration/sendusername" ;
+cdoSendUserReplyEmailAddress = "http://schemas.microsoft.com/cdo/configuration/senduserreplyemailaddress" ;
+cdoSendUsingMethod           = "http://schemas.microsoft.com/cdo/configuration/sendusing" ;
+cdoSMTPAccountName           = "http://schemas.microsoft.com/cdo/configuration/smtpaccountname" ;
+cdoSMTPAuthenticate          = "http://schemas.microsoft.com/cdo/configuration/smtpauthenticate" ;
+cdoSMTPConnectionTimeout     = "http://schemas.microsoft.com/cdo/configuration/smtpconnectiontimeout" ;
+cdoSMTPServer                = "http://schemas.microsoft.com/cdo/configuration/smtpserver";
+cdoSMTPServerPickupDirectory = "http://schemas.microsoft.com/cdo/configuration/smtpserverpickupdirectory";
+cdoSMTPServerPort            = "http://schemas.microsoft.com/cdo/configuration/smtpserverport";
+cdoSMTPUseSSL                = "http://schemas.microsoft.com/cdo/configuration/smtpusessl";
+cdoURLGetLatestVersion       = "http://schemas.microsoft.com/cdo/configuration/urlgetlatestversion";
+cdoURLProxyBypass            = "http://schemas.microsoft.com/cdo/configuration/urlproxybypass";
+cdoURLProxyServer            = "http://schemas.microsoft.com/cdo/configuration/urlproxyserver";
+cdoUseMessageResponseText    = "http://schemas.microsoft.com/cdo/configuration/usemessageresponsetext"; 
+
+
+sSave="";
+sTo="info@vtools.ru";
+SMTP="pop.ultranet.ru";//здесь надо указать Ваш SMTP сервер (Ю.Иванов)

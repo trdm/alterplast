@@ -1,0 +1,56 @@
+// ServerCOM.idl : IDL source for ServerCOM.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (ServerCOM.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+	[
+		object,
+		uuid(03FD46F1-4FEE-4B0B-8B40-1E943652CA08),
+		dual,
+		helpstring("IConnect Interface"),
+		pointer_default(unique)
+	]
+	interface IConnect : IDispatch
+	{
+		[id(1), helpstring("method Test")] HRESULT Test(int a);
+		[id(2), helpstring("method Test2")] HRESULT Test2();
+		[id(3), helpstring("method Test3")] HRESULT Test3(VARIANT A);
+		[propput, id(4), helpstring("property Test4")] HRESULT Test4([in] BSTR newVal);
+		[propput, id(5), helpstring("property Test5")] HRESULT Test5(BSTR A, [in] BSTR newVal);
+		[id(6), helpstring("method Test6")] HRESULT Test6();
+		[id(7), helpstring("method Test7")] HRESULT Test7(BSTR A);
+		[id(8), helpstring("method EvalExpr")] HRESULT EvalExpr(BSTR Str);
+		[id(9), helpstring("method EvalExpr2")] HRESULT EvalExpr2([in]BSTR Str,[out,retval] VARIANT *Ret);
+		[propget, id(10), helpstring("property Test8")] HRESULT Test8([out, retval] BSTR* *pVal);
+		[propput, id(10), helpstring("property Test8")] HRESULT Test8([in] BSTR* newVal);
+		[propget, id(11), helpstring("property Test9")] HRESULT Test9([out, retval] BSTR *pVal);
+		[propput, id(11), helpstring("property Test9")] HRESULT Test9([in] BSTR newVal);
+		[propget, id(12), helpstring("property Test10")] HRESULT Test10([out, retval] VARIANT *pVal);
+		[propput, id(12), helpstring("property Test10")] HRESULT Test10([in] VARIANT newVal);
+		[propget, id(13), helpstring("property Test11")] HRESULT Test11([out, retval] VARIANT* *pVal);
+		[propget, id(14), helpstring("property Array")] HRESULT Array([out, retval] VARIANT *pVal);
+		[propput, id(14), helpstring("property Array")] HRESULT Array([in] VARIANT newVal);
+	};
+
+[
+	uuid(F1598F54-BF00-4950-A11B-C47EC49C824F),
+	version(1.0),
+	helpstring("2C COM Server 1.0 Type Library")
+]
+library SERVERCOMLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(0497D803-C0F6-4E37-9247-6FC0080D1096),
+		helpstring("Connect Class")
+	]
+	coclass Connect
+	{
+		[default] interface IConnect;
+	};
+};

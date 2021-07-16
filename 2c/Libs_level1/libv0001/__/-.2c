@@ -1,0 +1,184 @@
+//Ю.Иванов
+Перем sTo;
+
+//
+//                  by Alexey Bazhitov aka avb
+//                     Moscow,  august 2002 
+//                  mailto: avb@dmitrovka.net
+//
+//-----------------------------------------------------------------------------
+//
+var sSave,cdoAutoPromoteBodyParts,
+cdoFlushBuffersOnWrite,
+cdoHTTPCookies,
+cdoLanguageCode,
+cdoNNTPAccountName,
+cdoNNTPAuthenticate,
+cdoNNTPConnectionTimeout,
+cdoNNTPServer,
+cdoNNTPServerPickupDirectory,
+cdoNNTPServerPort,
+cdoNNTPUseSSL,
+cdoPostEmailAddress,
+cdoPostPassword,
+cdoPostUserName,
+cdoPostUserReplyEmailAddress,
+cdoPostUsingMethod,
+cdoSaveSentItems,
+cdoSendEmailAddress,
+cdoSendPassword,
+cdoSendUserName,
+cdoSendUserReplyEmailAddress,
+cdoSendUsingMethod,
+cdoSMTPAccountName,
+cdoSMTPAuthenticate,
+cdoSMTPConnectionTimeout,
+cdoSMTPServer,
+cdoSMTPServerPickupDirectory,
+cdoSMTPServerPort,
+cdoSMTPUseSSL,
+cdoURLGetLatestVersion,
+cdoURLProxyBypass,
+cdoURLProxyServer,
+cdoUseMessageResponseText; 
+
+
+///////////////////////////////////////////////////////////////////////
+//Процедура обработки нажатия кнопки Закрыть - выполняет закрытие формы
+Процедура ЗакрытьФорму()
+	Форма.Закрыть();
+КонецПроцедуры
+
+///////////////////////////////////////////////////////////////////////
+//Предопределенная процедура - вызывается при первом открытии формы
+Процедура ПриОткрытии()
+	глВосстановитьЗначенияФормы(Контекст);
+КонецПроцедуры
+
+///////////////////////////////////////////////////////////////////////
+//Предопределенная процедура - вызывается при закрытии формы
+Процедура ПриЗакрытии()
+	глЗапомнитьЗначенияФормы(Контекст);
+КонецПроцедуры
+
+///////////////////////////////////////////////////////////////////////
+//Обработка события объекта sAttach
+Процедура РедактированиеSAttach()
+	f=sAttach; d="";
+	fs=СоздатьОбъект("Файловая система"); 
+	if fs.selectFile(0,f,d,"Файл аттачмента","Все файлы (*.*) |*.*")=1 then
+	sAttach=d+f;
+	endif;              
+КонецПроцедуры
+
+//-----------------------------------------------------------------------------
+procedure sendMsg()
+	Если ПустоеЗначение(Автор)=1 Тогда
+		СтрОтКого = """BUG-Report System""<bugreporter@vtools.ru>";
+	Иначе
+		Если Найти(Автор,"@")=0 ИЛИ Найти(Автор,">") ИЛИ Найти(Автор,"<") Тогда
+			СтрОтКого=Автор+" <bugreporter@vtools.ru>";
+		Иначе
+			СтрОтКого=Автор;
+		КонецЕсли
+	КонецЕсли
+	
+	iConf = createObject("CDO.Configuration"); 
+	
+	iConf.fields(cdoSendUsingMethod).value = 2;
+	//cdoSendUsingPickup    1  Send message using the local SMTP service pickup directory. 
+	//cdoSendUsingPort      2  Send the message using the network (SMTP protocol over the
+	//                         network).  
+	//cdoSendUsingExchange  3  Send the message using the Exchange mail submission URI.
+	//                         This URI is found in the user's 
+	//                         urn:schemas:httpmail:sendmsg mailbox folder property. 
+	iConf.fields(cdoSMTPServer).value         = SMTP;
+	iConf.fields(cdoSMTPServerPort).value   	= 25;
+	iConf.fields(cdoSMTPAuthenticate).value   = 0;
+	iConf.fields(cdoSendUserName).value       = "";
+	iConf.fields(CdoSendPassword).value       = "";
+	iConf.fields(cdoSendEmailAddress).value   = СтрОтКого;
+	iConf.fields(cdoSMTPUseSSL).value         = 0;  //Secure Sockets Layer 
+	iConf.fields.update();            
+	
+	iMsg=createObject("CDO.Message");
+	iMsg.configuration = iConf; 
+	
+	iMsg.to=sTo;
+	iMsg.from=СтрОтКого;
+	iMsg.subject="BUG: Level:"+Слайдер+"  "+sSubject; 
+	
+	iMsg.textBody=sBody; 
+	iMsg.textBodypart.charset="iso-8859-5";  //либо "koi8-r"
+	
+	if isBlankString(sAttach)=0 then iMsg.addAttachment(sAttach) endif;
+	if isBlankString(sSave)=0 then
+	stream=iMsg.getStream();
+	stream.saveToFile(sSave,2);   //1 новый 2 перезапись
+	endif;
+	iMsg.send();  
+	Предупреждение("Сообщение отправлено.");
+endProcedure   
+
+
+///////////////////////////////////////////////////////////////////////
+//Обработка события объекта Слайдер
+Процедура ДвижениеСлайдер()
+	Если Слайдер=1 Тогда
+		Инфо.Заголовок("Мелочь, но неприятно");
+	ИначеЕсли Слайдер=2 Тогда
+		Инфо.Заголовок("Пока могу обойтись");
+	ИначеЕсли Слайдер=3 Тогда
+		Инфо.Заголовок("Мешает");
+	ИначеЕсли Слайдер=4 Тогда
+		Инфо.Заголовок("Серьезная ошибка");
+	ИначеЕсли Слайдер=5 Тогда
+		Инфо.Заголовок("Вообще невозможно работать");
+	КонецЕсли
+КонецПроцедуры
+
+
+sSubject="Модуль: ";
+sBody="Ошибка при...";
+
+
+cdoSendPassword              = "http://schemas.microsoft.com/cdo/configuration/sendpassword";      
+cdoSendEmailAddress          = "http://schemas.microsoft.com/cdo/configuration/sendemailaddress";   
+cdoAutoPromoteBodyParts      = "http://schemas.microsoft.com/cdo/configuration/autopromotebodyparts" ;
+cdoFlushBuffersOnWrite       = "http://schemas.microsoft.com/cdo/configuration/flushbufferson;write" ;
+cdoHTTPCookies               = "http://schemas.microsoft.com/cdo/configuration/httpcookies" ;
+cdoLanguageCode              = "http://schemas.microsoft.com/cdo/configuration/languagecode" ;
+cdoNNTPAccountName           = "http://schemas.microsoft.com/cdo/configuration/nntpaccountname" ;
+cdoNNTPAuthenticate          = "http://schemas.microsoft.com/cdo/configuration/nntpauthenticate" ;
+cdoNNTPConnectionTimeout     = "http://schemas.microsoft.com/cdo/configuration/nntpconnectiontimeout" ;
+cdoNNTPServer                = "http://schemas.microsoft.com/cdo/configuration/nntpserver" ;
+cdoNNTPServerPickupDirectory = "http://schemas.microsoft.com/cdo/configuration/nntpserverpickupdirectory" ;
+cdoNNTPServerPort            = "http://schemas.microsoft.com/cdo/configuration/nntpserverport" ;
+cdoNNTPUseSSL                = "http://schemas.microsoft.com/cdo/configuration/nntpusessl" ;
+cdoPostEmailAddress          = "http://schemas.microsoft.com/cdo/configuration/postemailaddress" ;
+cdoPostPassword              = "http://schemas.microsoft.com/cdo/configuration/postpassword" ;
+cdoPostUserName	    		 = "http://schemas.microsoft.com/cdo/configuration/postusername" ;
+cdoPostUserReplyEmailAddress = "http://schemas.microsoft.com/cdo/configuration/postuserreplyemailaddress" ;
+cdoPostUsingMethod           = "http://schemas.microsoft.com/cdo/configuration/postusing" ;
+cdoSaveSentItems             = "http://schemas.microsoft.com/cdo/configuration/savesentitems" ;
+cdoSendEmailAddress          = "http://schemas.microsoft.com/cdo/configuration/sendemailaddress" ;
+cdoSendPassword              = "http://schemas.microsoft.com/cdo/configuration/sendpassword" ;
+cdoSendUserName              = "http://schemas.microsoft.com/cdo/configuration/sendusername" ;
+cdoSendUserReplyEmailAddress = "http://schemas.microsoft.com/cdo/configuration/senduserreplyemailaddress" ;
+cdoSendUsingMethod           = "http://schemas.microsoft.com/cdo/configuration/sendusing" ;
+cdoSMTPAccountName           = "http://schemas.microsoft.com/cdo/configuration/smtpaccountname" ;
+cdoSMTPAuthenticate          = "http://schemas.microsoft.com/cdo/configuration/smtpauthenticate" ;
+cdoSMTPConnectionTimeout     = "http://schemas.microsoft.com/cdo/configuration/smtpconnectiontimeout" ;
+cdoSMTPServer                = "http://schemas.microsoft.com/cdo/configuration/smtpserver";
+cdoSMTPServerPickupDirectory = "http://schemas.microsoft.com/cdo/configuration/smtpserverpickupdirectory";
+cdoSMTPServerPort            = "http://schemas.microsoft.com/cdo/configuration/smtpserverport";
+cdoSMTPUseSSL                = "http://schemas.microsoft.com/cdo/configuration/smtpusessl";
+cdoURLGetLatestVersion       = "http://schemas.microsoft.com/cdo/configuration/urlgetlatestversion";
+cdoURLProxyBypass            = "http://schemas.microsoft.com/cdo/configuration/urlproxybypass";
+cdoURLProxyServer            = "http://schemas.microsoft.com/cdo/configuration/urlproxyserver";
+cdoUseMessageResponseText    = "http://schemas.microsoft.com/cdo/configuration/usemessageresponsetext"; 
+
+
+sSave="";
+sTo="info@vtools.ru";
+SMTP="mail.ultranet.ru";//здесь надо указать Ваш SMTP сервер (Ю.Иванов)

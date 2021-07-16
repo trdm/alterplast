@@ -1,0 +1,84 @@
+// Created by Microsoft (R) C/C++ Compiler Version 12.00.8447.0 (c752530b).
+//
+// TestOLE.tli
+//
+// Wrapper implementations for Win32 type library C:\Visual C++\Basic1C\TestOLE\Debug\TestOLE.ocx
+// compiler-generated file created 09/03/03 at 18:15:33 - DO NOT EDIT!
+
+#pragma once
+
+//
+// dispinterface _DAX001 wrapper method implementations
+//
+
+inline _bstr_t _DAX001::M1 ( short Param1, _bstr_t Param2, long Param3 ) {
+    BSTR _result;
+    _com_dispatch_method(this, 0x1, DISPATCH_METHOD, VT_BSTR, (void*)&_result, 
+        L"\x0002\x0008\x0003", Param1, (BSTR)Param2, Param3);
+    return _bstr_t(_result, false);
+}
+
+//
+// interface IAProba1 wrapper method implementations
+//
+
+inline _bstr_t IAProba1::GetA1 ( int Index ) {
+    BSTR _result;
+    HRESULT _hr = get_A1(Index, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline void IAProba1::PutA1 ( int Index, _bstr_t pVal ) {
+    HRESULT _hr = put_A1(Index, pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline _bstr_t IAProba1::GetA2 ( ) {
+    BSTR _result;
+    HRESULT _hr = get_A2(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline void IAProba1::PutA2 ( _bstr_t pVal ) {
+    HRESULT _hr = put_A2(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline BSTR * IAProba1::GetA3 ( ) {
+    BSTR * _result;
+    HRESULT _hr = get_A3(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IAProba1::PutA3 ( BSTR * pVal ) {
+    HRESULT _hr = put_A3(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline HRESULT IAProba1::M1 ( ) {
+    HRESULT _hr = raw_M1();
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline _bstr_t IAProba1::M2 ( ) {
+    BSTR _result;
+    HRESULT _hr = raw_M2(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline long IAProba1::GetA4 ( int i1, int i2, int i3, int i4 ) {
+    long _result;
+    HRESULT _hr = get_A4(i1, i2, i3, i4, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IAProba1::PutA4 ( int i1, int i2, int i3, int i4, long pVal ) {
+    HRESULT _hr = put_A4(i1, i2, i3, i4, pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}

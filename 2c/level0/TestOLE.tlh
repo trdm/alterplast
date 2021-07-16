@@ -1,0 +1,147 @@
+// Created by Microsoft (R) C/C++ Compiler Version 12.00.8447.0 (c752530b).
+//
+// TestOLE.tlh
+//
+// C++ source equivalent of Win32 type library C:\Visual C++\Basic1C\TestOLE\Debug\TestOLE.ocx
+// compiler-generated file created 09/03/03 at 18:15:33 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("5df36474-86a0-468f-8ed5-de305b64f0ff"))
+/* dispinterface */ _DAX001;
+struct __declspec(uuid("42710834-aa3a-4a20-9f2a-03f133c1de9e"))
+/* dispinterface */ _DAX001Events;
+struct __declspec(uuid("07200ee8-9220-4379-9ffe-845b57e5da81"))
+/* dual interface */ IAProba1;
+struct /* coclass */ AX001;
+struct /* coclass */ AProba1;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(_DAX001, __uuidof(IDispatch));
+_COM_SMARTPTR_TYPEDEF(_DAX001Events, __uuidof(IDispatch));
+_COM_SMARTPTR_TYPEDEF(IAProba1, __uuidof(IAProba1));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("5df36474-86a0-468f-8ed5-de305b64f0ff"))
+_DAX001 : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    // Methods:
+    _bstr_t M1 (
+        short Param1,
+        _bstr_t Param2,
+        long Param3 );
+};
+
+struct __declspec(uuid("42710834-aa3a-4a20-9f2a-03f133c1de9e"))
+_DAX001Events : IDispatch
+{};
+
+struct __declspec(uuid("07200ee8-9220-4379-9ffe-845b57e5da81"))
+IAProba1 : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetA2,put=PutA2))
+    _bstr_t A2;
+    __declspec(property(get=GetA3,put=PutA3))
+    BSTR * A3;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    _bstr_t GetA1 (
+        int Index );
+    void PutA1 (
+        int Index,
+        _bstr_t pVal );
+    _bstr_t GetA2 ( );
+    void PutA2 (
+        _bstr_t pVal );
+    BSTR * GetA3 ( );
+    void PutA3 (
+        BSTR * pVal );
+    HRESULT M1 ( );
+    _bstr_t M2 ( );
+    long GetA4 (
+        int i1,
+        int i2,
+        int i3,
+        int i4 );
+    void PutA4 (
+        int i1,
+        int i2,
+        int i3,
+        int i4,
+        long pVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_A1 (
+        int Index,
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_A1 (
+        int Index,
+        BSTR pVal ) = 0;
+    virtual HRESULT __stdcall get_A2 (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_A2 (
+        BSTR pVal ) = 0;
+    virtual HRESULT __stdcall get_A3 (
+        BSTR * * pVal ) = 0;
+    virtual HRESULT __stdcall put_A3 (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall raw_M1 ( ) = 0;
+    virtual HRESULT __stdcall raw_M2 (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_A4 (
+        int i1,
+        int i2,
+        int i3,
+        int i4,
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall put_A4 (
+        int i1,
+        int i2,
+        int i3,
+        int i4,
+        long pVal ) = 0;
+};
+
+struct __declspec(uuid("425c31b7-2f39-4c44-86b2-67ee37eb74b9"))
+AX001;
+    // [ default ] dispinterface _DAX001
+    // [ default, source ] dispinterface _DAX001Events
+
+struct __declspec(uuid("34a28942-2400-4af3-899c-01711c4fc14a"))
+AProba1;
+    // [ default ] interface IAProba1
+
+//
+// Wrapper method implementations
+//
+
+#include "TestOLE.tli"
+
+#pragma pack(pop)

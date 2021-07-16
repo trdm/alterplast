@@ -1,0 +1,1934 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Russian resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+#ifdef _WIN32
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 245, 189
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "О программе"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,7,7,20,20
+    LTEXT           "2C: Enterprise (release from May 22 2004)",
+                    IDC_ENTERPRISE_NAME,35,10,150,8,SS_NOPREFIX
+    LTEXT           "Copyright (C)  VTOOLS.RU, 2003-2004",IDC_STATIC,35,20,
+                    133,8
+    DEFPUSHBUTTON   "OK",IDOK,188,7,50,14,WS_GROUP
+    LTEXT           "",IDC_DISPLAY_STATIC,7,125,231,61,WS_BORDER
+    CONTROL         "",IDC_STATIC_DBDIR,"Static",SS_LEFTNOWORDWRAP | 
+                    SS_SUNKEN | WS_GROUP,7,39,231,22
+    EDITTEXT        IDC_EDIT_INFO,7,62,231,61,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL
+END
+
+IDD_CHOOSEVALUE DIALOG DISCARDABLE  0, 0, 271, 157
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Выберите значение"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,214,7,50,14
+    PUSHBUTTON      "Отмена",IDCANCEL,214,24,50,14
+    LISTBOX         IDC_CHOOSELIST1,7,7,199,143,LBS_NOINTEGRALHEIGHT | 
+                    LBS_WANTKEYBOARDINPUT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_CHOOSEVALUESMALL DIALOG DISCARDABLE  0, 0, 176, 57
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Выберите значение"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "OK",IDOK,122,7,50,14
+    PUSHBUTTON      "Отмена",IDCANCEL,122,24,50,14
+    LISTBOX         IDC_CHOOSELIST1,7,7,110,44,LBS_OWNERDRAWFIXED | 
+                    LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_FORMOBJECT_FORM DIALOG DISCARDABLE  0, 0, 333, 139
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_OBJECTNAME,7,17,169,15,ES_AUTOHSCROLL
+    EDITTEXT        IDC_OBJECTNAME2,181,17,144,15,ES_AUTOHSCROLL
+    EDITTEXT        IDC_COMMENT,7,49,318,15,ES_AUTOHSCROLL
+    COMBOBOX        IDC_PARENT,199,84,127,52,CBS_DROPDOWNLIST | CBS_SORT | 
+                    NOT WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Идентификатор объекта:",IDC_STATIC,9,7,124,10
+    LTEXT           "Комментарий:",IDC_STATIC,9,36,124,10
+    RTEXT           "Родитель:",IDC_STATIC,147,86,41,8,NOT WS_VISIBLE
+    LTEXT           "Синоним:",IDC_STATIC,181,7,55,9
+    PUSHBUTTON      "Закрыть",IDCLOSEFORM,216,119,48,13
+    DEFPUSHBUTTON   "OK",IDC_OK,278,119,48,13
+    PUSHBUTTON      "Применить",IDC_USE,154,119,48,13
+END
+
+IDD_EDITDIALOG_FORM DIALOG DISCARDABLE  0, 0, 288, 174
+STYLE WS_CHILD | WS_VISIBLE
+FONT 8, "MS Sans Serif"
+BEGIN
+END
+
+IDD_FORMUNIT DIALOG DISCARDABLE  0, 0, 140, 62
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+END
+
+IDD_INPUTSTRING DIALOG DISCARDABLE  0, 0, 320, 53
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Введите строку"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,263,7,50,14
+    PUSHBUTTON      "Отмена",IDCANCEL,263,24,50,14
+    EDITTEXT        IDC_EDIT1,7,7,248,39,ES_MULTILINE | ES_AUTOHSCROLL | 
+                    ES_WANTRETURN | WS_VSCROLL
+END
+
+IDD_DIALOGUNIT DIALOG DISCARDABLE  0, 0, 223, 122
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+END
+
+IDD_DIALOG_GOTOLINE DIALOGEX 0, 0, 156, 47
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Переход по номеру строки"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Перейти",IDOK,99,7,50,14
+    PUSHBUTTON      "Отмена",IDCANCEL,99,24,50,14
+    EDITTEXT        IDC_EDIT1,7,17,80,15,ES_RIGHT | ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    LTEXT           "Введите номер строки:",IDC_STATIC,7,6,84,8
+END
+
+IDD_PROCEDURE_LIST DIALOGEX 80, 50, 214, 162
+STYLE DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_CLIENTEDGE
+CAPTION "Процедуры и функции"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "Custom1",IDC_GRID,"MFCGridCtrl",WS_GROUP | WS_TABSTOP,1,
+                    1,151,160
+    DEFPUSHBUTTON   "Перейти",IDOK,157,9,56,14
+    PUSHBUTTON      "Отмена",IDCANCEL,157,28,56,14
+    CONTROL         "Сортировка",IDC_CHECK_SORT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,157,47,56,14
+    CONTROL         "Все",IDC_RADIO_ALL,"Button",BS_AUTORADIOBUTTON | 
+                    BS_PUSHLIKE | NOT WS_VISIBLE | WS_GROUP,162,127,43,14
+    CONTROL         "Системные",IDC_RADIO_EVENT,"Button",BS_AUTORADIOBUTTON | 
+                    BS_PUSHLIKE | NOT WS_VISIBLE,162,142,43,14
+    LTEXT           "Фильтр:",IDC_STATIC,162,115,41,11,NOT WS_VISIBLE
+END
+
+IDD_MYDATAEXCHANGE_DIALOG DIALOG DISCARDABLE  0, 0, 292, 34
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "MyDataExchange2C"
+FONT 8, "MS Sans Serif"
+BEGIN
+END
+
+IDD_DIALOG_SECTIONS DIALOG DISCARDABLE  0, 0, 234, 156
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Секции"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,177,79,50,14
+    PUSHBUTTON      "Отмена",IDMYCANCEL,177,98,50,14
+    PUSHBUTTON      "Добавить",ID_ADD,177,7,50,14
+    PUSHBUTTON      "Удалить",ID_DEL,177,27,50,14
+    CONTROL         "List1",IDC_TREE1,"SysListView32",WS_BORDER | WS_TABSTOP,
+                    7,7,160,142
+END
+
+IDD_DIALOG2 DIALOG DISCARDABLE  0, 0, 186, 95
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,129,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,129,24,50,14
+END
+
+IDD_FIND_ALL_DIALOG DIALOG DISCARDABLE  0, 0, 298, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Поиск текста во всех модулях конфигурации"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,241,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,241,24,50,14
+    EDITTEXT        IDC_EDIT1,7,7,227,17,ES_AUTOHSCROLL
+    CONTROL         "Различать заглавные и строчные буквы",IDC_CHECK1,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,31,160,10
+END
+
+IDD_LAYERSELECT_FORM DIALOGEX 0, 0, 252, 134
+STYLE DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Слои"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Закрыть",IDCANCEL,195,23,50,14
+    CONTROL         "Custom1",IDC_GRID,"MFCGridCtrl",WS_GROUP | WS_TABSTOP,5,
+                    23,182,102
+    PUSHBUTTON      "Помощь",IDHELP,195,45,50,14,NOT WS_VISIBLE
+END
+
+IDD_DIALOG4 DIALOG DISCARDABLE  0, 0, 321, 142
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,264,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,264,24,50,14
+    CONTROL         "Tab1",IDC_TAB1,"SysTabControl32",TCS_VERTICAL | 
+                    TCS_MULTILINE,7,36,248,91
+    LTEXT           "Static111111 fdddddddddd rrrrrrrrrrrrrr",IDC_STATIC,21,
+                    7,74,21
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT\r\n"
+    "#pragma code_page(1251)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\Enterprise.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#include ""afxprint.rc""       // printing/print preview resources\r\n"
+    "#include ""SyntaxColor\\editres.rc""\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&Файл"
+    BEGIN
+        MENUITEM "&Новый\tCtrl+N",              ID_FILE_NEW
+        MENUITEM "&Открыть...\tCtrl+O",         ID_FILE_OPEN
+        MENUITEM "Сохранить\tCtrl+S",           ID_FILE_SAVE
+        MENUITEM "Сохранить &как...",           ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "Предварительный про&смотр",   ID_FILE_PRINT_PREVIEW
+        MENUITEM "Наст&ройка принтера...",      ID_FILE_PRINT_SETUP
+        MENUITEM "Настройка страницы...",       ID_FILE_PAGE_SETUP
+        MENUITEM "&Печать...\tCtrl+P",          ID_FILE_PRINT
+        MENUITEM "Поиск во всех текстах...",    ID_ALL_FIND
+        MENUITEM SEPARATOR
+        MENUITEM "Последний документ",          ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Выход",                       ID_APP_EXIT
+    END
+    POPUP "&Действия"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
+        MENUITEM "&Redo\tCtrl+Y",               ID_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM "Paste &Special...",           ID_EDIT_PASTE_SPECIAL
+        MENUITEM "&Delete\tDel",                ID_EDIT_DELETE
+        MENUITEM "Select &All\tCtrl+A",         ID_EDIT_SELECT_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "&Find...\tCtrl+F",            ID_EDIT_FIND
+        MENUITEM "Find &Next\tF3",              ID_EDIT_REPEAT
+        MENUITEM "Find Previous\tShift+F3",     ID_EDIT_FIND_PREVIOUS
+        MENUITEM "R&eplace...\tCtrl+H",         ID_EDIT_REPLACE
+        MENUITEM "Format Selection",            ID_FORMAT_BLOCK
+        MENUITEM SEPARATOR
+        MENUITEM "Read &Only",                  ID_READ_ONLY
+        MENUITEM SEPARATOR
+        POPUP "Bookmarks"
+        BEGIN
+            MENUITEM "Clear All bookmarks",         ID_EDIT_CLEAR_BOOKMARKS
+            MENUITEM SEPARATOR
+            MENUITEM "Bookmark 0",                  ID_EDIT_TOGGLE_BOOKMARK0
+            MENUITEM "Bookmark 1",                  ID_EDIT_TOGGLE_BOOKMARK1
+            MENUITEM "Bookmark 2",                  ID_EDIT_TOGGLE_BOOKMARK2
+            MENUITEM "Bookmark 3",                  ID_EDIT_TOGGLE_BOOKMARK3
+            MENUITEM "Bookmark 4",                  ID_EDIT_TOGGLE_BOOKMARK4
+            MENUITEM "Bookmark 5",                  ID_EDIT_TOGGLE_BOOKMARK5
+            MENUITEM "Bookmark 6",                  ID_EDIT_TOGGLE_BOOKMARK6
+            MENUITEM "Bookmark 7",                  ID_EDIT_TOGGLE_BOOKMARK7
+            MENUITEM "Bookmark 8",                  ID_EDIT_TOGGLE_BOOKMARK8
+            MENUITEM "Bookmark 9",                  ID_EDIT_TOGGLE_BOOKMARK9
+        END
+        POPUP "Goto Bookmark"
+        BEGIN
+            MENUITEM "Bookmark 0",                  ID_EDIT_GO_BOOKMARK0
+            MENUITEM "Bookmark 1",                  ID_EDIT_GO_BOOKMARK1
+            MENUITEM "Bookmark 2",                  ID_EDIT_GO_BOOKMARK2
+            MENUITEM "Bookmark 3",                  ID_EDIT_GO_BOOKMARK3
+            MENUITEM "Bookmark 4",                  ID_EDIT_GO_BOOKMARK4
+            MENUITEM "Bookmark 5",                  ID_EDIT_GO_BOOKMARK5
+            MENUITEM "Bookmark 6",                  ID_EDIT_GO_BOOKMARK6
+            MENUITEM "Bookmark 7",                  ID_EDIT_GO_BOOKMARK7
+            MENUITEM "Bookmark 8",                  ID_EDIT_GO_BOOKMARK8
+            MENUITEM "Bookmark 9",                  ID_EDIT_GO_BOOKMARK9
+        END
+        POPUP "More Bookmarks (VC++)"
+        BEGIN
+            MENUITEM "Toggle Bookmark",             ID_EDIT_TOGGLE_BOOKMARK
+            MENUITEM "Next Bookmark",               ID_EDIT_GOTO_NEXT_BOOKMARK
+
+            MENUITEM "Previous bookmark",           ID_EDIT_GOTO_PREV_BOOKMARK
+
+            MENUITEM "Clear All Bookmarks",         ID_EDIT_CLEAR_ALL_BOOKMARKS
+
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Backspace at start of line",  ID_EDIT_DISABLEBSATSOL
+        MENUITEM "Drag-and-drop text editing",  ID_EDIT_DISABLEDRAGANDDROP
+        MENUITEM SEPARATOR
+        MENUITEM "Insert &New Object...",       ID_OLE_INSERT_NEW
+        MENUITEM "Lin&ks...",                   ID_OLE_EDIT_LINKS
+        MENUITEM "Object P&roperties\tAlt+Enter", ID_OLE_EDIT_PROPERTIES
+    END
+    POPUP "&Настройки"
+    BEGIN
+        MENUITEM "&Панель инструментов",        ID_VIEW_TOOLBAR
+        MENUITEM "&Строка состояний",           ID_VIEW_STATUS_BAR
+        MENUITEM "Окно сообщений",              ID_VIEWMESSAGEWINDOW
+        MENUITEM SEPARATOR
+        MENUITEM "Стиль Офис 2000",             ID_VIEW_LIKE_OFFICE_2K
+        MENUITEM "Стиль Офис XP",               ID_VIEW_LIKE_OFFICE_XP
+        POPUP "&Окна"
+        BEGIN
+            MENUITEM "&Каскад",                     ID_WINDOW_CASCADE
+            MENUITEM "&Секции",                     ID_WINDOW_TILE_HORZ
+        END
+    END
+    POPUP "&Помощь"
+    BEGIN
+        MENUITEM "&О программе...",             ID_APP_ABOUT
+        MENUITEM "Подсказка",                   ID_HELP
+    END
+END
+
+_IDR_ENTERPTYPE MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&Файл"
+    BEGIN
+        MENUITEM "&Новый\tCtrl+N",              ID_FILE_NEW
+        MENUITEM "&Открыть...\tCtrl+O",         ID_FILE_OPEN
+        MENUITEM "&Закрыть",                    ID_FILE_CLOSE
+        MENUITEM "&Сохранить\tCtrl+S",          ID_FILE_SAVE
+        MENUITEM "Сохранить &как...",           ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "&Печать...\tCtrl+P",          ID_FILE_PRINT
+        MENUITEM "Предварительный про&смотр",   ID_FILE_PRINT_PREVIEW
+        MENUITEM "Наст&ройка принтера...",      ID_FILE_PRINT_SETUP
+        MENUITEM "Header/Footer...",            ID_FILE_HEADERFOOTER
+        MENUITEM SEPARATOR
+        MENUITEM "Последний документ",          ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Выход",                       ID_APP_EXIT
+    END
+    POPUP "&Действия"
+    BEGIN
+        MENUITEM "Отменить\tCtrl+Z",            ID_EDIT_UNDO
+        MENUITEM "Повторить\tCtrl+R",           ID_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "Удалить\tCtrl+X",             ID_EDIT_CUT
+        MENUITEM "Копировать\tCtrl+C",          ID_EDIT_COPY
+        MENUITEM "&Вставить\tCtrl+V",           ID_EDIT_PASTE
+        MENUITEM "Очистить",                    ID_EDIT_CLEAR
+        MENUITEM SEPARATOR
+        MENUITEM "Раздвинуть",                  ID_EDIT_ADD
+        MENUITEM "Удалить",                     ID_EDIT_DEL
+        MENUITEM SEPARATOR
+        POPUP "Выравнивание"
+        BEGIN
+            MENUITEM "Влево",                       ID_FORMAT_ALIGN_LEFT
+            MENUITEM "Центр",                       ID_FORMAT_ALIGN_CENTER
+            MENUITEM "Вправо",                      ID_FORMAT_ALIGN_RIGHT
+        END
+        POPUP "Стиль"
+        BEGIN
+            MENUITEM "Жирный",                      ID_FORMAT_STYLE_BOLD
+            MENUITEM "Курсив",                      ID_FORMAT_STYLE_ITALIC
+            MENUITEM "Подчеркнутый",                ID_FORMAT_STYLE_UNDERLINE
+
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&Найти...\tAlt+F3",           ID_EDIT_FIND
+        MENUITEM "Заменить...\tCtrl+F3",        ID_EDIT_REPLACE
+        MENUITEM "Найти снова\tF3",             ID_EDIT_REPEAT
+        MENUITEM SEPARATOR
+        MENUITEM "Свойства...",                 ID_FORMAT_CELLS
+    END
+    POPUP "Таблица"
+    BEGIN
+        MENUITEM "Объединить ячейки",           ID_FORMAT_COVERCELLS
+        MENUITEM "Удалить объединение",         ID_FORMAT_REMOVECOVER
+        MENUITEM SEPARATOR
+        MENUITEM "Секции",                      ID_EDIT_SECTIONS
+        MENUITEM "Настройка печати страницы...", ID_FILE_PAGE_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "Удалить все",                 ID_REMOVE_ALL
+    END
+    POPUP "Вид"
+    BEGIN
+        MENUITEM "Сетка",                       ID_EDIT_GRID
+        MENUITEM "Заголовки",                   ID_EDIT_HEADERS
+        MENUITEM "Изменить размер строк",       ID_FORMAT_RESIZEROWS
+        MENUITEM "Изменить размер колонок",     ID_FORMAT_RESIZECOLS
+        MENUITEM "Стили...",                    ID_FORMAT_STYLES
+        MENUITEM SEPARATOR
+        POPUP "Масштаб"
+        BEGIN
+            MENUITEM "Увеличить область",           ID_VIEW_ZOOMIN
+            MENUITEM "Уменьшить область",           ID_VIEW_ZOOMOUT
+            MENUITEM "100%",                        ID_VIEW_100
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Только просмотр",             ID_VIEW_READONLY
+        MENUITEM SEPARATOR
+        MENUITEM "Фиксация",                    ID_EDIT_FREEZE
+        MENUITEM "Зафиксировать колонки",       ID_FORMAT_FREEZECOLS
+        MENUITEM "Разфиксировать колонки",      ID_FORMAT_UNFREEZECOLS
+        MENUITEM "Зафиксировать строки",        ID_FORMAT_FREEZEROWS
+        MENUITEM "Разфиксировать строки",       ID_FORMAT_UNFREEZEROWS
+        MENUITEM SEPARATOR
+        MENUITEM "&Настройка...",               ID_VIEW_PROPERTIES
+    END
+    POPUP "Операции"
+    BEGIN
+        MENUITEM "Журналы документов...",       ID_JURNALDOC
+        MENUITEM SEPARATOR
+        MENUITEM "Справочники...",              ID_SUBCONTO
+        MENUITEM SEPARATOR
+        MENUITEM "Отчеты...",                   ID_REPORTS
+        MENUITEM "Обработки...",                ID_OBRABOTKA
+    END
+    POPUP "&Сервис"
+    BEGIN
+        POPUP "&Панель инструментов"
+        BEGIN
+            MENUITEM "Общая",                       ID_TOOL_EDIT
+            MENUITEM "Таблицы",                     ID_TOOL_GRID
+        END
+        MENUITEM "&Строка состояний",           ID_VIEW_STATUS_BAR
+        MENUITEM "Окно сообщений",              ID_LISTBOXBAR
+    END
+    POPUP "&Окна"
+    BEGIN
+        MENUITEM "&Каскад",                     ID_WINDOW_CASCADE
+        MENUITEM "&Секции",                     ID_WINDOW_TILE_HORZ
+    END
+    POPUP "&Помощь"
+    BEGIN
+        MENUITEM "&О программе...",             ID_APP_ABOUT
+    END
+END
+
+_IDR_FORM1C_TMPL MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&Файл"
+    BEGIN
+        MENUITEM "&Новый\tCtrl+N",              ID_FILE_NEW
+        MENUITEM "&Открыть...\tCtrl+O",         ID_FILE_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "&Сохранить\tCtrl+S",          ID_FILE_SAVE
+        MENUITEM "Сохранить &как...",           ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "Последний документ",          ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Выход",                       ID_APP_EXIT
+    END
+    POPUP "Операции"
+    BEGIN
+        MENUITEM "Журналы документов...",       ID_JURNALDOC
+        MENUITEM SEPARATOR
+        MENUITEM "Справочники...",              ID_SUBCONTO
+        MENUITEM SEPARATOR
+        MENUITEM "Отчеты...",                   ID_REPORTS
+        MENUITEM "Обработки...",                ID_OBRABOTKA
+    END
+    POPUP "&Сервис"
+    BEGIN
+        POPUP "&Панель инструментов"
+        BEGIN
+            MENUITEM "Общая",                       ID_TOOL_EDIT
+            MENUITEM "Таблицы",                     ID_TOOL_GRID
+        END
+        MENUITEM "&Строка состояний",           ID_VIEW_STATUS_BAR
+        MENUITEM "Окно сообщений",              ID_LISTBOXBAR
+    END
+    POPUP "&Окна"
+    BEGIN
+        MENUITEM "&Каскад",                     ID_WINDOW_CASCADE
+        MENUITEM "&Секции",                     ID_WINDOW_TILE_HORZ
+    END
+    POPUP "&Помощь"
+    BEGIN
+        MENUITEM "&О программе...",             ID_APP_ABOUT
+    END
+END
+
+_IDR_TEXTTYPE MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&Файл"
+    BEGIN
+        MENUITEM "&Новый\tCtrl+N",              ID_FILE_NEW
+        MENUITEM "&Открыть...\tCtrl+O",         ID_FILE_OPEN
+        MENUITEM "&Закрыть",                    ID_FILE_CLOSE
+        MENUITEM "&Сохранить\tCtrl+S",          ID_FILE_SAVE
+        MENUITEM "Сохранить &как...",           ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "&Печать...\tCtrl+P",          ID_FILE_PRINT
+        MENUITEM "Предварительный про&смотр",   ID_FILE_PRINT_PREVIEW
+        MENUITEM "Наст&ройка принтера...",      ID_FILE_PRINT_SETUP
+        MENUITEM "Header/Footer...",            ID_FILE_HEADERFOOTER
+        MENUITEM SEPARATOR
+        MENUITEM "Последний документ",          ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Выход",                       ID_APP_EXIT
+    END
+    POPUP "&Действия"
+    BEGIN
+        MENUITEM "Отменить\tCtrl+Z",            ID_EDIT_UNDO
+        MENUITEM "Повторить\tCtrl+R",           ID_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "Удалить\tCtrl+X",             ID_EDIT_CUT
+        MENUITEM "Копировать\tCtrl+C",          ID_EDIT_COPY
+        MENUITEM "&Вставить\tCtrl+V",           ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "&Найти...\tAlt+F3",           ID_EDIT_FIND
+        MENUITEM "Заменить...\tCtrl+F3",        ID_EDIT_REPLACE
+        MENUITEM "Найти снова\tF3",             ID_EDIT_REPEAT
+    END
+    POPUP "Операции"
+    BEGIN
+        MENUITEM "Журналы документов...",       ID_JURNALDOC
+        MENUITEM SEPARATOR
+        MENUITEM "Справочники...",              ID_SUBCONTO
+        MENUITEM SEPARATOR
+        MENUITEM "Отчеты...",                   ID_REPORTS
+        MENUITEM "Обработки...",                ID_OBRABOTKA
+    END
+    POPUP "&Сервис"
+    BEGIN
+        POPUP "&Панель инструментов"
+        BEGIN
+            MENUITEM "Общая",                       ID_TOOL_EDIT
+            MENUITEM "Таблицы",                     ID_TOOL_GRID
+        END
+        MENUITEM "&Строка состояний",           ID_VIEW_STATUS_BAR
+        MENUITEM "Окно сообщений",              ID_LISTBOXBAR
+    END
+    POPUP "&Окна"
+    BEGIN
+        MENUITEM "&Каскад",                     ID_WINDOW_CASCADE
+        MENUITEM "&Секции",                     ID_WINDOW_TILE_HORZ
+    END
+    POPUP "&Помощь"
+    BEGIN
+        MENUITEM "&О программе...",             ID_APP_ABOUT
+    END
+END
+
+IDR_METADATATREE MENU DISCARDABLE 
+BEGIN
+    POPUP "--------------"
+    BEGIN
+        MENUITEM "Новый",                       IDR_NEW, GRAYED
+        MENUITEM "Новая группа",                IDR_NEW_FOLDER
+        MENUITEM "Изменить",                    IDR_EDIT, GRAYED
+        MENUITEM "Удалить",                     IDR_REMOVE, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Сохранить как внешнюю форму (обработку)", ID_SAVEFORM
+        , GRAYED
+        MENUITEM "Заменить на внешнюю форму",   ID_REPLACEFORM, GRAYED
+        MENUITEM "Вставить внешнюю форму (обработку)", ID_INSERT_FORM
+        , GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Свойства",                    ID_PROPERTY, GRAYED
+    END
+    POPUP "--------------"
+    BEGIN
+        MENUITEM "Новый",                       IDR_NEW, GRAYED
+        MENUITEM "Новая группа",                IDR_NEW_FOLDER
+        MENUITEM "Изменить",                    IDR_EDIT, GRAYED
+        MENUITEM "Удалить",                     IDR_REMOVE, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Открыть модуль исполнения",   ID_MODULE_RUN, GRAYED
+        MENUITEM "Открыть модуль конфигурирования", ID_MODULE_CONFIG, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Сохранить как внешнюю форму (обработку)", ID_SAVEFORM
+        , GRAYED
+        MENUITEM "Заменить на внешнюю форму",   ID_REPLACEFORM, GRAYED
+        MENUITEM "Вставить внешнюю форму (обработку)", ID_INSERT_FORM
+        , GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Свойства",                    ID_PROPERTY, GRAYED
+    END
+END
+
+IDR_SAMPLETYPE MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&Файл"
+    BEGIN
+        MENUITEM "&Новый\tCtrl+N",              ID_FILE_NEW
+        MENUITEM "&Открыть...\tCtrl+O",         ID_FILE_OPEN
+        MENUITEM "Сохранить\tCtrl+S",           ID_FILE_SAVE
+        MENUITEM "Сохранить &как...",           ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "Предварительный про&смотр",   ID_FILE_PRINT_PREVIEW
+        MENUITEM "Наст&ройка принтера...",      ID_FILE_PRINT_SETUP
+        MENUITEM "Настройка страницы...",       ID_FILE_PAGE_SETUP
+        MENUITEM "&Печать...\tCtrl+P",          ID_FILE_PRINT
+        MENUITEM "Поиск во всех текстах...",    ID_ALL_FIND
+        MENUITEM SEPARATOR
+        MENUITEM "Последний документ",          ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Выход",                       ID_APP_EXIT
+    END
+    POPUP "&Действия"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
+        MENUITEM "&Redo\tCtrl+Y",               ID_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM "Paste &Special...",           ID_EDIT_PASTE_SPECIAL
+        MENUITEM "&Delete\tDel",                ID_EDIT_DELETE
+        MENUITEM "Select &All\tCtrl+A",         ID_EDIT_SELECT_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "&Find...\tCtrl+F",            ID_EDIT_FIND
+        MENUITEM "Find &Next\tF3",              ID_EDIT_REPEAT
+        MENUITEM "Find Previous\tShift+F3",     ID_EDIT_FIND_PREVIOUS
+        MENUITEM "R&eplace...\tCtrl+H",         ID_EDIT_REPLACE
+        MENUITEM "Format Selection",            ID_FORMAT_BLOCK
+        MENUITEM SEPARATOR
+        MENUITEM "Read &Only",                  ID_READ_ONLY
+        MENUITEM SEPARATOR
+        POPUP "Bookmarks"
+        BEGIN
+            MENUITEM "Clear All bookmarks",         ID_EDIT_CLEAR_BOOKMARKS
+            MENUITEM SEPARATOR
+            MENUITEM "Bookmark 0",                  ID_EDIT_TOGGLE_BOOKMARK0
+            MENUITEM "Bookmark 1",                  ID_EDIT_TOGGLE_BOOKMARK1
+            MENUITEM "Bookmark 2",                  ID_EDIT_TOGGLE_BOOKMARK2
+            MENUITEM "Bookmark 3",                  ID_EDIT_TOGGLE_BOOKMARK3
+            MENUITEM "Bookmark 4",                  ID_EDIT_TOGGLE_BOOKMARK4
+            MENUITEM "Bookmark 5",                  ID_EDIT_TOGGLE_BOOKMARK5
+            MENUITEM "Bookmark 6",                  ID_EDIT_TOGGLE_BOOKMARK6
+            MENUITEM "Bookmark 7",                  ID_EDIT_TOGGLE_BOOKMARK7
+            MENUITEM "Bookmark 8",                  ID_EDIT_TOGGLE_BOOKMARK8
+            MENUITEM "Bookmark 9",                  ID_EDIT_TOGGLE_BOOKMARK9
+        END
+        POPUP "Goto Bookmark"
+        BEGIN
+            MENUITEM "Bookmark 0",                  ID_EDIT_GO_BOOKMARK0
+            MENUITEM "Bookmark 1",                  ID_EDIT_GO_BOOKMARK1
+            MENUITEM "Bookmark 2",                  ID_EDIT_GO_BOOKMARK2
+            MENUITEM "Bookmark 3",                  ID_EDIT_GO_BOOKMARK3
+            MENUITEM "Bookmark 4",                  ID_EDIT_GO_BOOKMARK4
+            MENUITEM "Bookmark 5",                  ID_EDIT_GO_BOOKMARK5
+            MENUITEM "Bookmark 6",                  ID_EDIT_GO_BOOKMARK6
+            MENUITEM "Bookmark 7",                  ID_EDIT_GO_BOOKMARK7
+            MENUITEM "Bookmark 8",                  ID_EDIT_GO_BOOKMARK8
+            MENUITEM "Bookmark 9",                  ID_EDIT_GO_BOOKMARK9
+        END
+        POPUP "More Bookmarks (VC++)"
+        BEGIN
+            MENUITEM "Toggle Bookmark",             ID_EDIT_TOGGLE_BOOKMARK
+            MENUITEM "Next Bookmark",               ID_EDIT_GOTO_NEXT_BOOKMARK
+
+            MENUITEM "Previous bookmark",           ID_EDIT_GOTO_PREV_BOOKMARK
+
+            MENUITEM "Clear All Bookmarks",         ID_EDIT_CLEAR_ALL_BOOKMARKS
+
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Backspace at start of line",  ID_EDIT_DISABLEBSATSOL
+        MENUITEM "Drag-and-drop text editing",  ID_EDIT_DISABLEDRAGANDDROP
+        MENUITEM SEPARATOR
+        MENUITEM "Insert &New Object...",       ID_OLE_INSERT_NEW
+        MENUITEM "Lin&ks...",                   ID_OLE_EDIT_LINKS
+        MENUITEM "Object P&roperties\tAlt+Enter", ID_OLE_EDIT_PROPERTIES
+    END
+    POPUP "&Настройки"
+    BEGIN
+        MENUITEM "&Панель инструментов",        ID_VIEW_TOOLBAR
+        MENUITEM "&Строка состояний",           ID_VIEW_STATUS_BAR
+        MENUITEM "Окно сообщений",              ID_VIEWMESSAGEWINDOW
+        MENUITEM SEPARATOR
+        MENUITEM "Стиль Офис 2000",             ID_VIEW_LIKE_OFFICE_2K
+        MENUITEM "Стиль Офис XP",               ID_VIEW_LIKE_OFFICE_XP
+        POPUP "&Окна"
+        BEGIN
+            MENUITEM "&Каскад",                     ID_WINDOW_CASCADE
+            MENUITEM "&Секции",                     ID_WINDOW_TILE_HORZ
+        END
+    END
+    POPUP "&Помощь"
+    BEGIN
+        MENUITEM "&О программе...",             ID_APP_ABOUT
+        MENUITEM "Подсказка",                   ID_HELP
+    END
+END
+
+_IDR_EDITDIALOG_TMPL MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM "&Close",                      ID_FILE_CLOSE
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
+        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
+        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&New Window",                 ID_WINDOW_NEW
+        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
+        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
+        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About MDI1...",              ID_APP_ABOUT
+    END
+END
+
+IDR_ALL_EDIT_MENU MENU DISCARDABLE 
+BEGIN
+    POPUP "Module - menu"
+    BEGIN
+        MENUITEM "Вырезать\tCtrl+X",            ID_EDIT_CUT, GRAYED
+        MENUITEM "Копировать\tCtrl+C",          ID_EDIT_COPY, GRAYED
+        MENUITEM "&Вставить\tCtrl+V",           ID_EDIT_PASTE, GRAYED
+        MENUITEM "Удалить\tDel",                IDR_REMOVE, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Свойства",                    ID_PROPERTY, GRAYED
+        MENUITEM "Перейти...",                  ID_EDIT_GOTO, GRAYED
+    END
+    POPUP "Grid - menu"
+    BEGIN
+        MENUITEM "Добавить колонку",            ID_ADD_COLUMN
+        MENUITEM "Удалить колонку",             ID_DEL_COLUMN
+        MENUITEM SEPARATOR
+        MENUITEM "Переместить влево",           ID_LEFT_COLUMN
+        MENUITEM "Переместить вправо",          ID_RIGHT_COLUMN
+        MENUITEM SEPARATOR
+        MENUITEM "Свойства колонки",            ID_PROP_COLUMN
+    END
+    POPUP "CSwitcherButton"
+    BEGIN
+        MENUITEM "Закрыть",                     ID_CLOSE
+    END
+    POPUP "Form - menu"
+    BEGIN
+        MENUITEM "Вырезать\tCtrl+X",            ID_EDIT_CUT, GRAYED
+        MENUITEM "Копировать\tCtrl+C",          ID_EDIT_COPY, GRAYED
+        MENUITEM "&Вставить\tCtrl+V",           ID_EDIT_PASTE, GRAYED
+        MENUITEM "Удалить\tDel",                IDR_REMOVE, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Поместить вверх",             ID_BRING_TO_FRONT
+        MENUITEM "Поместить вниз",              ID_SEND_TO_BACK
+        MENUITEM SEPARATOR
+        POPUP "Выровн&ять"
+        BEGIN
+            MENUITEM "По левому краю",              ID_DYNBUTTONLEFTALIGN
+            MENUITEM "По правому краю",             ID_DYNBUTTONRIGHTALIGN
+            MENUITEM "По верхнему краю",            ID_DYNBUTTONTOPALIGN
+            MENUITEM "По нижнему краю",             ID_DYNBUTTONBOTTOMALIGN
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Свойства",                    ID_PROPERTY, GRAYED
+    END
+END
+
+IDR_GRID_CONTEXT MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "Отменить\tCtrl+Z",            ID_EDIT_UNDO
+        MENUITEM "Повторить\tCtrl+R",           ID_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "Вырезать\tCtrl+X",            ID_EDIT_CUT
+        MENUITEM "Копировать\tCtrl+C",          ID_EDIT_COPY
+        MENUITEM "Вставить\tCtrl+V",            ID_EDIT_PASTE
+        MENUITEM "Очистить",                    ID_EDIT_CLEAR
+        MENUITEM SEPARATOR
+        MENUITEM "Раздвинуть",                  ID_EDIT_ADD
+        MENUITEM "Удалить",                     ID_EDIT_DEL
+        MENUITEM "Секции",                      ID_GRID_SECTION
+        MENUITEM SEPARATOR
+        MENUITEM "Сетка",                       ID_GRID_SETKA
+        MENUITEM "Заголовки",                   ID_GRID_HEADER
+        MENUITEM "Только просмотр",             ID_GRID_READONLY
+        MENUITEM "Фиксация",                    ID_EDIT_FREEZE
+        MENUITEM SEPARATOR
+        MENUITEM "Свойства...",                 ID_FORMAT_CELLS
+    END
+END
+
+IDR_LAYERSELECT_TMPL MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM "&Close",                      ID_FILE_CLOSE
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
+        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
+        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&New Window",                 ID_WINDOW_NEW
+        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
+        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
+        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About MDI1...",              ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 238
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 182
+    END
+
+    IDD_FORMOBJECT_FORM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 326
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 132
+    END
+
+    IDD_EDITDIALOG_FORM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 281
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 167
+    END
+
+    IDD_FORMUNIT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 133
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_INPUTSTRING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 313
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 46
+    END
+
+    IDD_DIALOGUNIT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 216
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 115
+    END
+
+    IDD_DIALOG_GOTOLINE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 149
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 40
+    END
+
+    IDD_PROCEDURE_LIST, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 161
+    END
+
+    IDD_MYDATAEXCHANGE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 285
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 27
+    END
+
+    IDD_DIALOG_SECTIONS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 227
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 149
+    END
+
+    IDD_DIALOG2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+
+    IDD_FIND_ALL_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 291
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_LAYERSELECT_FORM, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 245
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 127
+    END
+
+    IDD_DIALOG4, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 314
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 135
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_EDIT_SECTIONS       BITMAP  DISCARDABLE     "res\\bmp00002.bmp"
+IDB_EDIT_SECTION_DEL    BITMAP  DISCARDABLE     "res\\edit_sec.bmp"
+IDB_EDIT_SECTION_ADD    BITMAP  DISCARDABLE     "res\\edit_pas.bmp"
+IDB_EDIT_PASTE          BITMAP  DISCARDABLE     "res\\bmp00001.bmp"
+IDB_EDIT_LOCK           BITMAP  DISCARDABLE     "res\\bmp00005.bmp"
+IDB_EDIT_HEADERS        BITMAP  DISCARDABLE     "res\\bmp00004.bmp"
+IDB_EDIT_GRID           BITMAP  DISCARDABLE     "res\\bmp00003.bmp"
+IDB_EDIT_FREEZE         BITMAP  DISCARDABLE     "res\\bmp00006.bmp"
+IDB_EDIT_CUT            BITMAP  DISCARDABLE     "res\\edit_cut.bmp"
+IDB_EDIT_COPY           BITMAP  DISCARDABLE     "res\\edit_cop.bmp"
+IDB_JURNALDOC           BITMAP  DISCARDABLE     "res\\jurnaldo.bmp"
+IDB_SUBCONTO            BITMAP  DISCARDABLE     "res\\bmp00009.bmp"
+IDB_REPORTS             BITMAP  DISCARDABLE     "res\\bmp00007.bmp"
+IDB_OBRABOTKA           BITMAP  DISCARDABLE     "res\\bmp00008.bmp"
+IDB_FORMAT_COVERCELLS   BITMAP  DISCARDABLE     "res\\bitmap1.bmp"
+IDB_CALCBTN             BITMAP  DISCARDABLE     "res\\calc.bmp"
+IDB_DROPCBTN            BITMAP  DISCARDABLE     "res\\calcbtn1.bmp"
+IDB_CHOSECBTN           BITMAP  DISCARDABLE     "res\\dropcbtn.bmp"
+IDB_BITMAP1             BITMAP  DISCARDABLE     "bitmap2.bmp"
+IDB_BITMAP2             BITMAP  DISCARDABLE     "bmp00001.bmp"
+IDB_BITMAP3             BITMAP  DISCARDABLE     "bitmap4.bmp"
+IDB_MENU_BUTTON         BITMAP  DISCARDABLE     "DocumentBar_src\\MenuButton.bmp"
+IDR_MODULE              BITMAP  MOVEABLE PURE   "res\\module.bmp"
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\module1.bmp"
+IDR_EDITBAR             BITMAP  DISCARDABLE     "res\\dyntoolbar.bmp"
+IDB_BITMAP4             BITMAP  DISCARDABLE     "Пиктограмки.bmp"
+IDB_BITMAP5             BITMAP  DISCARDABLE     "res\\bitmap5.bmp"
+IDR_CONFIGTOOLBAR       BITMAP  MOVEABLE PURE   "res\\configto.bmp"
+IDB_BITMAP6             BITMAP  DISCARDABLE     "res\\bitmap6.bmp"
+IDB_BITMAP7             BITMAP  DISCARDABLE     "res\\bitmap7.bmp"
+IDB_BITMAP8             BITMAP  DISCARDABLE     "res\\bitmap8.bmp"
+IDR_TOOLBAR1            BITMAP  DISCARDABLE     "res\\toolbar1.bmp"
+IDR_LAYER               BITMAP  DISCARDABLE     "res\\toolbar2.bmp"
+IDB_EDIT_NEW            BITMAP  DISCARDABLE     "res\\bmp00010.bmp"
+IDB_EDIT                BITMAP  DISCARDABLE     "res\\edit_new.bmp"
+IDB_EDIT_MAKET          BITMAP  DISCARDABLE     "res\\bmp00011.bmp"
+IDB_EDIT_FORM           BITMAP  DISCARDABLE     "res\\edit_mak.bmp"
+IDB_EDIT_MODULE         BITMAP  DISCARDABLE     "res\\edit_for.bmp"
+IDB_EDIT_DOC            BITMAP  DISCARDABLE     "res\\bmp00012.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MODULE TOOLBAR DISCARDABLE  16, 15
+BEGIN
+    BUTTON      ID_EDIT_TOGGLE_BOOKMARK
+    BUTTON      ID_EDIT_GOTO_NEXT_BOOKMARK
+    BUTTON      ID_EDIT_GOTO_PREV_BOOKMARK
+    BUTTON      ID_EDIT_CLEAR_ALL_BOOKMARKS
+    SEPARATOR
+    BUTTON      ID_BUTTONCOMMENT
+    BUTTON      ID_BUTTONDELCOMMENT
+    SEPARATOR
+    BUTTON      ID_BUTTON_COMPILE
+    BUTTON      ID_BUTTON_RUN
+    BUTTON      ID_BUTTONGOTOLINE
+    BUTTON      ID_BUTTONPROC
+    BUTTON      ID_FORMAT_BLOCK
+    SEPARATOR
+    BUTTON      ID_GRID_COVERED
+    SEPARATOR
+    BUTTON      ID_GRID_ADD_SECTION
+    BUTTON      ID_GRID_SECTION_REMOVE
+    BUTTON      ID_GRID_SECTION
+    BUTTON      ID_GRID_SETKA
+    BUTTON      ID_GRID_HEADER
+    BUTTON      ID_GRID_VIEW_SECTION
+    BUTTON      ID_GRID_READONLY
+    SEPARATOR
+    BUTTON      ID_EDIT_DEBUG_POINT
+    BUTTON      ID_NEXT_DEBUG_OVER
+    BUTTON      ID_NEXT_DEBUG
+    BUTTON      ID_RUN_DEBUG
+    SEPARATOR
+    BUTTON      ID_PAUSE_DEBUG
+    BUTTON      ID_STOP_DEBUG
+    BUTTON      ID_STOP_PROGRAM
+END
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    BUTTON      ID_FILE_PRINT
+    BUTTON      ID_FILE_PRINT_PREVIEW
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_EDIT_UNDO
+    BUTTON      ID_EDIT_REDO
+    SEPARATOR
+    BUTTON      ID_EDIT_FIND
+    BUTTON      ID_EDIT_REPEAT
+    BUTTON      ID_EDIT_FIND_PREVIOUS
+    BUTTON      ID_EDIT_REPLACE
+    SEPARATOR
+    BUTTON      ID_CONFIG
+    SEPARATOR
+    BUTTON      ID_HELP_SEARCH_COMBO
+    BUTTON      ID_APP_ABOUT
+    SEPARATOR
+    BUTTON      ID_VIEWMESSAGEWINDOW
+END
+
+IDR_EDITBAR TOOLBAR DISCARDABLE  17, 16
+BEGIN
+    BUTTON      ID_DYNBUTTONLEFTALIGN
+    BUTTON      ID_DYNBUTTONRIGHTALIGN
+    BUTTON      ID_DYNBUTTONTOPALIGN
+    BUTTON      ID_DYNBUTTONBOTTOMALIGN
+    SEPARATOR
+    BUTTON      ID_CNTERINVIEW_HORIZ
+    BUTTON      ID_CNTERINVIEW_VERT
+    SEPARATOR
+    BUTTON      ID_DYNBUTTONMAKESAMEWIDTH
+    BUTTON      ID_DYNBUTTONMAKESAMEHEIGHT
+    BUTTON      ID_DYNBUTTONMAKESAMESIZE
+    SEPARATOR
+    BUTTON      ID_EDIT_GRID
+    BUTTON      ID_EDIT_ALLIGN_GRID
+    BUTTON      ID_LAYERS
+    SEPARATOR
+    BUTTON      ID_DYNBUTTONCHECK
+    BUTTON      ID_DYNBUTTONRADIO
+    BUTTON      ID_DYNBUTTON
+    BUTTON      ID_DYNBUTTONLISTBOX
+    BUTTON      ID_DYNBUTTONCOMBO
+    BUTTON      ID_DYNBUTTONGROUP
+    BUTTON      ID_DYNBUTTONLABEL
+    BUTTON      ID_DYNBUTTONEDIT
+    BUTTON      ID_DYNBUTTONGRID
+    BUTTON      ID_DYNBUTTONTREE
+    BUTTON      ID_BUTTONPROGRESS
+    BUTTON      ID_BUTTONSLIDER
+    BUTTON      ID_BUTTONFORMOBJECT
+    BUTTON      ID_BUTTON_TAB
+    SEPARATOR
+    BUTTON      ID_BRING_TO_FRONT
+    BUTTON      ID_SEND_TO_BACK
+END
+
+IDR_CONFIGTOOLBAR TOOLBAR DISCARDABLE  16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    BUTTON      ID_FILE_PRINT
+    BUTTON      ID_FILE_PRINT_PREVIEW
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_EDIT_UNDO
+    BUTTON      ID_EDIT_REDO
+    SEPARATOR
+    BUTTON      ID_EDIT_FIND
+    BUTTON      ID_EDIT_REPEAT
+    BUTTON      ID_EDIT_FIND_PREVIOUS
+    BUTTON      ID_EDIT_REPLACE
+    SEPARATOR
+    BUTTON      ID_ENTERPRISE
+    SEPARATOR
+    BUTTON      ID_HELP_SEARCH_COMBO
+    BUTTON      ID_APP_ABOUT
+    SEPARATOR
+    BUTTON      ID_OPENCONFIG
+    BUTTON      ID_VIEWMESSAGEWINDOW
+    BUTTON      ID_VIEW_STACK
+    BUTTON      ID_VIEWDEBUGMESSAGEWINDOW
+    BUTTON      ID_PROPERTYBAR
+END
+
+IDR_TOOLBAR1 TOOLBAR DISCARDABLE  16, 15
+BEGIN
+    BUTTON      ID_GRID_COVERED
+    SEPARATOR
+    BUTTON      ID_GRID_ADD_SECTION
+    BUTTON      ID_GRID_SECTION_REMOVE
+    BUTTON      ID_GRID_SECTION
+    BUTTON      ID_GRID_SETKA
+    BUTTON      ID_GRID_HEADER
+    BUTTON      ID_GRID_VIEW_SECTION
+    BUTTON      ID_GRID_READONLY
+END
+
+IDR_LAYER TOOLBAR DISCARDABLE  16, 16
+BEGIN
+    BUTTON      ID_NEW_LAYER
+    BUTTON      ID_EDIT_LAYER
+    BUTTON      ID_DEL_LAYER
+    SEPARATOR
+    BUTTON      ID_UP_LAYER
+    BUTTON      ID_DOWN_LAYER
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "A",            ID_SELECT_ALL,          VIRTKEY, CONTROL, NOINVERT
+    "B",            ID_FORMAT_STYLE_BOLD,   VIRTKEY, CONTROL, NOINVERT
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    "D",            ID_VIEW_DESCRIPTION,    VIRTKEY, ALT, NOINVERT
+    "F",            ID_VIEW_FORM,           VIRTKEY, ALT, NOINVERT
+    "K",            ID_FORMAT_STYLE_ITALIC, VIRTKEY, CONTROL, NOINVERT
+    "L",            ID_BUTTONGOTOLINE,      VIRTKEY, ALT, NOINVERT
+    "L",            ID_BUTTONGOTOLINE,      VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    "M",            ID_VIEW_MODULE,         VIRTKEY, ALT, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL, NOINVERT
+    "P",            ID_BUTTONPROC,          VIRTKEY, ALT, NOINVERT
+    "R",            ID_EDIT_REDO,           VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_BACK,        ID_EDIT_REDO,           VIRTKEY, CONTROL, NOINVERT
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
+    VK_DIVIDE,      ID_BUTTONCOMMENT,       VIRTKEY, CONTROL, NOINVERT
+    VK_DIVIDE,      ID_BUTTONDELCOMMENT,    VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    VK_F10,         ID_NEXT_DEBUG_OVER,     VIRTKEY, NOINVERT
+    VK_F11,         ID_ENTERPRISE,          VIRTKEY, NOINVERT
+    VK_F2,          IDR_EDIT,               VIRTKEY, NOINVERT
+    VK_F3,          ID_EDIT_REPEAT,         VIRTKEY, NOINVERT
+    VK_F3,          ID_EDIT_FIND,           VIRTKEY, CONTROL, NOINVERT
+    VK_F3,          ID_EDIT_REPLACE,        VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    VK_F5,          ID_BUTTON_RUN,          VIRTKEY, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+    VK_F7,          ID_BUTTON_COMPILE,      VIRTKEY, NOINVERT
+    VK_F8,          ID_NEXT_DEBUG,          VIRTKEY, NOINVERT
+    VK_F8,          ID_FORMAT_BLOCK,        VIRTKEY, ALT, NOINVERT
+    VK_F9,          ID_EDIT_DEBUG_POINT,    VIRTKEY, NOINVERT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON_SHORTCUT       ICON    DISCARDABLE     "res\\icon1.ico"
+IDR_MAIN0               ICON    DISCARDABLE     "res\\idr_main.ico"
+IDR_FORM1C_TMPL         ICON    DISCARDABLE     "res\\Dialog.ico"
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\Enterprise.ico"
+IDR_ENTERPTYPE          ICON    DISCARDABLE     "res\\EnterpriseDoc.ico"
+IDR_TEXTTYPE            ICON    DISCARDABLE     "res\\PADDOC.ICO"
+IDR_SAMPLETYPE          ICON    DISCARDABLE     "res\\idr_samp.ico"
+IDD_METAOBJECT          ICON    DISCARDABLE     "res\\ico00001.ico"
+IDR_FORMOBJECT_TMPL     ICON    DISCARDABLE     "mdi.ico"
+IDI_PROPERTY            ICON    DISCARDABLE     "res\\ico00002.ico"
+IDR_EDITDIALOG_TMPL     ICON    DISCARDABLE     "res\\idr_edit.ico"
+IDR_FORMEDITOR          ICON    DISCARDABLE     "res\\ico00003.ico"
+IDR_HELP                ICON    DISCARDABLE     "res\\idr_help.ico"
+IDR_METADATATREE        ICON    DISCARDABLE     "res\\idr_meta.ico"
+IDR_LAYERSELECT_TMPL    ICON    DISCARDABLE     "res\\idr_laye.ico"
+IDS_RTF_TYPE            ICON    DISCARDABLE     "res\\idr_ente.ico"
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "Enterprise MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Enterprise\0"
+            VALUE "LegalCopyright", "VTOOLS.RU (info@vtools.ru), 2001-2003\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "Enterprise.exe\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "Enterprise Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_FORMOBJECT_FORM DLGINIT
+BEGIN
+    IDC_PARENT, 0x403, 10, 0
+0xeed0, 0xe8e4, 0xe5f2, 0xfceb, 0x0031, 
+    IDC_PARENT, 0x403, 10, 0
+0xeed0, 0xe8e4, 0xe5f2, 0xfceb, 0x0032, 
+    IDC_PARENT, 0x403, 10, 0
+0xeed0, 0xe8e4, 0xe5f2, 0xfceb, 0x0033, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_POINTER_DRAG        CURSOR  DISCARDABLE     "arrow.cur"
+IDC_BUTTONCURSOR        CURSOR  DISCARDABLE     "res\\groupcur.cur"
+_EMPTY256               CURSOR  DISCARDABLE     "res\\empty256.cur"
+IDC_CHECKCURSOR         CURSOR  DISCARDABLE     "res\\_empty25.cur"
+IDC_COMBOCURSOR         CURSOR  DISCARDABLE     "res\\combocur.cur"
+IDC_DATECURSOR          CURSOR  DISCARDABLE     "res\\cur00001.cur"
+IDC_EDITCURSOR          CURSOR  DISCARDABLE     "res\\cur00002.cur"
+IDC_GROUPCURSOR         CURSOR  DISCARDABLE     "res\\cur00003.cur"
+IDC_LABELCURSOR         CURSOR  DISCARDABLE     "res\\_empty26.cur"
+IDC_GRIDCURSOR          CURSOR  DISCARDABLE     "res\\cur00004.cur"
+IDC_LISTCURSOR          CURSOR  DISCARDABLE     "res\\listcurs.cur"
+IDC_RADIOCURSOR         CURSOR  DISCARDABLE     "res\\cur00005.cur"
+IDC_TREECURSOR          CURSOR  DISCARDABLE     "res\\cur00006.cur"
+IDC_POINTER_DRAG2       CURSOR  DISCARDABLE     "res\\pointer_.cur"
+IDC_PROGRESS            CURSOR  DISCARDABLE     "res\\cur00007.cur"
+IDC_SLIDER              CURSOR  DISCARDABLE     "res\\cur00008.cur"
+IDC_CURSOR2             CURSOR  DISCARDABLE     "res\\cursor2.cur"
+IDC_CURSOR3             CURSOR  DISCARDABLE     "res\\cursor3.cur"
+IDC_FORMOBJECT          CURSOR  DISCARDABLE     "res\\cur00009.cur"
+IDC_POINTER_DRAG3       CURSOR  DISCARDABLE     "res\\cur00010.cur"
+IDC_BUTTON_TAB          CURSOR  DISCARDABLE     "res\\cur00011.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "Информация о программе и авторских правах\nAbout"
+    ID_APP_EXIT             "Выйти из программы\nExit"
+    ID_APP_ABOUT2           "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT2            "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Расположить окна каскадом\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Расположить окна неперекрывающимися секциями\nTile Windows"
+    ID_WINDOW_CASCADE2      "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ2    "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_TILE_VERT2    "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_SPLIT2        "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_SEC_CALC_BUT5       "7"
+    IDS_SEC_CALC_BUT6       "8"
+    IDS_SEC_CALC_BUT7       "9"
+    IDS_SEC_CALC_BUT8       "/"
+    IDS_SEC_CALC_BUT9       "4"
+    IDS_SEC_CALC_BUT10      "5"
+    IDS_SEC_CALC_BUT11      "6"
+    IDS_SEC_CALC_BUT12      "*"
+    IDS_SEC_CALC_BUT13      "1"
+    IDS_SEC_CALC_BUT14      "2"
+    IDS_SEC_CALC_BUT15      "3"
+    IDS_SEC_CALC_BUT16      "-"
+    IDS_SEC_CALC_BUT17      "0"
+    IDS_SEC_CALC_BUT18      "+"
+    IDS_SEC_CALC_EXTPT      "0"
+    IDS_SEC_SBAR_TIP1       "Hide docked window"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_SEC_CALC_CHCK       "T"
+    IDS_SEC_CALC_BUT1       "C"
+    IDS_SEC_CALC_BUT2       "CE"
+    IDS_SEC_CALC_BUT3       "<-"
+    IDS_SEC_CALC_BUT4       "%"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Показать или спрятать панель инструментов"
+    ID_VIEW_STATUS_BAR      "Показать или спрятать строку состояний"
+    ID_VIEW_TOOLBAR2        "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR2     "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_SEC_CALC_TEXTPT     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Очистить область"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Копировать выделенный фрагмент в буфер обмена\nСкопировать"
+    ID_EDIT_CUT             "Удалить выделенную область в буфер обмена\nУдалить"
+    ID_EDIT_COPY2           "Найти текст\nНайти"
+    ID_EDIT_PASTE           "Вставить из буфера обмена\nВставить"
+    ID_EDIT_CUT2            "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND2           "Find the specified text\nFind"
+    ID_EDIT_PASTE2          "Найти снова\nНайти снова"
+    ID_EDIT_REPEAT2         "Найти и заменить\nНайти и заменить"
+    ID_EDIT_REPLACE2        "Replace specific text with different text\nReplace"
+    ID_EDIT_UNDO            "Отменить последнее действие\nОтменить"
+    ID_EDIT_SELECT_ALL2     "Повторить последнее действие\nПовторить"
+    ID_EDIT_UNDO2           "Undo the last action\nUndo"
+    ID_EDIT_REDO2           "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "Создать новый документ\nНовый"
+    ID_FILE_OPEN            "Открыть существующий документ\nОткрыть"
+    ID_FILE_CLOSE           "Закрыть активный документ\nClose"
+    ID_FILE_SAVE            "Записать активный документ\nСохранить"
+    ID_FILE_SAVE_AS         "Сохранить активный документ под другим именем\nSave As"
+    ID_FILE_NEW2            "Настроить режим печати страницы"
+    ID_FILE_PRINT_SETUP     "Изменить опиции принтера\nPrint Setup"
+    ID_FILE_PRINT           "Напечатать активный документ\nПечать"
+    ID_FILE_OPEN2           "Open an existing document\nOpen"
+    ID_FILE_PRINT_PREVIEW   "е как будет печататься страница на принтере\nPrint Preview"
+    ID_FILE_CLOSE2          "Close the active document\nClose"
+    ID_FILE_SAVE2           "Save the active document\nSave"
+    ID_FILE_SAVE_AS2        "Save the active document with a new name\nSave As"
+    ID_FILE_PAGE_SETUP2     "Change the printing options\nPage Setup"
+    ID_FILE_PRINT_SETUP2    "Change the printer and printing options\nPrint Setup"
+    ID_FILE_PRINT2          "Print the active document\nPrint"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "Открыть этот документ"
+    ID_FILE_PRINT_PREVIEW2  "Display full pages\nPrint Preview"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "2C:Предприятие 1.0"
+    IDR_ENTERPTYPE          "\nТаблица\nТаблица\nФайлы таблиц 1С (*.mxl)\n.mxl\nMyEnterprise.Document\nMy Enterprise Document"
+    IDC_EDIT1               "Показать или спрятать панель инструментов редактора форм\nПанель инструментов формы"
+    IDR_SAMPLETYPE          "\nМодуль\nМодуль\nМодуль 2C (*.2c)\n.2c\n2C.Document\n2C Document"
+    IDS_DOC_SELECTOR        "Показать или спрятать панель выбора окон\nПанель окон"
+    IDS_RTF_TYPE            "\nТекст\nТекст\nФормат RTF (*.rtf)\n.rtf\nТекст\nRTF File Type\nRTF\nRTF Files\n"
+    IDR_TEXTTYPE            "\nТекст\nТекст\nТекст (*.txt)\n.txt\nТекст\nTEXT File Type\nTEXT\nText Files\n"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "Новый"
+    AFX_IDS_IDLEMESSAGE     "Для получения подсказки нажмите F1"
+    AFX_IDS_APP_TITLE2      "sample1"
+    AFX_IDS_IDLEMESSAGE2    "Ready"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_GRIDBAR_GRIDBOX     "Grid\nGrid"
+    IDC_TABBAR_TABBOX       "Tab Window\nTab Window"
+    IDC_COMBO_FIND          "Поиск"
+    IDR_MYFORM_TMPL         "\nМетаданные\nМетаданные\nMetadata Files (*.md2)\n.md2\nMetadata.Document\nMetadata Document"
+    ID_VIEW_RESIZABLE_BAR_1 "ID_VIEW_RESIZABLE_BAR_1"
+    IDS_WINDOW_WINDOWS      """&Windows..."""
+    IDR_FORM1C_TMPL         "\nФорма\nФорма\nФорма 2C (*.fd)\n.fd\nFD.2C-Document\n2C-Document"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_MRC_MDIFLOAT         "Перемещать в главном окне"
+    ID_FORMAT_CELLS         "Свойства ячеек"
+    ID_DYNBUTTONRADIO       "Вставить переключатель\nВставить переключатель"
+    ID_DYNBUTTONDATE        "Вставить реквизит типа Дата\nВставить дату"
+    ID_FORMAT_FREEZEROWS    "Сделать строки неподвижными при скроллинге"
+    ID_FORMAT_UNFREEZEROWS  "Разрешить скроллинг для строк"
+    ID_FORMAT_STYLES        "Изменить стили"
+    ID_EDIT_SECTIONS        "Показать используемые секции таблицы"
+    ID_EDIT_HEADERS         "Вывести загловок таблицы с номерами строк и колонок"
+    ID_DYNBUTTONLISTBOX     "Вставить список\nВставить список"
+    ID_EDIT_FREEZE          "Сделать колонки неподвижными при скроллинге"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_ADD             "Вставить новую строку или колонку"
+    ID_EDIT_DEL             "Удалить строку или колонку"
+    ID_VIEW_GRID            "Показать/убрать сетку таблицы"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_MRC_STARTDOCKING    " "
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_HEADERFOOTER    "Change the head- and footlines for printing\nHead-/Footlines"
+    ID_VIEW_PROPERTIES      "Изменить свойства представления таблицы"
+    ID_FORMAT_FREEZECOLS    "Сделать колонки неподвижными при скроллинге"
+    ID_MRC_CLEAR            "Очистить"
+    ID_FORMAT_UNFREEZECOLS  "Разрешить скроллинг для колонок"
+    ID_MRC_ALLOWDOCKING     "Разрешить закрепление"
+    ID_MRC_HIDE             "Спрятать"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_READONLY        "Установить - сбросить режим ""Только просмотр"""
+    ID_FORMAT_COVERCELLS    "Объединить ячейки"
+    ID_FORMAT_ALIGN_LEFT    "Выровнять влево"
+    ID_FORMAT_ALIGN_CENTER  "Выровнять по центру"
+    ID_FORMAT_ALIGN_RIGHT   "Выровнять вправо"
+    ID_VIEW_USERACTIONS     "Change Grid-Settings\nSettings"
+    ID_FORMAT_REMOVECOVER   "Убрать объединение ячеек"
+    ID_FORMAT_STYLE_BOLD    "Жирный"
+    ID_FORMAT_STYLE_ITALIC  "Курсив"
+    ID_VIEW_SPLITTERVIEW    "Display the current view in a splitter window\nDisplay Splitter"
+    ID_FORMAT_STYLE_UNDERLINE "Подчеркнутый"
+    ID_VIEW_GRIDBAR         "Show or hide the grid bar\nToggle GridBar"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_TABBAR          "Открыть список отчетов"
+    ID_VIEW_DIALOGBAR       "Открыть список журналов документов"
+    ID_VIEW_ZOOMIN          "Увеличить видимую область"
+    ID_VIEW_WYSIWIG         "Display cells as they will be printed."
+    ID_EDIT_REMOVEROWS      "Remove selected Rows"
+    ID_FORMAT_LOOKUP        "Show the composed style for the current cell including all base styles.\nLookup Cell"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_GRID            "Показать сетку таблицы\nПоказать сетку таблицы"
+    ID_REPORTS              "Открыть список отчетов"
+    ID_OBRABOTKA            "Открыть список обработок"
+    ID_JURNALDOC            "Открыть список журналов документов"
+    ID_SUBCONTO             "Открыть список справочников"
+    IDC_MAIN_MENU           "Показать или спрятать главное меню программы\nГлавное меню "
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_LISTBOXBAR           "Показать или спрятать окно сообщений"
+    IDR_MAIN_TOOLBAR        "Показать или спрятать общую панель инструментов программы\nОбщая панель инструментов"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FORMAT_RESIZEROWS    "Изменить размер строк согласно их контексту"
+    ID_FORMAT_RESIZECOLS    "Изменить размер колонок согласно их контексту"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+    AFX_IDS_MDICHILD        "Activate this window"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_PREVIEW_CLOSE   "Close print preview mode\nCancel Preview"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEWMESSAGEWINDOW    "Показать или спрятать окно сообщений\nОкно сообщений"
+    ID_VIEWDEBUGMESSAGEWINDOW 
+                            "Показать или спрятать окно отладки\nОкно отладки"
+    ID_BUTTON_RUN           "Выполнить модуль (F5)\nВыполнить модуль"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_STACK           "Показать или спрятать окно стека вызова\nСтек вызова процедур"
+    ID_BUTTON_ENTERPRISE    "Перезапуск конфигурации"
+    ID_BUTTON_COMPILE       "Синтаксический контроль модуля (F7)\nСинтаксический контроль"
+    ID_PROPERTY             "Свойства объекта"
+    ID_SEND_TO_BACK         "Поместить вниз"
+    ID_BRING_TO_FRONT       "Поместить вверх"
+    ID_CNTERINVIEW_VERT     "Отцентрировать выделенные объекты по вертикали\nОтцентрировать по вертикали"
+    ID_CNTERINVIEW_HORIZ    "Отцентрировать выделенные объекты по горизонтали\nОтцентрировать по горизонтали"
+    ID_DYNBUTTON            "Вставить кнопку\nВставить кнопку"
+    ID_PROPERTYBAR          "Показать или спрятать окно свойств"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FORMAT_BLOCK         "Отформатировать выделенную часть текста (Alt + F8)\nОтформатировать текст"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_INDICATOR_COL   "========="
+    ID_EDIT_INDICATOR_READ  "Read"
+    ID_EDIT_INDICATOR_CRLF  "========"
+    ID_EDIT_INDICATOR_POSITION "============"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDR_FORMOBJECT_TMPL     "\nFormObject\nFormOb\n\n.for\nFormObject.Document\nFormOb Document"
+    IDR_EDITDIALOG_TMPL     "\nEditDialog\nEditDi\nEditDi Files (*.edi)\n.edi\nEditDialog.Document\nEditDi Document"
+    IDR_LAYERSELECT_TMPL    "\nLayerSelect\nLayerS\nLayerS Files (*.lay)\n.lay\nLayerSelect.Document\nLayerS Document"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_SEC_TBOX_WNDT       "Toolbox"
+    IDS_SEC_TBOX_MENU1      "&Refresh"
+    IDS_SEC_TBOX_MENU2      "&Customize"
+    IDS_SEC_TBOX_TTIP       "Select Tool"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_DYNBUTTONEDIT        "Вставить реквизит диалога\nВставить реквизит диалога"
+    ID_USE_GRID             "Привязывать диалоговые элементы к сетке\nПривязывать диалоговые элементы к сетке"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDR_HELP                "\nHelp 2C\nHelp 2C\nHelp 2C (*.chm)\n.chm\nchm.2C Document\n2C Document"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_CONFIG               "Запустить среду конфигурирования\nЗапустить среду конфигурирования"
+    ID_ENTERPRISE           "Запустить среду исполнения\nЗапустить среду исполнения"
+    ID_DYNBUTTONGRID        "Вставить таблицу\nВставить таблицу"
+    ID_DYNBUTTONTREE        "Вставить дерево\nВставить дерево"
+    ID_OPENCONFIG           "Открыть дерево метаданных текущей конфигурации\nОткрыть дерево метаданных"
+    ID_INSERT_FORM          "Вставить из файла"
+    ID_BUTTONPROGRESS       "Вставить прогрессор\nВставить индикатор"
+    ID_BUTTONSLIDER         "Вставить слайдер\nВставить слайдер"
+    ID_BUTTONCOMMENT        "Добавить комментарий (Ctrl + Num /)\nДобавить комментарий"
+    ID_BUTTONDELCOMMENT     "Удалить комментарий (Ctrl + Shift + Num /)\nУдалить комментарий"
+    ID_BUTTONPROC           "Процедуры и функции модуля (Alt + P)\nПроцедуры и функции"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_TOGGLE_BOOKMARK "Установить/снять закладку (Alt+F2)\nУстановить/снять закладку"
+    ID_EDIT_GOTO_NEXT_BOOKMARK "Следующая закладка (F2)\nСледующая закладка"
+    ID_EDIT_GOTO_PREV_BOOKMARK 
+                            "Предыдущая закладка (Shift+F2)\nПредыдущая закладка"
+    ID_EDIT_CLEAR_ALL_BOOKMARKS "Убрать все закладки\nУбрать закладки"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_BUTTONGOTOLINE       "Переход к строке (Alt + L)\nПереход к строке"
+    ID_BUTTONFORMAT         "ID_FORMAT_BLOCK Отформатировать выделенную часть текста"
+    ID_VIEW_LIKE_OFFICE_2K  "Установить стиль меню и объектов подобный Офису 2000\nУстановить стиль меню и объектов подобный Офису 2000"
+    ID_VIEW_LIKE_OFFICE_XP  "Установить стиль меню и объектов подобный Офису XP\nУстановить стиль меню и объектов подобный Офису XP"
+    ID_EDIT_DEBUG_POINT     "Поставить точку останова программы\nТочка останова"
+    ID_NEXT_DEBUG           "Шагнуть в F8\nШагнуть в"
+    ID_NEXT_DEBUG_OVER      "Шагнуть через F10\nШагнуть через"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_DYNBUTTONGROUP       "Вставить рамку группы\nВставить рамку"
+    ID_DYNBUTTONLEFTALIGN   "Выровнять влево по активному элементу\nВыровнять влево"
+    ID_DYNBUTTONTOPALIGN    "Выровнять вверх по активному элементу\nВыровнять вверх"
+    ID_DYNBUTTONBOTTOMALIGN "Выровнять вниз по активному элементу\nВыровнять вниз"
+    ID_DYNBUTTONMAKESAMEWIDTH 
+                            "Сделать выделенные объекты одной ширины\nОдной ширины"
+    ID_DYNBUTTONMAKESAMEHEIGHT 
+                            "Сделать выделенные объекты одной высоты\nОдной высоты"
+    ID_DYNBUTTONMAKESAMESIZE 
+                            "Сделать выделенные объекты одного размера\nОдного размера"
+    ID_DYNBUTTONRIGHTALIGN  "Выровнять вправо по активному элементу\nВыровнять вправо"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_DYNBUTTONLABEL       "Вставить текст\nВставить текст"
+    ID_DYNBUTTONCOMBO       "Вставить поле со списком\nВставить поле со списком"
+    ID_DYNBUTTONCHECK       "Вставить флажок\nВставить флажок"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_FIND_PREVIOUS   "Найти вверх\nНайти вверх"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDR_MODULE              "Показать или спрятать панель инструментов модуля\nПанель инструментов модуля"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_RUN_DEBUG            "Выполнить модуль (F5)\nВыполнить модуль"
+    ID_PAUSE_DEBUG          "Приостановить выполнение среды исполнения\nПриостановить выполнение"
+    ID_STOP_DEBUG           "Прервать выполнение модуля\nПрервать выполнение"
+    ID_STOP_PROGRAM         "Остановить и закрыть среду исполнения\nЗакрытие среды исполнения"
+    ID_BUTTONFORMOBJECT     "Вставить микроформу\nВставить объект из списка общих форм"
+    ID_POST_SHOW            "ID_POST_SHOW"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_OLE_INSERT_NEW       "Insert new embedded object\nNew Object"
+    ID_OLE_EDIT_LINKS       "Edit linked objects\nEdit Links"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_OLE_VERB_FIRST       "Activate embedded or linked object"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_GOTO            "Перейти по ссылке"
+    ID_CLOSE                "Закрыть активное окно"
+    ID_GRID_COVERED         "Объединение ячеек"
+    ID_GRID_ADD_SECTION     "Включить в секцию"
+    ID_GRID_                "Исключить из секции"
+    ID_GRID_SECTION         "Показать используемые секции таблицы"
+    ID_BUTTON33080          "Сетка"
+    ID_GRID_HEADER          "Заголовки"
+    ID_GRID_READONLY        "Установить / сбросить режим ""Только просмотр"""
+    ID_GRID_SECTION_REMOVE  "Исключить из секции"
+    ID_GRID_SETKA           "Показать сетку таблицы\nПоказать сетку таблицы"
+    ID_GRID_VIEW_SECTION    "Показывать секции"
+    ID_ALL_FIND             "Поиск текста во всех модулях конифгурации"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_BUTTON_TAB           "Вставить закладку\nВставить закладки для интерактивного выбора слоя пользователем"
+END
+
+#endif    // Russian resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_CMN_DOWNARROW       BITMAP  DISCARDABLE     "RES\\DARROW.BMP"
+IDB_CMN_RIGHTARROW      BITMAP  DISCARDABLE     "RES\\RARROW.BMP"
+IDB_ELB_ADD             BITMAP  DISCARDABLE     "RES\\elb_add.bmp"
+IDB_ELB_DELETE          BITMAP  DISCARDABLE     "RES\\elb_del.bmp"
+IDB_ELB_DOWN            BITMAP  DISCARDABLE     "RES\\elb_down.bmp"
+IDB_ELB_UP              BITMAP  DISCARDABLE     "RES\\elb_up.bmp"
+IDB_NEXTMONTH           BITMAP  DISCARDABLE     "RES\\NEXTMONT.BMP"
+IDB_NEXTYEAR            BITMAP  DISCARDABLE     "RES\\NEXTYR.BMP"
+IDB_PREVMONTH           BITMAP  DISCARDABLE     "RES\\PREVMONT.BMP"
+IDB_PREVYEAR            BITMAP  DISCARDABLE     "RES\\PREVYR.BMP"
+IDB_SECCALCEQUALS       BITMAP  DISCARDABLE     "RES\\calceql.bmp"
+SEC_IDB_CHECK           BITMAP  DISCARDABLE     "RES\\check.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_CNTR_INPLACE ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+    VK_ESCAPE,      ID_CANCEL_EDIT_CNTR,    VIRTKEY, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_PAN_OVERVIEW        CURSOR  DISCARDABLE     "RES\\PAN_HAND.CUR"
+IDC_TOOLBAR_DRAGADD     CURSOR  DISCARDABLE     "RES\\dragadd.cur"
+IDC_TOOLBAR_HORZDRAG    CURSOR  DISCARDABLE     "RES\\horzdrag.cur"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_MULTILINEEDITCURSOR CURSOR  DISCARDABLE     "res\\multieditcurs.cur"
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+#endif //_WIN32
+#include "res\Enterprise.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#include "afxprint.rc"       // printing/print preview resources
+#include "SyntaxColor\editres.rc"
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

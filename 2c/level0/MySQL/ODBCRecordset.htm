@@ -1,0 +1,759 @@
+<html>
+
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="Author" CONTENT="Stefan Tchekanov">
+<meta Name="description" Content="CODBCRecordset class">
+<meta Name="keywords" Content="MFC C++ Database">
+<title>CODBCRecordset class</title>
+</head>
+
+<body bgcolor="#ffffff" text="#000000">
+
+<h3 align="center"><font COLOR="#000000">CODBCRecordset class</font></h3>
+
+<p align="center">CODBCRecordset class is intended to be full replacement of all
+ClassWizard generated CRecordset derived classes in MFC projects. </p>
+
+<hr>
+<!-- Author and contact details -->
+
+<p>This article was contributed by <a href="mailto:stefant@iname.com">Stefan Tchekanov</a>.<br>
+Platform: VC 5.0 &amp; VC 6.0
+
+<ul>
+  <li><a href="##intro">Introduction</a> </li>
+  <li><a href="##examples">Examples of how to use </a><a href="##how_works">CODBCRecordset</a>
+  </li>
+  <li><a href="##how_works">How does CODBCRecordset work?</a> </li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><a name="#intro"></a><big><strong>Introduction</strong></big></p>
+
+<p>In a usual MFC database project we have a lot of CRecordset derived classes generated
+by ClassWizrad. The presented here CODBCRecordset class is a very easy to use replacement
+of all these CRecordset classes. CODBCRecordset is derived from CRecordset but it does not
+have hardcoded inside the number and the type of the database fields.</p>
+
+<p>I have seen some implementations trying to solve this problem. But CODBCRecordset has
+at least two advantages: 
+
+<ol>
+  <li>CODBCRecordset can be used not only to get values from the database, but to write values
+    into the database too using the MFC way.</li>
+  <li>The other implementations canot open simultaneously more than one recordset trough one
+    database connection when the database is MS SQL Server. In some cases this could be very
+    big problem because opening a new connection is time and resources expensive.</li>
+</ol>
+
+<p>Because CODBCRecordset is derived from CRecordset and uses its data exchange mechanism
+it is fully compatible with MFC ODBC class CDatabase.</p>
+
+<p>Each field value is stored in a CDBField object. CDBField class is inherited from
+CDBVariant and has added some extra functionality to be easy to use.</p>
+
+<p>CODBCRecordset and CDBField classes support all database data types. CDBField makes
+implicit type conversion where is appropriate to supply the data in the requested format.</p>
+
+<p>Here is a list of CODBCRecordset and CDBField methods:</p>
+
+<table border="1" width="100%" cellspacing="0">
+  <tr>
+    <td colspan="2" align="center" bgcolor="#C0C0C0"><a name="#class_rset"></a><strong>CODBCRecordset
+    class</strong></td>
+  </tr>
+  <tr>
+    <td width="32%">Constructor</td>
+    <td width="68%">The same as for CRecordset accepting CDatabase*</td>
+  </tr>
+  <tr>
+    <td width="32%">BOOL Open( LPCTSTR lpszSQL,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    UINT nOpenType,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    DWORD dwOptions );</td>
+    <td width="68%">Open the recordset<br>
+    <strong>lpszSQL</strong> is a SQL statement that returns recordset<br>
+    e.g. SELECT * FROM tablename<br>
+    <strong>nOpenType</strong> is CRecordset open type, see CRecordset::Open()<br>
+    <strong>dwOptions</strong> is CRecordset options, see CRecordset::Open()<p>Note that
+    lpszSQL and nOpenType have exchanged their positions compared to CRecordset::Open()</td>
+  </tr>
+  <tr>
+    <td width="32%">short&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GetODBCFieldCount()</td>
+    <td width="68%">Returns number of the fields (columns) in the recordset. This method is
+    defined in CRecordset.</td>
+  </tr>
+  <tr>
+    <td width="32%">int &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    GetFieldID( LPCTSTR )</td>
+    <td width="68%">Returns a field index by given field name. It is case insensitive.
+    CRecordset::GetFieldIndexByName() works, but is case sensitive.</td>
+  </tr>
+  <tr>
+    <td width="32%">CString&nbsp;&nbsp;&nbsp;GetFieldName( int )</td>
+    <td width="68%">Returns a field name by given field index</td>
+  </tr>
+  <tr>
+    <td width="32%">CDBField&amp;&nbsp;&nbsp; Field( LPCTSTR )<br>
+    CDBField&amp;&nbsp;&nbsp; Field( int )</td>
+    <td width="68%">Through this method you can get a reference to the internal CDBField
+    object corresponding to the specified column (See the <a href="##class_dbfield">CDBField
+    class</a> table for details about CDBField).<p>There are two forms of the method - with
+    argument of type <strong>LPCTSTR szName</strong> - specifying the name of the column, and <strong>int
+    nID</strong> - specifying the index of the coulmn in the recordset.</p>
+    <p>These methods can be used as lvalue in expressions. Thus you can write values to the
+    database.</td>
+  </tr>
+  <tr>
+    <td width="32%">CDBField&amp;&nbsp;&nbsp; operator( LPCTSTR )<br>
+    CDBField&amp;&nbsp;&nbsp; operator( int )</td>
+    <td width="68%">The function operator is defined for easy of use of the class and just
+    calls the corresponding Field() method<p>There are two forms of the function operator -
+    with argument of type <strong>LPCTSTR szName</strong> - specifying the name of the column,
+    and <strong>int nID</strong> - specifying the index of the coulmn in the recordset.</p>
+    <p>These can be used as lvalue in expressions. Thus you can write values to the database.</td>
+  </tr>
+  <tr>
+    <td width="32%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">GetBool()</td>
+      </tr>
+      <tr>
+        <td width="50%">unsigned char</td>
+        <td width="50%">GetChar()</td>
+      </tr>
+      <tr>
+        <td width="50%">short</td>
+        <td width="50%">GetShort()</td>
+      </tr>
+      <tr>
+        <td width="50%">int</td>
+        <td width="50%">GetInt()</td>
+      </tr>
+      <tr>
+        <td width="50%">long</td>
+        <td width="50%">GetLong()</td>
+      </tr>
+      <tr>
+        <td width="50%">float</td>
+        <td width="50%">Getfloat()</td>
+      </tr>
+      <tr>
+        <td width="50%">double</td>
+        <td width="50%">GetDouble()</td>
+      </tr>
+      <tr>
+        <td width="50%">COleDateTime</td>
+        <td width="50%">GetDate()</td>
+      </tr>
+      <tr>
+        <td width="50%">CString</td>
+        <td width="50%">GetString()</td>
+      </tr>
+      <tr>
+        <td width="50%">CLongBinary*</td>
+        <td width="50%">GetBinary()</td>
+      </tr>
+    </table>
+    </td>
+    <td width="68%">All of these methods do the appropriate type conversions depending on
+    their return value and the type of the underlying data in the database.<p>These methods
+    just call Field().AsXXX()<br>
+    (See the <a href="##class_dbfield">CDBField class</a> table for details about CDBField).</p>
+    <p>There are two forms of these methods - with argument of type <strong>LPCTSTR szName</strong>
+    - specifying the name of the column, and <strong>int nID</strong> - specifying the index
+    of the coulmn in the recordset.</p>
+    <p>These cannot be used as lvalue in expressions.</td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<table border="1" width="100%" cellspacing="0">
+  <tr>
+    <td width="32%" colspan="2" align="center" bgcolor="#C0C0C0"><a name="#class_dbfield"></a><strong>CDBField
+    class</strong></td>
+  </tr>
+  <tr>
+    <td width="32%">Constructors</td>
+    <td width="68%">No public constructors. CDBField cannot be instantiated except by
+    CODBCRecordset to be used in internal structures to support data exchange. These objects
+    are accessible through CODBCRecordset methods.</td>
+  </tr>
+  <tr>
+    <td width="32%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">AsBool()</td>
+      </tr>
+      <tr>
+        <td width="50%">unsigned char</td>
+        <td width="50%">AsChar()</td>
+      </tr>
+      <tr>
+        <td width="50%">short</td>
+        <td width="50%">AsShort()</td>
+      </tr>
+      <tr>
+        <td width="50%">int</td>
+        <td width="50%">AsInt()</td>
+      </tr>
+      <tr>
+        <td width="50%">long</td>
+        <td width="50%">AsLong()</td>
+      </tr>
+      <tr>
+        <td width="50%">float</td>
+        <td width="50%">AsFloat()</td>
+      </tr>
+      <tr>
+        <td width="50%">double</td>
+        <td width="50%">AsDoble()</td>
+      </tr>
+      <tr>
+        <td width="50%">COleDateTime</td>
+        <td width="50%">AsDate()</td>
+      </tr>
+      <tr>
+        <td width="50%">CString</td>
+        <td width="50%">AsString()</td>
+      </tr>
+      <tr>
+        <td width="50%">CLongBinary*</td>
+        <td width="50%">AsBinary()</td>
+      </tr>
+    </table>
+    </td>
+    <td width="68%">All of these methods do the appropriate type conversions depending on
+    their return value and the type of the underlying data in the database (See the <a
+    href="##conv_asxxx">AsXXX methods</a> table for data conversion rules).<p>There is no data
+    type <em>Int</em> but <strong>AsInt()</strong> is equal to <strong>AsLong()</strong></td>
+  </tr>
+  <tr>
+    <td width="32%">assignment operators</td>
+    <td width="68%">There are defined assignment operators accepting <strong>boo</strong>l, <strong>unsigned
+    char</strong>, <strong>short</strong>, <strong>int</strong>, <strong>long</strong>, <strong>COleDateTime</strong>
+    and <strong>CString</strong>. So CDBField objects can be lvalues. There is no assignemt
+    operator accepting CLongBinary because MFC does not support writing CLongBinary values
+    into database. These assignment operators do appropriate conversions to the underlying
+    database column data type except CLongBinary (See the <a href="##conv_assign">assignment
+    operators</a> table for data conversion rules).</td>
+  </tr>
+  <tr>
+    <td width="32%">const&nbsp;&nbsp;&nbsp; CString&amp;&nbsp;&nbsp;&nbsp; GetName()</td>
+    <td width="68%">Returns the field name this object corresponds to.</td>
+  </tr>
+  <tr>
+    <td width="32%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">IsNull()</td>
+      </tr>
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">IsBool()</td>
+      </tr>
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">IsChar()</td>
+      </tr>
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">IsShort()</td>
+      </tr>
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">IsInt()</td>
+      </tr>
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">IsLong()</td>
+      </tr>
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">IsFloat()</td>
+      </tr>
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">IsDouble()</td>
+      </tr>
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">IsNumber()</td>
+      </tr>
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">IsDate()</td>
+      </tr>
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">IsString()</td>
+      </tr>
+      <tr>
+        <td width="50%">bool</td>
+        <td width="50%">IsBinary()</td>
+      </tr>
+    </table>
+    </td>
+    <td width="68%">Each of these return true if the field contains a value of the
+    corresponding data type.<br>
+    <p>There is no data type <em>Number</em> but <strong>IsNumber()</strong> returns true if <strong>IsShort()
+    || IsLong() || IsFloat() || IsDouble()</strong>.</p>
+    <p>There is no data type <em>Int</em> but <strong>IsInt()</strong> returns true if <strong>IsLong()</strong>
+    returns true.</td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<table border="1" width="100%" cellspacing="0" cellpadding="2">
+  <tr>
+    <td colspan="11" bgcolor="#C0C0C0"><p align="center"><a name="#conv_asxxx"></a><strong>Conversions
+    made by AsXXX methods</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#800000">&nbsp;</td>
+    <td colspan="10" bgcolor="#008000"><p align="center"><font color="#FFFFFF"><strong>Values
+    in the database</strong></font></td>
+  </tr>
+  <tr>
+    <td width="10%" bgcolor="#800000">&nbsp;</td>
+    <td width="10%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>NULL</strong></font></td>
+    <td width="10%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>BOOL</strong></font></td>
+    <td width="10%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>UCHAR</strong></font></td>
+    <td width="10%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>SHORT</strong></font></td>
+    <td width="10%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>LONG</strong></font></td>
+    <td width="10%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>SINGLE</strong></font></td>
+    <td width="10%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>DOUBLE</strong></font></td>
+    <td width="10%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>DATE</strong></font></td>
+    <td width="10%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>STRING</strong></font></td>
+    <td width="10%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>BINARY</strong></font></td>
+  </tr>
+  <tr>
+    <td width="10%" bgcolor="#800000"><font color="#FFFFFF"><strong>AsBool</strong></font></td>
+    <td width="10%">false</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="10%" bgcolor="#800000"><font color="#FFFFFF"><strong>AsChar</strong></font></td>
+    <td width="10%">0x32</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="10%" bgcolor="#800000"><font color="#FFFFFF"><strong>AsShort</strong></font></td>
+    <td width="10%">0</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="10%" bgcolor="#800000"><font color="#FFFFFF"><strong>AsInt</strong></font></td>
+    <td width="10%">0</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="10%" bgcolor="#800000"><font color="#FFFFFF"><strong>AsLong</strong></font></td>
+    <td width="10%">0</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="10%" bgcolor="#800000"><font color="#FFFFFF"><strong>AsFloat</strong></font></td>
+    <td width="10%">0.0</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="10%" bgcolor="#800000"><font color="#FFFFFF"><strong>AsDouble</strong></font></td>
+    <td width="10%">0.0</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="10%" bgcolor="#800000"><font color="#FFFFFF"><strong>AsDate</strong></font></td>
+    <td width="10%">null</td>
+    <td width="10%">invalid</td>
+    <td width="10%">invalid</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="10%" bgcolor="#800000"><font color="#FFFFFF"><strong>AsString</strong></font></td>
+    <td width="10%">empty</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+    <td width="10%">*</td>
+  </tr>
+  <tr>
+    <td width="10%" bgcolor="#800000"><font color="#FFFFFF"><strong>AsLongBinary</strong></font></td>
+    <td width="10%">NULL</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">&nbsp;</td>
+    <td width="10%">*</td>
+  </tr>
+  <tr>
+    <td colspan="11">Empty cells indicate the conversion <strong>is not</strong> available,
+    thus code asserts.<br>
+    Cells marked with * indicate conversion <strong>is</strong> available (See the <a
+    href="##conv_alg">Conversion algorithms</a> table for data conversion rules).</td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<table border="1" width="100%" cellspacing="0" cellpadding="2">
+  <tr>
+    <td width="100%" colspan="10" bgcolor="#C0C0C0"><p align="center"><a name="#conv_assign"></a><strong>Conversions
+    made by assignment operators</strong></td>
+  </tr>
+  <tr>
+    <td width="11%" bgcolor="#800000"><font color="#FFFFFF"><strong>Database Field Type</strong></font></td>
+    <td width="89%" colspan="9" bgcolor="#008000"><p align="center"><font color="#FFFFFF"><strong>Argument
+    of the assignment operator</strong></font></td>
+  </tr>
+  <tr>
+    <td width="11%" bgcolor="#800000">&nbsp;</td>
+    <td width="11%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>bool</strong></font></td>
+    <td width="11%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>unsigned
+    char</strong></font></td>
+    <td width="11%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>short</strong></font></td>
+    <td width="11%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>int</strong></font></td>
+    <td width="11%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>long</strong></font></td>
+    <td width="11%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>float</strong></font></td>
+    <td width="11%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>double</strong></font></td>
+    <td width="11%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>COleDateTime</strong></font></td>
+    <td width="12%" align="center" bgcolor="#008000"><font color="#FFFFFF"><strong>String</strong></font></td>
+  </tr>
+  <tr>
+    <td width="11%" bgcolor="#800000"><font color="#FFFFFF"><strong>NULL</strong></font></td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="11%" bgcolor="#800000"><font color="#FFFFFF"><strong>BOOL</strong></font></td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="12%">&nbsp;</td>
+    <td width="11%">*</td>
+  </tr>
+  <tr>
+    <td width="11%" bgcolor="#800000"><font color="#FFFFFF"><strong>UCHAR</strong></font></td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="12%">&nbsp;</td>
+    <td width="11%">*</td>
+  </tr>
+  <tr>
+    <td width="11%" bgcolor="#800000"><font color="#FFFFFF"><strong>SHORT</strong></font></td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="12%">&nbsp;</td>
+    <td width="11%">*</td>
+  </tr>
+  <tr>
+    <td width="11%" bgcolor="#800000"><font color="#FFFFFF"><strong>LONG</strong></font></td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="12%">&nbsp;</td>
+    <td width="11%">*</td>
+  </tr>
+  <tr>
+    <td width="11%" bgcolor="#800000"><font color="#FFFFFF"><strong>SINGLE</strong></font></td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="12%">&nbsp;</td>
+    <td width="11%">*</td>
+  </tr>
+  <tr>
+    <td width="11%" bgcolor="#800000"><font color="#FFFFFF"><strong>DOUBLE</strong></font></td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="12%">&nbsp;</td>
+    <td width="11%">*</td>
+  </tr>
+  <tr>
+    <td width="11%" bgcolor="#800000"><font color="#FFFFFF"><strong>DATE</strong></font></td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="12%">*</td>
+    <td width="11%">*</td>
+  </tr>
+  <tr>
+    <td width="11%" bgcolor="#800000"><font color="#FFFFFF"><strong>STRING</strong></font></td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="11%">*</td>
+    <td width="12%">*</td>
+    <td width="11%">*</td>
+  </tr>
+  <tr>
+    <td width="11%" bgcolor="#800000"><font color="#FFFFFF"><strong>BINARY</strong></font></td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="10">Empty cells indicate the conversion <strong>is not</strong> available,
+    thus code asserts.<br>
+    Cells marked with * indicate conversion <strong>is</strong> available (See the <a
+    href="##conv_alg">Conversion algorithms</a> table for data conversion rules).</td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<table border="1" width="100%" cellspacing="0" cellpadding="2">
+  <tr>
+    <td width="100%" colspan="2" align="center" bgcolor="#C0C0C0"><a name="#conv_alg"></a><strong>Conversion
+    algorithms</strong></td>
+  </tr>
+  <tr>
+    <td width="22%">String to Bool</td>
+    <td width="78%">comparing the first character of the string with 'T'</td>
+  </tr>
+  <tr>
+    <td width="22%">Char to Bool</td>
+    <td width="78%">comparing the character with 'T'</td>
+  </tr>
+  <tr>
+    <td width="22%">Bool to String</td>
+    <td width="78%">String = (bVal) ? 'T' : 'F'</td>
+  </tr>
+  <tr>
+    <td width="22%">Bool to Char</td>
+    <td width="78%">Char = (bVal) ? 'T' : 'F'</td>
+  </tr>
+  <tr>
+    <td width="22%">String to Number</td>
+    <td width="78%">appropriate atoX() function</td>
+  </tr>
+  <tr>
+    <td width="22%">Number to String</td>
+    <td width="78%">CString::Format() method using the appropriate format specifier string</td>
+  </tr>
+  <tr>
+    <td width="22%">String to Date</td>
+    <td width="78%">COleDateTime::ParseDateTime() method</td>
+  </tr>
+  <tr>
+    <td width="22%">Date to String</td>
+    <td width="78%">COleDateTime::Format() method</td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p><a name="#examples"></a><big><strong>Examples of how to use CODBCRecordset</strong></big></p>
+
+<p>You should include the files <font color="#800000">ODBCRecordset.h</font> and <font
+color="#800000">ODBCRecordset.cpp</font> in your project.</p>
+
+<p>I usually include this line in my <font color="#800000">StdAfx.h</font> file.</p>
+
+<pre><tt><font color="#990000">#include &quot;ODBCRecordset.h&quot;</font></tt></pre>
+
+<p>Here is a simple code showing how CODBCRecordset can be used.</p>
+
+<pre><tt><font color="#990000">/////////////////////////////////////////////////////////////////////////////
+CDatabase	db;
+//	This connect string will pop up the ODBC connect dialog
+CString		cConnect = &quot;ODBC;&quot;;
+db.Open( NULL,				//	DSN
+	 FALSE,				//	Exclusive
+	 FALSE,				//	ReadOnly
+	 cConnect,			//	ODBC Connect string
+	 TRUE				//	Use cursor lib
+   );
+
+COleDateTime	dOrderDate;
+
+CODBCRecordset	rs( &amp;db );
+<strong>rs.Open( &quot;SELECT * FROM Orders \
+	WHERE ORDER_DATE &gt; 'jan 1 2000' \
+	ORDER BY ORDER_DATE&quot; );
+</strong>for( ; ! rs.IsEOF(); rs.MoveNext() )
+{
+//	The choice is yours. You may choose whatever way
+//	you want to get the values
+//
+	//	These return COleDateTime value
+	dOrderDate = <strong>rs.GetDate( &quot;ORDER_DATE&quot; );</strong>
+	dOrderDate = <strong>rs.Field(&quot;ORDER_DATE&quot;).AsDate();</strong>
+
+	//	These make implicit call to AsDate()
+	dOrderDate = <strong>rs(&quot;ORDER_DATE&quot;);</strong>
+	dOrderDate = <strong>rs.Field(&quot;ORDER_DATE&quot;);</strong>
+
+	//	Now edit the fields in the recordset
+	rs.Edit();
+	<strong>rs(&quot;ORDER_DATE&quot;)</strong> = &quot;jan 1 1999&quot;;	// Implicit conversion
+	<strong>rs.Field(&quot;ORDER_DATE&quot;)</strong> = &quot;jan 1 1999&quot;;  // Implicit conversion
+	rs.Update();
+}	//	for(....
+/////////////////////////////////////////////////////////////////////////////
+</font></tt></pre>
+
+<p>If <strong>ORDER_DATE</strong> is stored in the database as <strong>datetime</strong>
+or compatible data type the value will be get directly.<br>
+If <strong>ORDER_DATE</strong> is stored in the database as <strong>string</strong> or
+compatible data type (char, varchar) the value will be converted via
+COleDateTime::ParseDateTime() method. If conversion fails, <strong>dOrderDate</strong>
+will be set to <strong>COleDatetime::invalid</strong>.</p>
+
+<p>When opening a resultset generated by join statements it is possible to get 2 or more
+columns that have the same name. CODBCRecordset leaves the name of the first column intact
+but other repeated columns are renamed with adding the number this columns repeats the
+name. Not repeated column names are left intact. E.g.</p>
+
+<p><tt><font color="#990000"><strong>SELECT * FROM Orders, Customers WHERE Orders.CUST_ID
+= Customers.ID</strong></font></tt></p>
+
+<p>If the table <em>Orders</em> have a column with name <em>ID</em> and <em>Customers</em>
+have a column with name <em>ID</em>, CODBCRecordset will rename <em>ID</em> from Customers
+to <strong>ID2</strong> and all other not repeating column names will be intact.</p>
+
+<p>Well, here is a tip: Rename columns manualy to be sure what name they have, e.g.</p>
+
+<p><tt><font color="#990000"><strong>SELECT Orders.*, Customers.ID as CUSTOMERS_ID <br>
+&nbsp;&nbsp;&nbsp; FROM Orders, Customers <br>
+&nbsp;&nbsp;&nbsp; WHERE Orders.CUST_ID = Customers.ID</strong></font></tt></p>
+
+<p>&nbsp;</p>
+
+<p><a name="#how_works"></a><big><strong>How does CODBCRecordset work?</strong></big></p>
+
+<p>CODBCRecordset allocates storage for all fields in the resultset and uses MFC <em>Record
+Field eXchange</em> mechanizm like it has been inherited from CRecordset using
+ClassWizard.</p>
+
+<p>That's all.</p>
+
+<p><a href="ODBCRecordset.zip">Download source</a>&nbsp;&nbsp; ODBCRecordset.zip (13 KB)</p>
+
+<hr>
+</body>
+</html>

@@ -1,0 +1,5 @@
+// Microsoft Developer Studio generated Help ID include file.
+// Used by Enterprise.rc
+//
+#define HIDCANCEL                       0x81140002    // IDD_INPUTPERIOD
+#define HIDC_STATIC                     0x8113ffff    // IDD_INPUTNUMERIC

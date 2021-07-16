@@ -1,0 +1,104 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Enterprise", "Enterprise.vcproj", "{B243CEC0-8066-45A4-B6D1-FE876BE78769}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZipArchive", "ZipArchive\ZipArchive.vcproj", "{1956B346-8109-4CDC-B814-CFAAA2190819}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plug2c", "Plug-Reestr\plug2c.vcproj", "{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "profuislib", "Prof-UI\profuislib\profuislib.vcproj", "{B8739825-B660-498A-A9A6-DE426EE26B3D}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+		ConfigName.2 = Static MBCS Debug with MFC DLL
+		ConfigName.3 = Static MBCS Release with MFC DLL
+		ConfigName.4 = Static Release
+		ConfigName.5 = TestSpeed
+		ConfigName.6 = Unicode Debug
+		ConfigName.7 = Unicode Release
+		ConfigName.8 = Unicode Static Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.0 = {1956B346-8109-4CDC-B814-CFAAA2190819}
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.1 = {B8739825-B660-498A-A9A6-DE426EE26B3D}
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Debug.ActiveCfg = Debug|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Debug.Build.0 = Debug|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Release.ActiveCfg = Release|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Release.Build.0 = Release|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Static MBCS Debug with MFC DLL.ActiveCfg = Debug|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Static MBCS Debug with MFC DLL.Build.0 = Debug|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Static MBCS Release with MFC DLL.ActiveCfg = Release|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Static MBCS Release with MFC DLL.Build.0 = Release|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Static Release.ActiveCfg = Release|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Static Release.Build.0 = Release|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.TestSpeed.ActiveCfg = TestSpeed|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.TestSpeed.Build.0 = TestSpeed|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Unicode Debug.ActiveCfg = Debug|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Unicode Debug.Build.0 = Debug|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Unicode Release.ActiveCfg = Release|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Unicode Release.Build.0 = Release|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Unicode Static Release.ActiveCfg = Release|Win32
+		{B243CEC0-8066-45A4-B6D1-FE876BE78769}.Unicode Static Release.Build.0 = Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Debug.ActiveCfg = Debug|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Debug.Build.0 = Debug|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Release.ActiveCfg = Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Release.Build.0 = Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Static MBCS Debug with MFC DLL.ActiveCfg = Static Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Static MBCS Debug with MFC DLL.Build.0 = Static Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Static MBCS Release with MFC DLL.ActiveCfg = Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Static MBCS Release with MFC DLL.Build.0 = Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Static Release.ActiveCfg = Static Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Static Release.Build.0 = Static Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.TestSpeed.ActiveCfg = Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.TestSpeed.Build.0 = Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Unicode Release.Build.0 = Unicode Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Unicode Static Release.ActiveCfg = Unicode Static Release|Win32
+		{1956B346-8109-4CDC-B814-CFAAA2190819}.Unicode Static Release.Build.0 = Unicode Static Release|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Debug.ActiveCfg = Debug|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Debug.Build.0 = Debug|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Release.ActiveCfg = Release|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Release.Build.0 = Release|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Static MBCS Debug with MFC DLL.ActiveCfg = Debug|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Static MBCS Debug with MFC DLL.Build.0 = Debug|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Static MBCS Release with MFC DLL.ActiveCfg = Release|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Static MBCS Release with MFC DLL.Build.0 = Release|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Static Release.ActiveCfg = Release|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Static Release.Build.0 = Release|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.TestSpeed.ActiveCfg = Release|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.TestSpeed.Build.0 = Release|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Unicode Debug.ActiveCfg = Debug|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Unicode Debug.Build.0 = Debug|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Unicode Release.ActiveCfg = Release|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Unicode Release.Build.0 = Release|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Unicode Static Release.ActiveCfg = Release|Win32
+		{22CF6C85-8D95-4367-AEDA-7906A4D5D9FA}.Unicode Static Release.Build.0 = Release|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Debug.ActiveCfg = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Debug.Build.0 = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Release.ActiveCfg = Static MBCS Release with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Release.Build.0 = Static MBCS Release with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Static MBCS Debug with MFC DLL.ActiveCfg = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Static MBCS Debug with MFC DLL.Build.0 = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Static MBCS Release with MFC DLL.ActiveCfg = Static MBCS Release with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Static MBCS Release with MFC DLL.Build.0 = Static MBCS Release with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Static Release.ActiveCfg = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Static Release.Build.0 = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.TestSpeed.ActiveCfg = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.TestSpeed.Build.0 = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Unicode Debug.ActiveCfg = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Unicode Debug.Build.0 = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Unicode Release.ActiveCfg = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Unicode Release.Build.0 = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Unicode Static Release.ActiveCfg = Static MBCS Debug with MFC DLL|Win32
+		{B8739825-B660-498A-A9A6-DE426EE26B3D}.Unicode Static Release.Build.0 = Static MBCS Debug with MFC DLL|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

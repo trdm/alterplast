@@ -1,0 +1,26 @@
+HKCR
+{
+	2C.1 = s 'Connect Class'
+	{
+		CLSID = s '{0497D803-C0F6-4E37-9247-6FC0080D1096}'
+	}
+	2C = s 'Connect Class'
+	{
+		CLSID = s '{0497D803-C0F6-4E37-9247-6FC0080D1096}'
+		CurVer = s '2C.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {0497D803-C0F6-4E37-9247-6FC0080D1096} = s 'Connect Class'
+		{
+			ProgID = s '2C.1'
+			VersionIndependentProgID = s '2C'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{F1598F54-BF00-4950-A11B-C47EC49C824F}'
+		}
+	}
+}
